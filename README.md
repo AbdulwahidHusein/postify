@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Postify
 
-## Getting Started
+Turn Telegram channels into ecommerce storefronts.
 
-First, run the development server:
+Sellers post products in Telegram → bot extracts structured data → publishes to a **website** and **Telegram Mini App** → buyers open products from Telegram or the browser.
+
+## Docs
+
+| Doc | Contents |
+|-----|----------|
+| [docs/PRODUCT.md](docs/PRODUCT.md) | Problem, solution, users |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design + Telegram constraints |
+| [docs/TECH_STACK.md](docs/TECH_STACK.md) | Stack & env vars |
+| [docs/PHASED_PLAN.md](docs/PHASED_PLAN.md) | Phases 0–9 |
+
+## Status
+
+**Phase 4 — Bot + channel connect** complete (code).
+
+- Phase 1–3: shell, auth, shops
+- Phase 4: grammY webhook, connect codes, `channels` table
+- Next: Phase 5 core loop (post → product → link)
+
+## Stack (MVP)
+
+- **Next.js** — web + Mini App + API
+- **@tma.js/sdk** — Mini App bridge
+- **grammY** — bot (Phase 4)
+- **Postgres + Drizzle** — data (Phase 3)
+
+## Develop
 
 ```bash
+cp .env.example .env.local
+# edit SESSION_SECRET, TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_USERNAME
+
+npm run db:up          # Postgres on localhost:5433
+npm run db:push        # apply schema
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For Mini App testing, expose HTTPS (ngrok / cloudflared) and set the URL in @BotFather → `/newapp`.
+Also set the Login Widget domain in @BotFather → Bot Settings → Domain.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+curl http://localhost:3000/api/health
+curl http://localhost:3000/api/auth/me
+```
 
-## Learn More
+Auth smoke (optional, needs bot token + running server):
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+TELEGRAM_BOT_TOKEN=your:token npx tsx scripts/smoke-auth.ts
+TELEGRAM_BOT_TOKEN=your:token npx tsx scripts/smoke-shops.ts
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Telegram bot webhook
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Expose HTTPS (ngrok/cloudflared), then:
 
-## Deploy on Vercel
+```bash
+TELEGRAM_BOT_TOKEN=your:token \
+TELEGRAM_WEBHOOK_SECRET=your-secret \
+NEXT_PUBLIC_APP_URL=https://your-tunnel.example \
+npx tsx scripts/set-webhook.ts
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Connect flow: Dashboard → Connect channel → post `PFY-XXXX-XXXX` in the channel.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Design note
+
+Bots **cannot edit human channel posts**. MVP uses reply/follow-up links; post-via-bot for bot-owned editable posts. See [Architecture](docs/ARCHITECTURE.md).

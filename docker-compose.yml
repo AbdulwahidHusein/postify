@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postify-postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postify
+      POSTGRES_PASSWORD: postify
+      POSTGRES_DB: postify
+    volumes:
+      - postify_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postify -d postify"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postify_pg:
