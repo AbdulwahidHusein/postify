@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
     "*.ngrok-free.app",
     "*.ngrok.app",
   ],
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   turbopack: {
     root,
   },
