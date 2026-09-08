@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { PageLoader } from "@/components/ui/loader";
 
 type OrderRow = {
   id: string;
@@ -124,17 +125,10 @@ export function SellerOrdersList({ shopSlug }: { shopSlug: string }) {
       {error ? <p className="inbox-error">{error}</p> : null}
 
       {loading ? (
-        <div className="inbox-loading" aria-busy="true">
-          <span className="inbox-skeleton" />
-          <span className="inbox-skeleton" />
-        </div>
+        <PageLoader label="Loading orders" className="inbox-page-loader" />
       ) : rows.length === 0 ? (
         <section className="inbox-empty">
           <p>No orders yet</p>
-          <span>
-            When a buyer taps Request order on a product, it shows up here and
-            on Telegram.
-          </span>
         </section>
       ) : (
         <ul className="order-list">

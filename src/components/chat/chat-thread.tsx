@@ -12,6 +12,7 @@ import {
 } from "react";
 import { useAuth } from "@/components/providers/auth-provider";
 import { ImageLightbox } from "@/components/ui/image-lightbox";
+import { InlineLoader } from "@/components/ui/loader";
 import { subscribeChatBottomInset } from "@/lib/chat/bottom-inset";
 
 export type ChatProduct = {
@@ -458,7 +459,7 @@ export function ChatThread({
         >
           <div className="chat-scroll-inner">
             {loading ? (
-              <p className="chat-muted">Loading…</p>
+              <InlineLoader label="Loading messages" className="chat-loader" />
             ) : (
               <>
                 {!hasUserMessages && role === "buyer" ? (

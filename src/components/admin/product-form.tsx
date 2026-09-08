@@ -12,6 +12,7 @@ import { TagsInput } from "@/components/admin/tags-input";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import type { AdminProduct } from "@/components/admin/types";
 import { telegramMessageUrl } from "@/lib/telegram-links";
+import { PageLoader } from "@/components/ui/loader";
 
 type FormState = {
   title: string;
@@ -317,7 +318,7 @@ export function ProductForm({
   }
 
   if (loading) {
-    return <p className="admin-loading">Loading product…</p>;
+    return <PageLoader label="Loading product" />;
   }
 
   const cover = images[0];

@@ -8,6 +8,7 @@ import { useTelegram } from "@/lib/telegram/context";
 import { useAuth } from "@/components/providers/auth-provider";
 import { telegramBotUsername } from "@/lib/env";
 import type { AdminShop } from "@/components/admin/types";
+import { InlineLoader, PageLoader } from "@/components/ui/loader";
 
 type ChannelRow = {
   id: string;
@@ -118,9 +119,9 @@ export function ShopPicker() {
   if (loading) {
     return (
       <AdminHomeShell>
-        <p className="admin-loading">
-          {isTma ? "Signing you in…" : "Checking session…"}
-        </p>
+        <PageLoader
+          label={isTma ? "Signing you in" : "Checking session"}
+        />
       </AdminHomeShell>
     );
   }
@@ -195,7 +196,7 @@ export function ShopPicker() {
         ) : null}
 
         {shopsLoading ? (
-          <p className="admin-loading">Loading shops…</p>
+          <InlineLoader label="Loading shops" />
         ) : shops.length === 0 ? (
           <section className="admin-empty">
             <h2>Create your store</h2>

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { useAuth } from "@/components/providers/auth-provider";
@@ -94,10 +93,6 @@ export function RequestOrderButton({
   return (
     <form className="order-intent" onSubmit={onSubmit}>
       <p className="order-intent-title">Request this item</p>
-      <p className="order-intent-lead">
-        Seller gets a Telegram alert. Pay cash / transfer offline after they
-        confirm.
-      </p>
       <label className="order-field">
         <span>Your name</span>
         <input
@@ -154,10 +149,6 @@ export function RequestOrderButton({
           Cancel
         </button>
       </div>
-      <p className="buy-note">
-        Opens your chat with the seller.{" "}
-        <Link href="/inbox">Inbox</Link>
-      </p>
     </form>
   );
 }

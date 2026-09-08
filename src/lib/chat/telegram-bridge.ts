@@ -76,11 +76,44 @@ async function resolveLocalPhoto(
       const buf = await readFile(abs);
       return new InputFile(buf, path.basename(abs));
     } catch {
-      return `${appUrl()}${imageUrl}`;
+      return null;
     }
   }
-  if (imageUrl.startsWith("http")) return imageUrl;
-  return `${appUrl()}${imageUrl}`;
+  // Relative /api/media/telegram/... or tunnel HTTPS URLs often fail when
+  // Telegram's servers try to fetch them — prefer uploading bytes or file_id.
+  if (imageUrl.startsWith("/api/media/") || imageUrl.startsWith("http")) {
+    return null;
+  }
+  return null;
+}
+
+/** Prefer Telegram file_id (re-sendable), then local upload bytes. */
+async function resolveTelegramPhoto(image: {
+  url?: string | null;
+  telegramFileId?: string | null;
+} | null | undefined): Promise<InputFile | string | null> {
+  if (!image) return null;
+  if (image.telegramFileId) return image.telegramFileId;
+  return resolveLocalPhoto(productImageSrc(image));
+}
+
+async function sendPhotoOrText(
+  bot: Api,
+  chatId: number,
+  photo: InputFile | string | null,
+  caption: string,
+  reply_markup: {
+    inline_keyboard: { text: string; url?: string; callback_data?: string }[][];
+  },
+) {
+  if (photo) {
+    try {
+      return await bot.sendPhoto(chatId, photo, { caption, reply_markup });
+    } catch (err) {
+      console.warn("[telegram] sendPhoto failed, falling back to text", err);
+    }
+  }
+  return bot.sendMessage(chatId, caption, { reply_markup });
 }
 
 export async function deliverChatNotification(input: {
@@ -109,7 +142,9 @@ export async function deliverChatNotification(input: {
       buyer: true,
     },
   });
-  if (!conversation?.shop?.owner || !conversation.product) return;
+  if (!conversation?.shop?.owner || !conversation.product) {
+    throw new Error("conversation missing shop owner or product");
+  }
 
   const bot = telegramApi();
   const product = conversation.product;
@@ -129,13 +164,10 @@ export async function deliverChatNotification(input: {
       ? "Sent a photo"
       : "";
 
-  const productImage =
+  const photo =
     message.kind === "image" && message.imageUrl
-      ? message.imageUrl
-      : product.images?.[0]
-        ? productImageSrc(product.images[0])
-        : null;
-  const photo = await resolveLocalPhoto(productImage);
+      ? await resolveLocalPhoto(message.imageUrl)
+      : await resolveTelegramPhoto(product.images?.[0]);
 
   if (input.kind === "seller_new_message") {
     const ownerTg = conversation.shop.owner.telegramId;
@@ -173,14 +205,13 @@ export async function deliverChatNotification(input: {
       ],
     };
 
-    const sent = photo
-      ? await bot.sendPhoto(Number(ownerTg), photo, {
-          caption,
-          reply_markup: keyboard,
-        })
-      : await bot.sendMessage(Number(ownerTg), caption, {
-          reply_markup: keyboard,
-        });
+    const sent = await sendPhotoOrText(
+      bot,
+      Number(ownerTg),
+      photo,
+      caption,
+      keyboard,
+    );
 
     await recordDelivery({
       messageId: message.id,
@@ -192,7 +223,9 @@ export async function deliverChatNotification(input: {
   }
 
   const buyerTg = conversation.buyer?.telegramId;
-  if (!buyerTg) return;
+  if (!buyerTg) {
+    throw new Error("buyer missing telegram id");
+  }
 
   const chatUrl = `${appUrl()}/inbox/${conversation.id}`;
   const caption = [
@@ -215,14 +248,13 @@ export async function deliverChatNotification(input: {
     ],
   };
 
-  const sent = photo
-    ? await bot.sendPhoto(Number(buyerTg), photo, {
-        caption,
-        reply_markup: keyboard,
-      })
-    : await bot.sendMessage(Number(buyerTg), caption, {
-        reply_markup: keyboard,
-      });
+  const sent = await sendPhotoOrText(
+    bot,
+    Number(buyerTg),
+    photo,
+    caption,
+    keyboard,
+  );
 
   await recordDelivery({
     messageId: message.id,
@@ -250,7 +282,9 @@ export async function deliverOrderNotification(input: { orderId: string }) {
       buyer: true,
     },
   });
-  if (!order?.shop?.owner || !order.product) return;
+  if (!order?.shop?.owner || !order.product) {
+    throw new Error("order missing shop owner or product");
+  }
 
   const bot = telegramApi();
   const ownerTg = order.shop.owner.telegramId;
@@ -283,9 +317,7 @@ export async function deliverOrderNotification(input: { orderId: string }) {
     .join("\n")
     .slice(0, 1024);
 
-  const photo = await resolveLocalPhoto(
-    product.images?.[0] ? productImageSrc(product.images[0]) : null,
-  );
+  const photo = await resolveTelegramPhoto(product.images?.[0]);
 
   const keyboard = {
     inline_keyboard: [
@@ -297,14 +329,5 @@ export async function deliverOrderNotification(input: { orderId: string }) {
     ],
   };
 
-  if (photo) {
-    await bot.sendPhoto(Number(ownerTg), photo, {
-      caption,
-      reply_markup: keyboard,
-    });
-  } else {
-    await bot.sendMessage(Number(ownerTg), caption, {
-      reply_markup: keyboard,
-    });
-  }
+  await sendPhotoOrText(bot, Number(ownerTg), photo, caption, keyboard);
 }

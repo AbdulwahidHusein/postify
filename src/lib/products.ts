@@ -191,11 +191,15 @@ function productListWhere(
     q?: string;
     status?: ProductStatus | "all";
     category?: string;
+    minPrice?: number;
+    maxPrice?: number;
   },
 ) {
   const status = opts?.status ?? "all";
   const q = opts?.q?.trim();
   const category = opts?.category?.trim();
+  const minPrice = opts?.minPrice;
+  const maxPrice = opts?.maxPrice;
 
   const conditions = [eq(products.shopId, shopId)];
   if (status !== "all") {
@@ -216,6 +220,22 @@ function productListWhere(
       )!,
     );
   }
+  if (minPrice != null && Number.isFinite(minPrice)) {
+    conditions.push(
+      and(
+        sql`${products.price} is not null`,
+        sql`${products.price}::numeric >= ${minPrice}`,
+      )!,
+    );
+  }
+  if (maxPrice != null && Number.isFinite(maxPrice)) {
+    conditions.push(
+      and(
+        sql`${products.price} is not null`,
+        sql`${products.price}::numeric <= ${maxPrice}`,
+      )!,
+    );
+  }
   return and(...conditions);
 }
 
@@ -232,6 +252,8 @@ export async function listProductsForShop(
     status?: ProductStatus | "all";
     category?: string;
     sort?: "newest" | "price_asc" | "price_desc";
+    minPrice?: number;
+    maxPrice?: number;
     page?: number;
     pageSize?: number;
     /** Alias for pageSize */
@@ -303,6 +325,8 @@ export async function listPublishedProductsForShop(
     q?: string;
     category?: string;
     sort?: "newest" | "price_asc" | "price_desc";
+    minPrice?: number;
+    maxPrice?: number;
   },
 ) {
   return listProductsForShop(shopId, {
@@ -312,8 +336,34 @@ export async function listPublishedProductsForShop(
     q: opts?.q,
     category: opts?.category,
     sort: opts?.sort,
+    minPrice: opts?.minPrice,
+    maxPrice: opts?.maxPrice,
     defaultPageSize: 24,
   });
+}
+
+/** Min/max published prices for shop filter UI. */
+export async function getPublishedPriceBoundsForShop(shopId: string) {
+  const [row] = await db
+    .select({
+      min: sql<string | null>`min(${products.price}::numeric)`,
+      max: sql<string | null>`max(${products.price}::numeric)`,
+    })
+    .from(products)
+    .where(
+      and(
+        eq(products.shopId, shopId),
+        eq(products.status, "published"),
+        sql`${products.price} is not null`,
+      ),
+    );
+
+  const min = row?.min != null ? Number(row.min) : null;
+  const max = row?.max != null ? Number(row.max) : null;
+  return {
+    min: min != null && Number.isFinite(min) ? min : null,
+    max: max != null && Number.isFinite(max) ? max : null,
+  };
 }
 
 /** Distinct categories used by published products in a shop. */

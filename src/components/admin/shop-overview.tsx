@@ -7,6 +7,7 @@ import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import { useAuth } from "@/components/providers/auth-provider";
 import type { AdminProduct } from "@/components/admin/types";
 import { telegramBotUsername } from "@/lib/env";
+import { InlineLoader, PageLoader } from "@/components/ui/loader";
 
 function SetupChecklist({
   shopSlug,
@@ -167,7 +168,7 @@ export function ShopOverview() {
   }
 
   if (authLoading || loading) {
-    return <p className="admin-loading">Loading shop…</p>;
+    return <PageLoader label="Loading shop" />;
   }
 
   if (!user) {
@@ -286,7 +287,7 @@ export function ShopOverview() {
               </Link>
             </div>
             {feedLoading ? (
-              <p className="admin-muted">Loading…</p>
+              <InlineLoader label="Loading" />
             ) : (
               <ul className="admin-feed">
                 {drafts.map((p) => (

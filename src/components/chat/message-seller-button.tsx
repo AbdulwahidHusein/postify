@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/components/providers/auth-provider";
+import { Spinner } from "@/components/ui/loader";
 import { telegramBotUsername } from "@/lib/env";
 
 export function MessageSellerButton({
@@ -25,19 +25,19 @@ export function MessageSellerButton({
   if (loading) {
     return (
       <button type="button" className={className} disabled>
-        Message seller
+        <span className="btn-with-spinner">
+          <Spinner size="sm" />
+          Message seller
+        </span>
       </button>
     );
   }
 
   if (!user) {
     return (
-      <div className="buy-actions">
-        <a href={botLink} className={className}>
-          Sign in to message
-        </a>
-        <p className="buy-note">Sign in with Telegram to chat about this item.</p>
-      </div>
+      <a href={botLink} className={className}>
+        Sign in to message
+      </a>
     );
   }
 
@@ -73,10 +73,6 @@ export function MessageSellerButton({
         {busy ? "Opening…" : "Message seller"}
       </button>
       {error ? <p className="admin-error">{error}</p> : null}
-      <p className="buy-note">
-        Chat in Postify — the seller gets a Telegram alert.{" "}
-        <Link href="/inbox">Your inbox</Link>
-      </p>
     </div>
   );
 }

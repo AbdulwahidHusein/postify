@@ -14,6 +14,7 @@ import { SellerOrdersList } from "@/components/admin/seller-orders";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import { useAuth } from "@/components/providers/auth-provider";
 import type { AdminShop } from "@/components/admin/types";
+import { PageLoader } from "@/components/ui/loader";
 
 function Gate({
   children,
@@ -24,7 +25,7 @@ function Gate({
   const { shop, loading, error } = useShopAdmin();
 
   if (authLoading || loading) {
-    return <p className="admin-loading">Loading…</p>;
+    return <PageLoader label="Loading shop" />;
   }
   if (!user) {
     return (

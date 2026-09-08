@@ -109,7 +109,7 @@ export function StorefrontNav({
             href={
               ownerPrimaryHref ?? `/dashboard/s/${viewer.shopSlug}`
             }
-            className="btn btn-primary btn-sm"
+            className="storefront-nav-manage"
           >
             {ownerPrimaryHref ? ownerPrimaryLabel : "Dashboard"}
           </Link>

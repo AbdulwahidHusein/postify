@@ -59,13 +59,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 function BuyerActions({
   productId,
   phone,
-  channelUrl,
-  telegramPostUrl,
+  telegramUrl,
 }: {
   productId: string;
   phone: string | null;
-  channelUrl: string | null;
-  telegramPostUrl: string | null;
+  telegramUrl: string | null;
 }) {
   return (
     <>
@@ -80,24 +78,14 @@ function BuyerActions({
             Call seller
           </a>
         ) : null}
-        {channelUrl ? (
+        {telegramUrl ? (
           <a
-            href={channelUrl}
+            href={telegramUrl}
             className="btn btn-ghost"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Telegram channel
-          </a>
-        ) : null}
-        {telegramPostUrl ? (
-          <a
-            href={telegramPostUrl}
-            className="btn btn-ghost"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Original post
+            View in Telegram
           </a>
         ) : null}
       </div>
@@ -164,6 +152,7 @@ export default async function ProductPage({ params }: Props) {
     chatId: product.sourceChatId,
     messageId: product.sourceMessageId,
   });
+  const telegramUrl = telegramPostUrl ?? channelUrl;
   const phone = shopSettings?.ownerPhone?.trim() || null;
   const description = usefulDescription(product.description, priceLabel);
 
@@ -266,17 +255,12 @@ export default async function ProductPage({ params }: Props) {
                     Browse shop
                   </Link>
                 ) : null}
-                <p className="buy-note">
-                  This item is marked sold — you can still ask about similar
-                  items.
-                </p>
               </>
             ) : !isOwner ? (
               <BuyerActions
                 productId={product.id}
                 phone={phone}
-                channelUrl={channelUrl}
-                telegramPostUrl={telegramPostUrl}
+                telegramUrl={telegramUrl}
               />
             ) : null}
           </div>

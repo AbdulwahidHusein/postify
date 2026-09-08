@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { ChatConversation } from "@/components/chat/chat-thread";
+import { PageLoader } from "@/components/ui/loader";
 
 function formatInboxTime(iso: string | null) {
   if (!iso) return "";
@@ -185,11 +186,7 @@ export function SellerInboxList({ shopSlug }: { shopSlug: string }) {
       {error ? <p className="inbox-error">{error}</p> : null}
 
       {loading ? (
-        <div className="inbox-loading" aria-busy="true">
-          <span className="inbox-skeleton" />
-          <span className="inbox-skeleton" />
-          <span className="inbox-skeleton" />
-        </div>
+        <PageLoader label="Loading inbox" className="inbox-page-loader" />
       ) : rows.length === 0 ? (
         <section className="inbox-empty">
           <p>
@@ -199,11 +196,9 @@ export function SellerInboxList({ shopSlug }: { shopSlug: string }) {
                 ? "No buyer chats yet"
                 : "No messages yet"}
           </p>
-          <span>
-            {role === "buying"
-              ? "Open someone else’s product and tap Message seller."
-              : "When buyers tap Message seller, chats show up here — and in Telegram."}
-          </span>
+          {role === "buying" ? (
+            <span>Message a seller from a product page.</span>
+          ) : null}
         </section>
       ) : (
         <ul className="inbox-list">

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/storefront/product-card";
 import {
@@ -11,6 +10,7 @@ import { StorefrontNav } from "@/components/storefront/storefront-nav";
 import { PaginationBar } from "@/components/pagination-bar";
 import { DEFAULT_PAGE_SIZE } from "@/lib/pagination";
 import {
+  getPublishedPriceBoundsForShop,
   listPublishedCategoriesForShop,
   listPublishedProductsForShop,
 } from "@/lib/products";
@@ -45,6 +45,13 @@ function parseSort(value: string): ShopSort {
   return "newest";
 }
 
+function parsePrice(value: string): number | undefined {
+  if (!value) return undefined;
+  const n = Number(value);
+  if (!Number.isFinite(n) || n < 0) return undefined;
+  return n;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const shop = await getShopBySlug(slug);
@@ -68,29 +75,44 @@ export default async function ShopPage({ params, searchParams }: Props) {
   const q = paramString(query.q);
   const category = paramString(query.category);
   const sort = parseSort(paramString(query.sort));
+  const minPriceRaw = paramString(query.minPrice);
+  const maxPriceRaw = paramString(query.maxPrice);
+  const minPrice = parsePrice(minPriceRaw);
+  const maxPrice = parsePrice(maxPriceRaw);
   const pageRaw = paramString(query.page) || "1";
   const page = Number.parseInt(pageRaw, 10);
-  const filtered = Boolean(q || category || sort !== "newest");
+  const filtered = Boolean(
+    q ||
+      category ||
+      sort !== "newest" ||
+      minPrice != null ||
+      maxPrice != null,
+  );
 
   const settings = normalizeShopSettings(shop.settings);
   const publicChannel = telegramChannelUrl(settings.telegramChannel);
   const sellCategories = settings.sellCategories ?? [];
+  const currency = settings.defaultCurrency || "ETB";
 
-  const [catalogPage, productCategories, viewer] = await Promise.all([
-    listPublishedProductsForShop(shop.id, {
-      page: Number.isFinite(page) ? page : 1,
-      pageSize: DEFAULT_PAGE_SIZE,
-      q: q || undefined,
-      category: category || undefined,
-      sort,
-    }),
-    listPublishedCategoriesForShop(shop.id),
-    resolveShopViewer({
-      shopId: shop.id,
-      shopSlug: shop.slug,
-      shopName: shop.name,
-    }),
-  ]);
+  const [catalogPage, productCategories, priceBounds, viewer] =
+    await Promise.all([
+      listPublishedProductsForShop(shop.id, {
+        page: Number.isFinite(page) ? page : 1,
+        pageSize: DEFAULT_PAGE_SIZE,
+        q: q || undefined,
+        category: category || undefined,
+        sort,
+        minPrice,
+        maxPrice,
+      }),
+      listPublishedCategoriesForShop(shop.id),
+      getPublishedPriceBoundsForShop(shop.id),
+      resolveShopViewer({
+        shopId: shop.id,
+        shopSlug: shop.slug,
+        shopName: shop.name,
+      }),
+    ]);
 
   const { products: catalog, pagination } = catalogPage;
   const logoUrl = settings.logoUrl;
@@ -106,10 +128,17 @@ export default async function ShopPage({ params, searchParams }: Props) {
   const filterCategories = [...chipSet.values()];
 
   const hrefForPage = (p: number) =>
-    shopCatalogHref(shop.slug, { q, category, sort, page: p });
+    shopCatalogHref(shop.slug, {
+      q,
+      category,
+      sort,
+      minPrice: minPriceRaw,
+      maxPrice: maxPriceRaw,
+      page: p,
+    });
 
   return (
-    <div className="buy-page">
+    <div className="buy-page shop-page">
       <div className="page-shell buy-shell shop-shell">
         <StorefrontNav
           shopSlug={shop.slug}
@@ -119,57 +148,51 @@ export default async function ShopPage({ params, searchParams }: Props) {
           viewer={viewer}
         />
 
-        <header className="shop-top">
-          <div className="shop-top-left">
-            <div className="shop-top-brand">
-              <div className="shop-top-logo" aria-hidden>
-                {logoUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={logoUrl} alt="" />
-                ) : (
-                  <span>{initials || "?"}</span>
-                )}
-              </div>
-              <div className="shop-top-copy">
-                <h1 className="shop-top-title">{shop.name}</h1>
-                {description ? (
-                  <p className="shop-top-desc">{description}</p>
-                ) : null}
-              </div>
+        <header className="shop-hero">
+          <div className="shop-hero-brand">
+            <div className="shop-top-logo" aria-hidden>
+              {logoUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={logoUrl} alt="" />
+              ) : (
+                <span>{initials || "?"}</span>
+              )}
+            </div>
+            <div className="shop-top-copy">
+              <h1 className="shop-top-title">{shop.name}</h1>
+              {description ? (
+                <p className="shop-top-desc">{description}</p>
+              ) : (
+                <p className="shop-top-desc">
+                  {pagination.total}{" "}
+                  {pagination.total === 1 ? "product" : "products"}
+                </p>
+              )}
             </div>
           </div>
 
-          <div className="shop-top-actions">
-            {isOwner ? (
-              <Link
-                href={`/dashboard/s/${shop.slug}/products/new`}
-                className="btn btn-primary btn-sm"
-              >
-                Add product
-              </Link>
-            ) : (
-              <>
-                {publicChannel ? (
-                  <a
-                    className="btn btn-primary btn-sm"
-                    href={publicChannel}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Telegram
-                  </a>
-                ) : null}
-                {settings.ownerPhone ? (
-                  <a
-                    className="btn btn-ghost btn-sm"
-                    href={`tel:${settings.ownerPhone.replace(/\s+/g, "")}`}
-                  >
-                    Call
-                  </a>
-                ) : null}
-              </>
-            )}
-          </div>
+          {!isOwner && (publicChannel || settings.ownerPhone) ? (
+            <div className="shop-hero-actions">
+              {publicChannel ? (
+                <a
+                  className="btn btn-ghost btn-sm"
+                  href={publicChannel}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View in Telegram
+                </a>
+              ) : null}
+              {settings.ownerPhone ? (
+                <a
+                  className="btn btn-ghost btn-sm"
+                  href={`tel:${settings.ownerPhone.replace(/\s+/g, "")}`}
+                >
+                  Call
+                </a>
+              ) : null}
+            </div>
+          ) : null}
         </header>
 
         <section className="shop-catalog" aria-label="Products">
@@ -178,9 +201,13 @@ export default async function ShopPage({ params, searchParams }: Props) {
             q={q}
             category={category}
             sort={sort}
+            minPrice={minPriceRaw}
+            maxPrice={maxPriceRaw}
             categories={filterCategories}
             resultCount={pagination.total}
             filtered={filtered}
+            priceBounds={priceBounds}
+            currency={currency}
           />
 
           {catalog.length === 0 ? (
@@ -191,7 +218,7 @@ export default async function ShopPage({ params, searchParams }: Props) {
                   ? "Try a different search or clear filters."
                   : isOwner
                     ? "Add a product or post one in your connected Telegram channel."
-                    : "New listings will show up here when this shop publishes."}
+                    : "Nothing listed yet."}
               </p>
               {filtered ? (
                 <a href={`/s/${shop.slug}`} className="btn btn-ghost btn-sm">

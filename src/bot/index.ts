@@ -93,7 +93,7 @@ function buildBot() {
     if (payload.startsWith("c_")) {
       const chatStart = await handleChatStartPayload(payload);
       if (chatStart) {
-        await ctx.reply("Open your chat in Postify:", {
+        await ctx.reply("Open chat:", {
           reply_markup: {
             inline_keyboard: [
               [

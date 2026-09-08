@@ -28,7 +28,8 @@ export async function enqueueChatNotify(input: {
     nextAttemptAt: new Date(),
   });
 
-  void flushOutbox(8).catch((err) => {
+  // Await so serverless/dev doesn't drop the flush after the HTTP response.
+  await flushOutbox(8).catch((err) => {
     console.warn("[chat] outbox flush failed", err);
   });
 }
@@ -41,21 +42,37 @@ export async function enqueueOrderNotify(input: { orderId: string }) {
     nextAttemptAt: new Date(),
   });
 
-  void flushOutbox(8).catch((err) => {
+  await flushOutbox(8).catch((err) => {
     console.warn("[orders] outbox flush failed", err);
   });
 }
 
 export async function flushOutbox(limit = 20) {
   const now = new Date();
-  const jobs = await db.query.notificationOutbox.findMany({
+  // Prefer order notifies so deal alerts aren't starved by older chat retries.
+  const orderJobs = await db.query.notificationOutbox.findMany({
     where: and(
       eq(notificationOutbox.status, "pending"),
+      eq(notificationOutbox.kind, "seller_new_order"),
       lte(notificationOutbox.nextAttemptAt, now),
     ),
     orderBy: [asc(notificationOutbox.createdAt)],
     limit,
   });
+  const remaining = Math.max(0, limit - orderJobs.length);
+  const otherJobs =
+    remaining > 0
+      ? await db.query.notificationOutbox.findMany({
+          where: and(
+            eq(notificationOutbox.status, "pending"),
+            sql`${notificationOutbox.kind} <> 'seller_new_order'`,
+            lte(notificationOutbox.nextAttemptAt, now),
+          ),
+          orderBy: [asc(notificationOutbox.createdAt)],
+          limit: remaining,
+        })
+      : [];
+  const jobs = [...orderJobs, ...otherJobs];
 
   for (const job of jobs) {
     await db

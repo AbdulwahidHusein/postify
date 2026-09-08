@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { ChatConversation } from "@/components/chat/chat-thread";
 import { useAuth } from "@/components/providers/auth-provider";
+import { PageLoader } from "@/components/ui/loader";
 import { telegramBotUsername } from "@/lib/env";
 
 function formatInboxTime(iso: string | null) {
@@ -72,11 +73,7 @@ export function BuyerInboxList() {
         <header className="inbox-topbar">
           <h1>Inbox</h1>
         </header>
-        <div className="inbox-loading" aria-busy="true">
-          <span className="inbox-skeleton" />
-          <span className="inbox-skeleton" />
-          <span className="inbox-skeleton" />
-        </div>
+        <PageLoader label="Loading inbox" className="inbox-page-loader" />
       </div>
     );
   }
@@ -91,7 +88,7 @@ export function BuyerInboxList() {
           <h1>Inbox</h1>
         </header>
         <section className="inbox-gate">
-          <p>Sign in with Telegram to message sellers.</p>
+          <p>Sign in to continue</p>
           <a href={botLink} className="btn btn-primary">
             Sign in
           </a>
@@ -114,7 +111,6 @@ export function BuyerInboxList() {
       {rows.length === 0 ? (
         <section className="inbox-empty">
           <p>No chats yet</p>
-          <span>Open a product and tap Message seller.</span>
         </section>
       ) : (
         <ul className="inbox-list">

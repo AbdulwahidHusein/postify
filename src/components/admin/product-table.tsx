@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CategoryCombobox } from "@/components/admin/category-combobox";
 import type { AdminProduct } from "@/components/admin/types";
 import { PaginationBar } from "@/components/pagination-bar";
+import { InlineLoader } from "@/components/ui/loader";
 import { ADMIN_PAGE_SIZE, type PageMeta } from "@/lib/pagination";
 
 type StatusFilter = "all" | AdminProduct["status"];
@@ -340,7 +341,7 @@ export function ProductTable({
       {error ? <p className="admin-error">{error}</p> : null}
 
       {loading ? (
-        <p className="admin-loading">Loading catalog…</p>
+        <InlineLoader label="Loading catalog" />
       ) : products.length === 0 ? (
         <section className="admin-empty">
           <h2>{empty.title}</h2>

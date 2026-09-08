@@ -76,21 +76,18 @@ export function registerChatBotHandlers(bot: Bot) {
 
     await setReplyContext(BigInt(ctx.from.id), conversationId);
     await ctx.answerCallbackQuery({ text: "Reply with your next message" });
-    await ctx.reply(
-      "Send your reply as the next message. Or open the Inbox in Postify.",
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "Open inbox",
-                url: `${appUrl()}/dashboard/s/${conversation.shop.slug}/inbox/${conversationId}`,
-              },
-            ],
+    await ctx.reply("Send your next message as the reply.", {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: "Open inbox",
+              url: `${appUrl()}/dashboard/s/${conversation.shop.slug}/inbox/${conversationId}`,
+            },
           ],
-        },
+        ],
       },
-    );
+    });
   });
 
   bot.on("message:text", async (ctx, next) => {
@@ -141,7 +138,7 @@ export function registerChatBotHandlers(bot: Bot) {
       await db
         .delete(chatReplyContexts)
         .where(eq(chatReplyContexts.telegramUserId, telegramUserId));
-      await ctx.reply("Sent ✓ — the buyer will see it in Postify and Telegram.");
+      await ctx.reply("Sent.");
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Could not send";
       await ctx.reply(msg);
