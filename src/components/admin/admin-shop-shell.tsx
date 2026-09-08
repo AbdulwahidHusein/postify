@@ -16,6 +16,7 @@ const SHOP_NAV = [
   { href: "", label: "Overview", exact: true },
   { href: "/products", label: "Products", exact: false },
   { href: "/inbox", label: "Inbox", exact: false },
+  { href: "/orders", label: "Orders", exact: false },
   { href: "/channels", label: "Channels", exact: false },
   { href: "/settings", label: "Settings", exact: false },
 ] as const;

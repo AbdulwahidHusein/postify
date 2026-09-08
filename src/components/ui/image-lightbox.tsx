@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
   type WheelEvent as ReactWheelEvent,
@@ -31,18 +32,22 @@ function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n));
 }
 
-export function ImageLightbox({
-  images,
-  index,
-  open,
+function subscribe() {
+  return () => {};
+}
+
+function LightboxStage({
+  src,
+  alt,
   onClose,
-  onIndexChange,
-}: Props) {
-  const [mounted, setMounted] = useState(false);
+}: {
+  src: string;
+  alt: string;
+  onClose: () => void;
+}) {
   const [scale, setScale] = useState(1);
   const [tx, setTx] = useState(0);
   const [ty, setTy] = useState(0);
-
   const stageRef = useRef<HTMLDivElement>(null);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const pinchStart = useRef<{ dist: number; scale: number } | null>(null);
@@ -52,41 +57,11 @@ export function ImageLightbox({
   const lastTap = useRef(0);
   const moved = useRef(false);
 
-  const total = images.length;
-  const current = images[index];
-  const canPrev = total > 1 && index > 0;
-  const canNext = total > 1 && index < total - 1;
-
   const resetTransform = useCallback(() => {
     setScale(1);
     setTx(0);
     setTy(0);
   }, []);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    resetTransform();
-  }, [open, index, resetTransform]);
-
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft" && canPrev) onIndexChange?.(index - 1);
-      if (e.key === "ArrowRight" && canNext) onIndexChange?.(index + 1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open, onClose, canPrev, canNext, index, onIndexChange]);
 
   function onWheel(e: ReactWheelEvent) {
     e.preventDefault();
@@ -153,11 +128,7 @@ export function ImageLightbox({
     if (pointers.current.size < 2) pinchStart.current = null;
     if (pointers.current.size === 0) {
       panStart.current = null;
-      if (scale < 1.05) {
-        setScale(1);
-        setTx(0);
-        setTy(0);
-      }
+      if (scale < 1.05) resetTransform();
     }
   }
 
@@ -187,9 +158,63 @@ export function ImageLightbox({
       return;
     }
     lastTap.current = now;
-    // Single tap on backdrop (not image) closes when not zoomed
     if (e.target === e.currentTarget && scale <= 1.01) onClose();
   }
+
+  return (
+    <div
+      ref={stageRef}
+      className="img-lightbox-stage"
+      onWheel={onWheel}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+      onClick={onStageClick}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt}
+        className="img-lightbox-img"
+        draggable={false}
+        style={{
+          transform: `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`,
+          cursor: scale > 1.01 ? "grab" : "zoom-in",
+        }}
+      />
+    </div>
+  );
+}
+
+export function ImageLightbox({
+  images,
+  index,
+  open,
+  onClose,
+  onIndexChange,
+}: Props) {
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+  const total = images.length;
+  const current = images[index];
+  const canPrev = total > 1 && index > 0;
+  const canNext = total > 1 && index < total - 1;
+
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && canPrev) onIndexChange?.(index - 1);
+      if (e.key === "ArrowRight" && canNext) onIndexChange?.(index + 1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose, canPrev, canNext, index, onIndexChange]);
 
   if (!mounted || !open || !current) return null;
 
@@ -237,28 +262,12 @@ export function ImageLightbox({
         </button>
       ) : null}
 
-      <div
-        ref={stageRef}
-        className="img-lightbox-stage"
-        onWheel={onWheel}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-        onClick={onStageClick}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={current.src}
-          alt={current.alt ?? ""}
-          className="img-lightbox-img"
-          draggable={false}
-          style={{
-            transform: `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`,
-            cursor: scale > 1.01 ? "grab" : "zoom-in",
-          }}
-        />
-      </div>
+      <LightboxStage
+        key={`${current.src}-${index}`}
+        src={current.src}
+        alt={current.alt ?? ""}
+        onClose={onClose}
+      />
 
       <p className="img-lightbox-hint">
         Pinch or scroll to zoom · double-tap to toggle

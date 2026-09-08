@@ -15,6 +15,7 @@ const schema = z.object({
   GEMINI_API_KEY: z.string().optional().default(""),
   LLM_API_KEY: z.string().optional().default(""),
   LLM_MODEL: z.string().optional().default("gemini-2.5-flash"),
+  CRON_SECRET: z.string().optional().default(""),
 });
 
 export const serverEnv = schema.parse({
@@ -28,6 +29,7 @@ export const serverEnv = schema.parse({
   GEMINI_API_KEY: process.env.GEMINI_API_KEY,
   LLM_API_KEY: process.env.LLM_API_KEY,
   LLM_MODEL: process.env.LLM_MODEL,
+  CRON_SECRET: process.env.CRON_SECRET,
 });
 
 export function requireBotToken() {

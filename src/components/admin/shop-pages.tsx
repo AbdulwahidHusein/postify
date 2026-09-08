@@ -10,6 +10,7 @@ import { ProductTable } from "@/components/admin/product-table";
 import { SettingsForm } from "@/components/admin/settings-form";
 import { SellerInboxList } from "@/components/chat/seller-inbox";
 import { ChatThread } from "@/components/chat/chat-thread";
+import { SellerOrdersList } from "@/components/admin/seller-orders";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import { useAuth } from "@/components/providers/auth-provider";
 import type { AdminShop } from "@/components/admin/types";
@@ -147,6 +148,14 @@ export function InboxThreadPageClient({
           backLabel="Inbox"
         />
       )}
+    </Gate>
+  );
+}
+
+export function OrdersPageClient({ shopSlug }: { shopSlug: string }) {
+  return (
+    <Gate>
+      {() => <SellerOrdersList shopSlug={shopSlug} />}
     </Gate>
   );
 }

@@ -378,6 +378,43 @@ export const chatReplyContexts = pgTable(
   },
 );
 
+export const orderStatusEnum = pgEnum("order_status", [
+  "new",
+  "confirmed",
+  "fulfilled",
+  "cancelled",
+]);
+
+/** Order intent — cash/transfer offline; payments come later. */
+export const orders = pgTable("orders", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  shopId: uuid("shop_id")
+    .notNull()
+    .references(() => shops.id, { onDelete: "cascade" }),
+  productId: uuid("product_id")
+    .notNull()
+    .references(() => products.id, { onDelete: "cascade" }),
+  buyerUserId: uuid("buyer_user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  conversationId: uuid("conversation_id").references(() => conversations.id, {
+    onDelete: "set null",
+  }),
+  status: orderStatusEnum("status").notNull().default("new"),
+  quantity: integer("quantity").notNull().default(1),
+  buyerName: text("buyer_name").notNull(),
+  buyerPhone: text("buyer_phone").notNull(),
+  notes: text("notes"),
+  unitPrice: numeric("unit_price", { precision: 12, scale: 2 }),
+  currency: text("currency").notNull().default("ETB"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 export const conversationsRelations = relations(
   conversations,
   ({ one, many }) => ({
@@ -394,6 +431,7 @@ export const conversationsRelations = relations(
       references: [users.id],
     }),
     messages: many(messages),
+    orders: many(orders),
   }),
 );
 
@@ -419,6 +457,25 @@ export const messageDeliveriesRelations = relations(
   }),
 );
 
+export const ordersRelations = relations(orders, ({ one }) => ({
+  shop: one(shops, {
+    fields: [orders.shopId],
+    references: [shops.id],
+  }),
+  product: one(products, {
+    fields: [orders.productId],
+    references: [products.id],
+  }),
+  buyer: one(users, {
+    fields: [orders.buyerUserId],
+    references: [users.id],
+  }),
+  conversation: one(conversations, {
+    fields: [orders.conversationId],
+    references: [conversations.id],
+  }),
+}));
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type Shop = typeof shops.$inferSelect;
@@ -430,3 +487,4 @@ export type Product = typeof products.$inferSelect;
 export type ProductImage = typeof productImages.$inferSelect;
 export type Conversation = typeof conversations.$inferSelect;
 export type Message = typeof messages.$inferSelect;
+export type Order = typeof orders.$inferSelect;

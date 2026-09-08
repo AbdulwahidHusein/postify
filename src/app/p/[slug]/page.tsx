@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/storefront/product-card";
 import { ProductMediaGallery } from "@/components/storefront/product-media-gallery";
 import { StorefrontNav } from "@/components/storefront/storefront-nav";
 import { MessageSellerButton } from "@/components/chat/message-seller-button";
+import { RequestOrderButton } from "@/components/storefront/request-order-button";
 import {
   formatPrice,
   getProductBySlug,
@@ -68,6 +69,7 @@ function BuyerActions({
 }) {
   return (
     <>
+      <RequestOrderButton productId={productId} />
       <MessageSellerButton productId={productId} />
       <div className="buy-actions buy-actions-secondary">
         {phone ? (

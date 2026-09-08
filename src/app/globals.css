@@ -4124,3 +4124,141 @@ html[data-platform="tma"] .buy-page .page-shell.buy-shell.inbox-shell {
   object-position: center;
   display: block;
 }
+
+/* ——— Order intent / seller orders ——— */
+
+.order-intent {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  margin: 0.35rem 0 0.75rem;
+}
+
+.order-intent-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.order-intent-lead {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.order-field {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.order-field input,
+.order-field textarea {
+  font: inherit;
+  font-weight: 500;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f7f9fc;
+  color: var(--ink);
+}
+
+.order-field input:focus,
+.order-field textarea:focus {
+  outline: none;
+  border-color: color-mix(in oklab, var(--signal) 45%, var(--line));
+  background: #fff;
+}
+
+.order-intent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.order-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.order-card {
+  padding: 0.85rem 0.9rem;
+  border-bottom: 1px solid color-mix(in oklab, #000 6%, transparent);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.order-card-main {
+  display: flex;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.order-card-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.order-card-copy strong {
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.order-notes {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.order-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.order-status {
+  display: inline-flex;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: capitalize;
+  background: #eef2f7;
+  color: var(--ink);
+}
+
+.order-status.is-new {
+  background: color-mix(in oklab, var(--signal) 18%, #fff);
+  color: var(--signal);
+}
+
+.order-status.is-confirmed {
+  background: #e7f6ed;
+  color: #17663a;
+}
+
+.order-status.is-fulfilled {
+  background: #eef2f7;
+  color: var(--muted);
+}
+
+.order-status.is-cancelled {
+  background: #fdecec;
+  color: #b42318;
+}
+
+.order-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}

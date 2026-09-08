@@ -5,7 +5,7 @@ import { Api, InputFile } from "grammy";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { db } from "@/db";
-import { conversations, messageDeliveries, messages } from "@/db/schema";
+import { conversations, messageDeliveries, messages, orders } from "@/db/schema";
 import { requireBotToken, serverEnv } from "@/lib/env.server";
 import { formatPrice, productImageSrc } from "@/lib/products";
 import { resolveUploadPath } from "@/lib/storage";
@@ -230,4 +230,81 @@ export async function deliverChatNotification(input: {
     telegramChatId: buyerTg,
     telegramMessageId: sent.message_id,
   });
+}
+
+export async function deliverOrderNotification(input: { orderId: string }) {
+  if (!input.orderId) return;
+
+  const order = await db.query.orders.findFirst({
+    where: eq(orders.id, input.orderId),
+    with: {
+      shop: { with: { owner: true } },
+      product: {
+        with: {
+          images: {
+            orderBy: (img, { asc: o }) => [o(img.sortOrder)],
+            limit: 1,
+          },
+        },
+      },
+      buyer: true,
+    },
+  });
+  if (!order?.shop?.owner || !order.product) return;
+
+  const bot = telegramApi();
+  const ownerTg = order.shop.owner.telegramId;
+  const product = order.product;
+  const price =
+    order.unitPrice != null
+      ? `${order.currency} ${Number(order.unitPrice).toLocaleString()}`
+      : formatPrice(product) ?? order.currency;
+  const productUrl = `${appUrl()}/p/${product.slug}`;
+  const ordersUrl = `${appUrl()}/dashboard/s/${order.shop.slug}/orders`;
+  const chatUrl = order.conversationId
+    ? `${appUrl()}/dashboard/s/${order.shop.slug}/inbox/${order.conversationId}`
+    : ordersUrl;
+  const buyerLabel = order.buyer
+    ? `${order.buyer.firstName}${
+        order.buyer.username ? ` (@${order.buyer.username})` : ""
+      }`
+    : order.buyerName;
+
+  const caption = [
+    `New order · ${order.shop.name}`,
+    `${product.title} · qty ${order.quantity} · ${price}`,
+    `Buyer: ${buyerLabel}`,
+    `Phone: ${order.buyerPhone}`,
+    order.notes ? `Notes: ${order.notes}` : null,
+    "",
+    "Confirm or arrange payment offline.",
+  ]
+    .filter((line) => line != null && line !== "")
+    .join("\n")
+    .slice(0, 1024);
+
+  const photo = await resolveLocalPhoto(
+    product.images?.[0] ? productImageSrc(product.images[0]) : null,
+  );
+
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: "Open orders", url: ordersUrl },
+        { text: "Open chat", url: chatUrl },
+      ],
+      [{ text: "View product", url: productUrl }],
+    ],
+  };
+
+  if (photo) {
+    await bot.sendPhoto(Number(ownerTg), photo, {
+      caption,
+      reply_markup: keyboard,
+    });
+  } else {
+    await bot.sendMessage(Number(ownerTg), caption, {
+      reply_markup: keyboard,
+    });
+  }
 }

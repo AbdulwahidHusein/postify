@@ -3,7 +3,15 @@ import "server-only";
 import { and, asc, eq, lte, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { notificationOutbox } from "@/db/schema";
-import { deliverChatNotification } from "@/lib/chat/telegram-bridge";
+import {
+  deliverChatNotification,
+  deliverOrderNotification,
+} from "@/lib/chat/telegram-bridge";
+
+export type OutboxKind =
+  | "seller_new_message"
+  | "buyer_new_message"
+  | "seller_new_order";
 
 export async function enqueueChatNotify(input: {
   kind: "seller_new_message" | "buyer_new_message";
@@ -20,9 +28,21 @@ export async function enqueueChatNotify(input: {
     nextAttemptAt: new Date(),
   });
 
-  // Best-effort flush in-request for snappy UX; failures stay in outbox.
   void flushOutbox(8).catch((err) => {
     console.warn("[chat] outbox flush failed", err);
+  });
+}
+
+export async function enqueueOrderNotify(input: { orderId: string }) {
+  await db.insert(notificationOutbox).values({
+    kind: "seller_new_order",
+    payload: { orderId: input.orderId },
+    status: "pending",
+    nextAttemptAt: new Date(),
+  });
+
+  void flushOutbox(8).catch((err) => {
+    console.warn("[orders] outbox flush failed", err);
   });
 }
 
@@ -48,13 +68,21 @@ export async function flushOutbox(limit = 20) {
       .where(eq(notificationOutbox.id, job.id));
 
     try {
-      await deliverChatNotification({
-        kind: job.kind as "seller_new_message" | "buyer_new_message",
-        payload: job.payload as {
-          messageId: string;
-          conversationId: string;
-        },
-      });
+      if (job.kind === "seller_new_order") {
+        await deliverOrderNotification({
+          orderId: String(
+            (job.payload as { orderId?: string }).orderId ?? "",
+          ),
+        });
+      } else {
+        await deliverChatNotification({
+          kind: job.kind as "seller_new_message" | "buyer_new_message",
+          payload: job.payload as {
+            messageId: string;
+            conversationId: string;
+          },
+        });
+      }
       await db
         .update(notificationOutbox)
         .set({ status: "done", updatedAt: new Date(), lastError: null })
@@ -76,4 +104,23 @@ export async function flushOutbox(limit = 20) {
   }
 
   return jobs.length;
+}
+
+/** Stuck "processing" rows after crash — reclaim as pending. */
+export async function reclaimStaleOutbox(olderThanMs = 5 * 60_000) {
+  const cutoff = new Date(Date.now() - olderThanMs);
+  await db
+    .update(notificationOutbox)
+    .set({
+      status: "pending",
+      nextAttemptAt: new Date(),
+      updatedAt: new Date(),
+      lastError: "reclaimed after stale processing",
+    })
+    .where(
+      and(
+        eq(notificationOutbox.status, "processing"),
+        lte(notificationOutbox.updatedAt, cutoff),
+      ),
+    );
 }

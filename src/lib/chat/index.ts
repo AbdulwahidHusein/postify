@@ -9,6 +9,7 @@ export {
   findConversationByTelegramReply,
   getOrCreateProductConversation,
   getUserByTelegramId,
+  insertSystemMessage,
   listBuyerInbox,
   listMessages,
   listSellerInbox,
@@ -17,7 +18,7 @@ export {
   serializeMessage,
 } from "@/lib/chat/conversations";
 
-export { enqueueChatNotify, flushOutbox } from "@/lib/chat/outbox";
+export { enqueueChatNotify, enqueueOrderNotify, flushOutbox, reclaimStaleOutbox } from "@/lib/chat/outbox";
 
 import { enqueueChatNotify } from "@/lib/chat/outbox";
 import { sendMessage } from "@/lib/chat/conversations";

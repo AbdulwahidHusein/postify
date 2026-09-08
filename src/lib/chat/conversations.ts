@@ -244,7 +244,8 @@ export async function getOrCreateProductConversation(input: {
   return { conversation: full, product, created: true };
 }
 
-async function insertSystemMessage(conversationId: string, body: string) {
+export async function insertSystemMessage(conversationId: string, body: string) {
+  const now = new Date();
   await db.insert(messages).values({
     conversationId,
     senderRole: "system",
@@ -252,6 +253,14 @@ async function insertSystemMessage(conversationId: string, body: string) {
     kind: "text",
     body,
   });
+  await db
+    .update(conversations)
+    .set({
+      lastMessageAt: now,
+      lastMessagePreview: previewOf(body),
+      updatedAt: now,
+    })
+    .where(eq(conversations.id, conversationId));
 }
 
 export async function assertConversationAccess(

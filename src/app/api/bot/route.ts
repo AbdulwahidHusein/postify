@@ -25,7 +25,17 @@ export async function POST(request: Request) {
     }
 
     const handleUpdate = createHandler();
-    return await handleUpdate(request);
+    const response = await handleUpdate(request);
+
+    // Opportunistic outbox drain (chat + order Telegram delivery retries)
+    void import("@/lib/chat/outbox")
+      .then(async ({ reclaimStaleOutbox, flushOutbox }) => {
+        await reclaimStaleOutbox();
+        await flushOutbox(12);
+      })
+      .catch((err) => console.warn("[bot] outbox flush", err));
+
+    return response;
   } catch (error) {
     console.error("[bot webhook]", error);
     const message =
