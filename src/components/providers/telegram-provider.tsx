@@ -11,6 +11,7 @@ import {
 } from "@tma.js/sdk-react";
 import { TelegramContextProvider } from "@/lib/telegram/context";
 import type { TelegramRuntimeState, TelegramUser } from "@/lib/telegram/types";
+import { measureChatBottomInset } from "@/lib/chat/bottom-inset";
 
 function mapUser(): TelegramUser | null {
   const user = initData.user();
@@ -93,8 +94,34 @@ async function bootTelegram(): Promise<Omit<TelegramRuntimeState, "ready">> {
     viewport.expand.ifAvailable();
   }
 
+  // Publish bottom inset for docked UI from live device/Telegram measurements.
+  const publishBottomInset = () => {
+    try {
+      document.documentElement.style.setProperty(
+        "--chat-bottom-inset",
+        `${measureChatBottomInset()}px`,
+      );
+    } catch {
+      /* ignore */
+    }
+  };
+  publishBottomInset();
+  const tgApp = window.Telegram?.WebApp;
+  const onInset = () => publishBottomInset();
+  try {
+    tgApp?.onEvent?.("safeAreaChanged", onInset);
+    tgApp?.onEvent?.("contentSafeAreaChanged", onInset);
+    tgApp?.requestSafeArea?.();
+    tgApp?.requestContentSafeArea?.();
+  } catch {
+    /* ignore */
+  }
+  window.setTimeout(publishBottomInset, 50);
+  window.setTimeout(publishBottomInset, 300);
+
   miniApp.ready.ifAvailable();
   paintTelegramShell();
+  publishBottomInset();
 
   return {
     isTma: true,
@@ -163,6 +190,17 @@ declare global {
         setHeaderColor?: (color: string) => void;
         setBackgroundColor?: (color: string) => void;
         disableVerticalSwipes?: () => void;
+        safeAreaInset?: { top?: number; bottom?: number; left?: number; right?: number };
+        contentSafeAreaInset?: {
+          top?: number;
+          bottom?: number;
+          left?: number;
+          right?: number;
+        };
+        requestSafeArea?: () => void;
+        requestContentSafeArea?: () => void;
+        onEvent?: (event: string, cb: () => void) => void;
+        offEvent?: (event: string, cb: () => void) => void;
       };
     };
   }

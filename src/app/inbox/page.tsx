@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 
 export default function BuyerInboxPage() {
   return (
-    <div className="buy-page">
-      <div className="page-shell buy-shell chat-shell">
+    <div className="buy-page inbox-page">
+      <div className="page-shell buy-shell chat-shell inbox-shell">
         <BuyerInboxList />
       </div>
     </div>

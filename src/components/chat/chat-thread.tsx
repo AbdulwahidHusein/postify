@@ -7,9 +7,12 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type CSSProperties,
   type FormEvent,
 } from "react";
 import { useAuth } from "@/components/providers/auth-provider";
+import { ImageLightbox } from "@/components/ui/image-lightbox";
+import { subscribeChatBottomInset } from "@/lib/chat/bottom-inset";
 
 export type ChatProduct = {
   id: string;
@@ -99,6 +102,11 @@ export function ChatThread({
   const lastIdRef = useRef<string | null>(null);
   const focusedRef = useRef(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [bottomInset, setBottomInset] = useState(34);
+  const [lightbox, setLightbox] = useState<{
+    images: { src: string; alt?: string }[];
+    index: number;
+  } | null>(null);
 
   const scrollToBottom = useCallback((smooth = true) => {
     requestAnimationFrame(() => {
@@ -119,6 +127,22 @@ export function ChatThread({
     return () => {
       root.classList.remove("chat-open");
       document.body.style.overflow = prevOverflow;
+    };
+  }, []);
+
+  useEffect(() => {
+    return subscribeChatBottomInset((px) => {
+      setBottomInset(px);
+      document.documentElement.style.setProperty(
+        "--chat-bottom-inset",
+        `${px}px`,
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      document.documentElement.style.removeProperty("--chat-bottom-inset");
     };
   }, []);
 
@@ -324,26 +348,31 @@ export function ChatThread({
   }
 
   const product = conversation?.product;
+  const shop = conversation?.shop;
+  const buyer = conversation?.buyer;
   const closed = conversation?.status === "closed";
   const hasUserMessages = messages.some((m) => m.senderRole !== "system");
-  const peerName =
-    role === "seller" && conversation?.buyer
-      ? conversation.buyer.firstName
-      : (conversation?.shop?.name ?? "Chat");
+  const peerLabel =
+    role === "seller"
+      ? (buyer?.firstName ?? null)
+      : (shop?.name ?? null);
+  const peerHref =
+    role === "buyer" && shop ? `/s/${shop.slug}` : null;
 
   return (
-    <div className="chat-app chat-app--tg">
+    <div
+      className="chat-app chat-app--tg"
+      style={
+        {
+          "--chat-bottom-inset": `${bottomInset}px`,
+        } as CSSProperties
+      }
+    >
       <div className="chat-frame">
         <header className="chat-topbar">
           <Link href={backHref} className="chat-back">
             ← {backLabel}
           </Link>
-          <div className="chat-topbar-mid">
-            <strong>{loading ? "…" : peerName}</strong>
-            {product ? (
-              <span className="chat-topbar-sub">{product.title}</span>
-            ) : null}
-          </div>
           {showClose && !closed ? (
             <button
               type="button"
@@ -352,30 +381,68 @@ export function ChatThread({
             >
               Close
             </button>
-          ) : (
-            <span className="chat-topbar-spacer" aria-hidden />
-          )}
+          ) : null}
         </header>
 
         {product ? (
-          <Link href={`/p/${product.slug}`} className="chat-listing">
-            <span className="chat-listing-thumb" aria-hidden>
-              {product.imageSrc ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={product.imageSrc} alt="" />
-              ) : null}
-            </span>
-            <span className="chat-listing-meta">
-              <span className="chat-listing-title">{product.title}</span>
-              <span className="chat-listing-price">
-                {formatMoney(product)}
-                {product.status === "sold" ? " · Sold" : ""}
+          <div className="chat-listing">
+            <Link href={`/p/${product.slug}`} className="chat-listing-product">
+              <span className="chat-listing-thumb" aria-hidden>
+                {product.imageSrc ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={product.imageSrc} alt="" />
+                ) : null}
               </span>
-              {product.description ? (
-                <span className="chat-listing-desc">{product.description}</span>
-              ) : null}
-            </span>
-          </Link>
+              <span className="chat-listing-meta">
+                <span className="chat-listing-title" title={product.title}>
+                  {product.title}
+                </span>
+                <span className="chat-listing-price">
+                  {formatMoney(product)}
+                  {product.status === "sold" ? " · Sold" : ""}
+                </span>
+                {product.description ? (
+                  <span
+                    className="chat-listing-desc"
+                    title={product.description}
+                  >
+                    {product.description}
+                  </span>
+                ) : null}
+              </span>
+            </Link>
+            {peerLabel ? (
+              peerHref ? (
+                <Link
+                  href={peerHref}
+                  className="chat-listing-peer"
+                  title={peerLabel}
+                >
+                  {peerLabel}
+                </Link>
+              ) : (
+                <span className="chat-listing-peer" title={peerLabel}>
+                  {peerLabel}
+                </span>
+              )
+            ) : null}
+          </div>
+        ) : peerLabel ? (
+          <div className="chat-listing chat-listing--peer-only">
+            {peerHref ? (
+              <Link
+                href={peerHref}
+                className="chat-listing-peer"
+                title={peerLabel}
+              >
+                {peerLabel}
+              </Link>
+            ) : (
+              <span className="chat-listing-peer" title={peerLabel}>
+                {peerLabel}
+              </span>
+            )}
+          </div>
         ) : null}
 
         {error ? <p className="chat-error">{error}</p> : null}
@@ -431,12 +498,24 @@ export function ChatThread({
                       }
                     >
                       {m.imageUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={m.imageUrl}
-                          alt=""
-                          className="chat-bubble-img"
-                        />
+                        <button
+                          type="button"
+                          className="chat-bubble-img-btn"
+                          onClick={() =>
+                            setLightbox({
+                              images: [{ src: m.imageUrl!, alt: "" }],
+                              index: 0,
+                            })
+                          }
+                          aria-label="View photo fullscreen"
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={m.imageUrl}
+                            alt=""
+                            className="chat-bubble-img"
+                          />
+                        </button>
                       ) : null}
                       {m.body ? <p>{m.body}</p> : null}
                       <time dateTime={m.createdAt}>
@@ -553,6 +632,16 @@ export function ChatThread({
           </div>
         </form>
       </div>
+
+      <ImageLightbox
+        open={Boolean(lightbox)}
+        images={lightbox?.images ?? []}
+        index={lightbox?.index ?? 0}
+        onClose={() => setLightbox(null)}
+        onIndexChange={(i) =>
+          setLightbox((prev) => (prev ? { ...prev, index: i } : prev))
+        }
+      />
     </div>
   );
 }
