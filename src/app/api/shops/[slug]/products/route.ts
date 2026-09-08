@@ -2,6 +2,7 @@ import { z } from "zod";
 import { NextResponse } from "next/server";
 import { jsonError, jsonOk } from "@/lib/api";
 import { AuthError, requireSession } from "@/lib/auth/session";
+import { ADMIN_PAGE_SIZE } from "@/lib/pagination";
 import {
   createManualProduct,
   listProductsForShop,
@@ -24,7 +25,7 @@ const createSchema = z.object({
   sku: z.string().trim().max(64).optional().nullable(),
   stockQuantity: z.number().int().nonnegative().nullable().optional(),
   tags: z.string().trim().max(500).optional().nullable(),
-  status: z.enum(["draft", "published", "archived"]).optional(),
+  status: z.enum(["draft", "published", "sold", "archived"]).optional(),
 });
 
 export async function GET(request: Request, { params }: Props) {
@@ -39,27 +40,34 @@ export async function GET(request: Request, { params }: Props) {
     const url = new URL(request.url);
     const q = url.searchParams.get("q") ?? undefined;
     const category = url.searchParams.get("category") ?? undefined;
+    const pageRaw = url.searchParams.get("page");
     const limitRaw = url.searchParams.get("limit");
+    const page = pageRaw ? Number.parseInt(pageRaw, 10) : 1;
     const limit = limitRaw ? Number.parseInt(limitRaw, 10) : undefined;
     const statusParam = url.searchParams.get("status") ?? "all";
     const status =
       statusParam === "draft" ||
       statusParam === "published" ||
+      statusParam === "sold" ||
       statusParam === "archived" ||
       statusParam === "all"
         ? (statusParam as ProductStatus | "all")
         : "all";
 
-    const rows = await listProductsForShop(shop.id, {
+    const { products: rows, pagination } = await listProductsForShop(shop.id, {
       q,
       status,
       category,
+      page: Number.isFinite(page) ? page : 1,
       limit:
-        limit && Number.isFinite(limit) && limit > 0
-          ? Math.min(limit, 50)
-          : undefined,
+        limit && Number.isFinite(limit) && limit > 0 ? limit : undefined,
+      defaultPageSize: ADMIN_PAGE_SIZE,
     });
-    return jsonOk({ products: rows.map(serializeProduct) });
+
+    return jsonOk({
+      products: rows.map(serializeProduct),
+      pagination,
+    });
   } catch (error) {
     return jsonError(error);
   }

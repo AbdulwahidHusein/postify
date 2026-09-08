@@ -12,6 +12,7 @@
     "db:up": "docker compose up -d"
   },
   "dependencies": {
+    "@google/genai": "^2.21.0",
     "@tma.js/init-data-node": "^2.0.8",
     "@tma.js/sdk": "^3.3.0",
     "@tma.js/sdk-react": "^3.0.23",

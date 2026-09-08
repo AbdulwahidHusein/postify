@@ -11,6 +11,8 @@ export const defaultSettings: ShopSettings = {
   ownerUsername: null,
   ownerPhone: null,
   sellCategories: [],
+  logoUrl: null,
+  logoSource: null,
 };
 
 export function normalizeShopSettings(
@@ -25,6 +27,8 @@ export function normalizeShopSettings(
     sellCategories: Array.isArray(settings?.sellCategories)
       ? settings.sellCategories
       : [],
+    logoUrl: settings?.logoUrl ?? null,
+    logoSource: settings?.logoSource ?? null,
   };
 }
 

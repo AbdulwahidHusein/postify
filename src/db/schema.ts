@@ -42,6 +42,10 @@ export type ShopSettings = {
   ownerPhone?: string | null;
   /** Categories this shop sells */
   sellCategories?: string[];
+  /** Public logo URL (/api/media/file/... or similar) */
+  logoUrl?: string | null;
+  /** How logo was set — telegram sync can overwrite unless upload */
+  logoSource?: "telegram" | "upload" | null;
 };
 
 
@@ -121,6 +125,8 @@ export const loginTokens = pgTable(
     userId: uuid("user_id").references(() => users.id, {
       onDelete: "cascade",
     }),
+    /** Safe relative path after confirm, e.g. /inbox or /auth/continue?message=… */
+    redirectPath: text("redirect_path"),
     expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
     usedAt: timestamp("used_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -133,6 +139,7 @@ export const loginTokens = pgTable(
 export const productStatusEnum = pgEnum("product_status", [
   "draft",
   "published",
+  "sold",
   "archived",
 ]);
 
@@ -226,6 +233,192 @@ export const productImagesRelations = relations(productImages, ({ one }) => ({
   }),
 }));
 
+export const conversationStatusEnum = pgEnum("conversation_status", [
+  "open",
+  "closed",
+]);
+
+export const messageSenderRoleEnum = pgEnum("message_sender_role", [
+  "buyer",
+  "seller",
+  "system",
+]);
+
+export const messageKindEnum = pgEnum("message_kind", [
+  "text",
+  "image",
+  "product",
+]);
+
+export const deliveryChannelEnum = pgEnum("delivery_channel", [
+  "telegram_seller",
+  "telegram_buyer",
+]);
+
+export const outboxStatusEnum = pgEnum("outbox_status", [
+  "pending",
+  "processing",
+  "done",
+  "failed",
+]);
+
+export const conversations = pgTable(
+  "conversations",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    shopId: uuid("shop_id")
+      .notNull()
+      .references(() => shops.id, { onDelete: "cascade" }),
+    productId: uuid("product_id")
+      .notNull()
+      .references(() => products.id, { onDelete: "cascade" }),
+    buyerUserId: uuid("buyer_user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    status: conversationStatusEnum("status").notNull().default("open"),
+    lastMessageAt: timestamp("last_message_at", { withTimezone: true }),
+    lastMessagePreview: text("last_message_preview"),
+    sellerUnreadCount: integer("seller_unread_count").notNull().default(0),
+    buyerUnreadCount: integer("buyer_unread_count").notNull().default(0),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("conversations_shop_product_buyer_uidx").on(
+      table.shopId,
+      table.productId,
+      table.buyerUserId,
+    ),
+  ],
+);
+
+export const messages = pgTable(
+  "messages",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    conversationId: uuid("conversation_id")
+      .notNull()
+      .references(() => conversations.id, { onDelete: "cascade" }),
+    senderRole: messageSenderRoleEnum("sender_role").notNull(),
+    senderUserId: uuid("sender_user_id").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    kind: messageKindEnum("kind").notNull().default("text"),
+    body: text("body").notNull().default(""),
+    imageUrl: text("image_url"),
+    clientId: text("client_id"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("messages_conversation_client_uidx").on(
+      table.conversationId,
+      table.clientId,
+    ),
+  ],
+);
+
+export const messageDeliveries = pgTable(
+  "message_deliveries",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    messageId: uuid("message_id")
+      .notNull()
+      .references(() => messages.id, { onDelete: "cascade" }),
+    channel: deliveryChannelEnum("channel").notNull(),
+    telegramChatId: bigint("telegram_chat_id", { mode: "bigint" }).notNull(),
+    telegramMessageId: integer("telegram_message_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("message_deliveries_telegram_uidx").on(
+      table.telegramChatId,
+      table.telegramMessageId,
+    ),
+  ],
+);
+
+export const notificationOutbox = pgTable("notification_outbox", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  kind: text("kind").notNull(),
+  payload: jsonb("payload").$type<Record<string, unknown>>().notNull(),
+  status: outboxStatusEnum("status").notNull().default("pending"),
+  attempts: integer("attempts").notNull().default(0),
+  lastError: text("last_error"),
+  nextAttemptAt: timestamp("next_attempt_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/** Seller tapped Reply in Telegram — next text binds to this conversation. */
+export const chatReplyContexts = pgTable(
+  "chat_reply_contexts",
+  {
+    telegramUserId: bigint("telegram_user_id", { mode: "bigint" }).primaryKey(),
+    conversationId: uuid("conversation_id")
+      .notNull()
+      .references(() => conversations.id, { onDelete: "cascade" }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+);
+
+export const conversationsRelations = relations(
+  conversations,
+  ({ one, many }) => ({
+    shop: one(shops, {
+      fields: [conversations.shopId],
+      references: [shops.id],
+    }),
+    product: one(products, {
+      fields: [conversations.productId],
+      references: [products.id],
+    }),
+    buyer: one(users, {
+      fields: [conversations.buyerUserId],
+      references: [users.id],
+    }),
+    messages: many(messages),
+  }),
+);
+
+export const messagesRelations = relations(messages, ({ one, many }) => ({
+  conversation: one(conversations, {
+    fields: [messages.conversationId],
+    references: [conversations.id],
+  }),
+  sender: one(users, {
+    fields: [messages.senderUserId],
+    references: [users.id],
+  }),
+  deliveries: many(messageDeliveries),
+}));
+
+export const messageDeliveriesRelations = relations(
+  messageDeliveries,
+  ({ one }) => ({
+    message: one(messages, {
+      fields: [messageDeliveries.messageId],
+      references: [messages.id],
+    }),
+  }),
+);
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type Shop = typeof shops.$inferSelect;
@@ -235,3 +428,5 @@ export type NewChannel = typeof channels.$inferInsert;
 export type LoginToken = typeof loginTokens.$inferSelect;
 export type Product = typeof products.$inferSelect;
 export type ProductImage = typeof productImages.$inferSelect;
+export type Conversation = typeof conversations.$inferSelect;
+export type Message = typeof messages.$inferSelect;

@@ -3,10 +3,15 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ProductImageGallery } from "@/components/admin/product-image-gallery";
+import {
+  ProductImageGallery,
+  type PendingImage,
+} from "@/components/admin/product-image-gallery";
 import { CategoryCombobox } from "@/components/admin/category-combobox";
 import { TagsInput } from "@/components/admin/tags-input";
+import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import type { AdminProduct } from "@/components/admin/types";
+import { telegramMessageUrl } from "@/lib/telegram-links";
 
 type FormState = {
   title: string;
@@ -31,7 +36,7 @@ const emptyForm = (currency: string): FormState => ({
   sku: "",
   stockQuantity: "",
   tags: "",
-  status: "draft",
+  status: "published",
 });
 
 function parseOptionalNumber(raw: string): number | null {
@@ -51,19 +56,56 @@ export function ProductForm({
   productId?: string;
 }) {
   const router = useRouter();
+  const { channels } = useShopAdmin();
   const isEdit = Boolean(productId);
   const [form, setForm] = useState<FormState>(emptyForm(defaultCurrency));
   const [images, setImages] = useState<AdminProduct["images"]>([]);
+  const [pendingFiles, setPendingFiles] = useState<PendingImage[]>([]);
   const [slug, setSlug] = useState<string | null>(null);
   const [currentId, setCurrentId] = useState<string | null>(productId ?? null);
   const [confidence, setConfidence] = useState<number | null>(null);
   const [rawCaption, setRawCaption] = useState<string | null>(null);
+  const [sourceChatId, setSourceChatId] = useState<string | null>(null);
   const [sourceMessageId, setSourceMessageId] = useState<number | null>(null);
+  const [telegramUrl, setTelegramUrl] = useState<string | null>(null);
   const [fromChannel, setFromChannel] = useState(false);
   const [loading, setLoading] = useState(isEdit);
   const [saving, setSaving] = useState(false);
+  const [posting, setPosting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedNote, setSavedNote] = useState(false);
+  const [postNote, setPostNote] = useState<string | null>(null);
+
+  const channelConnected = channels.length > 0;
+
+  async function applyStatus(next: AdminProduct["status"]) {
+    if (!currentId) {
+      setForm((f) => ({ ...f, status: next }));
+      return;
+    }
+    setSaving(true);
+    setError(null);
+    setSavedNote(false);
+    try {
+      const res = await fetch(`/api/products/${currentId}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: next }),
+      });
+      const data = (await res.json()) as {
+        product?: AdminProduct;
+        error?: string;
+      };
+      if (!res.ok) throw new Error(data.error ?? "Could not update status");
+      setForm((f) => ({ ...f, status: next }));
+      setSavedNote(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not update status");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   useEffect(() => {
     if (!productId) return;
@@ -99,7 +141,9 @@ export function ProductForm({
         setCurrentId(p.id);
         setConfidence(p.confidence);
         setRawCaption(p.rawCaption ?? null);
+        setSourceChatId(p.sourceChatId ?? null);
         setSourceMessageId(p.sourceMessageId ?? null);
+        setTelegramUrl(p.telegramUrl ?? null);
         setFromChannel(Boolean(p.channelId || p.rawCaption || p.sourceMessageId));
       } catch (err) {
         if (!cancelled) {
@@ -148,6 +192,7 @@ export function ProductForm({
     setSaving(true);
     setError(null);
     setSavedNote(false);
+    setPostNote(null);
 
     try {
       const payload = buildPayload();
@@ -184,17 +229,73 @@ export function ProductForm({
           error?: string;
         };
         if (!res.ok) throw new Error(data.error ?? "Could not create");
-        if (data.product) {
-          router.replace(
-            `/dashboard/s/${shopSlug}/products/${data.product.id}`,
-          );
-          return;
+        if (!data.product) throw new Error("Could not create");
+
+        const createdId = data.product.id;
+        for (const pending of pendingFiles) {
+          const body = new FormData();
+          body.append("file", pending.file);
+          const imgRes = await fetch(`/api/products/${createdId}/images`, {
+            method: "POST",
+            credentials: "include",
+            body,
+          });
+          if (!imgRes.ok) {
+            const imgData = (await imgRes.json()) as { error?: string };
+            throw new Error(
+              imgData.error ?? "Product saved but a photo failed to upload",
+            );
+          }
         }
+        for (const pending of pendingFiles) {
+          URL.revokeObjectURL(pending.previewUrl);
+        }
+        setPendingFiles([]);
+        router.replace(`/dashboard/s/${shopSlug}/products/${createdId}`);
+        return;
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function onPostToTelegram() {
+    if (!currentId) return;
+    setPosting(true);
+    setError(null);
+    setPostNote(null);
+    try {
+      const res = await fetch(
+        `/api/products/${currentId}/post-to-channel`,
+        { method: "POST", credentials: "include" },
+      );
+      const data = (await res.json()) as {
+        product?: AdminProduct;
+        telegramUrl?: string | null;
+        error?: string;
+      };
+      if (!res.ok) throw new Error(data.error ?? "Could not post");
+      if (data.product) {
+        setSourceChatId(data.product.sourceChatId ?? null);
+        setSourceMessageId(data.product.sourceMessageId ?? null);
+        setTelegramUrl(
+          data.telegramUrl ??
+            data.product.telegramUrl ??
+            telegramMessageUrl({
+              username: channels[0]?.username,
+              chatId: data.product.sourceChatId,
+              messageId: data.product.sourceMessageId,
+            }),
+        );
+        setFromChannel(true);
+      }
+      setPostNote("Posted to Telegram with Open in shop on the message.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Post failed");
+    } finally {
+      setPosting(false);
     }
   }
 
@@ -220,9 +321,11 @@ export function ProductForm({
   }
 
   const cover = images[0];
+  const pendingCover = pendingFiles[0];
+  const coverSrc = cover?.src ?? pendingCover?.previewUrl ?? null;
   const pricePreview =
     form.price.trim() === ""
-      ? "Price on request"
+      ? "Ask for price"
       : `${form.currency} ${Number(form.price.replace(/,/g, "") || 0).toLocaleString()}`;
   const comparePreview =
     form.compareAtPrice.trim() === ""
@@ -242,7 +345,7 @@ export function ProductForm({
                 {isEdit ? form.title || "Untitled" : "Create listing"}
               </h1>
               <p className="admin-lead">
-                Details, pricing, inventory, and gallery in one place.
+                Photos first, then details — save once when you’re ready.
               </p>
             </div>
             <Link
@@ -255,25 +358,96 @@ export function ProductForm({
 
           {error ? <p className="admin-error">{error}</p> : null}
           {savedNote ? <p className="admin-success">Saved.</p> : null}
+        </section>
 
+        <div className="admin-panel">
+          <ProductImageGallery
+            productId={currentId}
+            images={images}
+            pendingFiles={pendingFiles}
+            onPendingChange={setPendingFiles}
+            onChange={(product) => {
+              setImages(product.images);
+              setSlug(product.slug);
+            }}
+          />
+        </div>
+
+        <section className="admin-panel admin-form">
           {isEdit && form.status === "draft" ? (
             <section className="admin-banner admin-banner-wait">
               <div>
-                <strong>Draft — needs review</strong>
+                <strong>Draft</strong>
                 <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
-                  Fix details if needed, then publish to the storefront.
+                  Not visible on the storefront until published.
                 </p>
               </div>
               <button
                 type="button"
                 className="btn btn-primary btn-sm"
                 disabled={saving}
-                onClick={() => {
-                  setForm((f) => ({ ...f, status: "published" }));
-                  setSavedNote(false);
-                }}
+                onClick={() => void applyStatus("published")}
               >
-                Ready to publish
+                Publish
+              </button>
+            </section>
+          ) : null}
+
+          {isEdit && form.status === "published" ? (
+            <section className="admin-banner admin-banner-live">
+              <div>
+                <strong>Live on your shop</strong>
+                <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
+                  When it sells, mark it sold — it leaves the catalog but keeps
+                  its link.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                disabled={saving}
+                onClick={() => void applyStatus("sold")}
+              >
+                Mark sold
+              </button>
+            </section>
+          ) : null}
+
+          {isEdit && form.status === "sold" ? (
+            <section className="admin-banner admin-banner-sold">
+              <div>
+                <strong>Sold</strong>
+                <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
+                  Hidden from the shop catalog. Shared links still open with a
+                  Sold badge.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                disabled={saving}
+                onClick={() => void applyStatus("published")}
+              >
+                Relist
+              </button>
+            </section>
+          ) : null}
+
+          {isEdit && form.status === "archived" ? (
+            <section className="admin-banner admin-banner-wait">
+              <div>
+                <strong>Archived</strong>
+                <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
+                  Hidden from buyers. Restore to put it back on the shop.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                disabled={saving}
+                onClick={() => void applyStatus("published")}
+              >
+                Restore
               </button>
             </section>
           ) : null}
@@ -292,20 +466,6 @@ export function ProductForm({
             />
           </label>
 
-          <label className="admin-field">
-            <span>Description</span>
-            <textarea
-              className="field"
-              rows={6}
-              value={form.description}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, description: e.target.value }))
-              }
-              maxLength={4000}
-              placeholder="Condition, size, materials, what’s included…"
-            />
-          </label>
-
           <div className="admin-form-grid">
             <label className="admin-field">
               <span>Price</span>
@@ -320,6 +480,34 @@ export function ProductForm({
               />
             </label>
             <label className="admin-field">
+              <span>Currency</span>
+              <input
+                className="field"
+                value={form.currency}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, currency: e.target.value }))
+                }
+                maxLength={8}
+              />
+            </label>
+          </div>
+
+          <label className="admin-field">
+            <span>Description</span>
+            <textarea
+              className="field"
+              rows={4}
+              value={form.description}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, description: e.target.value }))
+              }
+              maxLength={4000}
+              placeholder="Condition, size, materials…"
+            />
+          </label>
+
+          <div className="admin-form-grid">
+            <label className="admin-field">
               <span>Compare-at price</span>
               <input
                 className="field"
@@ -329,17 +517,6 @@ export function ProductForm({
                   setForm((f) => ({ ...f, compareAtPrice: e.target.value }))
                 }
                 placeholder="Optional original price"
-              />
-            </label>
-            <label className="admin-field">
-              <span>Currency</span>
-              <input
-                className="field"
-                value={form.currency}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, currency: e.target.value }))
-                }
-                maxLength={8}
               />
             </label>
             <label className="admin-field">
@@ -354,8 +531,9 @@ export function ProductForm({
                   }))
                 }
               >
+                <option value="published">Published (live)</option>
                 <option value="draft">Draft</option>
-                <option value="published">Published</option>
+                <option value="sold">Sold</option>
                 <option value="archived">Archived</option>
               </select>
             </label>
@@ -407,11 +585,39 @@ export function ProductForm({
               disabled={saving}
             >
               {saving
-                ? "Saving…"
+                ? pendingFiles.length
+                  ? "Saving & uploading…"
+                  : "Saving…"
                 : isEdit
                   ? "Save changes"
-                  : "Create & add photos"}
+                  : pendingFiles.length
+                    ? `Save with ${pendingFiles.length} photo${pendingFiles.length === 1 ? "" : "s"}`
+                    : "Save product"}
             </button>
+            {isEdit && currentId && channelConnected ? (
+              <button
+                type="button"
+                className="btn btn-ghost"
+                disabled={saving || posting}
+                onClick={() => void onPostToTelegram()}
+              >
+                {posting
+                  ? "Posting…"
+                  : sourceMessageId
+                    ? "Re-post to Telegram"
+                    : "Post to Telegram"}
+              </button>
+            ) : null}
+            {telegramUrl ? (
+              <a
+                href={telegramUrl}
+                className="btn btn-ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on Telegram
+              </a>
+            ) : null}
             {isEdit ? (
               <button
                 type="button"
@@ -423,31 +629,40 @@ export function ProductForm({
               </button>
             ) : null}
           </div>
+          {postNote ? <p className="admin-success">{postNote}</p> : null}
           {!isEdit ? (
             <p className="admin-hint">
-              Create the listing first, then you’ll upload a multi-image gallery
-              on the next screen.
+              Add photos above, fill in the details, then save once.
+            </p>
+          ) : !channelConnected ? (
+            <p className="admin-hint">
+              Connect a channel to post this product to Telegram with an Open in
+              shop button.
             </p>
           ) : null}
         </section>
 
-        {currentId ? (
-          <div className="admin-panel">
-            <ProductImageGallery
-              productId={currentId}
-              images={images}
-              onChange={(product) => {
-                setImages(product.images);
-                setSlug(product.slug);
-              }}
-            />
-          </div>
-        ) : null}
-
-        {isEdit && fromChannel ? (
+        {(isEdit && fromChannel) || telegramUrl ? (
           <section className="admin-panel">
-            <p className="admin-kicker">Channel source</p>
-            <h2 className="admin-h2">Import details</h2>
+            <p className="admin-kicker">Telegram</p>
+            <h2 className="admin-h2">Channel link</h2>
+            {telegramUrl ? (
+              <p className="admin-muted">
+                Linked to a channel post.{" "}
+                <a
+                  href={telegramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open on Telegram
+                </a>
+              </p>
+            ) : (
+              <p className="admin-muted">
+                Imported from Telegram (private link unavailable without a
+                public @username).
+              </p>
+            )}
             <dl className="admin-meta-list">
               {confidence != null ? (
                 <>
@@ -461,15 +676,19 @@ export function ProductForm({
                   <dd className="admin-mono">{sourceMessageId}</dd>
                 </>
               ) : null}
+              {sourceChatId ? (
+                <>
+                  <dt>Chat id</dt>
+                  <dd className="admin-mono">{sourceChatId}</dd>
+                </>
+              ) : null}
             </dl>
             {rawCaption ? (
               <>
                 <p className="admin-hint">Original caption</p>
                 <pre className="admin-raw-caption">{rawCaption}</pre>
               </>
-            ) : (
-              <p className="admin-muted">No caption captured.</p>
-            )}
+            ) : null}
           </section>
         ) : null}
       </div>
@@ -477,9 +696,9 @@ export function ProductForm({
       <aside className="admin-editor-aside admin-panel">
         <p className="admin-kicker">Live preview</p>
         <div className="admin-preview-media">
-          {cover?.src ? (
+          {coverSrc ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={cover.src} alt="" />
+            <img src={coverSrc} alt="" />
           ) : (
             <span className="admin-muted">No cover image yet</span>
           )}
@@ -529,9 +748,17 @@ export function ProductForm({
               ))}
           </div>
         ) : null}
-        {slug && form.status === "published" ? (
+        {slug && (form.status === "published" || form.status === "sold") ? (
           <Link href={`/p/${slug}`} className="btn btn-ghost btn-sm">
-            Open public page
+            {form.status === "sold" ? "Open sold page" : "Open public page"}
+          </Link>
+        ) : null}
+        {isEdit && currentId ? (
+          <Link
+            href={`/dashboard/s/${shopSlug}/inbox?productId=${currentId}`}
+            className="btn btn-ghost btn-sm"
+          >
+            Messages
           </Link>
         ) : null}
       </aside>

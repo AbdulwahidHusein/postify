@@ -249,11 +249,7 @@ export function ShopOverview() {
 
         <div className="admin-stat-grid">
           <div className="admin-stat">
-            <span>Total</span>
-            <strong>{counts?.total ?? 0}</strong>
-          </div>
-          <div className="admin-stat">
-            <span>Published</span>
+            <span>Live</span>
             <strong>{counts?.published ?? 0}</strong>
           </div>
           <div className="admin-stat">
@@ -261,8 +257,12 @@ export function ShopOverview() {
             <strong>{draftCount}</strong>
           </div>
           <div className="admin-stat">
-            <span>Archived</span>
-            <strong>{counts?.archived ?? 0}</strong>
+            <span>Sold</span>
+            <strong>{counts?.sold ?? 0}</strong>
+          </div>
+          <div className="admin-stat">
+            <span>Total</span>
+            <strong>{counts?.total ?? 0}</strong>
           </div>
         </div>
 
@@ -314,6 +314,28 @@ export function ShopOverview() {
           </section>
         ) : null}
 
+        {(counts?.sold ?? 0) > 0 ? (
+          <section className="admin-panel">
+            <div className="admin-section-head">
+              <div>
+                <p className="admin-kicker">Sold</p>
+                <h2 className="admin-h2">
+                  {counts?.sold} sold item{counts?.sold === 1 ? "" : "s"}
+                </h2>
+                <p className="admin-muted">
+                  Hidden from the public shop. Relist anytime.
+                </p>
+              </div>
+              <Link
+                href={`/dashboard/s/${shop.slug}/products?status=sold`}
+                className="btn btn-ghost btn-sm"
+              >
+                View sold
+              </Link>
+            </div>
+          </section>
+        ) : null}
+
         <div className="admin-split">
           <section className="admin-panel">
             <p className="admin-kicker">Catalog</p>
@@ -323,7 +345,7 @@ export function ShopOverview() {
                 ? channel
                   ? "Post in Telegram or add a listing manually."
                   : "Connect a channel first, or add products by hand."
-                : "Browse listings, fix prices, publish or archive."}
+                : "Browse listings, mark sold, publish or archive."}
             </p>
             <div className="admin-actions">
               <Link

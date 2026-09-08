@@ -11,6 +11,8 @@ export type AdminShop = {
     ownerUsername?: string | null;
     ownerPhone?: string | null;
     sellCategories?: string[];
+    logoUrl?: string | null;
+    logoSource?: "telegram" | "upload" | null;
   };
   createdAt: string;
   updatedAt: string;
@@ -39,11 +41,12 @@ export type AdminProduct = {
   sku: string | null;
   stockQuantity: number | null;
   tags: string | null;
-  status: "draft" | "published" | "archived";
+  status: "draft" | "published" | "sold" | "archived";
   confidence: number | null;
   rawCaption?: string | null;
   sourceChatId?: string | null;
   sourceMessageId?: number | null;
+  telegramUrl?: string | null;
   createdAt: string;
   updatedAt: string;
   images: AdminProductImage[];
@@ -61,6 +64,7 @@ export type AdminChannel = {
 export type ProductCounts = {
   draft: number;
   published: number;
+  sold: number;
   archived: number;
   total: number;
 };

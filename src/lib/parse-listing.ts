@@ -4,12 +4,20 @@ export type ParsedListing = {
   title: string;
   description: string;
   price: number | null;
+  compareAtPrice: number | null;
   currency: string | null;
+  category: string | null;
+  tags: string[];
+  sku: string | null;
+  /** Optional clean slug stem from the model; still uniquified on insert. */
+  slugHint: string | null;
+  source: "gemini" | "heuristic";
 };
 
 const PRICE_RE =
   /(?:^|\s)(?:price[:\s]*)?(?:ETB|ብር|birr|usd|\$|eur|€)?\s*([0-9]{1,3}(?:[,\s][0-9]{3})*(?:\.[0-9]+)?|[0-9]+(?:\.[0-9]+)?)\s*(?:ETB|ብር|birr|usd|\$|eur|€)?(?:\s|$)/i;
 
+/** Fast local caption parse — used when Gemini is unavailable or fails. */
 export function parseListingCaption(
   caption: string,
   opts?: { defaultCurrency?: string; hasMedia?: boolean },
@@ -25,7 +33,13 @@ export function parseListingCaption(
       title: "Untitled",
       description: "",
       price: null,
+      compareAtPrice: null,
       currency: null,
+      category: null,
+      tags: [],
+      sku: null,
+      slugHint: null,
+      source: "heuristic",
     };
   }
 
@@ -58,14 +72,26 @@ export function parseListingCaption(
 
   const isProduct = hasMedia || price !== null || title.length >= 3;
   const confidence =
-    hasMedia && price !== null ? 0.85 : hasMedia ? 0.7 : price !== null ? 0.6 : 0.4;
+    hasMedia && price !== null
+      ? 0.85
+      : hasMedia
+        ? 0.7
+        : price !== null
+          ? 0.6
+          : 0.4;
 
   return {
     isProduct,
     confidence,
     title: title.slice(0, 120) || "Channel listing",
-    description: description.slice(0, 2000),
+    description: description.slice(0, 4000),
     price,
+    compareAtPrice: null,
     currency: currency ?? defaultCurrency,
+    category: null,
+    tags: [],
+    sku: null,
+    slugHint: null,
+    source: "heuristic",
   };
 }

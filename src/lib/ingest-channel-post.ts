@@ -10,7 +10,10 @@ import {
   pickBestPhotoFileId,
   type ChannelIngestResult,
 } from "@/lib/products";
-import { parseListingCaption } from "@/lib/parse-listing";
+import {
+  extractListingFromCaption,
+  formatListingTags,
+} from "@/lib/llm/extract-listing";
 import { normalizeShopSettings } from "@/lib/shops";
 
 type IngestReplyHandlers = {
@@ -89,9 +92,10 @@ async function appendPhotos(
       const shop = await getShop(product.shopId);
       if (shop) {
         const settings = normalizeShopSettings(shop.settings);
-        const parsed = parseListingCaption(trimmed, {
+        const parsed = await extractListingFromCaption(trimmed, {
           defaultCurrency: settings.defaultCurrency,
           hasMedia: true,
+          preferredCategories: settings.sellCategories ?? [],
         });
         await db
           .update(products)
@@ -99,7 +103,14 @@ async function appendPhotos(
             title: parsed.title,
             description: parsed.description || null,
             price: parsed.price !== null ? String(parsed.price) : null,
+            compareAtPrice:
+              parsed.compareAtPrice !== null
+                ? String(parsed.compareAtPrice)
+                : null,
             currency: parsed.currency ?? settings.defaultCurrency,
+            category: parsed.category,
+            sku: parsed.sku,
+            tags: formatListingTags(parsed.tags),
             confidence: String(parsed.confidence),
             rawCaption: trimmed,
             status: "published",

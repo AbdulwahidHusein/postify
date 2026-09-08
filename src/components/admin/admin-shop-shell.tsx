@@ -15,6 +15,7 @@ import type { AdminShop } from "@/components/admin/types";
 const SHOP_NAV = [
   { href: "", label: "Overview", exact: true },
   { href: "/products", label: "Products", exact: false },
+  { href: "/inbox", label: "Inbox", exact: false },
   { href: "/channels", label: "Channels", exact: false },
   { href: "/settings", label: "Settings", exact: false },
 ] as const;

@@ -24,7 +24,7 @@ const patchSchema = z.object({
   sku: z.string().trim().max(64).optional().nullable(),
   stockQuantity: z.number().int().nonnegative().nullable().optional(),
   tags: z.string().trim().max(240).optional().nullable(),
-  status: z.enum(["draft", "published", "archived"]).optional(),
+  status: z.enum(["draft", "published", "sold", "archived"]).optional(),
 });
 
 async function requireOwnedProduct(productId: string, userId: string) {

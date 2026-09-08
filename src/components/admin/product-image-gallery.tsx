@@ -1,24 +1,63 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { AdminProduct, AdminProductImage } from "@/components/admin/types";
 
-type Props = {
-  productId: string;
-  images: AdminProductImage[];
-  onChange: (product: AdminProduct) => void;
+export type PendingImage = {
+  id: string;
+  file: File;
+  previewUrl: string;
 };
 
-export function ProductImageGallery({ productId, images, onChange }: Props) {
+type Props = {
+  productId?: string | null;
+  images: AdminProductImage[];
+  pendingFiles?: PendingImage[];
+  onPendingChange?: (files: PendingImage[]) => void;
+  onChange?: (product: AdminProduct) => void;
+};
+
+function makePending(files: File[]): PendingImage[] {
+  return files.map((file) => ({
+    id: `pending-${crypto.randomUUID()}`,
+    file,
+    previewUrl: URL.createObjectURL(file),
+  }));
+}
+
+export function ProductImageGallery({
+  productId,
+  images,
+  pendingFiles = [],
+  onPendingChange,
+  onChange,
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [activeId, setActiveId] = useState<string | null>(images[0]?.id ?? null);
+  const [activeId, setActiveId] = useState<string | null>(
+    images[0]?.id ?? pendingFiles[0]?.id ?? null,
+  );
   const [dragOver, setDragOver] = useState(false);
 
-  const active =
-    images.find((img) => img.id === activeId) ?? images[0] ?? null;
+  useEffect(() => {
+    if (images[0]?.id) setActiveId(images[0].id);
+    else if (pendingFiles[0]?.id) setActiveId(pendingFiles[0].id);
+  }, [images, pendingFiles]);
+
+  useEffect(() => {
+    return () => {
+      // revoke only on unmount of pending urls owned here — parent may revoke on remove
+    };
+  }, []);
+
+  const savedActive = images.find((img) => img.id === activeId) ?? null;
+  const pendingActive =
+    pendingFiles.find((img) => img.id === activeId) ?? null;
+  const heroSrc = savedActive?.src ?? pendingActive?.previewUrl ?? null;
+  const totalCount = images.length + pendingFiles.length;
+  const canAdd = totalCount < 12;
 
   async function applyProduct(res: Response) {
     const data = (await res.json()) as {
@@ -27,14 +66,35 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
     };
     if (!res.ok) throw new Error(data.error ?? "Request failed");
     if (data.product) {
-      onChange(data.product);
-      if (data.product.images.length && !data.product.images.some((i) => i.id === activeId)) {
+      onChange?.(data.product);
+      if (
+        data.product.images.length &&
+        !data.product.images.some((i) => i.id === activeId)
+      ) {
         setActiveId(data.product.images[0]?.id ?? null);
       }
     }
   }
 
+  function addPending(fileList: FileList | File[]) {
+    const incoming = Array.from(fileList).filter((f) =>
+      f.type.startsWith("image/"),
+    );
+    if (!incoming.length || !onPendingChange) return;
+    const room = 12 - totalCount;
+    const next = makePending(incoming.slice(0, Math.max(0, room)));
+    if (!next.length) return;
+    onPendingChange([...pendingFiles, ...next]);
+    setActiveId(next[0]?.id ?? activeId);
+  }
+
   async function uploadFiles(files: FileList | File[]) {
+    if (!productId) {
+      addPending(files);
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
+
     const list = Array.from(files);
     if (!list.length) return;
     setUploading(true);
@@ -58,7 +118,8 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
     }
   }
 
-  async function onDelete(imageId: string) {
+  async function onDeleteSaved(imageId: string) {
+    if (!productId) return;
     if (!confirm("Remove this image?")) return;
     setBusyId(imageId);
     setError(null);
@@ -75,13 +136,25 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
     }
   }
 
+  function onDeletePending(imageId: string) {
+    if (!onPendingChange) return;
+    const target = pendingFiles.find((p) => p.id === imageId);
+    if (target) URL.revokeObjectURL(target.previewUrl);
+    const next = pendingFiles.filter((p) => p.id !== imageId);
+    onPendingChange(next);
+    if (activeId === imageId) {
+      setActiveId(images[0]?.id ?? next[0]?.id ?? null);
+    }
+  }
+
   async function move(imageId: string, dir: -1 | 1) {
+    if (!productId) return;
     const index = images.findIndex((i) => i.id === imageId);
     const next = index + dir;
     if (index < 0 || next < 0 || next >= images.length) return;
     const ordered = [...images];
     const [item] = ordered.splice(index, 1);
-    ordered.splice(next, 0, item);
+    ordered.splice(next, 0, item!);
     setBusyId(imageId);
     setError(null);
     try {
@@ -100,10 +173,8 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
   }
 
   async function makeCover(imageId: string) {
-    if (images[0]?.id === imageId) return;
+    if (!productId || images[0]?.id === imageId) return;
     const rest = images.filter((i) => i.id !== imageId);
-    const target = images.find((i) => i.id === imageId);
-    if (!target) return;
     setBusyId(imageId);
     try {
       const res = await fetch(`/api/products/${productId}/images`, {
@@ -122,24 +193,36 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
     }
   }
 
+  function movePending(imageId: string, dir: -1 | 1) {
+    if (!onPendingChange) return;
+    const index = pendingFiles.findIndex((i) => i.id === imageId);
+    const next = index + dir;
+    if (index < 0 || next < 0 || next >= pendingFiles.length) return;
+    const ordered = [...pendingFiles];
+    const [item] = ordered.splice(index, 1);
+    ordered.splice(next, 0, item!);
+    onPendingChange(ordered);
+  }
+
   return (
     <section className="gallery">
       <div className="gallery-head">
         <div>
-          <p className="admin-kicker">Media</p>
+          <p className="admin-kicker">Photos</p>
           <h2 className="admin-h2">Product gallery</h2>
           <p className="admin-hint">
-            Up to 12 images · JPG, PNG, WebP, GIF · max 8MB each. First image is
-            the cover.
+            {productId
+              ? "Up to 12 images · first is cover."
+              : "Add photos now — they upload when you save the product."}
           </p>
         </div>
         <button
           type="button"
           className="btn btn-primary btn-sm"
-          disabled={uploading || images.length >= 12}
+          disabled={uploading || !canAdd}
           onClick={() => inputRef.current?.click()}
         >
-          {uploading ? "Uploading…" : "Add images"}
+          {uploading ? "Uploading…" : "Add photos"}
         </button>
         <input
           ref={inputRef}
@@ -178,7 +261,7 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
             void uploadFiles(e.dataTransfer.files);
           }
         }}
-        onClick={() => !uploading && inputRef.current?.click()}
+        onClick={() => !uploading && canAdd && inputRef.current?.click()}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
@@ -188,24 +271,24 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
           }
         }}
       >
-        {active?.src ? (
+        {heroSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={active.src} alt={active.alt ?? ""} className="gallery-hero" />
+          <img src={heroSrc} alt="" className="gallery-hero" />
         ) : (
           <div className="gallery-empty">
-            <strong>Drop images here</strong>
-            <span>or click to browse your files</span>
+            <strong>Add product photos</strong>
+            <span>Tap or drop images here</span>
           </div>
         )}
       </div>
 
-      {images.length > 0 ? (
+      {totalCount > 0 ? (
         <div className="gallery-thumbs">
           {images.map((image, index) => (
             <div
               key={image.id}
               className={
-                image.id === active?.id
+                image.id === activeId
                   ? "gallery-thumb is-active"
                   : "gallery-thumb"
               }
@@ -219,7 +302,9 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={image.src} alt="" />
                 ) : null}
-                {index === 0 ? <span className="gallery-cover">Cover</span> : null}
+                {index === 0 ? (
+                  <span className="gallery-cover">Cover</span>
+                ) : null}
               </button>
               <div className="gallery-thumb-actions">
                 <button
@@ -227,16 +312,16 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
                   className="btn btn-ghost btn-xs"
                   disabled={busyId === image.id || index === 0}
                   onClick={() => void move(image.id, -1)}
-                  aria-label="Move left"
                 >
                   ←
                 </button>
                 <button
                   type="button"
                   className="btn btn-ghost btn-xs"
-                  disabled={busyId === image.id || index === images.length - 1}
+                  disabled={
+                    busyId === image.id || index === images.length - 1
+                  }
                   onClick={() => void move(image.id, 1)}
-                  aria-label="Move right"
                 >
                   →
                 </button>
@@ -254,7 +339,57 @@ export function ProductImageGallery({ productId, images, onChange }: Props) {
                   type="button"
                   className="btn btn-ghost btn-xs is-danger"
                   disabled={busyId === image.id}
-                  onClick={() => void onDelete(image.id)}
+                  onClick={() => void onDeleteSaved(image.id)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+
+          {pendingFiles.map((image, index) => (
+            <div
+              key={image.id}
+              className={
+                image.id === activeId
+                  ? "gallery-thumb is-active"
+                  : "gallery-thumb"
+              }
+            >
+              <button
+                type="button"
+                className="gallery-thumb-btn"
+                onClick={() => setActiveId(image.id)}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={image.previewUrl} alt="" />
+                {images.length === 0 && index === 0 ? (
+                  <span className="gallery-cover">Cover</span>
+                ) : (
+                  <span className="gallery-cover">Ready</span>
+                )}
+              </button>
+              <div className="gallery-thumb-actions">
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-xs"
+                  disabled={index === 0}
+                  onClick={() => movePending(image.id, -1)}
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-xs"
+                  disabled={index === pendingFiles.length - 1}
+                  onClick={() => movePending(image.id, 1)}
+                >
+                  →
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-xs is-danger"
+                  onClick={() => onDeletePending(image.id)}
                 >
                   Remove
                 </button>

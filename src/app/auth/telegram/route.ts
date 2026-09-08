@@ -15,12 +15,12 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${appUrl}/dashboard?auth=missing`);
   }
 
-  const userId = await consumeLoginToken(token);
-  if (!userId) {
+  const consumed = await consumeLoginToken(token);
+  if (!consumed) {
     return NextResponse.redirect(`${appUrl}/dashboard?auth=expired`);
   }
 
-  const user = await getUserById(userId);
+  const user = await getUserById(consumed.userId);
   if (!user) {
     return NextResponse.redirect(`${appUrl}/dashboard?auth=expired`);
   }
@@ -30,5 +30,9 @@ export async function GET(request: Request) {
     telegramId: user.telegramId.toString(),
   });
 
-  return NextResponse.redirect(`${appUrl}/dashboard?auth=ok`);
+  const next = consumed.redirectPath.startsWith("/")
+    ? consumed.redirectPath
+    : "/dashboard?auth=ok";
+
+  return NextResponse.redirect(`${appUrl}${next}`);
 }

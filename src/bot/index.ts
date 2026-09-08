@@ -2,7 +2,7 @@ import "server-only";
 
 import { Bot, type Context } from "grammy";
 import { requireBotToken, serverEnv } from "@/lib/env.server";
-import { createLoginTokenForIdentity } from "@/lib/auth/login-tokens";
+import { createLoginTokenForIdentity, redirectPathFromStartPayload } from "@/lib/auth/login-tokens";
 import {
   chatFingerprint,
   connectChannelToShop,
@@ -12,14 +12,19 @@ import {
   touchChannelPost,
 } from "@/lib/channels";
 import { ingestChannelListing } from "@/lib/ingest-channel-post";
+import { syncShopLogoFromTelegramChat } from "@/lib/shop-logo";
 import { db } from "@/db";
 import { shops } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import {
+  handleChatStartPayload,
+  registerChatBotHandlers,
+} from "@/bot/chat-handlers";
 
 export type BotContext = Context;
 
 const globalForBot = globalThis as unknown as {
-  postifyBotV7?: Bot;
+  postifyBotV12?: Bot;
 };
 
 function appUrl() {
@@ -41,29 +46,73 @@ function buildBot() {
     const payload = (ctx.match ?? "").toString().trim();
     const from = ctx.from;
 
-    if (payload === "auth" && from) {
-      const { token } = await createLoginTokenForIdentity({
-        telegramId: BigInt(from.id),
-        firstName: from.first_name,
-        lastName: from.last_name,
-        username: from.username,
-        languageCode: from.language_code,
-        isPremium: Boolean(from.is_premium),
-        photoUrl: undefined,
-      });
+    const isAuthPayload =
+      payload === "auth" ||
+      payload === "auth_inbox" ||
+      payload.startsWith("auth_msg_");
+
+    if (isAuthPayload && from) {
+      const redirectPath = redirectPathFromStartPayload(payload);
+      const { token } = await createLoginTokenForIdentity(
+        {
+          telegramId: BigInt(from.id),
+          firstName: from.first_name,
+          lastName: from.last_name,
+          username: from.username,
+          languageCode: from.language_code,
+          isPremium: Boolean(from.is_premium),
+          photoUrl: undefined,
+        },
+        { redirectPath },
+      );
 
       const confirmUrl = `${appUrl()}/auth/telegram?token=${token}`;
+      const forMessage = payload.startsWith("auth_msg_");
       await ctx.reply(
-        "Tap below to finish signing in on the website. This link works once and expires in 10 minutes.",
+        forMessage
+          ? "Tap below to finish signing in — you’ll return to message the seller."
+          : "Tap below to finish signing in on the website. This link works once and expires in 10 minutes.",
         {
           reply_markup: {
             inline_keyboard: [
-              [{ text: "Confirm login on website", url: confirmUrl }],
+              [
+                {
+                  text: forMessage
+                    ? "Confirm & open chat"
+                    : "Confirm login on website",
+                  url: confirmUrl,
+                },
+              ],
             ],
           },
         },
       );
       return;
+    }
+
+    if (payload.startsWith("c_")) {
+      const chatStart = await handleChatStartPayload(payload);
+      if (chatStart) {
+        await ctx.reply("Open your chat in Postify:", {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: "Open chat",
+                  web_app: { url: `${appUrl()}/inbox/${chatStart.id}` },
+                },
+              ],
+              [
+                {
+                  text: "Open in browser",
+                  url: `${appUrl()}/inbox/${chatStart.id}`,
+                },
+              ],
+            ],
+          },
+        });
+        return;
+      }
     }
 
     await ctx.reply(
@@ -92,6 +141,8 @@ function buildBot() {
       },
     );
   });
+
+  registerChatBotHandlers(bot);
 
   bot.command("help", async (ctx) => {
     await ctx.reply(
@@ -172,6 +223,15 @@ function buildBot() {
           title: post.chat.title,
           username: post.chat.username,
         });
+        try {
+          await syncShopLogoFromTelegramChat({
+            shop,
+            telegramChatId: chatId,
+            channelUsername: post.chat.username,
+          });
+        } catch (logoError) {
+          console.warn("[bot] channel logo sync failed", logoError);
+        }
         await ctx.reply(
           `Connected to ${shop.name} ✓\nNow post a product (photo + caption with price). I’ll reply with a shop link.`,
         );
@@ -190,6 +250,13 @@ function buildBot() {
 
     const channel = await getChannelByTelegramChatId(chatId);
     if (!channel) {
+      return;
+    }
+
+    // Bot-authored posts already include Open in shop — never reply or re-ingest.
+    const me = await ctx.api.getMe();
+    if (post.from?.id === me.id || post.from?.is_bot) {
+      await touchChannelPost(channel.id, post.message_id);
       return;
     }
 
@@ -245,8 +312,8 @@ export function getBot(): Bot {
     throw new Error("TELEGRAM_BOT_TOKEN is not configured");
   }
 
-  if (!globalForBot.postifyBotV7) {
-    globalForBot.postifyBotV7 = buildBot();
+  if (!globalForBot.postifyBotV12) {
+    globalForBot.postifyBotV12 = buildBot();
   }
-  return globalForBot.postifyBotV7;
+  return globalForBot.postifyBotV12;
 }

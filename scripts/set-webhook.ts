@@ -25,6 +25,7 @@ async function main() {
     url,
     allowed_updates: [
       "message",
+      "callback_query",
       "channel_post",
       "edited_channel_post",
       "my_chat_member",

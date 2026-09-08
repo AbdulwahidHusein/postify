@@ -5,34 +5,36 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { backButton } from "@tma.js/sdk";
 import { useTelegram } from "@/lib/telegram/context";
-import { useAuth } from "@/components/providers/auth-provider";
+import type { ShopViewer } from "@/lib/viewer";
 
 type Props = {
   shopSlug?: string;
   shopName?: string;
-  /** When on a product, back goes to the shop. */
   backHref?: string;
   backLabel?: string;
+  viewer: ShopViewer;
+  /** Optional deep link when viewer owns this shop (e.g. edit product). */
+  ownerPrimaryHref?: string;
+  ownerPrimaryLabel?: string;
 };
 
-/**
- * Visible navigation for storefront pages (esp. Telegram WebView / Mini App,
- * where the marketing header is hidden and history can feel locked).
- */
 export function StorefrontNav({
   shopSlug,
   shopName,
   backHref,
   backLabel = "Back",
+  viewer,
+  ownerPrimaryHref,
+  ownerPrimaryLabel = "Manage",
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const { isTma, ready } = useTelegram();
-  const { user } = useAuth();
 
   const shopPath = shopSlug ? `/s/${shopSlug}` : null;
   const canGoShop = Boolean(shopPath && pathname !== shopPath);
   const resolvedBack = backHref ?? (canGoShop ? shopPath! : null);
+  const isOwner = viewer.kind === "owner";
 
   useEffect(() => {
     if (!ready || !isTma) return;
@@ -55,7 +57,7 @@ export function StorefrontNav({
         router.back();
         return;
       }
-      router.push(shopPath || "/dashboard");
+      router.push(shopPath || "/");
     });
 
     return () => {
@@ -69,45 +71,67 @@ export function StorefrontNav({
   }, [ready, isTma, resolvedBack, shopPath, router]);
 
   return (
-    <nav className="storefront-nav" aria-label="Shop">
+    <nav
+      className={isOwner ? "storefront-nav is-owner" : "storefront-nav is-buyer"}
+      aria-label="Shop"
+    >
       <div className="storefront-nav-left">
         {resolvedBack ? (
           <Link href={resolvedBack} className="storefront-nav-back">
             ← {backLabel}
-          </Link>
-        ) : user ? (
-          <Link href="/dashboard" className="storefront-nav-back">
-            ← Dashboard
           </Link>
         ) : (
           <Link href="/" className="storefront-nav-back">
             ← Home
           </Link>
         )}
-        {shopName && shopPath ? (
+        {/* Shop name only when not already on the shop page (title lives in the body). */}
+        {shopName && shopPath && canGoShop ? (
           <Link href={shopPath} className="storefront-nav-shop">
             {shopName}
           </Link>
         ) : null}
+        {isOwner ? (
+          <span className="storefront-nav-badge">Your shop</span>
+        ) : null}
       </div>
+
       <div className="storefront-nav-right">
-        {canGoShop && shopPath ? (
-          <Link href={shopPath} className="btn btn-ghost btn-sm">
-            View shop
+        {shopPath && canGoShop && !isOwner ? (
+          <Link href={shopPath} className="storefront-nav-all">
+            All products
           </Link>
         ) : null}
-        {user ? (
+
+        {/* One owner action in the chrome — page body owns any extra (e.g. Add product). */}
+        {isOwner ? (
           <Link
-            href={shopSlug ? `/dashboard/s/${shopSlug}` : "/dashboard"}
+            href={
+              ownerPrimaryHref ?? `/dashboard/s/${viewer.shopSlug}`
+            }
             className="btn btn-primary btn-sm"
           >
-            Manage
+            {ownerPrimaryHref ? ownerPrimaryLabel : "Dashboard"}
           </Link>
-        ) : (
+        ) : null}
+
+        {viewer.kind === "signed_in" && viewer.hasAnyShop ? (
           <Link href="/dashboard" className="btn btn-ghost btn-sm">
-            Seller login
+            My shops
           </Link>
-        )}
+        ) : null}
+
+        {viewer.kind === "signed_in" && !viewer.hasAnyShop ? (
+          <Link href="/dashboard" className="btn btn-primary btn-sm">
+            Create your store
+          </Link>
+        ) : null}
+
+        {viewer.kind === "guest" ? (
+          <Link href="/dashboard" className="btn btn-ghost btn-sm">
+            Sell on Postify
+          </Link>
+        ) : null}
       </div>
     </nav>
   );

@@ -9,18 +9,35 @@ import { upsertTelegramUser } from "@/lib/auth/users";
 
 const TTL_MS = 1000 * 60 * 10; // 10 minutes
 
-export async function createLoginTokenForIdentity(identity: TelegramIdentity) {
+/** Only allow same-origin relative paths (open-redirect safe). */
+export function sanitizeAuthRedirect(path: string | null | undefined): string {
+  const fallback = "/dashboard?auth=ok";
+  if (!path) return fallback;
+  const trimmed = path.trim();
+  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return fallback;
+  if (trimmed.includes("://") || trimmed.includes("\\")) return fallback;
+  return trimmed;
+}
+
+export async function createLoginTokenForIdentity(
+  identity: TelegramIdentity,
+  opts?: { redirectPath?: string | null },
+) {
   const user = await upsertTelegramUser(identity);
   const token = randomBytes(24).toString("hex");
   const expiresAt = new Date(Date.now() + TTL_MS);
+  const redirectPath = opts?.redirectPath
+    ? sanitizeAuthRedirect(opts.redirectPath)
+    : null;
 
   await db.insert(loginTokens).values({
     token,
     userId: user.id,
+    redirectPath,
     expiresAt,
   });
 
-  return { token, expiresAt, user };
+  return { token, expiresAt, user, redirectPath };
 }
 
 export async function consumeLoginToken(token: string) {
@@ -39,5 +56,26 @@ export async function consumeLoginToken(token: string) {
     .set({ usedAt: new Date() })
     .where(eq(loginTokens.id, row.id));
 
-  return row.userId;
+  return {
+    userId: row.userId,
+    redirectPath: sanitizeAuthRedirect(row.redirectPath),
+  };
+}
+
+/**
+ * Map Telegram /start payload → post-login path.
+ * - auth → dashboard (sellers / default)
+ * - auth_msg_<productUuid> → resume messaging that product
+ * - auth_inbox → buyer inbox
+ */
+export function redirectPathFromStartPayload(payload: string): string {
+  const p = payload.trim();
+  if (p === "auth_inbox") return "/inbox";
+
+  const msg = /^auth_msg_([0-9a-f-]{36})$/i.exec(p);
+  if (msg) {
+    return `/auth/continue?message=${msg[1]}`;
+  }
+
+  return "/dashboard?auth=ok";
 }

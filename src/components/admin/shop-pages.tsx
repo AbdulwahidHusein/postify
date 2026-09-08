@@ -8,6 +8,8 @@ import { ChannelPanel } from "@/components/admin/channel-panel";
 import { ProductForm } from "@/components/admin/product-form";
 import { ProductTable } from "@/components/admin/product-table";
 import { SettingsForm } from "@/components/admin/settings-form";
+import { SellerInboxList } from "@/components/chat/seller-inbox";
+import { ChatThread } from "@/components/chat/chat-thread";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import { useAuth } from "@/components/providers/auth-provider";
 import type { AdminShop } from "@/components/admin/types";
@@ -51,6 +53,7 @@ export function ProductsPageClient({ shopSlug }: { shopSlug: string }) {
   const initialStatus =
     statusParam === "draft" ||
     statusParam === "published" ||
+    statusParam === "sold" ||
     statusParam === "archived" ||
     statusParam === "all"
       ? statusParam
@@ -114,6 +117,36 @@ export function SettingsPageClient() {
   return (
     <Gate>
       {() => <SettingsForm />}
+    </Gate>
+  );
+}
+
+export function InboxPageClient({ shopSlug }: { shopSlug: string }) {
+  return (
+    <Gate>
+      {() => <SellerInboxList shopSlug={shopSlug} />}
+    </Gate>
+  );
+}
+
+export function InboxThreadPageClient({
+  shopSlug,
+  conversationId,
+}: {
+  shopSlug: string;
+  conversationId: string;
+}) {
+  return (
+    <Gate>
+      {() => (
+        <ChatThread
+          conversationId={conversationId}
+          role="seller"
+          showClose
+          backHref={`/dashboard/s/${shopSlug}/inbox`}
+          backLabel="Inbox"
+        />
+      )}
     </Gate>
   );
 }

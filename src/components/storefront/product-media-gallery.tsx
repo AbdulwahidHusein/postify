@@ -20,28 +20,36 @@ export function ProductMediaGallery({
   const current = usable[active] ?? usable[0];
 
   if (!usable.length) {
-    return <div className="product-media">No image</div>;
+    return (
+      <div className="buy-gallery">
+        <div className="buy-gallery-stage buy-gallery-empty">
+          <span>No photo yet</span>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="product-gallery">
-      <div className="product-media">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={current.src!} alt={current.alt || title} />
-      </div>
+    <div
+      className={
+        usable.length > 1 ? "buy-gallery has-thumbs" : "buy-gallery"
+      }
+    >
       {usable.length > 1 ? (
-        <div className="product-gallery-thumbs">
+        <div className="buy-gallery-thumbs" role="list">
           {usable.map((image, index) => (
             <button
               key={image.id}
               type="button"
+              role="listitem"
               className={
                 index === active
-                  ? "product-gallery-thumb is-active"
-                  : "product-gallery-thumb"
+                  ? "buy-gallery-thumb is-active"
+                  : "buy-gallery-thumb"
               }
               onClick={() => setActive(index)}
-              aria-label={`Show image ${index + 1}`}
+              aria-label={`Photo ${index + 1}`}
+              aria-pressed={index === active}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={image.src!} alt="" />
@@ -49,6 +57,11 @@ export function ProductMediaGallery({
           ))}
         </div>
       ) : null}
+
+      <div className="buy-gallery-stage">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={current!.src!} alt={current?.alt || title} />
+      </div>
     </div>
   );
 }

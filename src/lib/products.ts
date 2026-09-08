@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, asc, desc, eq, ilike, or, sql } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, ne, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import {
   productImages,
@@ -10,16 +10,26 @@ import {
   type ProductImage,
   type Shop,
 } from "@/db/schema";
-import { parseListingCaption } from "@/lib/parse-listing";
+import {
+  extractListingFromCaption,
+  formatListingTags,
+} from "@/lib/llm/extract-listing";
+import {
+  ADMIN_PAGE_SIZE,
+  buildPageMeta,
+  normalizePagination,
+  type PageMeta,
+} from "@/lib/pagination";
 import { normalizeShopSettings } from "@/lib/shops";
 import { slugify, uniqueSlugHint } from "@/lib/slug";
 import { deleteLocalProductImage } from "@/lib/storage";
+import { telegramMessageUrl } from "@/lib/telegram-links";
 
 export type IncomingPhoto = {
   fileId: string;
 };
 
-export type ProductStatus = "draft" | "published" | "archived";
+export type ProductStatus = "draft" | "published" | "sold" | "archived";
 
 export type ProductWithImages = Product & { images: ProductImage[] };
 
@@ -57,9 +67,10 @@ export async function createProductFromChannelPost(input: {
   photos: IncomingPhoto[];
 }): Promise<ChannelIngestResult> {
   const settings = normalizeShopSettings(input.shop.settings);
-  const parsed = parseListingCaption(input.caption, {
+  const parsed = await extractListingFromCaption(input.caption, {
     defaultCurrency: settings.defaultCurrency || "ETB",
     hasMedia: input.photos.length > 0,
+    preferredCategories: settings.sellCategories ?? [],
   });
 
   if (!parsed.isProduct) {
@@ -95,7 +106,8 @@ export async function createProductFromChannelPost(input: {
   // Channel posts always publish — sellers can edit later in the dashboard.
   const status: ProductStatus = "published";
 
-  const baseSlug = slugify(parsed.title).slice(0, 40) || "item";
+  const baseSlug =
+    slugify(parsed.slugHint || parsed.title).slice(0, 40) || "item";
   const slug = `${baseSlug}-${uniqueSlugHint(
     `${input.chatId}-${input.messageId}-${Date.now()}`,
   )}`;
@@ -109,7 +121,12 @@ export async function createProductFromChannelPost(input: {
       title: parsed.title,
       description: parsed.description || null,
       price: parsed.price !== null ? String(parsed.price) : null,
+      compareAtPrice:
+        parsed.compareAtPrice !== null ? String(parsed.compareAtPrice) : null,
       currency: parsed.currency ?? settings.defaultCurrency,
+      category: parsed.category,
+      sku: parsed.sku,
+      tags: formatListingTags(parsed.tags),
       status,
       confidence: String(parsed.confidence),
       rawCaption: input.caption || null,
@@ -129,6 +146,12 @@ export async function createProductFromChannelPost(input: {
     );
   }
 
+  if (parsed.source === "gemini") {
+    console.info(
+      `[ingest] gemini listing shop=${input.shop.slug} title=${JSON.stringify(parsed.title)} price=${parsed.price} confidence=${parsed.confidence}`,
+    );
+  }
+
   return { outcome: "created", product };
 }
 
@@ -141,6 +164,7 @@ export async function getProductBySlug(slug: string) {
           orderBy: (img, { asc: orderAsc }) => [orderAsc(img.sortOrder)],
         },
         shop: true,
+        channel: true,
       },
     })) ?? null
   );
@@ -155,24 +179,23 @@ export async function getProductById(id: string) {
           orderBy: (img, { asc: orderAsc }) => [orderAsc(img.sortOrder)],
         },
         shop: true,
+        channel: true,
       },
     })) ?? null
   );
 }
 
-export async function listProductsForShop(
+function productListWhere(
   shopId: string,
   opts?: {
     q?: string;
     status?: ProductStatus | "all";
     category?: string;
-    limit?: number;
   },
 ) {
   const status = opts?.status ?? "all";
   const q = opts?.q?.trim();
   const category = opts?.category?.trim();
-  const limit = opts?.limit;
 
   const conditions = [eq(products.shopId, shopId)];
   if (status !== "all") {
@@ -193,21 +216,145 @@ export async function listProductsForShop(
       )!,
     );
   }
+  return and(...conditions);
+}
 
+export type ProductListPage = {
+  products: ProductWithImages[];
+  pagination: PageMeta;
+};
+
+/** Paginated product list. Always returns a page (never the full table). */
+export async function listProductsForShop(
+  shopId: string,
+  opts?: {
+    q?: string;
+    status?: ProductStatus | "all";
+    category?: string;
+    sort?: "newest" | "price_asc" | "price_desc";
+    page?: number;
+    pageSize?: number;
+    /** Alias for pageSize */
+    limit?: number;
+    defaultPageSize?: number;
+  },
+): Promise<ProductListPage> {
+  const { page, pageSize, offset } = normalizePagination({
+    page: opts?.page,
+    pageSize: opts?.pageSize,
+    limit: opts?.limit,
+    defaultPageSize: opts?.defaultPageSize ?? ADMIN_PAGE_SIZE,
+  });
+  const where = productListWhere(shopId, opts);
+  const sort = opts?.sort ?? "newest";
+  const orderBy =
+    sort === "price_asc"
+      ? [asc(products.price), desc(products.updatedAt)]
+      : sort === "price_desc"
+        ? [desc(products.price), desc(products.updatedAt)]
+        : [desc(products.updatedAt)];
+
+  const [rows, countRow] = await Promise.all([
+    db.query.products.findMany({
+      where,
+      with: {
+        images: {
+          orderBy: (img, { asc: orderAsc }) => [orderAsc(img.sortOrder)],
+        },
+      },
+      orderBy,
+      limit: pageSize,
+      offset,
+    }),
+    db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(products)
+      .where(where),
+  ]);
+
+  const total = countRow[0]?.count ?? 0;
+  const pagination = buildPageMeta(total, page, pageSize);
+
+  // If the requested page is past the end, refetch the last page.
+  if (pagination.page !== page && total > 0) {
+    const retryOffset = (pagination.page - 1) * pageSize;
+    const retryRows = await db.query.products.findMany({
+      where,
+      with: {
+        images: {
+          orderBy: (img, { asc: orderAsc }) => [orderAsc(img.sortOrder)],
+        },
+      },
+      orderBy,
+      limit: pageSize,
+      offset: retryOffset,
+    });
+    return { products: retryRows, pagination };
+  }
+
+  return { products: rows, pagination };
+}
+
+export async function listPublishedProductsForShop(
+  shopId: string,
+  opts?: {
+    page?: number;
+    pageSize?: number;
+    q?: string;
+    category?: string;
+    sort?: "newest" | "price_asc" | "price_desc";
+  },
+) {
+  return listProductsForShop(shopId, {
+    status: "published",
+    page: opts?.page,
+    pageSize: opts?.pageSize,
+    q: opts?.q,
+    category: opts?.category,
+    sort: opts?.sort,
+    defaultPageSize: 24,
+  });
+}
+
+/** Distinct categories used by published products in a shop. */
+export async function listPublishedCategoriesForShop(shopId: string) {
+  const rows = await db
+    .selectDistinct({ category: products.category })
+    .from(products)
+    .where(
+      and(
+        eq(products.shopId, shopId),
+        eq(products.status, "published"),
+        sql`${products.category} is not null and btrim(${products.category}) <> ''`,
+      ),
+    )
+    .orderBy(asc(products.category));
+
+  return rows
+    .map((row) => row.category?.trim())
+    .filter((value): value is string => Boolean(value));
+}
+
+/** Other published products from the same shop (for product page “more from”). */
+export async function listMoreFromShop(
+  shopId: string,
+  excludeProductId: string,
+  limit = 8,
+) {
   return db.query.products.findMany({
-    where: and(...conditions),
+    where: and(
+      eq(products.shopId, shopId),
+      eq(products.status, "published"),
+      ne(products.id, excludeProductId),
+    ),
     with: {
       images: {
         orderBy: (img, { asc: orderAsc }) => [orderAsc(img.sortOrder)],
       },
     },
     orderBy: [desc(products.updatedAt)],
-    ...(limit && limit > 0 ? { limit } : {}),
+    limit,
   });
-}
-
-export async function listPublishedProductsForShop(shopId: string) {
-  return listProductsForShop(shopId, { status: "published" });
 }
 
 export async function countProductsByStatus(shopId: string) {
@@ -223,6 +370,7 @@ export async function countProductsByStatus(shopId: string) {
   const counts = {
     draft: 0,
     published: 0,
+    sold: 0,
     archived: 0,
     total: 0,
   };
@@ -410,7 +558,11 @@ export function productImageSrc(image: {
   return null;
 }
 
-export function serializeProduct(product: ProductWithImages | Product) {
+export function serializeProduct(
+  product: (ProductWithImages | Product) & {
+    channel?: { username?: string | null } | null;
+  },
+) {
   const images = "images" in product ? product.images : [];
   return {
     id: product.id,
@@ -436,6 +588,11 @@ export function serializeProduct(product: ProductWithImages | Product) {
     sourceChatId:
       product.sourceChatId != null ? product.sourceChatId.toString() : null,
     sourceMessageId: product.sourceMessageId,
+    telegramUrl: telegramMessageUrl({
+      username: product.channel?.username,
+      chatId: product.sourceChatId,
+      messageId: product.sourceMessageId,
+    }),
     createdAt: product.createdAt.toISOString(),
     updatedAt: product.updatedAt.toISOString(),
     images: images.map((img) => ({

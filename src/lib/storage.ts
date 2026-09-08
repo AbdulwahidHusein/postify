@@ -73,6 +73,66 @@ export async function deleteLocalProductImage(url: string | null | undefined) {
   }
 }
 
+/** Saves shop logo under uploads/shops/{shopId}/ and returns public API URL. */
+export async function saveLocalShopLogo(
+  shopId: string,
+  input: { buffer: Buffer; mime: string },
+): Promise<{ key: string; url: string }> {
+  const mimeRaw = input.mime.split(";")[0]?.trim().toLowerCase() || "image/jpeg";
+  const mime = ALLOWED.has(mimeRaw) ? mimeRaw : "image/jpeg";
+  if (input.buffer.length === 0 || input.buffer.length > MAX_BYTES) {
+    throw new Error(uploadLimitsMessage());
+  }
+
+  const id = randomUUID();
+  const ext = extFor(mime);
+  const key = `shops/${shopId}/logo-${id}.${ext}`;
+  const abs = path.join(UPLOAD_ROOT, key);
+  await mkdir(path.dirname(abs), { recursive: true });
+  await writeFile(abs, input.buffer);
+
+  return {
+    key,
+    url: `/api/media/file/${key}`,
+  };
+}
+
+export async function saveLocalShopLogoFromFile(
+  shopId: string,
+  file: File,
+): Promise<{ key: string; url: string }> {
+  if (!isAllowedImage(file)) {
+    throw new Error(uploadLimitsMessage());
+  }
+  return saveLocalShopLogo(shopId, {
+    buffer: Buffer.from(await file.arrayBuffer()),
+    mime: file.type,
+  });
+}
+
+/** Chat attachment under uploads/chat/{conversationId}/ */
+export async function saveLocalChatImage(
+  conversationId: string,
+  file: File,
+): Promise<{ key: string; url: string }> {
+  if (!isAllowedImage(file)) {
+    throw new Error(uploadLimitsMessage());
+  }
+
+  const id = randomUUID();
+  const ext = extFor(file.type);
+  const key = `chat/${conversationId}/${id}.${ext}`;
+  const abs = path.join(UPLOAD_ROOT, key);
+  await mkdir(path.dirname(abs), { recursive: true });
+  const buffer = Buffer.from(await file.arrayBuffer());
+  await writeFile(abs, buffer);
+
+  return {
+    key,
+    url: `/api/media/file/${key}`,
+  };
+}
+
 export function resolveUploadPath(key: string) {
   const normalized = path.normalize(key).replace(/^(\.\.(\/|\\|$))+/, "");
   if (normalized.includes("..")) {

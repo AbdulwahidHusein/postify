@@ -12,6 +12,9 @@ const schema = z.object({
   TELEGRAM_WEBHOOK_SECRET: z.string().optional().default(""),
   TELEGRAM_MINI_APP_SHORT_NAME: z.string().optional().default("shop"),
   NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
+  GEMINI_API_KEY: z.string().optional().default(""),
+  LLM_API_KEY: z.string().optional().default(""),
+  LLM_MODEL: z.string().optional().default("gemini-2.5-flash"),
 });
 
 export const serverEnv = schema.parse({
@@ -22,6 +25,9 @@ export const serverEnv = schema.parse({
   TELEGRAM_WEBHOOK_SECRET: process.env.TELEGRAM_WEBHOOK_SECRET,
   TELEGRAM_MINI_APP_SHORT_NAME: process.env.TELEGRAM_MINI_APP_SHORT_NAME,
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+  LLM_API_KEY: process.env.LLM_API_KEY,
+  LLM_MODEL: process.env.LLM_MODEL,
 });
 
 export function requireBotToken() {
@@ -29,4 +35,9 @@ export function requireBotToken() {
     throw new Error("TELEGRAM_BOT_TOKEN is not configured");
   }
   return serverEnv.TELEGRAM_BOT_TOKEN;
+}
+
+/** Gemini / LLM key — GEMINI_API_KEY preferred, LLM_API_KEY accepted. */
+export function getLlmApiKey() {
+  return serverEnv.GEMINI_API_KEY || serverEnv.LLM_API_KEY || "";
 }

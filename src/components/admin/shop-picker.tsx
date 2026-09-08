@@ -198,9 +198,10 @@ export function ShopPicker() {
           <p className="admin-loading">Loading shops…</p>
         ) : shops.length === 0 ? (
           <section className="admin-empty">
-            <h2>Create your first shop</h2>
+            <h2>Create your store</h2>
             <p>
-              Then connect a Telegram channel and start managing your catalog.
+              One storefront per shop. Connect a Telegram channel after you
+              create it, then manage products from the dashboard.
             </p>
           </section>
         ) : (
@@ -231,10 +232,18 @@ export function ShopPicker() {
           </div>
         )}
 
-        <form className="admin-panel admin-form" onSubmit={onCreateShop}>
+        <form
+          id="create-store"
+          className="admin-panel admin-form"
+          onSubmit={onCreateShop}
+        >
           <div>
-            <p className="admin-kicker">New shop</p>
-            <h2 className="admin-h2">Create a shop</h2>
+            <p className="admin-kicker">
+              {shops.length === 0 ? "Get started" : "New shop"}
+            </p>
+            <h2 className="admin-h2">
+              {shops.length === 0 ? "Create your store" : "Add another shop"}
+            </h2>
           </div>
           <label className="admin-field">
             <span>Name</span>
