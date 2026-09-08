@@ -1025,6 +1025,16 @@ html[data-platform="tma"] .panel {
   align-items: center;
   gap: 0.65rem;
   min-width: 0;
+  flex-shrink: 0;
+}
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  min-width: 0;
+  margin-left: auto;
 }
 
 .admin-topbar-titles {
@@ -1039,6 +1049,8 @@ html[data-platform="tma"] .panel {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: right;
+  max-width: min(14rem, 52vw);
 }
 
 .admin-topbar-crumb {
@@ -1056,6 +1068,10 @@ html[data-platform="tma"] .panel {
 @media (min-width: 720px) {
   .admin-topbar-actions {
     display: flex;
+  }
+
+  .admin-topbar-shop {
+    max-width: 18rem;
   }
 }
 

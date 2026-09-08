@@ -186,21 +186,20 @@ export function AdminShopShell({
               onClick={drawer.toggle}
               controlsId={panelId}
             />
-            <div className="admin-topbar-titles">
-              <span className="admin-topbar-shop">{shop.name}</span>
-              <span className="admin-topbar-crumb">Manage</span>
-            </div>
           </div>
-          <div className="admin-topbar-actions">
-            <Link href={`/s/${shop.slug}`} className="btn btn-ghost btn-sm">
-              Storefront
-            </Link>
-            <Link
-              href={`${base}/products/new`}
-              className="btn btn-primary btn-sm"
-            >
-              Add product
-            </Link>
+          <div className="admin-topbar-right">
+            <div className="admin-topbar-actions">
+              <Link href={`/s/${shop.slug}`} className="btn btn-ghost btn-sm">
+                Storefront
+              </Link>
+              <Link
+                href={`${base}/products/new`}
+                className="btn btn-primary btn-sm"
+              >
+                Add product
+              </Link>
+            </div>
+            <span className="admin-topbar-shop">{shop.name}</span>
           </div>
         </header>
 
@@ -271,10 +270,9 @@ export function AdminHomeShell({ children }: { children: ReactNode }) {
               onClick={drawer.toggle}
               controlsId={panelId}
             />
-            <div className="admin-topbar-titles">
-              <span className="admin-topbar-shop">Your shops</span>
-              <span className="admin-topbar-crumb">Workspace</span>
-            </div>
+          </div>
+          <div className="admin-topbar-right">
+            <span className="admin-topbar-shop">Your shops</span>
           </div>
         </header>
         <main className="admin-body">{children}</main>
