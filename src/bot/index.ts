@@ -119,7 +119,7 @@ function buildBot() {
       [
         "Welcome to Postify.",
         "",
-        "I turn your channel product posts into a shop.",
+        "I turn your channel into an ecommerce platform.",
         "",
         "Setup:",
         "1) Tap Open dashboard",
