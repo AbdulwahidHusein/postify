@@ -106,18 +106,22 @@ async function sendPhotoOrText(
   chatId: number,
   photo: InputFile | string | null,
   caption: string,
-  reply_markup: NonNullable<
-    NonNullable<Parameters<Api["sendMessage"]>[2]>["reply_markup"]
-  >,
+  // grammY InlineKeyboardButton is a strict union; callers pass plain objects.
+  reply_markup: { inline_keyboard: unknown[][] },
 ) {
   if (photo) {
     try {
-      return await bot.sendPhoto(chatId, photo, { caption, reply_markup });
+      return await bot.sendPhoto(chatId, photo, {
+        caption,
+        reply_markup: reply_markup as never,
+      });
     } catch (err) {
       console.warn("[telegram] sendPhoto failed, falling back to text", err);
     }
   }
-  return bot.sendMessage(chatId, caption, { reply_markup });
+  return bot.sendMessage(chatId, caption, {
+    reply_markup: reply_markup as never,
+  });
 }
 
 export async function deliverChatNotification(input: {
