@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root,
   },
-  serverExternalPackages: ["grammy", "postgres"],
+  serverExternalPackages: ["grammy", "postgres", "@aws-sdk/client-s3"],
 };
 
 export default nextConfig;

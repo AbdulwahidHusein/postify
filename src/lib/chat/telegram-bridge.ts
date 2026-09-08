@@ -79,11 +79,15 @@ async function resolveLocalPhoto(
       return null;
     }
   }
-  // Relative /api/media/telegram/... or tunnel HTTPS URLs often fail when
-  // Telegram's servers try to fetch them — prefer uploading bytes or file_id.
-  if (imageUrl.startsWith("/api/media/") || imageUrl.startsWith("http")) {
-    return null;
+  // Public R2 / CDN URLs work for Telegram sendPhoto; app tunnel URLs often don't.
+  if (
+    imageUrl.startsWith("https://") &&
+    !imageUrl.includes("trycloudflare.com") &&
+    !imageUrl.includes("ngrok")
+  ) {
+    return imageUrl;
   }
+  // Relative /api/media/telegram/... — prefer file_id via resolveTelegramPhoto.
   return null;
 }
 
@@ -102,9 +106,9 @@ async function sendPhotoOrText(
   chatId: number,
   photo: InputFile | string | null,
   caption: string,
-  reply_markup: {
-    inline_keyboard: { text: string; url?: string; callback_data?: string }[][];
-  },
+  reply_markup: NonNullable<
+    NonNullable<Parameters<Api["sendMessage"]>[2]>["reply_markup"]
+  >,
 ) {
   if (photo) {
     try {

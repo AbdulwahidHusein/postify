@@ -12,6 +12,7 @@
     "db:up": "docker compose up -d"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1127.0",
     "@google/genai": "^2.21.0",
     "@tma.js/init-data-node": "^2.0.8",
     "@tma.js/sdk": "^3.3.0",

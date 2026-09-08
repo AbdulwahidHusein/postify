@@ -16,6 +16,19 @@ const schema = z.object({
   LLM_API_KEY: z.string().optional().default(""),
   LLM_MODEL: z.string().optional().default("gemini-2.5-flash"),
   CRON_SECRET: z.string().optional().default(""),
+  /** Cloudflare R2 (S3-compatible). When all set, manual uploads go to R2. */
+  S3_ENDPOINT: z.string().optional().default(""),
+  S3_BUCKET: z.string().optional().default(""),
+  S3_ACCESS_KEY_ID: z.string().optional().default(""),
+  S3_SECRET_ACCESS_KEY: z.string().optional().default(""),
+  /** Public base URL for objects, e.g. https://pub-xxx.r2.dev or custom domain */
+  S3_PUBLIC_URL: z.string().optional().default(""),
+  /**
+   * Optional Cloudflare Worker that writes to R2 (Wrangler-deployed).
+   * Prefer this over S3 keys when using OAuth-only setup.
+   */
+  MEDIA_UPLOAD_URL: z.string().optional().default(""),
+  MEDIA_UPLOAD_SECRET: z.string().optional().default(""),
 });
 
 export const serverEnv = schema.parse({
@@ -30,6 +43,13 @@ export const serverEnv = schema.parse({
   LLM_API_KEY: process.env.LLM_API_KEY,
   LLM_MODEL: process.env.LLM_MODEL,
   CRON_SECRET: process.env.CRON_SECRET,
+  S3_ENDPOINT: process.env.S3_ENDPOINT,
+  S3_BUCKET: process.env.S3_BUCKET,
+  S3_ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID,
+  S3_SECRET_ACCESS_KEY: process.env.S3_SECRET_ACCESS_KEY,
+  S3_PUBLIC_URL: process.env.S3_PUBLIC_URL,
+  MEDIA_UPLOAD_URL: process.env.MEDIA_UPLOAD_URL,
+  MEDIA_UPLOAD_SECRET: process.env.MEDIA_UPLOAD_SECRET,
 });
 
 export function requireBotToken() {

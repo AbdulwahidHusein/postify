@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "postify-media",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "postify"
+    }
+  ],
+  "vars": {
+    "PUBLIC_URL": "https://pub-614482c6a08e41dc89c045af21f1ed58.r2.dev"
+  }
+}

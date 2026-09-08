@@ -20,7 +20,14 @@ async function loadImageInput(image: {
   telegramFileId: string | null;
 }): Promise<string | InputFile | null> {
   if (image.telegramFileId) return image.telegramFileId;
-  if (!image.url?.startsWith("/api/media/file/")) return null;
+  if (!image.url) return null;
+
+  // Public R2 / CDN URL — Telegram can fetch it directly.
+  if (image.url.startsWith("http://") || image.url.startsWith("https://")) {
+    return image.url;
+  }
+
+  if (!image.url.startsWith("/api/media/file/")) return null;
   const key = image.url.replace("/api/media/file/", "");
   const abs = resolveUploadPath(key);
   const buffer = await readFile(abs);
