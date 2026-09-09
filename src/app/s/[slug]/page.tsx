@@ -162,37 +162,34 @@ export default async function ShopPage({ params, searchParams }: Props) {
               <h1 className="shop-top-title">{shop.name}</h1>
               {description ? (
                 <p className="shop-top-desc">{description}</p>
-              ) : (
-                <p className="shop-top-desc">
-                  {pagination.total}{" "}
-                  {pagination.total === 1 ? "product" : "products"}
+              ) : null}
+              {!isOwner && (publicChannel || settings.ownerPhone) ? (
+                <p className="shop-hero-meta">
+                  {publicChannel ? (
+                    <a
+                      className="shop-hero-link"
+                      href={publicChannel}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Telegram
+                    </a>
+                  ) : null}
+                  {publicChannel && settings.ownerPhone ? (
+                    <span aria-hidden> · </span>
+                  ) : null}
+                  {settings.ownerPhone ? (
+                    <a
+                      className="shop-hero-link"
+                      href={`tel:${settings.ownerPhone.replace(/\s+/g, "")}`}
+                    >
+                      Call
+                    </a>
+                  ) : null}
                 </p>
-              )}
+              ) : null}
             </div>
           </div>
-
-          {!isOwner && (publicChannel || settings.ownerPhone) ? (
-            <div className="shop-hero-actions">
-              {publicChannel ? (
-                <a
-                  className="btn btn-ghost btn-sm"
-                  href={publicChannel}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View in Telegram
-                </a>
-              ) : null}
-              {settings.ownerPhone ? (
-                <a
-                  className="btn btn-ghost btn-sm"
-                  href={`tel:${settings.ownerPhone.replace(/\s+/g, "")}`}
-                >
-                  Call
-                </a>
-              ) : null}
-            </div>
-          ) : null}
         </header>
 
         <section className="shop-catalog" aria-label="Products">

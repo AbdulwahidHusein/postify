@@ -8,10 +8,12 @@ import { telegramBotUsername } from "@/lib/env";
 
 export function MessageSellerButton({
   productId,
-  className = "btn btn-primary buy-cta-primary",
+  className = "btn btn-ghost",
+  label = "Message seller",
 }: {
   productId: string;
   className?: string;
+  label?: string;
 }) {
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -27,7 +29,7 @@ export function MessageSellerButton({
       <button type="button" className={className} disabled>
         <span className="btn-with-spinner">
           <Spinner size="sm" />
-          Message seller
+          {label}
         </span>
       </button>
     );
@@ -63,16 +65,16 @@ export function MessageSellerButton({
   }
 
   return (
-    <div className="buy-actions">
+    <>
       <button
         type="button"
         className={className}
         disabled={busy}
         onClick={() => void start()}
       >
-        {busy ? "Opening…" : "Message seller"}
+        {busy ? "Opening…" : label}
       </button>
       {error ? <p className="admin-error">{error}</p> : null}
-    </div>
+    </>
   );
 }

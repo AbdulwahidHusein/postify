@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { backButton } from "@tma.js/sdk";
 import { useTelegram } from "@/lib/telegram/context";
 import type { ShopViewer } from "@/lib/viewer";
@@ -13,7 +13,6 @@ type Props = {
   backHref?: string;
   backLabel?: string;
   viewer: ShopViewer;
-  /** Optional deep link when viewer owns this shop (e.g. edit product). */
   ownerPrimaryHref?: string;
   ownerPrimaryLabel?: string;
 };
@@ -25,16 +24,15 @@ export function StorefrontNav({
   backLabel = "Back",
   viewer,
   ownerPrimaryHref,
-  ownerPrimaryLabel = "Manage",
+  ownerPrimaryLabel = "Edit",
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const { isTma, ready } = useTelegram();
 
   const shopPath = shopSlug ? `/s/${shopSlug}` : null;
-  const canGoShop = Boolean(shopPath && pathname !== shopPath);
-  const resolvedBack = backHref ?? (canGoShop ? shopPath! : null);
-  const isOwner = viewer.kind === "owner";
+  const onShopHome = Boolean(shopPath && pathname === shopPath);
+  const resolvedBack = backHref ?? (shopPath && !onShopHome ? shopPath : null);
 
   useEffect(() => {
     if (!ready || !isTma) return;
@@ -70,69 +68,41 @@ export function StorefrontNav({
     };
   }, [ready, isTma, resolvedBack, shopPath, router]);
 
+  const isOwner = viewer.kind === "owner";
+
+  let right: ReactNode = null;
+  if (isOwner) {
+    right = (
+      <Link
+        href={ownerPrimaryHref ?? `/dashboard/s/${viewer.shopSlug}`}
+        className="storefront-nav-action"
+      >
+        {ownerPrimaryHref ? ownerPrimaryLabel : "Dashboard"}
+      </Link>
+    );
+  } else if (viewer.kind === "signed_in" && viewer.hasAnyShop) {
+    right = (
+      <Link href="/dashboard" className="storefront-nav-action">
+        Dashboard
+      </Link>
+    );
+  }
+
   return (
-    <nav
-      className={isOwner ? "storefront-nav is-owner" : "storefront-nav is-buyer"}
-      aria-label="Shop"
-    >
+    <nav className="storefront-nav" aria-label="Shop">
       <div className="storefront-nav-left">
         {resolvedBack ? (
           <Link href={resolvedBack} className="storefront-nav-back">
             ← {backLabel}
           </Link>
-        ) : (
-          <Link href="/" className="storefront-nav-back">
-            ← Home
-          </Link>
-        )}
-        {/* Shop name only when not already on the shop page (title lives in the body). */}
-        {shopName && shopPath && canGoShop ? (
+        ) : null}
+        {shopName && shopPath && !onShopHome ? (
           <Link href={shopPath} className="storefront-nav-shop">
             {shopName}
           </Link>
         ) : null}
-        {isOwner ? (
-          <span className="storefront-nav-badge">Your shop</span>
-        ) : null}
       </div>
-
-      <div className="storefront-nav-right">
-        {shopPath && canGoShop && !isOwner ? (
-          <Link href={shopPath} className="storefront-nav-all">
-            All products
-          </Link>
-        ) : null}
-
-        {/* One owner action in the chrome — page body owns any extra (e.g. Add product). */}
-        {isOwner ? (
-          <Link
-            href={
-              ownerPrimaryHref ?? `/dashboard/s/${viewer.shopSlug}`
-            }
-            className="storefront-nav-manage"
-          >
-            {ownerPrimaryHref ? ownerPrimaryLabel : "Dashboard"}
-          </Link>
-        ) : null}
-
-        {viewer.kind === "signed_in" && viewer.hasAnyShop ? (
-          <Link href="/dashboard" className="btn btn-ghost btn-sm">
-            My shops
-          </Link>
-        ) : null}
-
-        {viewer.kind === "signed_in" && !viewer.hasAnyShop ? (
-          <Link href="/dashboard" className="btn btn-primary btn-sm">
-            Create your store
-          </Link>
-        ) : null}
-
-        {viewer.kind === "guest" ? (
-          <Link href="/dashboard" className="btn btn-ghost btn-sm">
-            Sell on Postify
-          </Link>
-        ) : null}
-      </div>
+      {right ? <div className="storefront-nav-right">{right}</div> : null}
     </nav>
   );
 }

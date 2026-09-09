@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CategoryCombobox } from "@/components/admin/category-combobox";
 
 export type ShopSort = "newest" | "price_asc" | "price_desc";
 
@@ -63,29 +62,22 @@ export function ShopCatalogToolbar({
 }: Props) {
   const router = useRouter();
   const [q, setQ] = useState(initialQ);
-  const [category, setCategory] = useState(initialCategory);
   const [sort, setSort] = useState<ShopSort>(initialSort);
   const [minPrice, setMinPrice] = useState(initialMin);
   const [maxPrice, setMaxPrice] = useState(initialMax);
-  const [filtersOpen, setFiltersOpen] = useState(filtered);
+  const [priceOpen, setPriceOpen] = useState(
+    Boolean(initialMin || initialMax),
+  );
 
   useEffect(() => {
     setQ(initialQ);
-    setCategory(initialCategory);
     setSort(initialSort);
     setMinPrice(initialMin);
     setMaxPrice(initialMax);
-    if (filtered) setFiltersOpen(true);
-  }, [
-    initialQ,
-    initialCategory,
-    initialSort,
-    initialMin,
-    initialMax,
-    filtered,
-  ]);
+    if (initialMin || initialMax) setPriceOpen(true);
+  }, [initialQ, initialSort, initialMin, initialMax]);
 
-  function applyFilters(next?: {
+  function apply(next?: {
     q?: string;
     category?: string;
     sort?: ShopSort;
@@ -95,7 +87,7 @@ export function ShopCatalogToolbar({
     router.push(
       shopCatalogHref(shopSlug, {
         q: next?.q ?? q,
-        category: next?.category ?? category,
+        category: next?.category ?? initialCategory,
         sort: next?.sort ?? sort,
         minPrice: next?.minPrice ?? minPrice,
         maxPrice: next?.maxPrice ?? maxPrice,
@@ -103,6 +95,7 @@ export function ShopCatalogToolbar({
     );
   }
 
+  const priceActive = Boolean(initialMin || initialMax);
   const minPlaceholder =
     priceBounds?.min != null
       ? String(Math.floor(priceBounds.min))
@@ -114,11 +107,43 @@ export function ShopCatalogToolbar({
 
   return (
     <div className="shop-toolbar">
+      {categories.length > 0 ? (
+        <div className="shop-collections" role="list" aria-label="Collections">
+          <button
+            type="button"
+            className={
+              initialCategory ? "shop-collection" : "shop-collection is-active"
+            }
+            onClick={() => apply({ category: "" })}
+          >
+            All
+          </button>
+          {categories.map((cat) => {
+            const active =
+              initialCategory.toLowerCase() === cat.toLowerCase();
+            return (
+              <button
+                key={cat}
+                type="button"
+                className={
+                  active ? "shop-collection is-active" : "shop-collection"
+                }
+                onClick={() =>
+                  apply({ category: active ? "" : cat })
+                }
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
       <form
-        className="shop-toolbar-search"
+        className="shop-toolbar-bar"
         onSubmit={(e) => {
           e.preventDefault();
-          applyFilters();
+          apply();
         }}
       >
         <div className="shop-search-field">
@@ -144,33 +169,19 @@ export function ShopCatalogToolbar({
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search products…"
+            placeholder="Search…"
             autoComplete="off"
             aria-label="Search products"
           />
         </div>
 
-        <button
-          type="button"
-          className={
-            filtersOpen || filtered
-              ? "shop-toolbar-chip is-active"
-              : "shop-toolbar-chip"
-          }
-          aria-expanded={filtersOpen}
-          onClick={() => setFiltersOpen((open) => !open)}
-        >
-          Filters
-          {filtered ? <span className="shop-filter-dot" aria-hidden /> : null}
-        </button>
-
         <select
-          className="shop-sort shop-toolbar-chip-select"
+          className="shop-sort"
           value={sort}
           onChange={(e) => {
             const next = e.target.value as ShopSort;
             setSort(next);
-            applyFilters({ sort: next });
+            apply({ sort: next });
           }}
           aria-label="Sort products"
         >
@@ -179,126 +190,74 @@ export function ShopCatalogToolbar({
           <option value="price_desc">Price ↓</option>
         </select>
 
-        <button type="submit" className="shop-search-submit">
-          Search
+        <button
+          type="button"
+          className={
+            priceOpen || priceActive
+              ? "shop-toolbar-chip is-active"
+              : "shop-toolbar-chip"
+          }
+          aria-expanded={priceOpen}
+          onClick={() => setPriceOpen((open) => !open)}
+        >
+          Price
+          {priceActive ? (
+            <span className="shop-filter-dot" aria-hidden />
+          ) : null}
         </button>
       </form>
 
-      {filtersOpen ? (
-        <div className="shop-toolbar-panel">
-          <div className="shop-toolbar-panel-grid">
-            <div className="shop-toolbar-category">
-              <label className="shop-field-label" htmlFor="shop-category">
-                Category
-              </label>
-              <CategoryCombobox
-                key={initialCategory || "__all__"}
-                value={category}
-                onChange={setCategory}
-              />
-            </div>
-
-            <div className="shop-price-range">
-              <span className="shop-field-label">Price ({currency})</span>
-              <div className="shop-price-inputs">
-                <input
-                  className="shop-price-input"
-                  type="number"
-                  inputMode="decimal"
-                  min={0}
-                  step="any"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                  placeholder={minPlaceholder}
-                  aria-label="Minimum price"
-                />
-                <span className="shop-price-sep" aria-hidden>
-                  –
-                </span>
-                <input
-                  className="shop-price-input"
-                  type="number"
-                  inputMode="decimal"
-                  min={0}
-                  step="any"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                  placeholder={maxPlaceholder}
-                  aria-label="Maximum price"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="shop-toolbar-panel-actions">
+      {priceOpen ? (
+        <div className="shop-price-panel">
+          <div className="shop-price-inputs">
+            <input
+              className="shop-price-input"
+              type="number"
+              inputMode="decimal"
+              min={0}
+              step="any"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              placeholder={minPlaceholder}
+              aria-label={`Minimum price (${currency})`}
+            />
+            <span className="shop-price-sep" aria-hidden>
+              –
+            </span>
+            <input
+              className="shop-price-input"
+              type="number"
+              inputMode="decimal"
+              min={0}
+              step="any"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              placeholder={maxPlaceholder}
+              aria-label={`Maximum price (${currency})`}
+            />
             <button
               type="button"
               className="btn btn-ghost btn-sm"
-              onClick={() => applyFilters()}
+              onClick={() => apply()}
             >
-              Apply filters
+              Apply
             </button>
-            {filtered ? (
-              <Link href={`/s/${shopSlug}`} className="btn btn-ghost btn-sm">
-                Clear all
-              </Link>
-            ) : null}
           </div>
-
-          {categories.length > 0 ? (
-            <div
-              className="shop-filters"
-              role="list"
-              aria-label="Quick categories"
-            >
-              <button
-                type="button"
-                className={category ? "shop-filter" : "shop-filter is-active"}
-                onClick={() => {
-                  setCategory("");
-                  applyFilters({ category: "" });
-                }}
-              >
-                All
-              </button>
-              {categories.map((cat) => {
-                const active = category.toLowerCase() === cat.toLowerCase();
-                return (
-                  <button
-                    key={cat}
-                    type="button"
-                    className={active ? "shop-filter is-active" : "shop-filter"}
-                    onClick={() => {
-                      const next = active ? "" : cat;
-                      setCategory(next);
-                      applyFilters({ category: next });
-                    }}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
-            </div>
-          ) : null}
         </div>
       ) : null}
 
-      <p className="shop-result-meta">
-        {resultCount} {resultCount === 1 ? "product" : "products"}
-        {category ? (
-          <>
-            {" "}
-            · <strong>{category}</strong>
-          </>
+      <div className="shop-result-row">
+        <p className="shop-result-meta">
+          {resultCount} {resultCount === 1 ? "product" : "products"}
+          {initialCategory ? <> · {initialCategory}</> : null}
+          {initialQ ? <> · “{initialQ}”</> : null}
+        </p>
+        {filtered ? (
+          <Link href={`/s/${shopSlug}`} className="shop-clear">
+            Clear
+          </Link>
         ) : null}
-        {initialQ ? <> · “{initialQ}”</> : null}
-        {initialMin || initialMax ? (
-          <>
-            {" "}
-            · {currency} {initialMin || "0"}–{initialMax || "∞"}
-          </>
-        ) : null}
-      </p>
+      </div>
     </div>
   );
 }

@@ -101,8 +101,8 @@ export function ShopOverview() {
   }
 
   const channel = channels[0];
-  const productCount = counts?.total ?? 0;
   const draftCount = counts?.draft ?? 0;
+  const liveCount = counts?.published ?? 0;
 
   if (!channel) {
     return (
@@ -128,22 +128,35 @@ export function ShopOverview() {
           <div>
             <h1 className="admin-h1">{shop.name}</h1>
             <p className="admin-lead">
-              {shop.description || "Your catalog and orders."}
+              {liveCount} live
+              {draftCount > 0 ? ` · ${draftCount} draft${draftCount === 1 ? "" : "s"}` : ""}
+              {(counts?.sold ?? 0) > 0
+                ? ` · ${counts?.sold} sold`
+                : ""}
             </p>
           </div>
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm"
-            onClick={() => void reload()}
-          >
-            Refresh
-          </button>
+          <div className="admin-actions">
+            <Link
+              href={`/dashboard/s/${shop.slug}/products/new`}
+              className="btn btn-primary btn-sm"
+            >
+              Add product
+            </Link>
+            <Link
+              href={`/s/${shop.slug}`}
+              className="btn btn-ghost btn-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View shop
+            </Link>
+          </div>
         </header>
 
         {showCelebrate ? (
           <section className="admin-banner admin-banner-success">
             <div>
-              <strong>Connected</strong>
+              <strong>Channel connected</strong>
               <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
                 Post a photo with a price in Telegram.
               </p>
@@ -158,42 +171,19 @@ export function ShopOverview() {
           </section>
         ) : null}
 
-        <div className="admin-stat-grid">
-          <div className="admin-stat">
-            <span>Live</span>
-            <strong>{counts?.published ?? 0}</strong>
-          </div>
-          <div className="admin-stat">
-            <span>Drafts</span>
-            <strong>{draftCount}</strong>
-          </div>
-          <div className="admin-stat">
-            <span>Sold</span>
-            <strong>{counts?.sold ?? 0}</strong>
-          </div>
-          <div className="admin-stat">
-            <span>Total</span>
-            <strong>{counts?.total ?? 0}</strong>
-          </div>
-        </div>
-
         {draftCount > 0 ? (
           <section className="admin-panel">
             <div className="admin-section-head">
               <div>
-                <p className="admin-kicker">Drafts</p>
                 <h2 className="admin-h2">
-                  {draftCount} unpublished draft{draftCount === 1 ? "" : "s"}
+                  {draftCount} draft{draftCount === 1 ? "" : "s"}
                 </h2>
-                <p className="admin-muted">
-                  Manual drafts waiting to be published.
-                </p>
               </div>
               <Link
                 href={`/dashboard/s/${shop.slug}/products?status=draft`}
-                className="btn btn-primary btn-sm"
+                className="btn btn-ghost btn-sm"
               >
-                Open drafts
+                Review
               </Link>
             </div>
             {feedLoading ? (
@@ -208,11 +198,6 @@ export function ShopOverview() {
                     >
                       <span>
                         <strong>{p.title}</strong>
-                        {p.confidence != null ? (
-                          <span className="admin-meta">
-                            Confidence {(p.confidence * 100).toFixed(0)}%
-                          </span>
-                        ) : null}
                       </span>
                       <span className="admin-status admin-status-draft">
                         draft
@@ -225,85 +210,18 @@ export function ShopOverview() {
           </section>
         ) : null}
 
-        {(counts?.sold ?? 0) > 0 ? (
-          <section className="admin-panel">
-            <div className="admin-section-head">
-              <div>
-                <p className="admin-kicker">Sold</p>
-                <h2 className="admin-h2">
-                  {counts?.sold} sold item{counts?.sold === 1 ? "" : "s"}
-                </h2>
-                <p className="admin-muted">
-                  Hidden from the public shop. Relist anytime.
-                </p>
-              </div>
-              <Link
-                href={`/dashboard/s/${shop.slug}/products?status=sold`}
-                className="btn btn-ghost btn-sm"
-              >
-                View sold
-              </Link>
-            </div>
-          </section>
-        ) : null}
-
-        <div className="admin-split">
-          <section className="admin-panel">
-            <p className="admin-kicker">Catalog</p>
-            <h2 className="admin-h2">Products</h2>
-            <p className="admin-muted">
-              {productCount === 0
-                ? channel
-                  ? "Post in Telegram or add a listing manually."
-                  : "Connect a channel first, or add products by hand."
-                : "Browse listings, mark sold, publish or archive."}
-            </p>
-            <div className="admin-actions">
-              <Link
-                href={`/dashboard/s/${shop.slug}/products`}
-                className="btn btn-primary btn-sm"
-              >
-                Open catalog
-              </Link>
-              <Link
-                href={`/dashboard/s/${shop.slug}/products/new`}
-                className="btn btn-ghost btn-sm"
-              >
-                Add product
-              </Link>
-            </div>
-          </section>
-
-          <section className="admin-panel">
-            <p className="admin-kicker">Telegram</p>
-            <h2 className="admin-h2">
-              {channel
-                ? (channel.title ?? channel.username ?? "Connected")
-                : "Not connected"}
-            </h2>
-            <p className="admin-muted">
-              {channel.lastPostAt
-                ? `Last activity ${new Date(channel.lastPostAt).toLocaleString()}`
-                : "Waiting for posts"}
-            </p>
-            <div className="admin-actions">
-              <Link
-                href={`/dashboard/s/${shop.slug}/channels`}
-                className="btn btn-ghost btn-sm"
-              >
-                Channel
-              </Link>
-            </div>
-          </section>
-        </div>
-
         {recent.length > 0 ? (
           <section className="admin-panel">
             <div className="admin-section-head">
               <div>
-                <p className="admin-kicker">Recent activity</p>
-                <h2 className="admin-h2">Latest listings</h2>
+                <h2 className="admin-h2">Latest products</h2>
               </div>
+              <Link
+                href={`/dashboard/s/${shop.slug}/products`}
+                className="btn btn-ghost btn-sm"
+              >
+                All products
+              </Link>
             </div>
             <ul className="admin-feed">
               {recent.map((p) => (
@@ -315,8 +233,7 @@ export function ShopOverview() {
                     <span>
                       <strong>{p.title}</strong>
                       <span className="admin-meta">
-                        {p.channelId ? "From channel · " : ""}
-                        {new Date(p.updatedAt).toLocaleString()}
+                        {new Date(p.updatedAt).toLocaleDateString()}
                       </span>
                     </span>
                     <span className={`admin-status admin-status-${p.status}`}>
@@ -327,7 +244,22 @@ export function ShopOverview() {
               ))}
             </ul>
           </section>
-        ) : null}
+        ) : (
+          <section className="admin-panel">
+            <h2 className="admin-h2">No products yet</h2>
+            <p className="admin-muted">
+              Post in Telegram or add a listing manually.
+            </p>
+            <div className="admin-actions">
+              <Link
+                href={`/dashboard/s/${shop.slug}/products/new`}
+                className="btn btn-primary btn-sm"
+              >
+                Add product
+              </Link>
+            </div>
+          </section>
+        )}
       </div>
     </AdminShopShell>
   );

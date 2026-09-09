@@ -66,30 +66,23 @@ function BuyerActions({
   telegramUrl: string | null;
 }) {
   return (
-    <>
+    <div className="buy-cta">
       <RequestOrderButton productId={productId} />
       <MessageSellerButton productId={productId} />
-      <div className="buy-actions buy-actions-secondary">
-        {phone ? (
-          <a
-            href={`tel:${phone.replace(/\s+/g, "")}`}
-            className="btn btn-ghost"
-          >
-            Call seller
-          </a>
-        ) : null}
-        {telegramUrl ? (
-          <a
-            href={telegramUrl}
-            className="btn btn-ghost"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View in Telegram
-          </a>
-        ) : null}
-      </div>
-    </>
+      {phone || telegramUrl ? (
+        <div className="buy-cta-links">
+          {phone ? (
+            <a href={`tel:${phone.replace(/\s+/g, "")}`}>Call</a>
+          ) : null}
+          {phone && telegramUrl ? <span aria-hidden>·</span> : null}
+          {telegramUrl ? (
+            <a href={telegramUrl} target="_blank" rel="noopener noreferrer">
+              Telegram
+            </a>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -161,13 +154,6 @@ export default async function ProductPage({ params }: Props) {
     .map((t) => t.trim())
     .filter(Boolean);
 
-  const inStock =
-    isSold || product.stockQuantity == null
-      ? null
-      : product.stockQuantity > 0
-        ? `${product.stockQuantity} in stock`
-        : "Out of stock";
-
   const [more, viewer] = await Promise.all([
     listMoreFromShop(product.shopId, product.id, 8),
     shopSlug && shopName
@@ -215,27 +201,9 @@ export default async function ProductPage({ params }: Props) {
               ) : null}
             </div>
 
-            {(product.category || product.sku || inStock) && (
-              <div className="buy-facts">
-                {product.category ? (
-                  <span className="buy-fact">{product.category}</span>
-                ) : null}
-                {product.sku ? (
-                  <span className="buy-fact">SKU {product.sku}</span>
-                ) : null}
-                {inStock ? (
-                  <span
-                    className={
-                      product.stockQuantity === 0
-                        ? "buy-fact is-out"
-                        : "buy-fact is-stock"
-                    }
-                  >
-                    {inStock}
-                  </span>
-                ) : null}
-              </div>
-            )}
+            {product.category ? (
+              <p className="buy-category">{product.category}</p>
+            ) : null}
 
             {description ? <p className="buy-desc">{description}</p> : null}
 
@@ -248,14 +216,14 @@ export default async function ProductPage({ params }: Props) {
             ) : null}
 
             {isSold ? (
-              <>
+              <div className="buy-cta">
                 <MessageSellerButton productId={product.id} />
                 {shopSlug ? (
                   <Link href={`/s/${shopSlug}`} className="btn btn-ghost">
                     Browse shop
                   </Link>
                 ) : null}
-              </>
+              </div>
             ) : !isOwner ? (
               <BuyerActions
                 productId={product.id}
@@ -282,12 +250,6 @@ export default async function ProductPage({ params }: Props) {
               ))}
             </div>
           </section>
-        ) : shopSlug ? (
-          <div className="buy-more buy-more-empty">
-            <Link href={`/s/${shopSlug}`} className="buy-more-all">
-              See all from {shopName ?? "this shop"}
-            </Link>
-          </div>
         ) : null}
       </div>
     </div>
