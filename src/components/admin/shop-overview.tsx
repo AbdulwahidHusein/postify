@@ -3,101 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AdminShopShell } from "@/components/admin/admin-shop-shell";
+import { SetupWizard } from "@/components/admin/setup-wizard";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import { useAuth } from "@/components/providers/auth-provider";
 import type { AdminProduct } from "@/components/admin/types";
-import { telegramBotUsername } from "@/lib/env";
 import { InlineLoader, PageLoader } from "@/components/ui/loader";
-
-function SetupChecklist({
-  shopSlug,
-  hasChannel,
-  productCount,
-}: {
-  shopSlug: string;
-  hasChannel: boolean;
-  productCount: number;
-}) {
-  const steps = [
-    {
-      id: "shop",
-      label: "Shop created",
-      done: true,
-      href: null as string | null,
-    },
-    {
-      id: "channel",
-      label: "Connect Telegram channel",
-      done: hasChannel,
-      href: `/dashboard/s/${shopSlug}/channels`,
-    },
-    {
-      id: "product",
-      label: "Add your first product",
-      done: productCount > 0,
-      href: hasChannel
-        ? `/dashboard/s/${shopSlug}/products/new`
-        : `/dashboard/s/${shopSlug}/channels`,
-    },
-    {
-      id: "storefront",
-      label: "Preview storefront",
-      done: productCount > 0,
-      href: `/s/${shopSlug}`,
-      external: true,
-    },
-  ];
-
-  const remaining = steps.filter((s) => !s.done).length;
-  if (remaining === 0) return null;
-
-  const next = steps.find((s) => !s.done);
-
-  return (
-    <section className="admin-panel admin-setup">
-      <div className="admin-setup-head">
-        <div>
-          <p className="admin-kicker">Getting started</p>
-          <h2 className="admin-h2">Finish setup</h2>
-          <p className="admin-muted">
-            {remaining} step{remaining === 1 ? "" : "s"} left — usually under
-            10 minutes.
-          </p>
-        </div>
-        {next?.href ? (
-          <Link
-            href={next.href}
-            className="btn btn-primary btn-sm"
-            {...(next.external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
-          >
-            {next.label}
-          </Link>
-        ) : null}
-      </div>
-      <ol className="admin-checklist">
-        {steps.map((step) => (
-          <li
-            key={step.id}
-            className={
-              step.done ? "admin-checklist-done" : "admin-checklist-todo"
-            }
-          >
-            <span className="admin-checklist-mark" aria-hidden>
-              {step.done ? "✓" : ""}
-            </span>
-            {step.done || !step.href ? (
-              <span>{step.label}</span>
-            ) : (
-              <Link href={step.href}>{step.label}</Link>
-            )}
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
 
 export function ShopOverview() {
   const { user, loading: authLoading } = useAuth();
@@ -194,16 +104,31 @@ export function ShopOverview() {
   const productCount = counts?.total ?? 0;
   const draftCount = counts?.draft ?? 0;
 
+  if (!channel) {
+    return (
+      <AdminShopShell shop={shop}>
+        <SetupWizard
+          onConnected={() => {
+            try {
+              sessionStorage.setItem(`postify:connected:${shop.id}`, "1");
+            } catch {
+              // ignore
+            }
+            void reload();
+          }}
+        />
+      </AdminShopShell>
+    );
+  }
+
   return (
     <AdminShopShell shop={shop}>
       <div className="admin-stack">
         <header className="admin-section-head">
           <div>
-            <p className="admin-kicker">Overview</p>
             <h1 className="admin-h1">{shop.name}</h1>
             <p className="admin-lead">
-              {shop.description ||
-                "Catalog, channel sync, and settings in one place."}
+              {shop.description || "Your catalog and orders."}
             </p>
           </div>
           <button
@@ -218,35 +143,20 @@ export function ShopOverview() {
         {showCelebrate ? (
           <section className="admin-banner admin-banner-success">
             <div>
-              <strong>Channel connected</strong>
+              <strong>Connected</strong>
               <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
-                Post a photo + caption with a price in Telegram, or add a
-                product here.
+                Post a photo with a price in Telegram.
               </p>
             </div>
-            <div className="admin-actions">
-              <Link
-                href={`/dashboard/s/${shop.slug}/products/new`}
-                className="btn btn-primary btn-sm"
-              >
-                Add product
-              </Link>
-              <button
-                type="button"
-                className="btn btn-ghost btn-sm"
-                onClick={dismissConnected}
-              >
-                Dismiss
-              </button>
-            </div>
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              onClick={dismissConnected}
+            >
+              Dismiss
+            </button>
           </section>
         ) : null}
-
-        <SetupChecklist
-          shopSlug={shop.slug}
-          hasChannel={Boolean(channel)}
-          productCount={productCount}
-        />
 
         <div className="admin-stat-grid">
           <div className="admin-stat">
@@ -372,20 +282,16 @@ export function ShopOverview() {
                 : "Not connected"}
             </h2>
             <p className="admin-muted">
-              {channel
-                ? channel.lastPostAt
-                  ? `Last channel activity ${new Date(channel.lastPostAt).toLocaleString()}`
-                  : "Waiting for posts"
-                : telegramBotUsername
-                  ? `Add @${telegramBotUsername.replace(/^@/, "")} as admin, then connect`
-                  : "Connect a channel to sync posts"}
+              {channel.lastPostAt
+                ? `Last activity ${new Date(channel.lastPostAt).toLocaleString()}`
+                : "Waiting for posts"}
             </p>
             <div className="admin-actions">
               <Link
                 href={`/dashboard/s/${shop.slug}/channels`}
                 className="btn btn-ghost btn-sm"
               >
-                {channel ? "Manage channel" : "Connect channel"}
+                Channel
               </Link>
             </div>
           </section>

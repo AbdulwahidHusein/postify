@@ -1,17 +1,8 @@
-import { z } from "zod";
 import { jsonError, jsonOk } from "@/lib/api";
 import { requireSession } from "@/lib/auth/session";
-import {
-  issueConnectCode,
-  listChannelsForOwner,
-  serializeChannel,
-} from "@/lib/channels";
+import { listChannelsForOwner, serializeChannel } from "@/lib/channels";
 import { serverEnv } from "@/lib/env.server";
 import { telegramBotUsername } from "@/lib/env";
-
-const bodySchema = z.object({
-  shopId: z.string().uuid(),
-});
 
 export async function GET() {
   try {
@@ -27,30 +18,12 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
-  try {
-    const session = await requireSession();
-    const body = bodySchema.parse(await request.json());
-    const { code, expiresAt, shop } = await issueConnectCode(
-      body.shopId,
-      session.userId,
-    );
-
-    const bot =
-      serverEnv.TELEGRAM_BOT_USERNAME || telegramBotUsername || "YourBot";
-
-    return jsonOk({
-      code,
-      expiresAt: expiresAt.toISOString(),
-      shopId: shop.id,
-      shopSlug: shop.slug,
-      instructions: [
-        `Add @${bot.replace(/^@/, "")} to your channel as admin (post messages).`,
-        `Post this code in the channel: ${code}`,
-        "Postify will reply when the channel is linked.",
-      ],
-    });
-  } catch (error) {
-    return jsonError(error);
-  }
+/** Connect codes removed — link via adding the bot as admin or forward. */
+export async function POST() {
+  return jsonOk({
+    ok: true,
+    method: "add_bot_as_admin",
+    botUsername: serverEnv.TELEGRAM_BOT_USERNAME || telegramBotUsername || null,
+    hint: "Add the bot as channel admin, or forward a channel post to the bot.",
+  });
 }

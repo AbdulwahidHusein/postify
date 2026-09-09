@@ -3,6 +3,7 @@ import { jsonError, jsonOk } from "@/lib/api";
 import { AuthError, requireSession } from "@/lib/auth/session";
 import {
   createShop,
+  ensureDefaultShop,
   listShopsForOwner,
   serializeShop,
 } from "@/lib/shops";
@@ -22,7 +23,11 @@ const createSchema = z.object({
 export async function GET() {
   try {
     const session = await requireSession();
-    const rows = await listShopsForOwner(session.userId);
+    let rows = await listShopsForOwner(session.userId);
+    if (rows.length === 0) {
+      await ensureDefaultShop(session.userId);
+      rows = await listShopsForOwner(session.userId);
+    }
     return jsonOk({ shops: rows.map(serializeShop) });
   } catch (error) {
     return jsonError(error);

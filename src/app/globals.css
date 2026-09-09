@@ -1831,6 +1831,50 @@ html[data-platform="tma"] .admin-editor-aside {
   margin-bottom: 0.85rem;
 }
 
+.setup-wizard {
+  width: min(28rem, 100%);
+  margin: 1.5rem auto 2rem;
+  padding: 1.5rem 1.15rem;
+  text-align: center;
+}
+
+.setup-wizard-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.setup-wizard-lead {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.setup-wizard-steps {
+  margin: 0 auto 1.25rem;
+  padding: 0 0 0 1.25rem;
+  text-align: left;
+  display: grid;
+  gap: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  max-width: 22rem;
+}
+
+.setup-wizard-wait {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.setup-wizard-alt,
+.setup-wizard-step {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 .admin-checklist {
   list-style: none;
   margin: 0;

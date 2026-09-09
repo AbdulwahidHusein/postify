@@ -1,8 +1,14 @@
 import { createHash, randomBytes } from "node:crypto";
 import { and, eq, gt, isNotNull } from "drizzle-orm";
 import { db } from "@/db";
-import { channels, shops, type Channel, type Shop } from "@/db/schema";
-import { getOwnedShop } from "@/lib/shops";
+import {
+  channels,
+  shops,
+  users,
+  type Channel,
+  type Shop,
+} from "@/db/schema";
+import { ensureDefaultShop, getOwnedShop } from "@/lib/shops";
 
 const CODE_TTL_MS = 1000 * 60 * 30; // 30 minutes
 
@@ -38,7 +44,7 @@ export async function issueConnectCode(
     .where(eq(shops.id, shop.id))
     .returning();
 
-  return { shop: updated, code, expiresAt };
+  return { shop: updated!, code, expiresAt };
 }
 
 export async function findShopByConnectCode(code: string): Promise<Shop | null> {
@@ -85,16 +91,15 @@ export async function connectChannelToShop(input: {
         title: input.title ?? existingByChat.title,
         username: input.username ?? existingByChat.username,
         status: "connected",
-        connectedAt: new Date(),
+        connectedAt: existingByChat.connectedAt ?? new Date(),
         updatedAt: new Date(),
       })
       .where(eq(channels.id, existingByChat.id))
       .returning();
     await clearConnectCode(input.shopId);
-    return updated;
+    return updated!;
   }
 
-  // One channel per shop for MVP — replace if shop already has one
   const existingForShop = await db.query.channels.findFirst({
     where: eq(channels.shopId, input.shopId),
   });
@@ -114,7 +119,104 @@ export async function connectChannelToShop(input: {
     .returning();
 
   await clearConnectCode(input.shopId);
-  return created;
+  return created!;
+}
+
+export type LinkChannelResult =
+  | {
+      status: "connected";
+      shop: Shop;
+      channel: Channel;
+      fresh: boolean;
+    }
+  | {
+      status: "already_connected";
+      shop: Shop;
+      channel: Channel;
+    }
+  | { status: "conflict" }
+  | { status: "no_account" };
+
+/**
+ * Idempotent link: Telegram user → their shop ↔ channel.
+ * Prefer a shop with no channel; otherwise ensureDefaultShop.
+ */
+export async function linkChannelForTelegramUser(input: {
+  telegramUserId: bigint;
+  telegramChatId: bigint;
+  title?: string | null;
+  username?: string | null;
+}): Promise<LinkChannelResult> {
+  const user = await db.query.users.findFirst({
+    where: eq(users.telegramId, input.telegramUserId),
+  });
+  if (!user) return { status: "no_account" };
+
+  const existingByChat = await db.query.channels.findFirst({
+    where: eq(channels.telegramChatId, input.telegramChatId),
+    with: { shop: true },
+  });
+
+  if (existingByChat?.shop) {
+    if (existingByChat.shop.ownerUserId === user.id) {
+      const channel = await connectChannelToShop({
+        shopId: existingByChat.shopId,
+        telegramChatId: input.telegramChatId,
+        title: input.title ?? undefined,
+        username: input.username ?? undefined,
+      });
+      return {
+        status: "already_connected",
+        shop: existingByChat.shop,
+        channel,
+      };
+    }
+    return { status: "conflict" };
+  }
+
+  const owned = await db.query.shops.findMany({
+    where: eq(shops.ownerUserId, user.id),
+    with: { channels: true },
+    orderBy: (t, { asc: a }) => [a(t.createdAt)],
+  });
+
+  let shop: Shop | undefined =
+    owned.find((s) => s.channels.length === 0) ?? owned[0];
+  if (!shop) {
+    shop = await ensureDefaultShop(user.id);
+  }
+
+  const before = await db.query.channels.findFirst({
+    where: and(
+      eq(channels.shopId, shop.id),
+      eq(channels.telegramChatId, input.telegramChatId),
+    ),
+  });
+
+  const channel = await connectChannelToShop({
+    shopId: shop.id,
+    telegramChatId: input.telegramChatId,
+    title: input.title ?? undefined,
+    username: input.username ?? undefined,
+  });
+
+  const freshShop =
+    (await db.query.shops.findFirst({ where: eq(shops.id, shop.id) })) ?? shop;
+
+  if (before) {
+    return {
+      status: "already_connected",
+      shop: freshShop,
+      channel,
+    };
+  }
+
+  return {
+    status: "connected",
+    shop: freshShop,
+    channel,
+    fresh: true,
+  };
 }
 
 export async function getChannelByTelegramChatId(

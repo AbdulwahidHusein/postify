@@ -2,13 +2,14 @@ import "server-only";
 
 import { Bot, type Context } from "grammy";
 import { requireBotToken, serverEnv } from "@/lib/env.server";
-import { createLoginTokenForIdentity, redirectPathFromStartPayload } from "@/lib/auth/login-tokens";
+import {
+  createLoginTokenForIdentity,
+  redirectPathFromStartPayload,
+} from "@/lib/auth/login-tokens";
 import {
   chatFingerprint,
-  connectChannelToShop,
-  extractConnectCode,
-  findShopByConnectCode,
   getChannelByTelegramChatId,
+  linkChannelForTelegramUser,
   touchChannelPost,
 } from "@/lib/channels";
 import { ingestChannelListing } from "@/lib/ingest-channel-post";
@@ -24,7 +25,7 @@ import {
 export type BotContext = Context;
 
 const globalForBot = globalThis as unknown as {
-  postifyBotV12?: Bot;
+  postifyBotV13?: Bot;
 };
 
 function appUrl() {
@@ -33,6 +34,67 @@ function appUrl() {
 
 function botUsername() {
   return serverEnv.TELEGRAM_BOT_USERNAME.replace(/^@/, "") || "this bot";
+}
+
+async function applyLinkResult(
+  ctx: Context,
+  result: Awaited<ReturnType<typeof linkChannelForTelegramUser>>,
+  opts?: { channelReply?: boolean },
+) {
+  const openDash = {
+    inline_keyboard: [
+      [
+        {
+          text: "Open Postify",
+          web_app: { url: `${appUrl()}/dashboard` },
+        },
+      ],
+    ],
+  };
+
+  if (result.status === "no_account") {
+    await ctx.reply("Open Postify once, then add the bot again.", {
+      reply_markup: openDash,
+    });
+    return;
+  }
+  if (result.status === "conflict") {
+    await ctx.reply("This channel is already linked.");
+    return;
+  }
+
+  try {
+    await syncShopLogoFromTelegramChat({
+      shop: result.shop,
+      telegramChatId: result.channel.telegramChatId,
+      channelUsername: result.channel.username,
+    });
+  } catch (logoError) {
+    console.warn("[bot] channel logo sync failed", logoError);
+  }
+
+  if (result.status === "already_connected") {
+    await ctx.reply(`Already connected · ${result.shop.name}`);
+    return;
+  }
+
+  const msg = opts?.channelReply
+    ? `Connected · ${result.shop.name}\nPost a photo with a price.`
+    : `Connected · ${result.shop.name}`;
+  await ctx.reply(msg, {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "Open shop",
+            web_app: {
+              url: `${appUrl()}/dashboard/s/${result.shop.slug}`,
+            },
+          },
+        ],
+      ],
+    },
+  });
 }
 
 function buildBot() {
@@ -70,16 +132,14 @@ function buildBot() {
       const forMessage = payload.startsWith("auth_msg_");
       await ctx.reply(
         forMessage
-          ? "Tap below to finish signing in — you’ll return to message the seller."
-          : "Tap below to finish signing in on the website. This link works once and expires in 10 minutes.",
+          ? "Tap below to sign in and message the seller."
+          : "Tap below to sign in.",
         {
           reply_markup: {
             inline_keyboard: [
               [
                 {
-                  text: forMessage
-                    ? "Confirm & open chat"
-                    : "Confirm login on website",
+                  text: forMessage ? "Continue" : "Sign in",
                   url: confirmUrl,
                 },
               ],
@@ -116,23 +176,13 @@ function buildBot() {
     }
 
     await ctx.reply(
-      [
-        "Welcome to Postify.",
-        "",
-        "I turn your channel into an ecommerce platform.",
-        "",
-        "Setup:",
-        "1) Tap Open dashboard",
-        "2) Create a shop → Connect channel",
-        `3) Add @${botUsername()} as channel admin`,
-        "4) Post the PFY code, then post products (photo + caption)",
-      ].join("\n"),
+      `I turn your channel into an ecommerce platform.\n\nAdd @${botUsername()} as admin to your channel, then post products.`,
       {
         reply_markup: {
           inline_keyboard: [
             [
               {
-                text: "Open dashboard",
+                text: "Open Postify",
                 web_app: { url: `${appUrl()}/dashboard` },
               },
             ],
@@ -142,18 +192,53 @@ function buildBot() {
     );
   });
 
+  // Connect by forwarding a channel post to the bot (private chat).
+  bot.on("message", async (ctx, next) => {
+    const msg = ctx.message;
+    const from = ctx.from;
+    if (!msg || !from || ctx.chat?.type !== "private") return next();
+
+    const raw = msg as {
+      forward_from_chat?: { type?: string; id: number; title?: string; username?: string };
+      forward_origin?: {
+        type?: string;
+        chat?: { type?: string; id: number; title?: string; username?: string };
+      };
+    };
+    const fwdChat =
+      raw.forward_from_chat?.type === "channel"
+        ? raw.forward_from_chat
+        : raw.forward_origin?.type === "channel" && raw.forward_origin.chat
+          ? raw.forward_origin.chat
+          : null;
+
+    if (!fwdChat) return next();
+
+    try {
+      const result = await linkChannelForTelegramUser({
+        telegramUserId: BigInt(from.id),
+        telegramChatId: BigInt(fwdChat.id),
+        title: fwdChat.title,
+        username: fwdChat.username,
+      });
+      await applyLinkResult(ctx, result);
+    } catch (error) {
+      console.error("[bot] forward link failed", error);
+      await ctx.reply("Could not link. Try again.");
+    }
+  });
+
   registerChatBotHandlers(bot);
 
   bot.command("help", async (ctx) => {
     await ctx.reply(
       [
-        "Commands:",
-        "/start — open dashboard",
-        "/help — this message",
-        "/status — check if a channel is linked",
+        "Add the bot as channel admin.",
+        "Or forward a channel post here.",
+        "Then post a photo with a price.",
         "",
-        "After connecting: post a product photo + caption (include price).",
-        "I’ll reply with an Open in shop link.",
+        "/start — open Postify",
+        "/status — check this channel",
       ].join("\n"),
     );
   });
@@ -163,13 +248,13 @@ function buildBot() {
     if (!chat) return;
 
     if (chat.type !== "channel") {
-      await ctx.reply("Run /status as a post inside your connected channel.");
+      await ctx.reply("Run /status inside your channel.");
       return;
     }
 
     const channel = await getChannelByTelegramChatId(BigInt(chat.id));
     if (!channel) {
-      await ctx.reply("This channel is not connected to Postify yet.");
+      await ctx.reply("Not connected yet. Add the bot as admin.");
       return;
     }
 
@@ -177,26 +262,40 @@ function buildBot() {
       where: eq(shops.id, channel.shopId),
     });
 
-    await ctx.reply(
-      [
-        "Connected ✓",
-        `Shop: ${shop?.name ?? channel.shopId}`,
-        shop ? `Dashboard: ${appUrl()}/dashboard/s/${shop.slug}` : "",
-        `Last activity: ${channel.lastPostAt?.toLocaleString() ?? "none yet"}`,
-      ]
-        .filter(Boolean)
-        .join("\n"),
-    );
+    await ctx.reply(`Connected · ${shop?.name ?? "shop"}`);
   });
 
   bot.on("my_chat_member", async (ctx) => {
     const chat = ctx.chat;
-    const status = ctx.myChatMember.new_chat_member.status;
+    const member = ctx.myChatMember.new_chat_member;
+    const status = member.status;
+    const from = ctx.from;
+
     console.info("[bot] my_chat_member", {
       chat: chatFingerprint(chat.id),
       type: chat.type,
       status,
     });
+
+    if (chat.type !== "channel") return;
+    if (status !== "administrator" && status !== "member") return;
+    if (!from || from.is_bot) return;
+
+    try {
+      const result = await linkChannelForTelegramUser({
+        telegramUserId: BigInt(from.id),
+        telegramChatId: BigInt(chat.id),
+        title: "title" in chat ? chat.title : null,
+        username: "username" in chat ? chat.username : null,
+      });
+      await applyLinkResult(ctx, result, { channelReply: true });
+      console.info("[bot] channel link", {
+        status: result.status,
+        chat: chatFingerprint(chat.id),
+      });
+    } catch (error) {
+      console.error("[bot] my_chat_member link failed", error);
+    }
   });
 
   bot.on("channel_post", async (ctx) => {
@@ -204,56 +303,11 @@ function buildBot() {
     if (!post) return;
 
     const chatId = BigInt(post.chat.id);
-    const text = (post.text ?? post.caption ?? "").trim();
-
-    const code = text ? extractConnectCode(text) : null;
-    if (code) {
-      const shop = await findShopByConnectCode(code);
-      if (!shop) {
-        await ctx.reply(
-          "That connect code is invalid or expired. Generate a new one in the Postify dashboard.",
-        );
-        return;
-      }
-
-      try {
-        const channel = await connectChannelToShop({
-          shopId: shop.id,
-          telegramChatId: chatId,
-          title: post.chat.title,
-          username: post.chat.username,
-        });
-        try {
-          await syncShopLogoFromTelegramChat({
-            shop,
-            telegramChatId: chatId,
-            channelUsername: post.chat.username,
-          });
-        } catch (logoError) {
-          console.warn("[bot] channel logo sync failed", logoError);
-        }
-        await ctx.reply(
-          `Connected to ${shop.name} ✓\nNow post a product (photo + caption with price). I’ll reply with a shop link.`,
-        );
-        console.info("[bot] channel connected", {
-          shopId: shop.id,
-          channelId: channel.id,
-          chat: chatFingerprint(chatId),
-        });
-      } catch (error) {
-        const message =
-          error instanceof Error ? error.message : "Could not connect channel";
-        await ctx.reply(message);
-      }
-      return;
-    }
-
     const channel = await getChannelByTelegramChatId(chatId);
     if (!channel) {
       return;
     }
 
-    // Bot-authored posts already include Open in shop — never reply or re-ingest.
     const me = await ctx.api.getMe();
     if (post.from?.id === me.id || post.from?.is_bot) {
       await touchChannelPost(channel.id, post.message_id);
@@ -267,8 +321,6 @@ function buildBot() {
       const keyboard = {
         inline_keyboard: [[{ text: "Open in shop", url }]],
       };
-      // Telegram forbids empty message text. U+2800 (Braille blank) is the usual
-      // workaround so clients show essentially only the inline button.
       try {
         await ctx.reply("\u2800", { reply_markup: keyboard });
         return;
@@ -288,16 +340,12 @@ function buildBot() {
         onDraft: async (product) => {
           await replyOpenInShop(product.slug);
         },
-        onSkipped: async () => {
-          // Stay quiet on non-product posts.
-        },
+        onSkipped: async () => {},
       });
     } catch (error) {
       console.error("[bot] ingest failed", error);
       try {
-        await ctx.reply(
-          "Could not create the product listing. Try again or add it manually in the dashboard.",
-        );
+        await ctx.reply("Could not create the listing. Try again.");
       } catch {
         // ignore
       }
@@ -312,8 +360,8 @@ export function getBot(): Bot {
     throw new Error("TELEGRAM_BOT_TOKEN is not configured");
   }
 
-  if (!globalForBot.postifyBotV12) {
-    globalForBot.postifyBotV12 = buildBot();
+  if (!globalForBot.postifyBotV13) {
+    globalForBot.postifyBotV13 = buildBot();
   }
-  return globalForBot.postifyBotV12;
+  return globalForBot.postifyBotV13;
 }

@@ -29,12 +29,7 @@ export function ShopPicker() {
   const [error, setError] = useState<string | null>(null);
   const [authNote, setAuthNote] = useState<string | null>(null);
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [creating, setCreating] = useState(false);
-
-  const botHandle = telegramBotUsername
-    ? `@${telegramBotUsername.replace(/^@/, "")}`
-    : null;
 
   useEffect(() => {
     const auth = searchParams.get("auth");
@@ -70,10 +65,14 @@ export function ShopPicker() {
           throw new Error(channelsData.error ?? "Failed to load channels");
         }
         if (!cancelled) {
-          setShops(shopsData.shops ?? []);
+          const list = shopsData.shops ?? [];
+          setShops(list);
           setChannels(channelsData.channels ?? []);
           setError(null);
           setShopsLoading(false);
+          if (list.length === 1) {
+            router.replace(`/dashboard/s/${list[0]!.slug}`);
+          }
         }
       } catch (err) {
         if (!cancelled) {
@@ -85,7 +84,7 @@ export function ShopPicker() {
     return () => {
       cancelled = true;
     };
-  }, [user]);
+  }, [user, router]);
 
   async function onCreateShop(e: React.FormEvent) {
     e.preventDefault();
@@ -99,7 +98,6 @@ export function ShopPicker() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name.trim(),
-          description: description.trim() || undefined,
         }),
       });
       const data = (await res.json()) as {
@@ -134,16 +132,13 @@ export function ShopPicker() {
     return (
       <AdminHomeShell>
         <section className="admin-panel admin-auth">
-          <p className="admin-kicker">Sign in</p>
-          <h1 className="admin-h1">Welcome back</h1>
-          <p className="admin-lead">
-            Sign in with Telegram to manage shops, products, and channels.
-          </p>
+          <h1 className="admin-h1">Sign in</h1>
+          <p className="admin-lead">Continue with Telegram.</p>
           {(authError || tmaError) && (
             <p className="admin-error">{authError || tmaError}</p>
           )}
           {isTma ? (
-            <p className="admin-muted">Signing you in from Telegram…</p>
+            <p className="admin-muted">Signing in…</p>
           ) : (
             <div className="admin-actions">
               {botLink ? (
@@ -151,9 +146,6 @@ export function ShopPicker() {
                   Continue in Telegram
                 </a>
               ) : null}
-              <p className="admin-hint">
-                Opens {botHandle ?? "the bot"}. Tap Start, then confirm login.
-              </p>
             </div>
           )}
         </section>
@@ -166,10 +158,9 @@ export function ShopPicker() {
       <div className="admin-stack">
         <header className="admin-section-head">
           <div>
-            <p className="admin-kicker">Workspace</p>
             <h1 className="admin-h1">Your shops</h1>
             <p className="admin-lead">
-              Signed in as {user.firstName}
+              {user.firstName}
               {user.username ? ` (@${user.username})` : ""}
             </p>
           </div>
@@ -196,15 +187,7 @@ export function ShopPicker() {
         ) : null}
 
         {shopsLoading ? (
-          <InlineLoader label="Loading shops" />
-        ) : shops.length === 0 ? (
-          <section className="admin-empty">
-            <h2>Create your store</h2>
-            <p>
-              One storefront per shop. Connect a Telegram channel after you
-              create it, then manage products from the dashboard.
-            </p>
-          </section>
+          <InlineLoader label="Loading" />
         ) : (
           <div className="admin-shop-grid">
             {shops.map((shop) => {
@@ -224,8 +207,8 @@ export function ShopPicker() {
                   <p className="admin-muted">/{shop.slug}</p>
                   <p className="admin-shop-card-meta">
                     {linked
-                      ? `Channel · ${linked.title ?? linked.username ?? "linked"}`
-                      : "No channel linked yet"}
+                      ? (linked.title ?? linked.username ?? "Channel linked")
+                      : "Add the bot as admin"}
                   </p>
                 </Link>
               );
@@ -233,49 +216,35 @@ export function ShopPicker() {
           </div>
         )}
 
-        <form
-          id="create-store"
-          className="admin-panel admin-form"
-          onSubmit={onCreateShop}
-        >
-          <div>
-            <p className="admin-kicker">
-              {shops.length === 0 ? "Get started" : "New shop"}
-            </p>
-            <h2 className="admin-h2">
-              {shops.length === 0 ? "Create your store" : "Add another shop"}
-            </h2>
-          </div>
-          <label className="admin-field">
-            <span>Name</span>
-            <input
-              className="field"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Mint Closet"
-              required
-              maxLength={80}
-            />
-          </label>
-          <label className="admin-field">
-            <span>Description (optional)</span>
-            <textarea
-              className="field"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Resale fashion from Addis"
-              rows={3}
-              maxLength={500}
-            />
-          </label>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={creating || !name.trim()}
+        {shops.length > 0 ? (
+          <form
+            id="create-store"
+            className="admin-panel admin-form"
+            onSubmit={onCreateShop}
           >
-            {creating ? "Creating…" : "Create shop"}
-          </button>
-        </form>
+            <div>
+              <h2 className="admin-h2">Add another shop</h2>
+            </div>
+            <label className="admin-field">
+              <span>Name</span>
+              <input
+                className="field"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Shop name"
+                required
+                maxLength={80}
+              />
+            </label>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={creating || !name.trim()}
+            >
+              {creating ? "Creating…" : "Create"}
+            </button>
+          </form>
+        ) : null}
       </div>
     </AdminHomeShell>
   );

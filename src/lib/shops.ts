@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { shops, type Shop, type ShopSettings } from "@/db/schema";
+import { shops, users, type Shop, type ShopSettings } from "@/db/schema";
 import { slugify, uniqueSlugHint } from "@/lib/slug";
 
 export const defaultSettings: ShopSettings = {
@@ -167,6 +167,21 @@ export async function createShop(input: {
     .returning();
 
   return created;
+}
+
+/** Create a default shop only when the user has none (idempotent). */
+export async function ensureDefaultShop(ownerUserId: string): Promise<Shop> {
+  const existing = await listShopsForOwner(ownerUserId);
+  if (existing[0]) return existing[0];
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.id, ownerUserId),
+  });
+  const name = user?.firstName?.trim()
+    ? `${user.firstName.trim()}'s shop`
+    : "My shop";
+
+  return createShop({ ownerUserId, name });
 }
 
 export function serializeShop(shop: Shop) {
