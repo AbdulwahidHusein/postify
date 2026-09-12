@@ -61,7 +61,7 @@ export async function postProductToConnectedChannel(productId: string) {
     currency: product.currency,
   });
   const keyboard = {
-    inline_keyboard: [[{ text: "Open in shop", url: shopUrl }]],
+    inline_keyboard: [[{ text: "Open in Goods", url: shopUrl }]],
   };
 
   const bot = getBot();

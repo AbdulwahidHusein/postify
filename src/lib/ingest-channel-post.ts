@@ -227,7 +227,7 @@ function appUrl() {
 async function replyOpenInShop(chatId: bigint, productSlug: string) {
   const url = `${appUrl()}/p/${productSlug}`;
   const reply_markup = {
-    inline_keyboard: [[{ text: "Open in shop", url }]],
+    inline_keyboard: [[{ text: "Open in Goods", url }]],
   };
   const bot = new Api(requireBotToken());
   try {
@@ -238,7 +238,7 @@ async function replyOpenInShop(chatId: bigint, productSlug: string) {
   } catch (error) {
     console.warn("[ingest] braille-blank reply failed, falling back", error);
   }
-  await bot.sendMessage(Number(chatId), "Open in shop", {
+  await bot.sendMessage(Number(chatId), "Open in Goods", {
     reply_markup: reply_markup as never,
   });
 }

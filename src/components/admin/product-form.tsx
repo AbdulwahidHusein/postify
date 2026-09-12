@@ -292,7 +292,7 @@ export function ProductForm({
         );
         setFromChannel(true);
       }
-      setPostNote("Posted to Telegram with Open in shop on the message.");
+      setPostNote("Posted to Telegram with Open in Goods on the message.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Post failed");
     } finally {
