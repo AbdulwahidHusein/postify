@@ -1,8 +1,8 @@
 import "server-only";
 
-import { and, asc, eq, lte, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, lte, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { notificationOutbox } from "@/db/schema";
+import { notificationOutbox, type NotificationOutbox } from "@/db/schema";
 import {
   deliverChatNotification,
   deliverOrderNotification,
@@ -11,7 +11,8 @@ import {
 export type OutboxKind =
   | "seller_new_message"
   | "buyer_new_message"
-  | "seller_new_order";
+  | "seller_new_order"
+  | "ingest_channel_post";
 
 export async function enqueueChatNotify(input: {
   kind: "seller_new_message" | "buyer_new_message";
@@ -29,6 +30,8 @@ export async function enqueueChatNotify(input: {
   });
 
   // Await so serverless/dev doesn't drop the flush after the HTTP response.
+  // flushOutbox is scoped to notification kinds — it never runs the LLM-backed
+  // ingest jobs, so this stays fast.
   await flushOutbox(8).catch((err) => {
     console.warn("[chat] outbox flush failed", err);
   });
@@ -47,59 +50,40 @@ export async function enqueueOrderNotify(input: { orderId: string }) {
   });
 }
 
-export async function flushOutbox(limit = 20) {
-  const now = new Date();
-  // Prefer order notifies so deal alerts aren't starved by older chat retries.
-  const orderJobs = await db.query.notificationOutbox.findMany({
-    where: and(
-      eq(notificationOutbox.status, "pending"),
-      eq(notificationOutbox.kind, "seller_new_order"),
-      lte(notificationOutbox.nextAttemptAt, now),
-    ),
-    orderBy: [asc(notificationOutbox.createdAt)],
-    limit,
-  });
-  const remaining = Math.max(0, limit - orderJobs.length);
-  const otherJobs =
-    remaining > 0
-      ? await db.query.notificationOutbox.findMany({
-          where: and(
-            eq(notificationOutbox.status, "pending"),
-            sql`${notificationOutbox.kind} <> 'seller_new_order'`,
-            lte(notificationOutbox.nextAttemptAt, now),
-          ),
-          orderBy: [asc(notificationOutbox.createdAt)],
-          limit: remaining,
-        })
-      : [];
-  const jobs = [...orderJobs, ...otherJobs];
+/**
+ * Claim a batch of outbox jobs and run each through `run`, with atomic claim
+ * (no double-processing across concurrent flushers) and exponential-backoff
+ * retries. Shared by the notification flush and the ingest flush.
+ */
+export async function processOutboxJobs(
+  jobs: NotificationOutbox[],
+  run: (job: NotificationOutbox) => Promise<void>,
+): Promise<number> {
+  let processed = 0;
 
   for (const job of jobs) {
-    await db
+    // Atomic claim: only one concurrent flusher transitions pending → processing.
+    // Without `status = 'pending'` in the WHERE, two flushers (webhook tail +
+    // cron) both select the same row and both deliver → double notifications.
+    const claimed = await db
       .update(notificationOutbox)
       .set({
         status: "processing",
         attempts: sql`${notificationOutbox.attempts} + 1`,
         updatedAt: new Date(),
       })
-      .where(eq(notificationOutbox.id, job.id));
+      .where(
+        and(
+          eq(notificationOutbox.id, job.id),
+          eq(notificationOutbox.status, "pending"),
+        ),
+      )
+      .returning();
+    if (claimed.length === 0) continue; // someone else already claimed it
+    processed += 1;
 
     try {
-      if (job.kind === "seller_new_order") {
-        await deliverOrderNotification({
-          orderId: String(
-            (job.payload as { orderId?: string }).orderId ?? "",
-          ),
-        });
-      } else {
-        await deliverChatNotification({
-          kind: job.kind as "seller_new_message" | "buyer_new_message",
-          payload: job.payload as {
-            messageId: string;
-            conversationId: string;
-          },
-        });
-      }
+      await run(job);
       await db
         .update(notificationOutbox)
         .set({ status: "done", updatedAt: new Date(), lastError: null })
@@ -120,7 +104,57 @@ export async function flushOutbox(limit = 20) {
     }
   }
 
-  return jobs.length;
+  return processed;
+}
+
+/** Flush Telegram *notification* jobs only (chat + orders). Never ingest. */
+export async function flushOutbox(limit = 20) {
+  const now = new Date();
+  // Prefer order notifies so deal alerts aren't starved by older chat retries.
+  const orderJobs = await db.query.notificationOutbox.findMany({
+    where: and(
+      eq(notificationOutbox.status, "pending"),
+      eq(notificationOutbox.kind, "seller_new_order"),
+      lte(notificationOutbox.nextAttemptAt, now),
+    ),
+    orderBy: [asc(notificationOutbox.createdAt)],
+    limit,
+  });
+  const remaining = Math.max(0, limit - orderJobs.length);
+  const otherJobs =
+    remaining > 0
+      ? await db.query.notificationOutbox.findMany({
+          where: and(
+            eq(notificationOutbox.status, "pending"),
+            inArray(notificationOutbox.kind, [
+              "seller_new_message",
+              "buyer_new_message",
+            ]),
+            lte(notificationOutbox.nextAttemptAt, now),
+          ),
+          orderBy: [asc(notificationOutbox.createdAt)],
+          limit: remaining,
+        })
+      : [];
+  const jobs = [...orderJobs, ...otherJobs];
+
+  return processOutboxJobs(jobs, async (job) => {
+    if (job.kind === "seller_new_order") {
+      await deliverOrderNotification({
+        orderId: String(
+          (job.payload as { orderId?: string }).orderId ?? "",
+        ),
+      });
+      return;
+    }
+    await deliverChatNotification({
+      kind: job.kind as "seller_new_message" | "buyer_new_message",
+      payload: job.payload as {
+        messageId: string;
+        conversationId: string;
+      },
+    });
+  });
 }
 
 /** Stuck "processing" rows after crash — reclaim as pending. */

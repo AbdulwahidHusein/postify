@@ -104,6 +104,8 @@ export type ExtractListingOptions = {
   preferredCategories?: string[];
 };
 
+const LLM_TIMEOUT_MS = 20_000; // bound the call even off-request
+
 function llmModel() {
   return serverEnv.LLM_MODEL || "gemini-2.5-flash";
 }
@@ -212,22 +214,32 @@ async function extractWithGemini(
   if (!apiKey) return null;
 
   const ai = new GoogleGenAI({ apiKey });
-  const response = await ai.models.generateContent({
-    model: llmModel(),
-    contents: buildPrompt(caption, opts),
-    config: {
-      temperature: 0,
-      responseMimeType: "application/json",
-      responseJsonSchema: RESPONSE_JSON_SCHEMA,
-    },
-  });
+  // Bound the request so a hung provider can't stall the worker forever;
+  // on abort this throws and extractListingFromCaption falls back to the
+  // heuristic parser.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), LLM_TIMEOUT_MS);
+  try {
+    const response = await ai.models.generateContent({
+      model: llmModel(),
+      contents: buildPrompt(caption, opts),
+      config: {
+        temperature: 0,
+        responseMimeType: "application/json",
+        responseJsonSchema: RESPONSE_JSON_SCHEMA,
+        abortSignal: controller.signal,
+      },
+    });
 
-  const text = response.text?.trim();
-  if (!text) return null;
+    const text = response.text?.trim();
+    if (!text) return null;
 
-  const parsedJson: unknown = JSON.parse(text);
-  const validated = listingSchema.parse(parsedJson);
-  return normalizeListing(validated, opts);
+    const parsedJson: unknown = JSON.parse(text);
+    const validated = listingSchema.parse(parsedJson);
+    return normalizeListing(validated, opts);
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 /**

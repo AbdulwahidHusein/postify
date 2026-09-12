@@ -11,7 +11,7 @@ import {
   uuid,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 
 export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -176,7 +176,21 @@ export const products = pgTable(
       .notNull()
       .defaultNow(),
   },
-  (table) => [uniqueIndex("products_slug_uidx").on(table.slug)],
+  (table) => [
+    uniqueIndex("products_slug_uidx").on(table.slug),
+    // Album dedup: one product per (shop, media_group). NULLs are distinct so
+    // manual products (no media group) never collide.
+    uniqueIndex("products_shop_media_group_uidx")
+      .on(table.shopId, table.sourceMediaGroupId)
+      .where(sql`${table.sourceMediaGroupId} is not null`),
+    // Message dedup: one product per (shop, chat, message) — guards against
+    // concurrent webhook processing / Telegram retries creating duplicates.
+    uniqueIndex("products_shop_source_msg_uidx")
+      .on(table.shopId, table.sourceChatId, table.sourceMessageId)
+      .where(
+        sql`${table.sourceChatId} is not null and ${table.sourceMessageId} is not null`,
+      ),
+  ],
 );
 
 export const productImages = pgTable("product_images", {
@@ -488,3 +502,4 @@ export type ProductImage = typeof productImages.$inferSelect;
 export type Conversation = typeof conversations.$inferSelect;
 export type Message = typeof messages.$inferSelect;
 export type Order = typeof orders.$inferSelect;
+export type NotificationOutbox = typeof notificationOutbox.$inferSelect;

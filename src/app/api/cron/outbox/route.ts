@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { flushOutbox, reclaimStaleOutbox } from "@/lib/chat/outbox";
+import { flushIngestOutbox } from "@/lib/ingest-channel-post";
 import { serverEnv } from "@/lib/env.server";
 
 /**
- * Flush pending Telegram notifications (chat + orders).
- * Protect with CRON_SECRET header, or TELEGRAM_WEBHOOK_SECRET as fallback.
+ * Flush pending Telegram notifications (chat + orders) and channel-post ingest
+ * jobs. Protect with CRON_SECRET header, or TELEGRAM_WEBHOOK_SECRET as fallback.
  *
  * curl -X POST "$APP_URL/api/cron/outbox" -H "Authorization: Bearer $CRON_SECRET"
  */
@@ -20,8 +21,9 @@ export async function POST(request: Request) {
   }
 
   await reclaimStaleOutbox();
-  const processed = await flushOutbox(40);
-  return NextResponse.json({ ok: true, processed });
+  const notified = await flushOutbox(40);
+  const ingested = await flushIngestOutbox(10);
+  return NextResponse.json({ ok: true, notified, ingested });
 }
 
 export async function GET(request: Request) {

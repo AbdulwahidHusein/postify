@@ -57,6 +57,41 @@ export type ChannelIngestResult =
   | { outcome: "duplicate"; product: Product }
   | { outcome: "created"; product: Product };
 
+function isUniqueViolation(err: unknown): boolean {
+  return (
+    typeof err === "object" &&
+    err !== null &&
+    "code" in err &&
+    (err as { code?: string }).code === "23505"
+  );
+}
+
+async function findExistingChannelProduct(input: {
+  shop: Shop;
+  chatId: bigint;
+  messageId: number;
+  mediaGroupId?: string | null;
+}): Promise<Product | null> {
+  if (input.mediaGroupId) {
+    const byGroup = await db.query.products.findFirst({
+      where: and(
+        eq(products.shopId, input.shop.id),
+        eq(products.sourceMediaGroupId, input.mediaGroupId),
+      ),
+    });
+    if (byGroup) return byGroup;
+  }
+  return (
+    (await db.query.products.findFirst({
+      where: and(
+        eq(products.shopId, input.shop.id),
+        eq(products.sourceChatId, input.chatId),
+        eq(products.sourceMessageId, input.messageId),
+      ),
+    })) ?? null
+  );
+}
+
 export async function createProductFromChannelPost(input: {
   shop: Shop;
   channel: Channel;
@@ -80,31 +115,19 @@ export async function createProductFromChannelPost(input: {
     };
   }
 
-  const existing = await db.query.products.findFirst({
-    where: and(
-      eq(products.shopId, input.shop.id),
-      eq(products.sourceChatId, input.chatId),
-      eq(products.sourceMessageId, input.messageId),
-    ),
-  });
+  // Dedup (fast path): the partial unique indexes below make this the last
+  // line of defense — a concurrent insert that slips through here will throw
+  // a unique violation at insert time and be recovered below.
+  const existing = await findExistingChannelProduct(input);
   if (existing) {
     return { outcome: "duplicate", product: existing };
   }
 
-  if (input.mediaGroupId) {
-    const groupHit = await db.query.products.findFirst({
-      where: and(
-        eq(products.shopId, input.shop.id),
-        eq(products.sourceMediaGroupId, input.mediaGroupId),
-      ),
-    });
-    if (groupHit) {
-      return { outcome: "duplicate", product: groupHit };
-    }
-  }
-
-  // Channel posts always publish — sellers can edit later in the dashboard.
-  const status: ProductStatus = "published";
+  // Respect the shop's auto-publish threshold: low-confidence parses become
+  // drafts (seller confirms in the dashboard) rather than going live.
+  const autoPublishMinConfidence = settings.autoPublishMinConfidence ?? 0.8;
+  const status: ProductStatus =
+    parsed.confidence >= autoPublishMinConfidence ? "published" : "draft";
 
   const baseSlug =
     slugify(parsed.slugHint || parsed.title).slice(0, 40) || "item";
@@ -112,29 +135,40 @@ export async function createProductFromChannelPost(input: {
     `${input.chatId}-${input.messageId}-${Date.now()}`,
   )}`;
 
-  const [product] = await db
-    .insert(products)
-    .values({
-      shopId: input.shop.id,
-      channelId: input.channel.id,
-      slug,
-      title: parsed.title,
-      description: parsed.description || null,
-      price: parsed.price !== null ? String(parsed.price) : null,
-      compareAtPrice:
-        parsed.compareAtPrice !== null ? String(parsed.compareAtPrice) : null,
-      currency: parsed.currency ?? settings.defaultCurrency,
-      category: parsed.category,
-      sku: parsed.sku,
-      tags: formatListingTags(parsed.tags),
-      status,
-      confidence: String(parsed.confidence),
-      rawCaption: input.caption || null,
-      sourceChatId: input.chatId,
-      sourceMessageId: input.messageId,
-      sourceMediaGroupId: input.mediaGroupId ?? null,
-    })
-    .returning();
+  let product: Product | undefined;
+  try {
+    [product] = await db
+      .insert(products)
+      .values({
+        shopId: input.shop.id,
+        channelId: input.channel.id,
+        slug,
+        title: parsed.title,
+        description: parsed.description || null,
+        price: parsed.price !== null ? String(parsed.price) : null,
+        compareAtPrice:
+          parsed.compareAtPrice !== null ? String(parsed.compareAtPrice) : null,
+        currency: parsed.currency ?? settings.defaultCurrency,
+        category: parsed.category,
+        sku: parsed.sku,
+        tags: formatListingTags(parsed.tags),
+        status,
+        confidence: String(parsed.confidence),
+        rawCaption: input.caption || null,
+        sourceChatId: input.chatId,
+        sourceMessageId: input.messageId,
+        sourceMediaGroupId: input.mediaGroupId ?? null,
+      })
+      .returning();
+  } catch (err) {
+    // Concurrent insert won the race (album parts or a Telegram webhook
+    // retry processed in parallel). Treat the winner as the product.
+    if (!isUniqueViolation(err)) throw err;
+    const raced = await findExistingChannelProduct(input);
+    if (raced) return { outcome: "duplicate", product: raced };
+    throw err;
+  }
+  if (!product) throw new Error("Product insert returned no row");
 
   if (input.photos.length) {
     await db.insert(productImages).values(

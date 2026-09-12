@@ -12,7 +12,8 @@ import {
   linkChannelForTelegramUser,
   touchChannelPost,
 } from "@/lib/channels";
-import { ingestChannelListing } from "@/lib/ingest-channel-post";
+import { enqueueIngestChannelPost } from "@/lib/ingest-channel-post";
+import { pickBestPhotoFileId } from "@/lib/products";
 import { syncShopLogoFromTelegramChat } from "@/lib/shop-logo";
 import { db } from "@/db";
 import { shops } from "@/db/schema";
@@ -316,39 +317,26 @@ function buildBot() {
 
     await touchChannelPost(channel.id, post.message_id);
 
-    async function replyOpenInShop(productSlug: string) {
-      const url = `${appUrl()}/p/${productSlug}`;
-      const keyboard = {
-        inline_keyboard: [[{ text: "Open in shop", url }]],
-      };
-      try {
-        await ctx.reply("\u2800", { reply_markup: keyboard });
-        return;
-      } catch (error) {
-        console.warn("[bot] braille-blank reply failed, falling back", error);
-      }
-      await ctx.reply("Open in shop", { reply_markup: keyboard });
-    }
+    // Enqueue the ingest (LLM + product creation + "Open in shop" reply) for
+    // off-request processing. The webhook must ACK immediately — running the
+    // LLM here risks Telegram timeouts, retries, and half-finished products.
+    // See ARCHITECTURE.md ("Webhook must ACK quickly").
+    const caption = (post.text ?? post.caption ?? "").trim();
+    const mediaGroupId = post.media_group_id ?? null;
+    const fileId = post.photo ? pickBestPhotoFileId(post.photo) : null;
+    const photos = fileId ? [{ fileId }] : [];
 
     try {
-      await ingestChannelListing({
-        channel,
-        message: post,
-        onListed: async (product) => {
-          await replyOpenInShop(product.slug);
-        },
-        onDraft: async (product) => {
-          await replyOpenInShop(product.slug);
-        },
-        onSkipped: async () => {},
+      await enqueueIngestChannelPost({
+        channelId: channel.id,
+        chatId,
+        messageId: post.message_id,
+        mediaGroupId,
+        caption,
+        photos,
       });
     } catch (error) {
-      console.error("[bot] ingest failed", error);
-      try {
-        await ctx.reply("Could not create the listing. Try again.");
-      } catch {
-        // ignore
-      }
+      console.error("[bot] ingest enqueue failed", error);
     }
   });
 

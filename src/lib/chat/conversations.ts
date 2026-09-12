@@ -176,7 +176,41 @@ export async function getOrCreateProductConversation(input: {
       buyerUserId: input.buyerUserId,
       status: "open",
     })
+    .onConflictDoNothing({
+      target: [
+        conversations.shopId,
+        conversations.productId,
+        conversations.buyerUserId,
+      ],
+    })
     .returning();
+
+  if (!created) {
+    // Concurrent create won the race (buyer double-tapped order/message) —
+    // the unique (shop, product, buyer) index made our insert a no-op.
+    // Re-fetch the winner with relations instead of throwing a 500.
+    const winner = await db.query.conversations.findFirst({
+      where: and(
+        eq(conversations.shopId, product.shopId),
+        eq(conversations.productId, product.id),
+        eq(conversations.buyerUserId, input.buyerUserId),
+      ),
+      with: {
+        product: {
+          with: {
+            images: {
+              orderBy: (img, { asc: o }) => [o(img.sortOrder)],
+              limit: 1,
+            },
+          },
+        },
+        shop: true,
+        buyer: true,
+      },
+    });
+    if (!winner) throw new ChatError("Could not create conversation", 500);
+    return { conversation: winner, product, created: false };
+  }
 
   const full = await db.query.conversations.findFirst({
     where: eq(conversations.id, created.id),
@@ -366,14 +400,14 @@ export async function sendMessage(input: {
       status: "open",
       lastMessageAt: now,
       lastMessagePreview: previewOf(body, imageUrl),
-      sellerUnreadCount:
-        role === "buyer"
-          ? conversation.sellerUnreadCount + 1
-          : conversation.sellerUnreadCount,
-      buyerUnreadCount:
-        role === "seller"
-          ? conversation.buyerUnreadCount + 1
-          : conversation.buyerUnreadCount,
+      // Atomic increment: read-modify-write (+1 in JS) loses updates when two
+      // messages land concurrently — the second overwrites the first's count.
+      ...(role === "buyer"
+        ? { sellerUnreadCount: sql`${conversations.sellerUnreadCount} + 1` }
+        : {}),
+      ...(role === "seller"
+        ? { buyerUnreadCount: sql`${conversations.buyerUnreadCount} + 1` }
+        : {}),
       updatedAt: now,
     })
     .where(eq(conversations.id, conversation.id));

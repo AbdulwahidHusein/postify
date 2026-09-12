@@ -41,20 +41,23 @@ export async function createLoginTokenForIdentity(
 }
 
 export async function consumeLoginToken(token: string) {
-  const row = await db.query.loginTokens.findFirst({
-    where: and(
-      eq(loginTokens.token, token),
-      isNull(loginTokens.usedAt),
-      gt(loginTokens.expiresAt, new Date()),
-    ),
-  });
-
-  if (!row?.userId) return null;
-
-  await db
+  // Atomic single-use: the conditional UPDATE (usedAt IS NULL) guarantees that
+  // two concurrent requests with the same token can't both consume it — the
+  // row lock from the first UPDATE makes the second's WHERE no longer match.
+  const claimed = await db
     .update(loginTokens)
     .set({ usedAt: new Date() })
-    .where(eq(loginTokens.id, row.id));
+    .where(
+      and(
+        eq(loginTokens.token, token),
+        isNull(loginTokens.usedAt),
+        gt(loginTokens.expiresAt, new Date()),
+      ),
+    )
+    .returning();
+
+  const row = claimed[0];
+  if (!row?.userId) return null;
 
   return {
     userId: row.userId,

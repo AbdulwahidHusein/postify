@@ -1,20 +1,28 @@
 import "server-only";
 
-import type { Message } from "grammy/types";
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq, lte } from "drizzle-orm";
+import { Api } from "grammy";
 import { db } from "@/db";
-import { productImages, products, shops } from "@/db/schema";
-import type { Channel, Product } from "@/db/schema";
+import {
+  channels,
+  notificationOutbox,
+  productImages,
+  products,
+  shops,
+  type Channel,
+  type Product,
+} from "@/db/schema";
 import {
   createProductFromChannelPost,
-  pickBestPhotoFileId,
   type ChannelIngestResult,
 } from "@/lib/products";
 import {
   extractListingFromCaption,
   formatListingTags,
 } from "@/lib/llm/extract-listing";
+import { processOutboxJobs } from "@/lib/chat/outbox";
 import { normalizeShopSettings } from "@/lib/shops";
+import { requireBotToken, serverEnv } from "@/lib/env.server";
 
 type IngestReplyHandlers = {
   onListed: (product: Product) => Promise<void>;
@@ -26,9 +34,11 @@ async function getShop(shopId: string) {
   return db.query.shops.findFirst({ where: eq(shops.id, shopId) });
 }
 
-function extractPhotos(message: Message) {
-  const fileId = message.photo ? pickBestPhotoFileId(message.photo) : null;
-  return fileId ? [{ fileId }] : [];
+async function getChannelById(channelId: string) {
+  const channel = await db.query.channels.findFirst({
+    where: eq(channels.id, channelId),
+  });
+  return channel ?? null;
 }
 
 async function replyForResult(
@@ -113,7 +123,10 @@ async function appendPhotos(
             tags: formatListingTags(parsed.tags),
             confidence: String(parsed.confidence),
             rawCaption: trimmed,
-            status: "published",
+            status:
+              parsed.confidence >= (settings.autoPublishMinConfidence ?? 0.8)
+                ? "published"
+                : "draft",
             updatedAt: new Date(),
           })
           .where(eq(products.id, productId));
@@ -131,25 +144,25 @@ async function appendPhotos(
 /**
  * Albums (media groups) arrive as one webhook update per photo.
  * Create the product on the first part (reply once), append images on later parts.
- * No setTimeout — webhook handlers must finish while the request is alive.
+ * The LLM extract happens here — this must run off-request (see enqueue/flush below).
  */
 export async function ingestChannelListing(input: {
   channel: Channel;
-  message: Message;
+  chatId: bigint;
+  messageId: number;
+  mediaGroupId: string | null;
+  caption: string;
+  photos: { fileId: string }[];
   onListed: (product: Product) => Promise<void>;
   onDraft: (product: Product) => Promise<void>;
   onSkipped: (reason: string) => Promise<void>;
 }) {
-  const { channel, message } = input;
+  const { channel, chatId, messageId, mediaGroupId, caption, photos } = input;
   const handlers: IngestReplyHandlers = {
     onListed: input.onListed,
     onDraft: input.onDraft,
     onSkipped: input.onSkipped,
   };
-  const chatId = BigInt(message.chat.id);
-  const caption = (message.text ?? message.caption ?? "").trim();
-  const photos = extractPhotos(message);
-  const mediaGroupId = message.media_group_id ?? null;
 
   const shop = await getShop(channel.shopId);
   if (!shop) return;
@@ -167,7 +180,7 @@ export async function ingestChannelListing(input: {
     shop,
     channel,
     caption,
-    messageId: message.message_id,
+    messageId,
     chatId,
     mediaGroupId,
     photos,
@@ -188,4 +201,101 @@ export async function ingestChannelListing(input: {
   }
 
   await replyForResult(result, handlers);
+}
+
+// ── Off-request ingest via the notification_outbox ──────────────────────────
+// The webhook handler enqueues a job and ACKs immediately; the LLM + product
+// creation + reply run later via flushIngestOutbox (webhook tail-flush / cron),
+// so Telegram never sees a slow webhook and never retries a half-finished job.
+
+export type IngestJobPayload = {
+  channelId: string;
+  chatId: string; // bigint as string (JSON-safe)
+  messageId: number;
+  mediaGroupId: string | null;
+  caption: string;
+  photos: { fileId: string }[];
+};
+
+function appUrl() {
+  return serverEnv.NEXT_PUBLIC_APP_URL.replace(/\/$/, "");
+}
+
+/** Reply with an "Open in shop" button on the channel post (best-effort). */
+async function replyOpenInShop(chatId: bigint, productSlug: string) {
+  const url = `${appUrl()}/p/${productSlug}`;
+  const reply_markup = {
+    inline_keyboard: [[{ text: "Open in shop", url }]],
+  };
+  const bot = new Api(requireBotToken());
+  try {
+    await bot.sendMessage(Number(chatId), "\u2800", {
+      reply_markup: reply_markup as never,
+    });
+    return;
+  } catch (error) {
+    console.warn("[ingest] braille-blank reply failed, falling back", error);
+  }
+  await bot.sendMessage(Number(chatId), "Open in shop", {
+    reply_markup: reply_markup as never,
+  });
+}
+
+export async function enqueueIngestChannelPost(input: {
+  channelId: string;
+  chatId: bigint;
+  messageId: number;
+  mediaGroupId: string | null;
+  caption: string;
+  photos: { fileId: string }[];
+}) {
+  await db.insert(notificationOutbox).values({
+    kind: "ingest_channel_post",
+    payload: {
+      channelId: input.channelId,
+      chatId: input.chatId.toString(),
+      messageId: input.messageId,
+      mediaGroupId: input.mediaGroupId,
+      caption: input.caption,
+      photos: input.photos,
+    },
+    status: "pending",
+    nextAttemptAt: new Date(),
+  });
+  // Deliberately do NOT flush here — ingest runs the LLM and must happen
+  // off-request so the webhook ACKs immediately (see ARCHITECTURE.md).
+}
+
+async function processIngestJob(payload: IngestJobPayload) {
+  const channel = await getChannelById(payload.channelId);
+  if (!channel) return; // channel/shop removed since enqueue
+  const chatId = BigInt(payload.chatId);
+  await ingestChannelListing({
+    channel,
+    chatId,
+    messageId: payload.messageId,
+    mediaGroupId: payload.mediaGroupId,
+    caption: payload.caption,
+    photos: payload.photos,
+    onListed: (product) => replyOpenInShop(chatId, product.slug),
+    onDraft: (product) => replyOpenInShop(chatId, product.slug),
+    onSkipped: async () => {},
+  });
+}
+
+/** Process pending ingest jobs (LLM + product creation + reply). Off-request. */
+export async function flushIngestOutbox(limit = 6) {
+  const now = new Date();
+  const jobs = await db.query.notificationOutbox.findMany({
+    where: and(
+      eq(notificationOutbox.status, "pending"),
+      eq(notificationOutbox.kind, "ingest_channel_post"),
+      lte(notificationOutbox.nextAttemptAt, now),
+    ),
+    orderBy: [asc(notificationOutbox.createdAt)],
+    limit,
+  });
+  return processOutboxJobs(jobs, (job) =>
+    processIngestJob(job.payload as IngestJobPayload),
+  );
 }

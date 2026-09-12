@@ -151,6 +151,15 @@ async function putObject(key: string, body: Buffer, contentType: string) {
 }
 
 async function putLocal(key: string, body: Buffer) {
+  // Local-filesystem uploads are a dev convenience only. In production (Vercel
+  // etc.) the FS is read-only/ephemeral, so writing here would silently EROFS
+  // and the file would vanish across instances. Require cloud storage there.
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "Media storage not configured: set S3/R2 or MEDIA_UPLOAD_* env vars. " +
+        "Local filesystem uploads are unavailable in production.",
+    );
+  }
   const abs = path.join(UPLOAD_ROOT, key);
   await mkdir(path.dirname(abs), { recursive: true });
   await writeFile(abs, body);
