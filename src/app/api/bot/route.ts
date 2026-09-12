@@ -1,6 +1,7 @@
 import { webhookCallback } from "grammy";
 import { NextResponse } from "next/server";
 import { getBot } from "@/bot";
+import { flushIngestOutbox } from "@/lib/ingest-channel-post";
 import { serverEnv } from "@/lib/env.server";
 
 export const dynamic = "force-dynamic";
@@ -35,20 +36,25 @@ export async function POST(request: Request) {
     const handleUpdate = createHandler();
     const response = await handleUpdate(request);
 
-    // Opportunistic outbox drain: chat/order Telegram deliveries (fast) and
-    // channel-post ingest jobs (LLM). Both run after the response is sent, so
-    // the webhook still ACKs immediately; the cron is the reliable fallback.
+    // Process the just-enqueued ingest job BEFORE responding, so the product
+    // exists by the time Telegram (and the seller) sees the ACK — this restores
+    // the prompt post→product behavior. The outbox row is the durable fallback:
+    // if this flush throws, the cron drains the pending job. Awaiting here is
+    // intentional; the webhook takes LLM-latency to respond, same as before the
+    // outbox refactor, which is acceptable for the core loop.
+    try {
+      await flushIngestOutbox(4);
+    } catch (err) {
+      console.warn("[bot] ingest flush", err);
+    }
+
+    // Notifications (chat/order Telegram delivery) stay non-blocking.
     void import("@/lib/chat/outbox")
       .then(async ({ reclaimStaleOutbox, flushOutbox }) => {
         await reclaimStaleOutbox();
         await flushOutbox(12);
       })
       .catch((err) => console.warn("[bot] outbox flush", err));
-    void import("@/lib/ingest-channel-post")
-      .then(async ({ flushIngestOutbox }) => {
-        await flushIngestOutbox(4);
-      })
-      .catch((err) => console.warn("[bot] ingest flush", err));
 
     return response;
   } catch (error) {
