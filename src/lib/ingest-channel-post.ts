@@ -14,6 +14,7 @@ import {
 } from "@/db/schema";
 import {
   createProductFromChannelPost,
+  findExistingChannelProduct,
   type ChannelIngestResult,
 } from "@/lib/products";
 import {
@@ -215,6 +216,7 @@ export type IngestJobPayload = {
   mediaGroupId: string | null;
   caption: string;
   photos: { fileId: string }[];
+  isEdit?: boolean;
 };
 
 function appUrl() {
@@ -248,6 +250,7 @@ export async function enqueueIngestChannelPost(input: {
   mediaGroupId: string | null;
   caption: string;
   photos: { fileId: string }[];
+  isEdit?: boolean;
 }) {
   await db.insert(notificationOutbox).values({
     kind: "ingest_channel_post",
@@ -258,6 +261,7 @@ export async function enqueueIngestChannelPost(input: {
       mediaGroupId: input.mediaGroupId,
       caption: input.caption,
       photos: input.photos,
+      isEdit: input.isEdit ?? false,
     },
     status: "pending",
     nextAttemptAt: new Date(),
@@ -266,10 +270,103 @@ export async function enqueueIngestChannelPost(input: {
   // off-request so the webhook ACKs immediately (see ARCHITECTURE.md).
 }
 
+/**
+ * A seller edited a channel post's caption (price drop, mark sold, fix title).
+ * Re-extract the listing and update the existing product fields. Runs the LLM,
+ * so it must be off-request (called from processIngestJob, not the webhook).
+ */
+async function editChannelListing(input: {
+  channel: Channel;
+  chatId: bigint;
+  messageId: number;
+  mediaGroupId: string | null;
+  caption: string;
+  photos: { fileId: string }[];
+}) {
+  const shop = await getShop(input.channel.shopId);
+  if (!shop) return;
+
+  const existing = await findExistingChannelProduct({
+    shop,
+    chatId: input.chatId,
+    messageId: input.messageId,
+    mediaGroupId: input.mediaGroupId,
+  });
+
+  if (!existing) {
+    // No product yet — the create job hasn't run (or the original wasn't a
+    // product). Fall back to a fresh ingest so the edit still produces one.
+    await ingestChannelListing({
+      channel: input.channel,
+      chatId: input.chatId,
+      messageId: input.messageId,
+      mediaGroupId: input.mediaGroupId,
+      caption: input.caption,
+      photos: input.photos,
+      onListed: async () => {},
+      onDraft: async () => {},
+      onSkipped: async () => {},
+    });
+    return;
+  }
+
+  // Don't touch sold/archived listings — the seller marked them deliberately.
+  if (existing.status === "sold" || existing.status === "archived") return;
+
+  const settings = normalizeShopSettings(shop.settings);
+  const parsed = await extractListingFromCaption(input.caption, {
+    defaultCurrency: settings.defaultCurrency,
+    hasMedia: input.photos.length > 0,
+    preferredCategories: settings.sellCategories ?? [],
+  });
+
+  // Edit made it not-a-product — leave the existing listing untouched rather
+  // than wiping it (the seller can archive it themselves).
+  if (!parsed.isProduct) return;
+
+  const autoPublishMinConfidence = settings.autoPublishMinConfidence ?? 0.8;
+  // Promote draft -> published if the edit now clears the threshold. Never
+  // downgrade a published product on a weak re-parse (avoids flicker).
+  let status = existing.status as Product["status"];
+  if (existing.status === "draft" && parsed.confidence >= autoPublishMinConfidence) {
+    status = "published";
+  }
+
+  await db
+    .update(products)
+    .set({
+      title: parsed.title,
+      description: parsed.description || null,
+      price: parsed.price !== null ? String(parsed.price) : null,
+      compareAtPrice:
+        parsed.compareAtPrice !== null ? String(parsed.compareAtPrice) : null,
+      currency: parsed.currency ?? settings.defaultCurrency,
+      category: parsed.category,
+      sku: parsed.sku,
+      tags: formatListingTags(parsed.tags),
+      confidence: String(parsed.confidence),
+      rawCaption: input.caption || null,
+      status,
+      updatedAt: new Date(),
+    })
+    .where(eq(products.id, existing.id));
+}
+
 async function processIngestJob(payload: IngestJobPayload) {
   const channel = await getChannelById(payload.channelId);
   if (!channel) return; // channel/shop removed since enqueue
   const chatId = BigInt(payload.chatId);
+  if (payload.isEdit) {
+    await editChannelListing({
+      channel,
+      chatId,
+      messageId: payload.messageId,
+      mediaGroupId: payload.mediaGroupId,
+      caption: payload.caption,
+      photos: payload.photos,
+    });
+    return;
+  }
   await ingestChannelListing({
     channel,
     chatId,

@@ -66,7 +66,7 @@ function isUniqueViolation(err: unknown): boolean {
   );
 }
 
-async function findExistingChannelProduct(input: {
+export async function findExistingChannelProduct(input: {
   shop: Shop;
   chatId: bigint;
   messageId: number;

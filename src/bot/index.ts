@@ -340,6 +340,42 @@ function buildBot() {
     }
   });
 
+  bot.on("edited_channel_post", async (ctx) => {
+    const post = ctx.editedChannelPost;
+    if (!post) return;
+
+    const chatId = BigInt(post.chat.id);
+    const channel = await getChannelByTelegramChatId(chatId);
+    if (!channel) return;
+
+    const me = await ctx.api.getMe();
+    if (post.from?.id === me.id || post.from?.is_bot) return;
+
+    await touchChannelPost(channel.id, post.message_id);
+
+    // Seller edited the caption (price drop, fix title, etc.). Enqueue a re-
+    // extract that updates the existing product off-request. No reply — the
+    // original post already got its "Open in shop" button.
+    const caption = (post.text ?? post.caption ?? "").trim();
+    const mediaGroupId = post.media_group_id ?? null;
+    const fileId = post.photo ? pickBestPhotoFileId(post.photo) : null;
+    const photos = fileId ? [{ fileId }] : [];
+
+    try {
+      await enqueueIngestChannelPost({
+        channelId: channel.id,
+        chatId,
+        messageId: post.message_id,
+        mediaGroupId,
+        caption,
+        photos,
+        isEdit: true,
+      });
+    } catch (error) {
+      console.error("[bot] edit ingest enqueue failed", error);
+    }
+  });
+
   return bot;
 }
 
