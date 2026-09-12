@@ -125,7 +125,7 @@ export function registerChatBotHandlers(bot: Bot) {
 
     const user = await getUserByTelegramId(telegramUserId);
     if (!user) {
-      await ctx.reply("Open Postify once and sign in, then try again.");
+      await ctx.reply("Open Goods once and sign in, then try again.");
       return;
     }
 

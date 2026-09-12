@@ -48,7 +48,7 @@
   --font-display: var(--font-syne);
 }
 
-/* Mini App stays on Postify light branding (do not inherit Telegram dark). */
+/* Mini App stays on Goods light branding (do not inherit Telegram dark). */
 html[data-platform="tma"] {
   --bg: #f4f6f9;
   --fg: #1a2332;

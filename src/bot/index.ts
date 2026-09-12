@@ -46,7 +46,7 @@ async function applyLinkResult(
     inline_keyboard: [
       [
         {
-          text: "Open Postify",
+          text: "Open Goods",
           web_app: { url: `${appUrl()}/dashboard` },
         },
       ],
@@ -54,7 +54,7 @@ async function applyLinkResult(
   };
 
   if (result.status === "no_account") {
-    await ctx.reply("Open Postify once, then add the bot again.", {
+    await ctx.reply("Open Goods once, then add the bot again.", {
       reply_markup: openDash,
     });
     return;
@@ -183,7 +183,7 @@ function buildBot() {
           inline_keyboard: [
             [
               {
-                text: "Open Postify",
+                text: "Open Goods",
                 web_app: { url: `${appUrl()}/dashboard` },
               },
             ],
@@ -238,7 +238,7 @@ function buildBot() {
         "Or forward a channel post here.",
         "Then post a photo with a price.",
         "",
-        "/start — open Postify",
+        "/start — open Goods",
         "/status — check this channel",
       ].join("\n"),
     );

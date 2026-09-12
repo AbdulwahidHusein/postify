@@ -1,5 +1,5 @@
 /**
- * Curated commerce taxonomy for Postify sellers.
+ * Curated commerce taxonomy for Goods sellers.
  * Inspired by Google Product Taxonomy top levels + common marketplace leaves
  * (electronics, apparel, phones, gift cards, etc.) — searchable flat labels.
  */

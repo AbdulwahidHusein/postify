@@ -1,8 +1,8 @@
-# Postify — Product Overview
+# Goods — Product Overview
 
-Postify turns Telegram channels into ecommerce storefronts.
+Goods turns Telegram channels into ecommerce storefronts.
 
-Sellers keep posting products in Telegram. Postify’s bot detects product posts, extracts structured product data (with an LLM), publishes them to a website / Telegram Mini App, and links buyers back from Telegram into a proper shop experience.
+Sellers keep posting products in Telegram. Goods’s bot detects product posts, extracts structured product data (with an LLM), publishes them to a website / Telegram Mini App, and links buyers back from Telegram into a proper shop experience.
 
 ---
 
@@ -17,8 +17,8 @@ Many shops already sell via Telegram channels:
 
 ## Solution
 
-1. Seller adds the Postify bot to their channel (admin).
-2. When a product is posted (or posted via the bot), Postify:
+1. Seller adds the Goods bot to their channel (admin).
+2. When a product is posted (or posted via the bot), Goods:
    - Detects it as a product listing
    - Parses title, price, currency, category, description, variants
    - Creates a product page on the storefront

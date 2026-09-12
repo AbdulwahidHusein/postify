@@ -45,7 +45,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
 
 function paintTelegramShell() {
   document.documentElement.dataset.platform = "tma";
-  // Keep Postify light branding inside Mini App (ignore Telegram dark theme).
+  // Keep Goods light branding inside Mini App (ignore Telegram dark theme).
   const bg = "#f4f6f9";
   document.documentElement.style.background = bg;
   document.documentElement.style.backgroundColor = bg;

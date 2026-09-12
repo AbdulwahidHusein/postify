@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const settings = normalizeShopSettings(shop.settings);
   return {
     title: shop.name,
-    description: shop.description ?? `${shop.name} on Postify`,
+    description: shop.description ?? `${shop.name} on Goods`,
     openGraph: settings.logoUrl
       ? { images: [{ url: settings.logoUrl }] }
       : undefined,

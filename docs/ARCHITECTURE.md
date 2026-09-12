@@ -1,4 +1,4 @@
-# Postify — Architecture
+# Goods — Architecture
 
 ## High-level system
 
@@ -35,7 +35,7 @@
 
 | Surface | Entry | Auth | UI chrome |
 |---------|-------|------|-----------|
-| **Website** | `https://postify.app/...` | Telegram Login Widget → session | Normal header/nav, SEO |
+| **Website** | `https://goods.et/...` | Telegram Login Widget → session | Normal header/nav, SEO |
 | **Mini App** | `https://t.me/<bot>/<app>?startapp=...` | `initData` HMAC → same session | Telegram theme, MainButton, safe areas |
 
 **Rule:** Detect Mini App via presence of validated `initData`. Never trust `initDataUnsafe` for privileged actions.
@@ -48,7 +48,7 @@ Shared: product pages, catalog, cart, checkout APIs, seller dashboard data.
 
 The Bot API only allows editing messages **sent by the bot itself**.
 
-Therefore Postify must **not** depend on “seller posts → bot edits that exact message.”
+Therefore Goods must **not** depend on "seller posts → bot edits that exact message."
 
 **Supported patterns (in priority order):**
 
@@ -78,7 +78,7 @@ Format: `https://t.me/<bot>/<short_name>?startapp=<param>`
 - Max length: 512
 - Use short opaque IDs (e.g. `p_x7k2`) mapped in DB — not raw titles
 
-Also expose public web URLs: `https://postify.app/p/<slug>` for sharing outside Telegram.
+Also expose public web URLs: `https://goods.et/p/<slug>` for sharing outside Telegram.
 
 ### 5. Payments
 

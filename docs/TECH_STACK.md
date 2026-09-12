@@ -1,4 +1,4 @@
-# Postify — Tech Stack
+# Goods — Tech Stack
 
 Decisions locked for MVP unless a phase explicitly revisits them.
 

@@ -21,7 +21,7 @@ export function ShopOverview() {
     if (!shop) return;
     try {
       setShowCelebrate(
-        sessionStorage.getItem(`postify:connected:${shop.id}`) === "1",
+        sessionStorage.getItem(`goods:connected:${shop.id}`) === "1",
       );
     } catch {
       setShowCelebrate(false);
@@ -70,7 +70,7 @@ export function ShopOverview() {
   function dismissConnected() {
     if (!shop) return;
     try {
-      sessionStorage.removeItem(`postify:connected:${shop.id}`);
+      sessionStorage.removeItem(`goods:connected:${shop.id}`);
     } catch {
       // ignore
     }
@@ -110,7 +110,7 @@ export function ShopOverview() {
         <SetupWizard
           onConnected={() => {
             try {
-              sessionStorage.setItem(`postify:connected:${shop.id}`, "1");
+              sessionStorage.setItem(`goods:connected:${shop.id}`, "1");
             } catch {
               // ignore
             }

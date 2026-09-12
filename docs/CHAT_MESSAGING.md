@@ -1,4 +1,4 @@
-# Postify Chat + Telegram Bridge — Design
+# Goods Chat + Telegram Bridge — Design
 
 **Status:** Implemented (v1) — hub + bot bridge, focused polling, seller/buyer inboxes.  
 **Goal:** Product-scoped buyer↔seller messaging that feels native to Telegram, with a clean seller inbox and realtime delivery.
@@ -13,7 +13,7 @@ The killer loop:
 
 1. Buyer opens a product → sends a message  
 2. Seller is notified on Telegram with product details  
-3. Seller replies (from bot or Postify inbox)  
+3. Seller replies (from bot or Goods inbox)  
 4. Buyer gets the reply in-app **and** on Telegram  
 5. Seller manages many inquiries without chaos  
 
@@ -21,15 +21,15 @@ The killer loop:
 
 ## 2. Architecture decision (locked)
 
-### Chosen: **Postify Conversation Hub + Telegram Bot Bridge**
+### Chosen: **Goods Conversation Hub + Telegram Bot Bridge**
 
-Postify owns the conversation (Postgres). Telegram is a **push + quick-reply transport**, not the source of truth.
+Goods owns the conversation (Postgres). Telegram is a **push + quick-reply transport**, not the source of truth.
 
 ```text
 Buyer (Web / Mini App)
         │
         ▼
-   Postify API  ──write──►  Postgres (conversations, messages)
+   Goods API  ──write──►  Postgres (conversations, messages)
         │                         │
         │                         ├── realtime fan-out to open UIs
         ▼                         ▼
@@ -41,16 +41,16 @@ Buyer (Web / Mini App)
 
 ### Why not “just open Telegram chat with the seller”?
 
-Bots **cannot** create a private human↔human chat that keeps Postify product context and a unified inbox.
+Bots **cannot** create a private human↔human chat that keeps Goods product context and a unified inbox.
 
 ### Why not Telegram Business first?
 
-Telegram Business can place chats in the seller’s personal inbox (native feel) but requires Business setup, extra connection UX, and weaker Postify control. **Design the schema so a Business adapter can plug in later.** Do not block v1 on it.
+Telegram Business can place chats in the seller’s personal inbox (native feel) but requires Business setup, extra connection UX, and weaker Goods control. **Design the schema so a Business adapter can plug in later.** Do not block v1 on it.
 
 ### What “integrate with Telegram chat” means in v1
 
-- Seller works in **bot DMs** (reply to the notification) **or** Postify Inbox  
-- Buyer works in **Postify thread** + gets **bot DMs** for replies  
+- Seller works in **bot DMs** (reply to the notification) **or** Goods Inbox  
+- Buyer works in **Goods thread** + gets **bot DMs** for replies  
 - Deep links jump straight into the right thread in the Mini App / web  
 
 That is the honest, scalable Telegram integration for a marketplace bot.
@@ -91,7 +91,7 @@ That is the honest, scalable Telegram integration for a marketplace bot.
 - `created_at`
 
 ### `message_deliveries`
-Maps Postify messages ↔ Telegram messages for **reply-to** routing:
+Maps Goods messages ↔ Telegram messages for **reply-to** routing:
 
 - `message_id` (FK)
 - `channel`: `telegram_seller` | `telegram_buyer`
@@ -135,7 +135,7 @@ From {Buyer} {@username}
 
 “{buyer message}”
 
-[Open in Postify]   [Reply]
+[Open in Goods]   [Reply]
 ```
 
 **To buyer (on seller reply):**

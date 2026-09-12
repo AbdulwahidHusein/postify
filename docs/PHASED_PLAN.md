@@ -1,4 +1,4 @@
-# Postify — Phased End-to-End Plan
+# Goods — Phased End-to-End Plan
 
 Build order is intentional: prove Telegram ↔ product page loop before cart, payments, and polish.
 
@@ -249,7 +249,7 @@ Recommend **A then B**.
 
 1. **MVP link strategy:** reply-only vs post-via-bot first?  
    **Recommendation:** reply-only for human posts + simple post-via-bot for demos.
-2. **Domain / branding:** `postify.app` or other?
+2. **Domain / branding:** `goods.et` or other?
 3. **Default currency / locale** for first market?
 4. **Job runner:** Inngest vs DB poller for Phase 5?
 5. **Pilot niche:** which vertical first (fashion, electronics, food)?

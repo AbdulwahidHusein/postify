@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const publicSchema = z.object({
   NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
-  NEXT_PUBLIC_APP_NAME: z.string().default("Postify"),
+  NEXT_PUBLIC_APP_NAME: z.string().default("Goods"),
   NEXT_PUBLIC_TELEGRAM_BOT_USERNAME: z.string().optional().default(""),
 });
 

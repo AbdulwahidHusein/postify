@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { serverEnv } from "@/lib/env.server";
 
-export const SESSION_COOKIE = "postify_session";
+export const SESSION_COOKIE = "goods_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 14; // 14 days
 
 export type SessionPayload = {

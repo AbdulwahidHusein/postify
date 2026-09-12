@@ -1,4 +1,4 @@
-# Postify
+# Goods
 
 Turn Telegram channels into ecommerce storefronts.
 

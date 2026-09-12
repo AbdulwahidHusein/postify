@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: product.title,
     description:
       product.description?.slice(0, 160) ||
-      `${product.title} from ${product.shop?.name ?? "Postify"}`,
+      `${product.title} from ${product.shop?.name ?? "Goods"}`,
     openGraph: cover ? { images: [{ url: cover }] } : undefined,
   };
 }
