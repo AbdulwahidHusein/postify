@@ -1,9 +1,77 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CategoriesMultiSelect } from "@/components/admin/categories-multi-select";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import type { AdminShop } from "@/components/admin/types";
+
+type IngestMode = "auto_publish" | "always_draft" | "paused";
+
+function Toggle({
+  checked,
+  onChange,
+  disabled,
+  label,
+  hint,
+}: {
+  checked: boolean;
+  onChange: (value: boolean) => void;
+  disabled?: boolean;
+  label: string;
+  hint?: string;
+}) {
+  return (
+    <label className="settings-toggle">
+      <span className="settings-toggle-text">
+        <span className="settings-toggle-label">{label}</span>
+        {hint ? <span className="settings-toggle-hint">{hint}</span> : null}
+      </span>
+      <span className="settings-toggle-control">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+          disabled={disabled}
+        />
+        <span className="settings-toggle-track" aria-hidden>
+          <span className="settings-toggle-thumb" />
+        </span>
+      </span>
+    </label>
+  );
+}
+
+function CameraIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+      <circle cx="12" cy="13" r="4" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.4}
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  );
+}
 
 function SettingsFormFields({
   shop,
@@ -29,12 +97,8 @@ function SettingsFormFields({
     shop.settings.sellCategories ?? [],
   );
   const [logoUrl, setLogoUrl] = useState(shop.settings.logoUrl ?? null);
-  const [logoSource, setLogoSource] = useState(shop.settings.logoSource ?? null);
-  const [ingestMode, setIngestMode] = useState<string>(
-    shop.settings.ingestMode ?? "auto_publish",
-  );
-  const [autoPublishMinConfidence, setAutoPublishMinConfidence] = useState(
-    shop.settings.autoPublishMinConfidence ?? 0.8,
+  const [ingestMode, setIngestMode] = useState<IngestMode>(
+    (shop.settings.ingestMode as IngestMode) ?? "auto_publish",
   );
   const [shopVisible, setShopVisible] = useState(
     shop.settings.shopVisible ?? true,
@@ -50,10 +114,17 @@ function SettingsFormFields({
       ? String(shop.settings.autoArchiveDays)
       : "",
   );
+
   const [saving, setSaving] = useState(false);
   const [logoBusy, setLogoBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (!saved) return;
+    const t = setTimeout(() => setSaved(false), 2500);
+    return () => clearTimeout(t);
+  }, [saved]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -75,8 +146,7 @@ function SettingsFormFields({
             ownerPhone: ownerPhone.trim() || null,
             sellCategories,
             linkMode: "reply",
-            ingestMode: ingestMode as "auto_publish" | "always_draft" | "paused",
-            autoPublishMinConfidence,
+            ingestMode,
             shopVisible,
             sellerNotifyOrders,
             sellerNotifyMessages,
@@ -113,36 +183,12 @@ function SettingsFormFields({
       };
       if (!res.ok) throw new Error(data.error ?? "Upload failed");
       setLogoUrl(data.shop?.settings.logoUrl ?? null);
-      setLogoSource(data.shop?.settings.logoSource ?? "upload");
       await reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setLogoBusy(false);
       if (fileRef.current) fileRef.current.value = "";
-    }
-  }
-
-  async function onSyncLogo() {
-    setLogoBusy(true);
-    setError(null);
-    try {
-      const res = await fetch(
-        `/api/shops/${encodeURIComponent(shop.slug)}/logo?sync=1`,
-        { method: "POST", credentials: "include" },
-      );
-      const data = (await res.json()) as {
-        shop?: AdminShop;
-        error?: string;
-      };
-      if (!res.ok) throw new Error(data.error ?? "Could not sync logo");
-      setLogoUrl(data.shop?.settings.logoUrl ?? null);
-      setLogoSource(data.shop?.settings.logoSource ?? "telegram");
-      await reload();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Sync failed");
-    } finally {
-      setLogoBusy(false);
     }
   }
 
@@ -157,7 +203,6 @@ function SettingsFormFields({
       const data = (await res.json()) as { error?: string };
       if (!res.ok) throw new Error(data.error ?? "Could not remove logo");
       setLogoUrl(null);
-      setLogoSource(null);
       await reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Remove failed");
@@ -173,9 +218,16 @@ function SettingsFormFields({
     .map((w) => w[0]?.toUpperCase() ?? "")
     .join("");
 
+  const ingestHint =
+    ingestMode === "paused"
+      ? "Channel posts will not create products. Re-enable anytime to resume."
+      : ingestMode === "always_draft"
+        ? "Every channel post becomes a draft for your review before it goes live."
+        : "High-confidence posts publish automatically; weaker ones become drafts.";
+
   return (
-    <form className="admin-panel admin-form" onSubmit={onSubmit}>
-      <header className="admin-section-head">
+    <form className="settings" onSubmit={onSubmit}>
+      <header className="settings-head">
         <div>
           <p className="admin-kicker">Settings</p>
           <h1 className="admin-h1">Shop profile</h1>
@@ -183,22 +235,61 @@ function SettingsFormFields({
             Logo, storefront details, contact, and what you sell.
           </p>
         </div>
+        <a
+          className="settings-url"
+          href={`/s/${shop.slug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          /s/{shop.slug}
+        </a>
       </header>
 
       {error ? <p className="admin-error">{error}</p> : null}
-      {saved ? <p className="admin-success">Saved.</p> : null}
 
-      <p className="admin-kicker">Logo</p>
-      <div className="admin-logo-row">
-        <div className="admin-logo-preview" aria-hidden>
-          {logoUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt="" />
-          ) : (
-            <span>{initials || "?"}</span>
-          )}
-        </div>
-        <div className="admin-logo-actions">
+      <section className="settings-section">
+        <div className="settings-logo">
+          <div className="settings-logo-avatar">
+            <button
+              type="button"
+              className="settings-avatar"
+              onClick={() => fileRef.current?.click()}
+              disabled={logoBusy}
+              aria-label={logoUrl ? "Change shop logo" : "Upload shop logo"}
+              title={logoUrl ? "Change logo" : "Upload logo"}
+            >
+              {logoUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={logoUrl} alt="" />
+              ) : (
+                <span className="settings-avatar-fallback">
+                  {initials || "?"}
+                </span>
+              )}
+              <span className="settings-avatar-overlay">
+                <CameraIcon />
+                <span>{logoUrl ? "Change" : "Upload"}</span>
+              </span>
+            </button>
+            {logoUrl ? (
+              <button
+                type="button"
+                className="settings-avatar-remove"
+                onClick={() => void onRemoveLogo()}
+                disabled={logoBusy}
+                aria-label="Remove shop logo"
+                title="Remove logo"
+              >
+                <CloseIcon />
+              </button>
+            ) : null}
+          </div>
+          <div className="settings-logo-meta">
+            <p className="settings-logo-title">Shop logo</p>
+            <p className="settings-logo-hint">
+              Click the photo to upload · JPG, PNG, WebP up to 8MB
+            </p>
+          </div>
           <input
             ref={fileRef}
             type="file"
@@ -209,218 +300,216 @@ function SettingsFormFields({
               if (file) void onUploadLogo(file);
             }}
           />
-          <button
-            type="button"
-            className="btn btn-primary btn-sm"
-            disabled={logoBusy}
-            onClick={() => fileRef.current?.click()}
-          >
-            {logoBusy ? "Working…" : "Upload logo"}
-          </button>
-          <button
-            type="button"
-            className="btn btn-ghost btn-sm"
-            disabled={logoBusy}
-            onClick={() => void onSyncLogo()}
-          >
-            Use channel photo
-          </button>
-          {logoUrl ? (
-            <button
-              type="button"
-              className="btn btn-ghost btn-sm is-danger"
-              disabled={logoBusy}
-              onClick={() => void onRemoveLogo()}
-            >
-              Remove
-            </button>
-          ) : null}
-          <p className="admin-hint">
-            {logoSource === "telegram"
-              ? "Currently from your connected Telegram channel — upload to replace."
-              : logoSource === "upload"
-                ? "Custom upload. “Use channel photo” will replace it."
-                : "Pulls from the connected channel profile when available."}
-          </p>
         </div>
-      </div>
 
-      <p className="admin-kicker">Basics</p>
-      <label className="admin-field">
-        <span>Shop name</span>
-        <input
-          className="field"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          maxLength={80}
-        />
-      </label>
+        <div className="settings-row settings-row-2">
+          <label className="settings-field">
+            <span>Shop name</span>
+            <input
+              className="field"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              maxLength={80}
+            />
+          </label>
+          <label className="settings-field">
+            <span>Default currency</span>
+            <input
+              className="field"
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              maxLength={8}
+              placeholder="ETB"
+            />
+          </label>
+        </div>
 
-      <label className="admin-field">
-        <span>Description</span>
-        <textarea
-          className="field"
-          rows={4}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          maxLength={500}
-          placeholder="What you sell and who it’s for"
-        />
-      </label>
-
-      <div className="admin-form-grid">
-        <label className="admin-field">
-          <span>Default currency</span>
-          <input
+        <label className="settings-field">
+          <span>Description</span>
+          <textarea
             className="field"
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
-            maxLength={8}
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            maxLength={500}
+            placeholder="What you sell and who it's for"
           />
         </label>
-      </div>
+      </section>
 
-      <p className="admin-kicker">Storefront contact</p>
-      <label className="admin-field">
-        <span>Public Telegram channel (@ or link)</span>
-        <input
-          className="field"
-          value={telegramChannel}
-          onChange={(e) => setTelegramChannel(e.target.value)}
-          placeholder="@mystore or https://t.me/mystore"
-          maxLength={160}
-        />
-        <span className="admin-hint">
-          Shown on your storefront for buyers — separate from the bot-connected
-          channel under Channels.
-        </span>
-      </label>
+      <div className="settings-divider" />
 
-      <div className="admin-form-grid">
-        <label className="admin-field">
-          <span>Owner username (optional)</span>
+      <section className="settings-section">
+        <div className="settings-section-head">
+          <div>
+            <h2 className="settings-section-title">Storefront contact</h2>
+            <p className="settings-section-desc">
+              Shown to buyers on your public storefront.
+            </p>
+          </div>
+        </div>
+        <label className="settings-field">
+          <span>Public Telegram channel</span>
           <input
             className="field"
-            value={ownerUsername}
-            onChange={(e) => setOwnerUsername(e.target.value)}
-            placeholder="@seller or display name"
-            maxLength={80}
+            value={telegramChannel}
+            onChange={(e) => setTelegramChannel(e.target.value)}
+            placeholder="@mystore or https://t.me/mystore"
+            maxLength={160}
           />
+          <span className="admin-hint">
+            Separate from the bot-connected channel under Channels.
+          </span>
         </label>
-        <label className="admin-field">
-          <span>Owner phone (optional)</span>
-          <input
-            className="field"
-            value={ownerPhone}
-            onChange={(e) => setOwnerPhone(e.target.value)}
-            placeholder="+251…"
-            maxLength={32}
-            inputMode="tel"
-          />
-        </label>
-      </div>
+        <div className="settings-row settings-row-2">
+          <label className="settings-field">
+            <span>Owner username (optional)</span>
+            <input
+              className="field"
+              value={ownerUsername}
+              onChange={(e) => setOwnerUsername(e.target.value)}
+              placeholder="@seller or display name"
+              maxLength={80}
+            />
+          </label>
+          <label className="settings-field">
+            <span>Owner phone (optional)</span>
+            <input
+              className="field"
+              value={ownerPhone}
+              onChange={(e) => setOwnerPhone(e.target.value)}
+              placeholder="+251…"
+              maxLength={32}
+              inputMode="tel"
+            />
+          </label>
+        </div>
+      </section>
 
-      <p className="admin-kicker">Catalog focus</p>
-      <CategoriesMultiSelect
-        value={sellCategories}
-        onChange={setSellCategories}
-        disabled={saving}
-      />
+      <div className="settings-divider" />
 
-      <p className="admin-kicker">Channel posting</p>
-      <label className="admin-field">
-        <span>How channel posts become products</span>
-        <select
-          className="field"
-          value={ingestMode}
-          onChange={(e) => setIngestMode(e.target.value)}
+      <section className="settings-section">
+        <div className="settings-section-head">
+          <div>
+            <h2 className="settings-section-title">Catalog focus</h2>
+            <p className="settings-section-desc">
+              Helps the bot sort incoming channel listings.
+            </p>
+          </div>
+        </div>
+        <CategoriesMultiSelect
+          value={sellCategories}
+          onChange={setSellCategories}
           disabled={saving}
-        >
-          <option value="auto_publish">Auto-publish (high confidence only)</option>
-          <option value="always_draft">Always save as draft for review</option>
-          <option value="paused">Paused — do not create products</option>
-        </select>
-      </label>
-      {ingestMode === "auto_publish" ? (
-        <label className="admin-field">
-          <span>Auto-publish confidence threshold: {(autoPublishMinConfidence * 100).toFixed(0)}%</span>
+        />
+      </section>
+
+      <div className="settings-divider" />
+
+      <section className="settings-section">
+        <div className="settings-section-head">
+          <div>
+            <h2 className="settings-section-title">Channel posting</h2>
+            <p className="settings-section-desc">
+              How posts in your Telegram channel become products.
+            </p>
+          </div>
+        </div>
+        <label className="settings-field">
+          <span>Posting mode</span>
+          <select
+            className="field"
+            value={ingestMode}
+            onChange={(e) => setIngestMode(e.target.value as IngestMode)}
+            disabled={saving}
+          >
+            <option value="auto_publish">Auto-publish</option>
+            <option value="always_draft">Save as draft for review</option>
+            <option value="paused">Paused — do not create products</option>
+          </select>
+          <span className="admin-hint">{ingestHint}</span>
+        </label>
+      </section>
+
+      <div className="settings-divider" />
+
+      <section className="settings-section">
+        <div className="settings-section-head">
+          <div>
+            <h2 className="settings-section-title">Notifications</h2>
+            <p className="settings-section-desc">
+              Telegram alerts sent to you as the shop owner.
+            </p>
+          </div>
+        </div>
+        <div className="settings-toggles">
+          <Toggle
+            label="New orders"
+            hint="Notify me on Telegram when I get a new order"
+            checked={sellerNotifyOrders}
+            onChange={setSellerNotifyOrders}
+            disabled={saving}
+          />
+          <Toggle
+            label="New messages"
+            hint="Notify me on Telegram when I get a new message"
+            checked={sellerNotifyMessages}
+            onChange={setSellerNotifyMessages}
+            disabled={saving}
+          />
+        </div>
+      </section>
+
+      <div className="settings-divider" />
+
+      <section className="settings-section">
+        <div className="settings-section-head">
+          <div>
+            <h2 className="settings-section-title">Storefront</h2>
+            <p className="settings-section-desc">
+              Visibility and automatic archiving.
+            </p>
+          </div>
+        </div>
+        <div className="settings-toggles">
+          <Toggle
+            label="Shop visible to buyers"
+            hint="Uncheck to hide your shop while you set up products."
+            checked={shopVisible}
+            onChange={setShopVisible}
+            disabled={saving}
+          />
+        </div>
+        <label className="settings-field">
+          <span>Auto-archive products after N days unsold (optional)</span>
           <input
-            type="range"
-            min={0.3}
-            max={0.99}
-            step={0.05}
-            value={autoPublishMinConfidence}
-            onChange={(e) => setAutoPublishMinConfidence(Number(e.target.value))}
+            className="field"
+            inputMode="numeric"
+            value={autoArchiveDays}
+            onChange={(e) => setAutoArchiveDays(e.target.value)}
+            placeholder="Leave empty to disable"
+            maxLength={3}
             disabled={saving}
           />
           <span className="admin-hint">
-            Below this confidence, channel posts become drafts for your review.
+            Published products older than this move to archived automatically.
           </span>
         </label>
-      ) : null}
-      {ingestMode === "paused" ? (
-        <p className="admin-hint">
-          Channel posts will not create products. Re-enable anytime to resume.
+      </section>
+
+      <div className="settings-savebar">
+        <p className="settings-save-hint" aria-live="polite">
+          {saved ? "Saved ✓" : "Slug is fixed after create · /s/" + shop.slug}
         </p>
-      ) : null}
-
-      <p className="admin-kicker">Notifications</p>
-      <label className="admin-field admin-field-inline">
-        <input
-          type="checkbox"
-          checked={sellerNotifyOrders}
-          onChange={(e) => setSellerNotifyOrders(e.target.checked)}
-          disabled={saving}
-        />
-        <span>Notify me on Telegram when I get a new order</span>
-      </label>
-      <label className="admin-field admin-field-inline">
-        <input
-          type="checkbox"
-          checked={sellerNotifyMessages}
-          onChange={(e) => setSellerNotifyMessages(e.target.checked)}
-          disabled={saving}
-        />
-        <span>Notify me on Telegram when I get a new message</span>
-      </label>
-
-      <p className="admin-kicker">Storefront</p>
-      <label className="admin-field admin-field-inline">
-        <input
-          type="checkbox"
-          checked={shopVisible}
-          onChange={(e) => setShopVisible(e.target.checked)}
-          disabled={saving}
-        />
-        <span>Shop visible to buyers</span>
-        <span className="admin-hint">
-          Uncheck to hide your shop while you set up products.
-        </span>
-      </label>
-      <label className="admin-field">
-        <span>Auto-archive products after N days unsold (optional)</span>
-        <input
-          className="field"
-          inputMode="numeric"
-          value={autoArchiveDays}
-          onChange={(e) => setAutoArchiveDays(e.target.value)}
-          placeholder="Leave empty to disable"
-          maxLength={3}
-          disabled={saving}
-        />
-        <span className="admin-hint">
-          Published products older than this are moved to archived automatically.
-        </span>
-      </label>
-
-      <p className="admin-hint">
-        Public URL · /s/{shop.slug} (slug is fixed after create)
-      </p>
-
-      <button type="submit" className="btn btn-primary" disabled={saving}>
-        {saving ? "Saving…" : "Save settings"}
-      </button>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={saving || logoBusy}
+        >
+          {saving ? "Saving…" : "Save changes"}
+        </button>
+      </div>
     </form>
   );
 }
