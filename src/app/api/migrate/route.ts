@@ -15,9 +15,13 @@ import { serverEnv } from "@/lib/env.server";
  */
 export async function POST(request: Request) {
   const authHeader = request.headers.get("authorization");
-  const secret = serverEnv.CRON_SECRET;
+  const secret =
+    process.env.CRON_SECRET || serverEnv.TELEGRAM_WEBHOOK_SECRET || "";
   if (!secret) {
-    return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 500 });
+    return NextResponse.json(
+      { error: "No secret configured" },
+      { status: 500 },
+    );
   }
   if (authHeader !== `Bearer ${secret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
