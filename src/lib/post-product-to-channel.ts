@@ -121,12 +121,28 @@ export async function postProductToConnectedChannel(productId: string) {
     } else {
       const sent = await bot.api.sendMediaGroup(chatId, media);
       messageId = sent[0]!.message_id;
+      // Media groups can't carry reply_markup at send time, so attach the
+      // "Open in Goods" button to the first album message via edit. If that
+      // edit is rejected (some channels/album states reject it), fall back to
+      // a separate reply message so the button is never missing.
+      let buttonAttached = false;
       try {
         await bot.api.editMessageReplyMarkup(chatId, messageId, {
           reply_markup: keyboard,
         });
+        buttonAttached = true;
       } catch (error) {
         console.warn("[post-to-channel] editMessageReplyMarkup failed", error);
+      }
+      if (!buttonAttached) {
+        try {
+          await bot.api.sendMessage(chatId, "\u2800", {
+            reply_to_message_id: messageId,
+            reply_markup: keyboard,
+          });
+        } catch (err) {
+          console.warn("[post-to-channel] button reply failed", err);
+        }
       }
     }
   }
