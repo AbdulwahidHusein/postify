@@ -7,6 +7,7 @@ import {
   parseListingCaption,
   type ParsedListing,
 } from "@/lib/parse-listing";
+import { matchCategoryToTaxonomy } from "@/lib/catalog/match";
 
 const listingSchema = z.object({
   isProduct: z.boolean(),
@@ -19,6 +20,11 @@ const listingSchema = z.object({
   category: z.string().max(160).nullable(),
   tags: z.array(z.string().max(40)).max(12),
   sku: z.string().max(64).nullable(),
+  condition: z.string().max(60).nullable(),
+  brand: z.string().max(80).nullable(),
+  model: z.string().max(120).nullable(),
+  location: z.string().max(120).nullable(),
+  isNegotiable: z.boolean().nullable(),
   slugHint: z.string().max(48).nullable(),
 });
 
@@ -36,6 +42,11 @@ const RESPONSE_JSON_SCHEMA = {
     "category",
     "tags",
     "sku",
+    "condition",
+    "brand",
+    "model",
+    "location",
+    "isNegotiable",
     "slugHint",
   ],
   properties: {
@@ -77,18 +88,43 @@ const RESPONSE_JSON_SCHEMA = {
     category: {
       type: ["string", "null"],
       description:
-        "Single best category. Prefer one of preferredCategories when it fits. Keep category in the caption language when inventing one; English is OK for preferredCategories matches.",
+        "Single best category in English as a short free-text label (e.g. 'Cars', 'Mobile Phones', 'Shoes', 'Laptops'). Do not use ' > ' separators. We will match it to our taxonomy locally.",
     },
     tags: {
       type: "array",
       items: { type: "string" },
       description:
-        "0–8 short search tags in the SAME language as the caption (brand, model, color, condition).",
+        "0–8 short search tags in the SAME language as the caption (brand, model, color, size, condition).",
     },
     sku: {
       type: ["string", "null"],
       description:
-        "SKU / model / serial only if explicitly written in the caption; otherwise null. Do not invent.",
+        "SKU / serial only if explicitly written in the caption; otherwise null. Do not invent.",
+    },
+    condition: {
+      type: ["string", "null"],
+      description:
+        "Item condition only if stated: 'Brand New', 'New', 'Local Used', 'Foreign Used', 'Used', 'Like New', 'Good', 'Fair', 'Refurbished'. null if not mentioned.",
+    },
+    brand: {
+      type: ["string", "null"],
+      description:
+        "Brand or manufacturer name only if stated in the caption (e.g. 'Samsung', 'Nike', 'Toyota'). null if not mentioned. Do not invent.",
+    },
+    model: {
+      type: ["string", "null"],
+      description:
+        "Specific model name/number only if stated (e.g. 'Galaxy S23', 'Air Force 1', 'Corolla 2018'). null if not mentioned. Do not invent.",
+    },
+    location: {
+      type: ["string", "null"],
+      description:
+        "City or area only if mentioned in the caption (e.g. 'Addis Ababa', 'Bole', 'Mekelle'). null if not stated.",
+    },
+    isNegotiable: {
+      type: ["boolean", "null"],
+      description:
+        "true if the price is marked as negotiable/flexible (e.g. 'negotiable', 'or best offer', 'ዋጋ ይደረጋል'). false or null otherwise.",
     },
     slugHint: {
       type: ["string", "null"],
@@ -137,6 +173,22 @@ function normalizeListing(
     compareAtPrice = null;
   }
 
+  // Match the LLM's free-text category against our 231-entry taxonomy locally.
+  // The LLM never sees the full list — it outputs a short label, we match it.
+  const matchedCategory = matchCategoryToTaxonomy(raw.category);
+  // Prefer matched taxonomy path; fall back to the shop's preferred categories,
+  // then to the raw LLM category if nothing matched.
+  let category: string | null = matchedCategory;
+  if (!category && opts?.preferredCategories && raw.category) {
+    const pref = opts.preferredCategories.find((c) =>
+      c.toLowerCase().includes(raw.category!.toLowerCase()),
+    );
+    category = pref ?? raw.category.trim().slice(0, 160);
+  }
+  if (!category) {
+    category = raw.category?.trim().slice(0, 160) || null;
+  }
+
   return {
     isProduct: raw.isProduct,
     confidence: Math.min(1, Math.max(0, raw.confidence)),
@@ -145,9 +197,14 @@ function normalizeListing(
     price: raw.price,
     compareAtPrice,
     currency,
-    category: raw.category?.trim().slice(0, 160) || null,
+    category,
     tags,
     sku: raw.sku?.trim().slice(0, 64) || null,
+    condition: raw.condition?.trim().slice(0, 60) || null,
+    brand: raw.brand?.trim().slice(0, 80) || null,
+    model: raw.model?.trim().slice(0, 120) || null,
+    location: raw.location?.trim().slice(0, 120) || null,
+    isNegotiable: Boolean(raw.isNegotiable),
     slugHint: slugHint?.slice(0, 48) || null,
     source: "gemini",
   };
@@ -170,7 +227,7 @@ function buildPrompt(caption: string, opts?: ExtractListingOptions): string {
     "",
     "TASK:",
     "1) Decide if this is a product listing for sale (isProduct).",
-    "2) Extract title, description, price, compareAtPrice, currency, category, tags, sku, slugHint.",
+    "2) Extract all fields below from the caption.",
     "3) Set confidence based on how clear the caption is.",
     "",
     "EXTRACTION RULES:",
@@ -180,11 +237,16 @@ function buildPrompt(caption: string, opts?: ExtractListingOptions): string {
     "- currency: ETB for ብር/birr/ETB; USD for $/USD; EUR for €/EUR. If a price exists but currency is missing, use " +
       defaultCurrency +
       ".",
-    "- category: pick the single best fit. Prefer one value from preferredCategories when listed below.",
+    "- category: a SHORT English label for the item type (e.g. 'Cars', 'Mobile Phones', 'Shoes', 'Laptops', 'Headphones'). We match it to our taxonomy locally — do not use ' > ' separators.",
     "- tags: up to 8 real attributes from the caption (brand, model, color, size, condition). Same language as caption. Do not invent.",
-    "- sku: only if an explicit SKU/model/code appears; otherwise null.",
+    "- sku: only if an explicit SKU/serial/code appears; otherwise null.",
+    "- condition: the item's condition if stated (e.g. 'Brand New', 'Local Used', 'Used', 'Refurbished'). null if not mentioned.",
+    "- brand: the manufacturer/brand if stated (e.g. 'Samsung', 'Nike', 'Toyota'). null if not mentioned. Do not invent.",
+    "- model: the specific model if stated (e.g. 'Galaxy S23', 'Air Force 1', 'Corolla 2018'). null if not mentioned. Do not invent.",
+    "- location: city or area if mentioned (e.g. 'Addis Ababa', 'Bole', 'Mekelle'). null if not stated.",
+    "- isNegotiable: true if the price is marked negotiable/flexible (e.g. 'negotiable', 'or best offer', 'ዋጋ ይደረጋል'). false otherwise.",
     "- slugHint: lowercase ascii slug from the title (hyphens, no spaces).",
-    "- If not a product listing: isProduct=false. Still fill title/description from the caption without translating; set price/sku/tags empty/null as appropriate.",
+    "- If not a product listing: isProduct=false. Still fill title/description from the caption without translating; set price/sku/tags/condition/brand/model/location empty/null as appropriate.",
     "",
     "CONTEXT:",
     `- Default currency: ${defaultCurrency}`,

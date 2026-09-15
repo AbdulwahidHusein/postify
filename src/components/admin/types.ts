@@ -46,6 +46,14 @@ export type AdminProduct = {
   sku: string | null;
   stockQuantity: number | null;
   tags: string | null;
+  condition?: string | null;
+  brand?: string | null;
+  model?: string | null;
+  location?: string | null;
+  attributes?: Record<string, string>;
+  isNegotiable?: boolean;
+  shippingInfo?: string | null;
+  returnPolicy?: string | null;
   status: "draft" | "published" | "sold" | "archived";
   confidence: number | null;
   rawCaption?: string | null;

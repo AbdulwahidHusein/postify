@@ -8,6 +8,7 @@ import {
   type PendingImage,
 } from "@/components/admin/product-image-gallery";
 import { CategoryCombobox } from "@/components/admin/category-combobox";
+import { CategoryAttributes } from "@/components/admin/category-attributes";
 import { TagsInput } from "@/components/admin/tags-input";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import type { AdminProduct } from "@/components/admin/types";
@@ -24,6 +25,13 @@ type FormState = {
   sku: string;
   stockQuantity: string;
   tags: string;
+  condition: string;
+  brand: string;
+  model: string;
+  location: string;
+  isNegotiable: boolean;
+  shippingInfo: string;
+  returnPolicy: string;
   status: AdminProduct["status"];
 };
 
@@ -37,6 +45,13 @@ const emptyForm = (currency: string): FormState => ({
   sku: "",
   stockQuantity: "",
   tags: "",
+  condition: "",
+  brand: "",
+  model: "",
+  location: "",
+  isNegotiable: false,
+  shippingInfo: "",
+  returnPolicy: "",
   status: "published",
 });
 
@@ -70,6 +85,7 @@ export function ProductForm({
   const [sourceMessageId, setSourceMessageId] = useState<number | null>(null);
   const [telegramUrl, setTelegramUrl] = useState<string | null>(null);
   const [fromChannel, setFromChannel] = useState(false);
+  const [attributes, setAttributes] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(isEdit);
   const [saving, setSaving] = useState(false);
   const [posting, setPosting] = useState(false);
@@ -135,6 +151,13 @@ export function ProductForm({
           stockQuantity:
             p.stockQuantity != null ? String(p.stockQuantity) : "",
           tags: p.tags ?? "",
+          condition: p.condition ?? "",
+          brand: p.brand ?? "",
+          model: p.model ?? "",
+          location: p.location ?? "",
+          isNegotiable: p.isNegotiable ?? false,
+          shippingInfo: p.shippingInfo ?? "",
+          returnPolicy: p.returnPolicy ?? "",
           status: p.status,
         });
         setImages(p.images);
@@ -146,6 +169,7 @@ export function ProductForm({
         setSourceMessageId(p.sourceMessageId ?? null);
         setTelegramUrl(p.telegramUrl ?? null);
         setFromChannel(Boolean(p.channelId || p.rawCaption || p.sourceMessageId));
+        setAttributes(p.attributes ?? {});
       } catch (err) {
         if (!cancelled) {
           setError(err instanceof Error ? err.message : "Failed to load");
@@ -183,6 +207,14 @@ export function ProductForm({
       sku: form.sku.trim() || null,
       stockQuantity,
       tags: form.tags.trim() || null,
+      condition: form.condition.trim() || null,
+      brand: form.brand.trim() || null,
+      model: form.model.trim() || null,
+      location: form.location.trim() || null,
+      isNegotiable: form.isNegotiable,
+      attributes: Object.keys(attributes).length > 0 ? attributes : null,
+      shippingInfo: form.shippingInfo.trim() || null,
+      returnPolicy: form.returnPolicy.trim() || null,
       status: form.status,
     };
   }
@@ -577,6 +609,117 @@ export function ProductForm({
                 disabled={saving}
               />
             </div>
+          </div>
+
+          <div className="admin-form-grid">
+            <label className="admin-field">
+              <span>Condition</span>
+              <input
+                className="field"
+                list="condition-suggestions"
+                value={form.condition}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, condition: e.target.value }))
+                }
+                placeholder="Brand New, Used, Refurbished…"
+                maxLength={60}
+              />
+              <datalist id="condition-suggestions">
+                <option value="Brand New" />
+                <option value="New" />
+                <option value="Local Used" />
+                <option value="Foreign Used" />
+                <option value="Used" />
+                <option value="Like New" />
+                <option value="Good" />
+                <option value="Fair" />
+                <option value="Refurbished" />
+              </datalist>
+            </label>
+            <label className="admin-field">
+              <span>Brand</span>
+              <input
+                className="field"
+                value={form.brand}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, brand: e.target.value }))
+                }
+                placeholder="Samsung, Nike, Toyota…"
+                maxLength={80}
+              />
+            </label>
+            <label className="admin-field">
+              <span>Model</span>
+              <input
+                className="field"
+                value={form.model}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, model: e.target.value }))
+                }
+                placeholder="Galaxy S23, Air Force 1…"
+                maxLength={120}
+              />
+            </label>
+            <label className="admin-field">
+              <span>Location</span>
+              <input
+                className="field"
+                value={form.location}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, location: e.target.value }))
+                }
+                placeholder="Addis Ababa, Bole…"
+                maxLength={120}
+              />
+            </label>
+          </div>
+
+          {form.category ? (
+            <CategoryAttributes
+              category={form.category}
+              values={attributes}
+              onChange={setAttributes}
+              disabled={saving}
+            />
+          ) : null}
+
+          <label className="admin-field admin-field-inline">
+            <input
+              type="checkbox"
+              checked={form.isNegotiable}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, isNegotiable: e.target.checked }))
+              }
+              disabled={saving}
+            />
+            <span>Price is negotiable</span>
+          </label>
+
+          <div className="admin-form-grid">
+            <label className="admin-field">
+              <span>Shipping / pickup info (optional)</span>
+              <input
+                className="field"
+                value={form.shippingInfo}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, shippingInfo: e.target.value }))
+                }
+                placeholder="Free delivery in Addis, pickup in Bole…"
+                maxLength={500}
+              />
+            </label>
+            <label className="admin-field">
+              <span>Return policy (optional)</span>
+              <input
+                className="field"
+                value={form.returnPolicy}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, returnPolicy: e.target.value }))
+                }
+                placeholder="7-day returns, no returns…"
+                maxLength={500}
+              />
+            </label>
           </div>
 
           <div className="admin-actions">

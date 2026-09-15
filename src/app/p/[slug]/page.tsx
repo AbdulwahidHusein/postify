@@ -205,6 +205,44 @@ export default async function ProductPage({ params }: Props) {
               <p className="buy-category">{product.category}</p>
             ) : null}
 
+            {(product.condition || product.isNegotiable) && !isSold ? (
+              <div className="buy-badges">
+                {product.condition ? (
+                  <span className="buy-badge buy-badge-condition">
+                    {product.condition}
+                  </span>
+                ) : null}
+                {product.isNegotiable ? (
+                  <span className="buy-badge buy-badge-negotiable">
+                    Negotiable
+                  </span>
+                ) : null}
+              </div>
+            ) : null}
+
+            {(product.brand || product.model || product.location) ? (
+              <dl className="buy-specs">
+                {product.brand ? (
+                  <div className="buy-spec-row">
+                    <dt>Brand</dt>
+                    <dd>{product.brand}</dd>
+                  </div>
+                ) : null}
+                {product.model ? (
+                  <div className="buy-spec-row">
+                    <dt>Model</dt>
+                    <dd>{product.model}</dd>
+                  </div>
+                ) : null}
+                {product.location ? (
+                  <div className="buy-spec-row">
+                    <dt>Location</dt>
+                    <dd>{product.location}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            ) : null}
+
             {description ? <p className="buy-desc">{description}</p> : null}
 
             {tags.length > 0 ? (
@@ -213,6 +251,35 @@ export default async function ProductPage({ params }: Props) {
                   <li key={tag}>{tag}</li>
                 ))}
               </ul>
+            ) : null}
+
+            {product.attributes &&
+            Object.keys(product.attributes).length > 0 ? (
+              <dl className="buy-specs buy-specs-attrs">
+                {Object.entries(product.attributes)
+                  .filter(([, v]) => v?.trim())
+                  .map(([key, value]) => (
+                    <div className="buy-spec-row" key={key}>
+                      <dt>{key}</dt>
+                      <dd>{value}</dd>
+                    </div>
+                  ))}
+              </dl>
+            ) : null}
+
+            {product.shippingInfo || product.returnPolicy ? (
+              <div className="buy-policy">
+                {product.shippingInfo ? (
+                  <p className="buy-policy-item">
+                    <strong>Shipping:</strong> {product.shippingInfo}
+                  </p>
+                ) : null}
+                {product.returnPolicy ? (
+                  <p className="buy-policy-item">
+                    <strong>Returns:</strong> {product.returnPolicy}
+                  </p>
+                ) : null}
+              </div>
             ) : null}
 
             {isSold ? (

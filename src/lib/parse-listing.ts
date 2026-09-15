@@ -9,6 +9,11 @@ export type ParsedListing = {
   category: string | null;
   tags: string[];
   sku: string | null;
+  condition: string | null;
+  brand: string | null;
+  model: string | null;
+  location: string | null;
+  isNegotiable: boolean;
   /** Optional clean slug stem from the model; still uniquified on insert. */
   slugHint: string | null;
   source: "gemini" | "heuristic";
@@ -38,6 +43,11 @@ export function parseListingCaption(
       category: null,
       tags: [],
       sku: null,
+      condition: null,
+      brand: null,
+      model: null,
+      location: null,
+      isNegotiable: false,
       slugHint: null,
       source: "heuristic",
     };
@@ -91,6 +101,11 @@ export function parseListingCaption(
     category: null,
     tags: [],
     sku: null,
+    condition: null,
+    brand: null,
+    model: null,
+    location: null,
+    isNegotiable: false,
     slugHint: null,
     source: "heuristic",
   };

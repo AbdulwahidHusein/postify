@@ -43,6 +43,14 @@ export type ProductUpdateInput = {
   sku?: string | null;
   stockQuantity?: number | null;
   tags?: string | null;
+  condition?: string | null;
+  brand?: string | null;
+  model?: string | null;
+  location?: string | null;
+  attributes?: Record<string, string> | null;
+  isNegotiable?: boolean;
+  shippingInfo?: string | null;
+  returnPolicy?: string | null;
   status?: ProductStatus;
 };
 
@@ -163,6 +171,11 @@ export async function createProductFromChannelPost(input: {
         currency: parsed.currency ?? settings.defaultCurrency,
         category: parsed.category,
         sku: parsed.sku,
+        condition: parsed.condition,
+        brand: parsed.brand,
+        model: parsed.model,
+        location: parsed.location,
+        isNegotiable: parsed.isNegotiable,
         tags: formatListingTags(parsed.tags),
         status,
         confidence: String(parsed.confidence),
@@ -535,6 +548,14 @@ export async function createManualProduct(
           ? null
           : input.stockQuantity,
       tags: input.tags?.trim() || null,
+      condition: input.condition?.trim() || null,
+      brand: input.brand?.trim() || null,
+      model: input.model?.trim() || null,
+      location: input.location?.trim() || null,
+      attributes: input.attributes ?? {},
+      isNegotiable: input.isNegotiable ?? false,
+      shippingInfo: input.shippingInfo?.trim() || null,
+      returnPolicy: input.returnPolicy?.trim() || null,
       status: input.status ?? "draft",
       confidence: null,
       rawCaption: null,
@@ -570,6 +591,24 @@ export async function updateProduct(
         ? { stockQuantity: input.stockQuantity }
         : {}),
       ...(input.tags !== undefined ? { tags: input.tags?.trim() || null } : {}),
+      ...(input.condition !== undefined
+        ? { condition: input.condition?.trim() || null }
+        : {}),
+      ...(input.brand !== undefined ? { brand: input.brand?.trim() || null } : {}),
+      ...(input.model !== undefined ? { model: input.model?.trim() || null } : {}),
+      ...(input.location !== undefined
+        ? { location: input.location?.trim() || null }
+        : {}),
+      ...(input.attributes !== undefined
+        ? { attributes: input.attributes ?? {} }
+        : {}),
+      ...(input.isNegotiable !== undefined ? { isNegotiable: input.isNegotiable } : {}),
+      ...(input.shippingInfo !== undefined
+        ? { shippingInfo: input.shippingInfo?.trim() || null }
+        : {}),
+      ...(input.returnPolicy !== undefined
+        ? { returnPolicy: input.returnPolicy?.trim() || null }
+        : {}),
       ...(input.status !== undefined ? { status: input.status } : {}),
       updatedAt: new Date(),
     })
@@ -708,6 +747,14 @@ export function serializeProduct(
     sku: product.sku,
     stockQuantity: product.stockQuantity,
     tags: product.tags,
+    condition: product.condition,
+    brand: product.brand,
+    model: product.model,
+    location: product.location,
+    attributes: product.attributes ?? {},
+    isNegotiable: product.isNegotiable,
+    shippingInfo: product.shippingInfo,
+    returnPolicy: product.returnPolicy,
     status: product.status,
     confidence:
       product.confidence !== null ? Number(product.confidence) : null,

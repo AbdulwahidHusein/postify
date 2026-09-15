@@ -25,6 +25,14 @@ const createSchema = z.object({
   sku: z.string().trim().max(64).optional().nullable(),
   stockQuantity: z.number().int().nonnegative().nullable().optional(),
   tags: z.string().trim().max(500).optional().nullable(),
+  condition: z.string().trim().max(60).optional().nullable(),
+  brand: z.string().trim().max(80).optional().nullable(),
+  model: z.string().trim().max(120).optional().nullable(),
+  location: z.string().trim().max(120).optional().nullable(),
+  attributes: z.record(z.string(), z.string()).optional().nullable(),
+  isNegotiable: z.boolean().optional(),
+  shippingInfo: z.string().trim().max(500).optional().nullable(),
+  returnPolicy: z.string().trim().max(500).optional().nullable(),
   status: z.enum(["draft", "published", "sold", "archived"]).optional(),
 });
 
@@ -94,6 +102,14 @@ export async function POST(request: Request, { params }: Props) {
       sku: body.sku,
       stockQuantity: body.stockQuantity ?? null,
       tags: body.tags,
+      condition: body.condition,
+      brand: body.brand,
+      model: body.model,
+      location: body.location,
+      attributes: body.attributes,
+      isNegotiable: body.isNegotiable,
+      shippingInfo: body.shippingInfo,
+      returnPolicy: body.returnPolicy,
       status: body.status ?? "draft",
     });
 

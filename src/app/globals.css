@@ -2752,6 +2752,85 @@ html[data-platform="tma"] .admin-editor-aside {
   padding: 0.18rem 0.48rem;
 }
 
+.buy-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.15rem 0 0;
+}
+
+.buy-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 650;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+
+.buy-badge-condition {
+  background: color-mix(in oklab, var(--signal) 8%, var(--surface));
+  border-color: color-mix(in oklab, var(--signal) 22%, var(--line));
+  color: var(--signal);
+}
+
+.buy-badge-negotiable {
+  background: color-mix(in oklab, #b45309 8%, var(--surface));
+  border-color: color-mix(in oklab, #b45309 22%, var(--line));
+  color: #9a3412;
+}
+
+.buy-specs {
+  margin: 0.4rem 0 0;
+  display: grid;
+  gap: 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  background: var(--paper-muted);
+}
+
+.buy-specs-attrs {
+  margin-top: 0.6rem;
+}
+
+.buy-spec-row {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+}
+
+.buy-spec-row dt {
+  color: var(--muted);
+  font-weight: 550;
+}
+
+.buy-spec-row dd {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.buy-policy {
+  margin: 0.5rem 0 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.buy-policy-item {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.buy-policy-item strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .buy-actions {
   display: flex;
   flex-wrap: wrap;

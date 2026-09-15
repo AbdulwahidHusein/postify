@@ -8,6 +8,13 @@
       "when": 1788878444017,
       "tag": "0000_pale_pete_wisdom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789511921203,
+      "tag": "0001_add_product_commerce_fields",
+      "breakpoints": true
     }
   ]
 }
