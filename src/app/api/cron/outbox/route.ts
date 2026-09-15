@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { flushOutbox, purgeOutbox, reclaimStaleOutbox } from "@/lib/chat/outbox";
 import { flushIngestOutbox } from "@/lib/ingest-channel-post";
+import { autoArchiveProducts } from "@/lib/products";
 import { serverEnv } from "@/lib/env.server";
 
 /**
@@ -24,8 +25,9 @@ export async function POST(request: Request) {
   await reclaimStaleOutbox();
   const notified = await flushOutbox(40);
   const ingested = await flushIngestOutbox(10);
+  const archived = await autoArchiveProducts();
   await purgeOutbox();
-  return NextResponse.json({ ok: true, notified, ingested });
+  return NextResponse.json({ ok: true, notified, ingested, archived });
 }
 
 export async function GET(request: Request) {

@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, asc, desc, eq, ilike, ne, or, sql } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, lte, ne, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import {
   productImages,
@@ -102,6 +102,15 @@ export async function createProductFromChannelPost(input: {
   photos: IncomingPhoto[];
 }): Promise<ChannelIngestResult> {
   const settings = normalizeShopSettings(input.shop.settings);
+
+  // Paused: don't create products at all. Check before the LLM call to save cost.
+  if (settings.ingestMode === "paused") {
+    return {
+      outcome: "skipped",
+      reason: "Auto-posting is paused.",
+    };
+  }
+
   const parsed = await extractListingFromCaption(input.caption, {
     defaultCurrency: settings.defaultCurrency || "ETB",
     hasMedia: input.photos.length > 0,
@@ -123,11 +132,14 @@ export async function createProductFromChannelPost(input: {
     return { outcome: "duplicate", product: existing };
   }
 
-  // Respect the shop's auto-publish threshold: low-confidence parses become
-  // drafts (seller confirms in the dashboard) rather than going live.
+  // Respect the shop's ingestion mode + auto-publish threshold.
   const autoPublishMinConfidence = settings.autoPublishMinConfidence ?? 0.8;
   const status: ProductStatus =
-    parsed.confidence >= autoPublishMinConfidence ? "published" : "draft";
+    settings.ingestMode === "always_draft"
+      ? "draft"
+      : parsed.confidence >= autoPublishMinConfidence
+        ? "published"
+        : "draft";
 
   const baseSlug =
     slugify(parsed.slugHint || parsed.title).slice(0, 40) || "item";
@@ -463,6 +475,37 @@ export async function countProductsByStatus(shopId: string) {
     counts.total += row.count;
   }
   return counts;
+}
+
+/**
+ * Auto-archive published products older than each shop's autoArchiveDays.
+ * Called from the cron. Shops without autoArchiveDays are skipped.
+ */
+export async function autoArchiveProducts(): Promise<number> {
+  const allShops = await db.query.shops.findMany();
+  let total = 0;
+
+  for (const shop of allShops) {
+    const settings = normalizeShopSettings(shop.settings);
+    const days = settings.autoArchiveDays;
+    if (!days || days < 1) continue;
+
+    const cutoff = new Date(Date.now() - days * 24 * 60 * 60_000);
+    const archived = await db
+      .update(products)
+      .set({ status: "archived", updatedAt: new Date() })
+      .where(
+        and(
+          eq(products.shopId, shop.id),
+          eq(products.status, "published"),
+          lte(products.updatedAt, cutoff),
+        ),
+      )
+      .returning({ id: products.id });
+    total += archived.length;
+  }
+
+  return total;
 }
 
 export async function createManualProduct(

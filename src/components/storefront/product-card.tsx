@@ -18,6 +18,7 @@ export function ProductCard({ product }: { product: ProductCardProduct }) {
   const src = image ? productImageSrc(image) : null;
   const priceLabel = formatPrice(product);
   const isSold = product.status === "sold";
+  const outOfStock = product.stockQuantity != null && product.stockQuantity <= 0;
   const compare =
     !isSold && product.compareAtPrice != null
       ? `${product.currency} ${Number(product.compareAtPrice).toLocaleString()}`
@@ -35,6 +36,9 @@ export function ProductCard({ product }: { product: ProductCardProduct }) {
           </span>
         )}
         {isSold ? <span className="buy-card-badge">Sold</span> : null}
+        {!isSold && outOfStock ? (
+          <span className="buy-card-badge">Out of stock</span>
+        ) : null}
       </div>
       <div className="buy-card-body">
         <strong className="buy-card-title">{product.title}</strong>

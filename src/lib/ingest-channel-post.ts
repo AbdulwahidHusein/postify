@@ -125,9 +125,11 @@ async function appendPhotos(
             confidence: String(parsed.confidence),
             rawCaption: trimmed,
             status:
-              parsed.confidence >= (settings.autoPublishMinConfidence ?? 0.8)
-                ? "published"
-                : "draft",
+              settings.ingestMode === "always_draft"
+                ? "draft"
+                : parsed.confidence >= (settings.autoPublishMinConfidence ?? 0.8)
+                  ? "published"
+                  : "draft",
             updatedAt: new Date(),
           })
           .where(eq(products.id, productId));
@@ -327,8 +329,13 @@ async function editChannelListing(input: {
   const autoPublishMinConfidence = settings.autoPublishMinConfidence ?? 0.8;
   // Promote draft -> published if the edit now clears the threshold. Never
   // downgrade a published product on a weak re-parse (avoids flicker).
+  // In always_draft mode, never promote — the seller reviews manually.
   let status = existing.status as Product["status"];
-  if (existing.status === "draft" && parsed.confidence >= autoPublishMinConfidence) {
+  if (
+    existing.status === "draft" &&
+    settings.ingestMode !== "always_draft" &&
+    parsed.confidence >= autoPublishMinConfidence
+  ) {
     status = "published";
   }
 

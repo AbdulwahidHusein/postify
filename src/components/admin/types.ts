@@ -13,6 +13,11 @@ export type AdminShop = {
     sellCategories?: string[];
     logoUrl?: string | null;
     logoSource?: "telegram" | "upload" | null;
+    ingestMode?: "auto_publish" | "always_draft" | "paused";
+    shopVisible?: boolean;
+    sellerNotifyOrders?: boolean;
+    sellerNotifyMessages?: boolean;
+    autoArchiveDays?: number | null;
   };
   createdAt: string;
   updatedAt: string;

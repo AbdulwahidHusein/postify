@@ -28,6 +28,11 @@ const patchSchema = z.object({
       ownerUsername: z.string().trim().max(80).nullable().optional(),
       ownerPhone: z.string().trim().max(32).nullable().optional(),
       sellCategories: z.array(z.string().trim().min(1).max(160)).max(40).optional(),
+      ingestMode: z.enum(["auto_publish", "always_draft", "paused"]).optional(),
+      shopVisible: z.boolean().optional(),
+      sellerNotifyOrders: z.boolean().optional(),
+      sellerNotifyMessages: z.boolean().optional(),
+      autoArchiveDays: z.number().int().min(1).max(365).nullable().optional(),
     })
     .optional(),
 });

@@ -2266,6 +2266,22 @@ html[data-platform="tma"] .admin-editor-aside {
   grid-column: 1 / -1;
 }
 
+.admin-field-inline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  flex-direction: column;
+}
+.admin-field-inline input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+.admin-field-inline > span {
+  flex: 1;
+}
+
 .tags-box {
   display: flex;
   flex-wrap: wrap;

@@ -8,6 +8,7 @@ import { db } from "@/db";
 import { conversations, messageDeliveries, messages, orders } from "@/db/schema";
 import { requireBotToken, serverEnv } from "@/lib/env.server";
 import { formatPrice, productImageSrc } from "@/lib/products";
+import { normalizeShopSettings } from "@/lib/shops";
 import { resolveUploadPath } from "@/lib/storage";
 
 function appUrl() {
@@ -154,6 +155,12 @@ export async function deliverChatNotification(input: {
     throw new Error("conversation missing shop owner or product");
   }
 
+  // Respect the seller's notification preference for new buyer messages.
+  if (input.kind === "seller_new_message") {
+    const settings = normalizeShopSettings(conversation.shop.settings);
+    if (!settings.sellerNotifyMessages) return;
+  }
+
   const bot = telegramApi();
   const product = conversation.product;
   const price = formatPrice(product) ?? product.currency;
@@ -293,6 +300,10 @@ export async function deliverOrderNotification(input: { orderId: string }) {
   if (!order?.shop?.owner || !order.product) {
     throw new Error("order missing shop owner or product");
   }
+
+  // Respect the seller's notification preference for new orders.
+  const settings = normalizeShopSettings(order.shop.settings);
+  if (!settings.sellerNotifyOrders) return;
 
   const bot = telegramApi();
   const ownerTg = order.shop.owner.telegramId;

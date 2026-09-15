@@ -18,12 +18,12 @@ export async function GET() {
   }
 }
 
-/** Connect codes removed — link via adding the bot as admin or forward. */
+/** Connect codes removed — link via adding the bot as subscriber or forward. */
 export async function POST() {
   return jsonOk({
     ok: true,
-    method: "add_bot_as_admin",
+    method: "add_bot_as_subscriber",
     botUsername: serverEnv.TELEGRAM_BOT_USERNAME || telegramBotUsername || null,
-    hint: "Add the bot as channel admin, or forward a channel post to the bot.",
+    hint: "Add the bot as a channel subscriber, or forward a channel post to the bot.",
   });
 }

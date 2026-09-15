@@ -16,7 +16,7 @@ import { enqueueIngestChannelPost } from "@/lib/ingest-channel-post";
 import { pickBestPhotoFileId } from "@/lib/products";
 import { syncShopLogoFromTelegramChat } from "@/lib/shop-logo";
 import { db } from "@/db";
-import { shops } from "@/db/schema";
+import { channels, shops } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import {
   handleChatStartPayload,
@@ -177,7 +177,7 @@ function buildBot() {
     }
 
     await ctx.reply(
-      `I turn your channel into an ecommerce platform.\n\nAdd @${botUsername()} as admin to your channel, then post products.`,
+      `I turn your channel into an ecommerce platform.\n\nAdd @${botUsername()} as a subscriber to your channel, then post products.`,
       {
         reply_markup: {
           inline_keyboard: [
@@ -234,7 +234,7 @@ function buildBot() {
   bot.command("help", async (ctx) => {
     await ctx.reply(
       [
-        "Add the bot as channel admin.",
+        "Add the bot as a subscriber to your channel.",
         "Or forward a channel post here.",
         "Then post a photo with a price.",
         "",
@@ -279,6 +279,25 @@ function buildBot() {
     });
 
     if (chat.type !== "channel") return;
+
+    // Bot removed/kicked/left the channel — mark it disconnected so we stop
+    // trying to ingest posts for a channel we can no longer read.
+    if (status === "kicked" || status === "left" || status === "restricted") {
+      try {
+        await db
+          .update(channels)
+          .set({ status: "disconnected", updatedAt: new Date() })
+          .where(eq(channels.telegramChatId, BigInt(chat.id)));
+        console.info("[bot] channel disconnected", {
+          chat: chatFingerprint(chat.id),
+          status,
+        });
+      } catch (error) {
+        console.error("[bot] disconnect update failed", error);
+      }
+      return;
+    }
+
     if (status !== "administrator" && status !== "member") return;
     if (!from || from.is_bot) return;
 

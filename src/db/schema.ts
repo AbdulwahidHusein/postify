@@ -46,6 +46,15 @@ export type ShopSettings = {
   logoUrl?: string | null;
   /** How logo was set — telegram sync can overwrite unless upload */
   logoSource?: "telegram" | "upload" | null;
+  /** How channel posts become products */
+  ingestMode?: "auto_publish" | "always_draft" | "paused";
+  /** Shop visible on public storefront? (false = hidden while building) */
+  shopVisible?: boolean;
+  /** Seller Telegram notifications */
+  sellerNotifyOrders?: boolean;
+  sellerNotifyMessages?: boolean;
+  /** Auto-archive published products after N days unsold (null = disabled) */
+  autoArchiveDays?: number | null;
 };
 
 
@@ -66,6 +75,11 @@ export const shops = pgTable(
         defaultCurrency: "ETB",
         autoPublishMinConfidence: 0.8,
         linkMode: "reply",
+        ingestMode: "auto_publish",
+        shopVisible: true,
+        sellerNotifyOrders: true,
+        sellerNotifyMessages: true,
+        autoArchiveDays: null,
       }),
     connectCode: text("connect_code"),
     connectCodeExpiresAt: timestamp("connect_code_expires_at", {

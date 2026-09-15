@@ -219,6 +219,20 @@ export async function linkChannelForTelegramUser(input: {
   };
 }
 
+export async function disconnectChannel(input: {
+  shopId: string;
+  ownerUserId: string;
+}): Promise<void> {
+  const shop = await getOwnedShop(input.shopId, input.ownerUserId);
+  if (!shop) {
+    throw new Error("Shop not found");
+  }
+  await db
+    .update(channels)
+    .set({ status: "disconnected", updatedAt: new Date() })
+    .where(eq(channels.shopId, input.shopId));
+}
+
 export async function getChannelByTelegramChatId(
   telegramChatId: bigint,
 ): Promise<Channel | null> {

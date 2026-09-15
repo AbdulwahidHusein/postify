@@ -13,6 +13,11 @@ export const defaultSettings: ShopSettings = {
   sellCategories: [],
   logoUrl: null,
   logoSource: null,
+  ingestMode: "auto_publish",
+  shopVisible: true,
+  sellerNotifyOrders: true,
+  sellerNotifyMessages: true,
+  autoArchiveDays: null,
 };
 
 export function normalizeShopSettings(
@@ -29,6 +34,11 @@ export function normalizeShopSettings(
       : [],
     logoUrl: settings?.logoUrl ?? null,
     logoSource: settings?.logoSource ?? null,
+    ingestMode: settings?.ingestMode ?? "auto_publish",
+    shopVisible: settings?.shopVisible ?? true,
+    sellerNotifyOrders: settings?.sellerNotifyOrders ?? true,
+    sellerNotifyMessages: settings?.sellerNotifyMessages ?? true,
+    autoArchiveDays: settings?.autoArchiveDays ?? null,
   };
 }
 

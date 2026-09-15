@@ -30,6 +30,26 @@ function SettingsFormFields({
   );
   const [logoUrl, setLogoUrl] = useState(shop.settings.logoUrl ?? null);
   const [logoSource, setLogoSource] = useState(shop.settings.logoSource ?? null);
+  const [ingestMode, setIngestMode] = useState<string>(
+    shop.settings.ingestMode ?? "auto_publish",
+  );
+  const [autoPublishMinConfidence, setAutoPublishMinConfidence] = useState(
+    shop.settings.autoPublishMinConfidence ?? 0.8,
+  );
+  const [shopVisible, setShopVisible] = useState(
+    shop.settings.shopVisible ?? true,
+  );
+  const [sellerNotifyOrders, setSellerNotifyOrders] = useState(
+    shop.settings.sellerNotifyOrders ?? true,
+  );
+  const [sellerNotifyMessages, setSellerNotifyMessages] = useState(
+    shop.settings.sellerNotifyMessages ?? true,
+  );
+  const [autoArchiveDays, setAutoArchiveDays] = useState<string>(
+    shop.settings.autoArchiveDays != null
+      ? String(shop.settings.autoArchiveDays)
+      : "",
+  );
   const [saving, setSaving] = useState(false);
   const [logoBusy, setLogoBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -55,6 +75,14 @@ function SettingsFormFields({
             ownerPhone: ownerPhone.trim() || null,
             sellCategories,
             linkMode: "reply",
+            ingestMode: ingestMode as "auto_publish" | "always_draft" | "paused",
+            autoPublishMinConfidence,
+            shopVisible,
+            sellerNotifyOrders,
+            sellerNotifyMessages,
+            autoArchiveDays: autoArchiveDays.trim()
+              ? Math.min(365, Math.max(1, Number(autoArchiveDays)))
+              : null,
           },
         }),
       });
@@ -299,6 +327,92 @@ function SettingsFormFields({
         onChange={setSellCategories}
         disabled={saving}
       />
+
+      <p className="admin-kicker">Channel posting</p>
+      <label className="admin-field">
+        <span>How channel posts become products</span>
+        <select
+          className="field"
+          value={ingestMode}
+          onChange={(e) => setIngestMode(e.target.value)}
+          disabled={saving}
+        >
+          <option value="auto_publish">Auto-publish (high confidence only)</option>
+          <option value="always_draft">Always save as draft for review</option>
+          <option value="paused">Paused — do not create products</option>
+        </select>
+      </label>
+      {ingestMode === "auto_publish" ? (
+        <label className="admin-field">
+          <span>Auto-publish confidence threshold: {(autoPublishMinConfidence * 100).toFixed(0)}%</span>
+          <input
+            type="range"
+            min={0.3}
+            max={0.99}
+            step={0.05}
+            value={autoPublishMinConfidence}
+            onChange={(e) => setAutoPublishMinConfidence(Number(e.target.value))}
+            disabled={saving}
+          />
+          <span className="admin-hint">
+            Below this confidence, channel posts become drafts for your review.
+          </span>
+        </label>
+      ) : null}
+      {ingestMode === "paused" ? (
+        <p className="admin-hint">
+          Channel posts will not create products. Re-enable anytime to resume.
+        </p>
+      ) : null}
+
+      <p className="admin-kicker">Notifications</p>
+      <label className="admin-field admin-field-inline">
+        <input
+          type="checkbox"
+          checked={sellerNotifyOrders}
+          onChange={(e) => setSellerNotifyOrders(e.target.checked)}
+          disabled={saving}
+        />
+        <span>Notify me on Telegram when I get a new order</span>
+      </label>
+      <label className="admin-field admin-field-inline">
+        <input
+          type="checkbox"
+          checked={sellerNotifyMessages}
+          onChange={(e) => setSellerNotifyMessages(e.target.checked)}
+          disabled={saving}
+        />
+        <span>Notify me on Telegram when I get a new message</span>
+      </label>
+
+      <p className="admin-kicker">Storefront</p>
+      <label className="admin-field admin-field-inline">
+        <input
+          type="checkbox"
+          checked={shopVisible}
+          onChange={(e) => setShopVisible(e.target.checked)}
+          disabled={saving}
+        />
+        <span>Shop visible to buyers</span>
+        <span className="admin-hint">
+          Uncheck to hide your shop while you set up products.
+        </span>
+      </label>
+      <label className="admin-field">
+        <span>Auto-archive products after N days unsold (optional)</span>
+        <input
+          className="field"
+          inputMode="numeric"
+          value={autoArchiveDays}
+          onChange={(e) => setAutoArchiveDays(e.target.value)}
+          placeholder="Leave empty to disable"
+          maxLength={3}
+          disabled={saving}
+        />
+        <span className="admin-hint">
+          Published products older than this are moved to archived automatically.
+        </span>
+      </label>
 
       <p className="admin-hint">
         Public URL · /s/{shop.slug} (slug is fixed after create)

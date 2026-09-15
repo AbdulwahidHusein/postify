@@ -53,10 +53,10 @@ export function SetupWizard({ onConnected }: { onConnected?: () => void }) {
           Open your Telegram channel
         </li>
         <li>
-          Administrators → Add admin → {bot}
+          Subscribers → Add subscriber → {bot}
         </li>
         <li>
-          Allow posting messages
+          The bot will start syncing posts automatically
         </li>
       </ol>
 

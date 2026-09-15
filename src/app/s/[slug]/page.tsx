@@ -90,11 +90,23 @@ export default async function ShopPage({ params, searchParams }: Props) {
   );
 
   const settings = normalizeShopSettings(shop.settings);
+  const viewer = await resolveShopViewer({
+    shopId: shop.id,
+    shopSlug: shop.slug,
+    shopName: shop.name,
+  });
+  const isOwner = viewer.kind === "owner";
+
+  // Hidden shop: only the owner can see it (while setting up).
+  if (!settings.shopVisible && !isOwner) {
+    notFound();
+  }
+
   const publicChannel = telegramChannelUrl(settings.telegramChannel);
   const sellCategories = settings.sellCategories ?? [];
   const currency = settings.defaultCurrency || "ETB";
 
-  const [catalogPage, productCategories, priceBounds, viewer] =
+  const [catalogPage, productCategories, priceBounds] =
     await Promise.all([
       listPublishedProductsForShop(shop.id, {
         page: Number.isFinite(page) ? page : 1,
@@ -107,18 +119,12 @@ export default async function ShopPage({ params, searchParams }: Props) {
       }),
       listPublishedCategoriesForShop(shop.id),
       getPublishedPriceBoundsForShop(shop.id),
-      resolveShopViewer({
-        shopId: shop.id,
-        shopSlug: shop.slug,
-        shopName: shop.name,
-      }),
     ]);
 
   const { products: catalog, pagination } = catalogPage;
   const logoUrl = settings.logoUrl;
   const initials = shopInitials(shop.name);
   const description = shop.description?.trim() || null;
-  const isOwner = viewer.kind === "owner";
 
   const chipSet = new Map<string, string>();
   for (const cat of [...productCategories, ...sellCategories]) {
