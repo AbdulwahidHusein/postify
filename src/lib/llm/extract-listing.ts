@@ -7,7 +7,6 @@ import {
   parseListingCaption,
   type ParsedListing,
 } from "@/lib/parse-listing";
-import { matchCategoryToTaxonomy } from "@/lib/catalog/match";
 
 const listingSchema = z.object({
   isProduct: z.boolean(),
@@ -173,20 +172,15 @@ function normalizeListing(
     compareAtPrice = null;
   }
 
-  // Match the LLM's free-text category against our 231-entry taxonomy locally.
-  // The LLM never sees the full list — it outputs a short label, we match it.
-  const matchedCategory = matchCategoryToTaxonomy(raw.category);
-  // Prefer matched taxonomy path; fall back to the shop's preferred categories,
-  // then to the raw LLM category if nothing matched.
-  let category: string | null = matchedCategory;
-  if (!category && opts?.preferredCategories && raw.category) {
-    const pref = opts.preferredCategories.find((c) =>
-      c.toLowerCase().includes(raw.category!.toLowerCase()),
+  // Store the LLM's free-text category as-is. The mined taxonomy is for the
+  // seller's dropdown in the form — not for validating/normalizing the LLM
+  // output. If it matches a shop's preferred category, prefer that.
+  let category: string | null = raw.category?.trim().slice(0, 160) || null;
+  if (category && opts?.preferredCategories) {
+    const pref = opts.preferredCategories.find(
+      (c) => c.toLowerCase() === category!.toLowerCase(),
     );
-    category = pref ?? raw.category.trim().slice(0, 160);
-  }
-  if (!category) {
-    category = raw.category?.trim().slice(0, 160) || null;
+    if (pref) category = pref;
   }
 
   return {

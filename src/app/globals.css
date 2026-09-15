@@ -2404,6 +2404,16 @@ html[data-platform="tma"] .admin-editor-aside {
   margin-top: 0.25rem;
 }
 
+.attr-custom-row {
+  display: flex;
+  gap: 0.3rem;
+  align-items: stretch;
+}
+
+.attr-custom-row .field {
+  flex: 1;
+}
+
 .admin-toolbar-stack {
   align-items: flex-end;
 }

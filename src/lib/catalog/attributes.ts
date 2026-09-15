@@ -1,5 +1,10 @@
+import "server-only";
+
 import minedData from "@/lib/catalog/category-attributes.json";
-import { taxonomyEntryByPath } from "@/lib/catalog/taxonomy-data";
+import {
+  ALL_TAXONOMY_CATEGORIES,
+  taxonomyEntryByPath,
+} from "@/lib/catalog/taxonomy-data";
 
 type MinedValue = { value: string; count: number };
 type MinedAttribute = {
@@ -18,24 +23,50 @@ type MinedCategory = {
 
 const MINED = minedData as Record<string, MinedCategory>;
 
-/** Map a category path (e.g. "Vehicles > Cars") to its slug for lookup. */
-function slugForPath(path: string): string | null {
-  const entry = taxonomyEntryByPath(path);
-  return entry?.slug ?? null;
-}
-
 export type AttributeSuggestion = {
   name: string;
   unit: string | null;
   values: string[];
 };
 
+/** Resolve a category (taxonomy path OR free text) to a mined-data slug. */
+export function slugForCategory(category: string): string | null {
+  const trimmed = category?.trim();
+  if (!trimmed) return null;
+
+  // Exact taxonomy path → slug
+  const entry = taxonomyEntryByPath(trimmed);
+  if (entry) return entry.slug;
+
+  // Fuzzy: match the leaf name against taxonomy leaves, then check mined data
+  const lower = trimmed.toLowerCase();
+  const leaf = lower.split(">").pop()?.trim() ?? lower;
+
+  // Try direct slug match (caller passed a slug)
+  if (MINED[lower]) return lower;
+  if (MINED[trimmed]) return trimmed;
+
+  // Match taxonomy leaf
+  const match = ALL_TAXONOMY_CATEGORIES.find((c) => {
+    const cLeaf = c.toLowerCase().split(">").pop()?.trim() ?? "";
+    return cLeaf === leaf || cLeaf === lower;
+  });
+  if (match) {
+    const e = taxonomyEntryByPath(match);
+    if (e) return e.slug;
+  }
+  return null;
+}
+
 /**
- * Returns structured attribute suggestions for a category path.
- * Falls back to an empty list if the category wasn't mined or has no attrs.
+ * Returns structured attribute suggestions for a category (taxonomy path or
+ * free text). Server-only — the client fetches this via /api/catalog/attributes
+ * so the mined JSON is never shipped to the browser.
  */
-export function attributesForCategory(categoryPath: string): AttributeSuggestion[] {
-  const slug = slugForPath(categoryPath);
+export function attributesForCategory(
+  category: string,
+): AttributeSuggestion[] {
+  const slug = slugForCategory(category);
   if (!slug) return [];
   const mined = MINED[slug];
   if (!mined) return [];
@@ -63,13 +94,3 @@ export function commonConditions(): string[] {
     .map(([value]) => value);
 }
 
-/** All distinct attribute names ever mined (for analytics/debugging). */
-export function allAttributeNames(): string[] {
-  const names = new Set<string>();
-  for (const cat of Object.values(MINED)) {
-    for (const attr of cat.attributes) {
-      names.add(attr.name);
-    }
-  }
-  return [...names].sort();
-}
