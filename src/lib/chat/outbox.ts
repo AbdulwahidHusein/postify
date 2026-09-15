@@ -175,3 +175,40 @@ export async function reclaimStaleOutbox(olderThanMs = 5 * 60_000) {
       ),
     );
 }
+
+/**
+ * Purge terminal outbox rows so the table doesn't grow unbounded.
+ * - `done` rows: deleted after 24h (the delivery record lives in
+ *   message_deliveries for chat; the outbox row is pure history).
+ * - `failed` rows: deleted after 7 days (longer window for debugging).
+ * - `pending`/`processing`: never touched — still active.
+ *
+ * Only run this from the cron; it's a maintenance operation, not per-request.
+ */
+export async function purgeOutbox(opts?: {
+  doneAfterMs?: number;
+  failedAfterMs?: number;
+}): Promise<void> {
+  const doneAfterMs = opts?.doneAfterMs ?? 24 * 60 * 60_000; // 24h
+  const failedAfterMs = opts?.failedAfterMs ?? 7 * 24 * 60 * 60_000; // 7 days
+
+  const doneCutoff = new Date(Date.now() - doneAfterMs);
+  await db
+    .delete(notificationOutbox)
+    .where(
+      and(
+        eq(notificationOutbox.status, "done"),
+        lte(notificationOutbox.updatedAt, doneCutoff),
+      ),
+    );
+
+  const failedCutoff = new Date(Date.now() - failedAfterMs);
+  await db
+    .delete(notificationOutbox)
+    .where(
+      and(
+        eq(notificationOutbox.status, "failed"),
+        lte(notificationOutbox.updatedAt, failedCutoff),
+      ),
+    );
+}
