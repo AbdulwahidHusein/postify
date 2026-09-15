@@ -9,6 +9,7 @@ import {
 } from "@/components/admin/product-image-gallery";
 import { CategoryCombobox } from "@/components/admin/category-combobox";
 import { CategoryAttributes } from "@/components/admin/category-attributes";
+import { RegionSelect } from "@/components/admin/region-select";
 import { TagsInput } from "@/components/admin/tags-input";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import type { AdminProduct } from "@/components/admin/types";
@@ -660,19 +661,13 @@ export function ProductForm({
                 maxLength={120}
               />
             </label>
-            <label className="admin-field">
-              <span>Location</span>
-              <input
-                className="field"
-                value={form.location}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, location: e.target.value }))
-                }
-                placeholder="Addis Ababa, Bole…"
-                maxLength={120}
-              />
-            </label>
           </div>
+
+          <RegionSelect
+            value={form.location}
+            onChange={(location) => setForm((f) => ({ ...f, location }))}
+            disabled={saving}
+          />
 
           {form.category ? (
             <CategoryAttributes

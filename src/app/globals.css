@@ -2414,6 +2414,25 @@ html[data-platform="tma"] .admin-editor-aside {
   flex: 1;
 }
 
+.region-select-row {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 480px) {
+  .region-select-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.region-custom-toggle {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  padding: 0.2rem 0.4rem;
+  height: auto;
+}
+
 .admin-toolbar-stack {
   align-items: flex-end;
 }
