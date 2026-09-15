@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { CategoriesMultiSelect } from "@/components/admin/categories-multi-select";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import type { AdminShop } from "@/components/admin/types";
 
 type IngestMode = "auto_publish" | "always_draft" | "paused";
@@ -26,17 +28,12 @@ function Toggle({
         <span className="settings-toggle-label">{label}</span>
         {hint ? <span className="settings-toggle-hint">{hint}</span> : null}
       </span>
-      <span className="settings-toggle-control">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
-          disabled={disabled}
-        />
-        <span className="settings-toggle-track" aria-hidden>
-          <span className="settings-toggle-thumb" />
-        </span>
-      </span>
+      <Switch
+        checked={checked}
+        onCheckedChange={onChange}
+        disabled={disabled}
+        aria-label={label}
+      />
     </label>
   );
 }
@@ -502,13 +499,13 @@ function SettingsFormFields({
         <p className="settings-save-hint" aria-live="polite">
           {saved ? "Saved ✓" : "Slug is fixed after create · /s/" + shop.slug}
         </p>
-        <button
+        <Button
           type="submit"
-          className="btn btn-primary"
+          variant="primary"
           disabled={saving || logoBusy}
         >
           {saving ? "Saving…" : "Save changes"}
-        </button>
+        </Button>
       </div>
     </form>
   );

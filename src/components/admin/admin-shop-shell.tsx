@@ -9,17 +9,35 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import {
+  ChevronLeft,
+  LayoutDashboard,
+  MessageSquare,
+  Package,
+  Radio,
+  Settings,
+  ShoppingCart,
+  Store,
+} from "lucide-react";
 import { appName } from "@/lib/env";
+import { Button } from "@/components/ui/button";
 import type { AdminShop } from "@/components/admin/types";
 
-const SHOP_NAV = [
-  { href: "", label: "Overview", exact: true },
-  { href: "/products", label: "Products", exact: false },
-  { href: "/inbox", label: "Inbox", exact: false },
-  { href: "/orders", label: "Orders", exact: false },
-  { href: "/channels", label: "Channels", exact: false },
-  { href: "/settings", label: "Settings", exact: false },
-] as const;
+type IconType = typeof LayoutDashboard;
+
+const SHOP_NAV: ReadonlyArray<{
+  href: string;
+  label: string;
+  icon: IconType;
+  exact: boolean;
+}> = [
+  { href: "", label: "Overview", icon: LayoutDashboard, exact: true },
+  { href: "/products", label: "Products", icon: Package, exact: false },
+  { href: "/inbox", label: "Inbox", icon: MessageSquare, exact: false },
+  { href: "/orders", label: "Orders", icon: ShoppingCart, exact: false },
+  { href: "/channels", label: "Channels", icon: Radio, exact: false },
+  { href: "/settings", label: "Settings", icon: Settings, exact: false },
+];
 
 function ShopNavLinks({
   base,
@@ -37,6 +55,7 @@ function ShopNavLinks({
         const active = item.exact
           ? pathname === base || pathname === `${base}/`
           : pathname.startsWith(href);
+        const Icon = item.icon;
         return (
           <Link
             key={item.href || "overview"}
@@ -44,7 +63,8 @@ function ShopNavLinks({
             className={active ? "admin-nav-item is-active" : "admin-nav-item"}
             onClick={onNavigate}
           >
-            {item.label}
+            <Icon className="admin-nav-icon" aria-hidden />
+            <span>{item.label}</span>
           </Link>
         );
       })}
@@ -109,6 +129,22 @@ function useDrawer() {
   return { open, close, toggle, setOpen };
 }
 
+function SidebarBrand({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <div className="admin-sidebar-brand">
+      <Link
+        href="/dashboard"
+        className="admin-logo"
+        onClick={onNavigate}
+      >
+        <Store className="admin-logo-mark" aria-hidden />
+        {appName}
+      </Link>
+      <p className="admin-logo-sub">Seller console</p>
+    </div>
+  );
+}
+
 export function AdminShopShell({
   shop,
   children,
@@ -136,16 +172,7 @@ export function AdminShopShell({
         className="admin-sidebar"
         aria-label="Shop navigation"
       >
-        <div className="admin-sidebar-brand">
-          <Link
-            href="/dashboard"
-            className="admin-logo"
-            onClick={drawer.close}
-          >
-            {appName}
-          </Link>
-          <p className="admin-logo-sub">Seller console</p>
-        </div>
+        <SidebarBrand onNavigate={drawer.close} />
 
         <div className="admin-sidebar-shop">
           <p className="admin-kicker">Shop</p>
@@ -170,10 +197,11 @@ export function AdminShopShell({
         <div className="admin-sidebar-foot">
           <Link
             href="/dashboard"
-            className="admin-nav-item"
+            className="admin-nav-item admin-nav-item--back"
             onClick={drawer.close}
           >
-            All shops
+            <ChevronLeft className="admin-nav-icon" aria-hidden />
+            <span>All shops</span>
           </Link>
         </div>
       </aside>
@@ -189,15 +217,14 @@ export function AdminShopShell({
           </div>
           <div className="admin-topbar-right">
             <div className="admin-topbar-actions">
-              <Link href={`/s/${shop.slug}`} className="btn btn-ghost btn-sm">
-                Storefront
-              </Link>
-              <Link
-                href={`${base}/products/new`}
-                className="btn btn-primary btn-sm"
-              >
-                Add product
-              </Link>
+              <Button asChild variant="ghost" size="sm">
+                <Link href={`/s/${shop.slug}`} target="_blank" rel="noopener noreferrer">
+                  Storefront
+                </Link>
+              </Button>
+              <Button asChild variant="primary" size="sm">
+                <Link href={`${base}/products/new`}>Add product</Link>
+              </Button>
             </div>
             <span className="admin-topbar-shop">{shop.name}</span>
           </div>
@@ -229,16 +256,7 @@ export function AdminHomeShell({ children }: { children: ReactNode }) {
         className="admin-sidebar"
         aria-label="Console navigation"
       >
-        <div className="admin-sidebar-brand">
-          <Link
-            href="/dashboard"
-            className="admin-logo"
-            onClick={drawer.close}
-          >
-            {appName}
-          </Link>
-          <p className="admin-logo-sub">Seller console</p>
-        </div>
+        <SidebarBrand onNavigate={drawer.close} />
         <nav className="admin-nav" aria-label="Sections">
           <Link
             href="/dashboard"
@@ -249,10 +267,12 @@ export function AdminHomeShell({ children }: { children: ReactNode }) {
             }
             onClick={drawer.close}
           >
-            Shops
+            <LayoutDashboard className="admin-nav-icon" aria-hidden />
+            <span>Shops</span>
           </Link>
           <Link href="/" className="admin-nav-item" onClick={drawer.close}>
-            Marketing site
+            <Store className="admin-nav-icon" aria-hidden />
+            <span>Marketing site</span>
           </Link>
         </nav>
         <div className="admin-sidebar-foot">

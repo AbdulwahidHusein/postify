@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 import { backButton } from "@tma.js/sdk";
+import { ChevronLeft, Pencil, SlidersHorizontal } from "lucide-react";
 import { useTelegram } from "@/lib/telegram/context";
+import { Button } from "@/components/ui/button";
 import type { ShopViewer } from "@/lib/viewer";
 
 type Props = {
@@ -73,18 +75,29 @@ export function StorefrontNav({
   let right: ReactNode = null;
   if (isOwner) {
     right = (
-      <Link
-        href={ownerPrimaryHref ?? `/dashboard/s/${viewer.shopSlug}`}
-        className="storefront-nav-action"
-      >
-        {ownerPrimaryHref ? ownerPrimaryLabel : "Dashboard"}
-      </Link>
+      <Button asChild variant="secondary" size="sm">
+        <Link
+          href={ownerPrimaryHref ?? `/dashboard/s/${viewer.shopSlug}`}
+        >
+          {ownerPrimaryHref ? (
+            <>
+              <Pencil className="h-4 w-4" aria-hidden />
+              {ownerPrimaryLabel}
+            </>
+          ) : (
+            <>
+              <SlidersHorizontal className="h-4 w-4" aria-hidden />
+              Dashboard
+            </>
+          )}
+        </Link>
+      </Button>
     );
   } else if (viewer.kind === "signed_in" && viewer.hasAnyShop) {
     right = (
-      <Link href="/dashboard" className="storefront-nav-action">
-        Dashboard
-      </Link>
+      <Button asChild variant="ghost" size="sm">
+        <Link href="/dashboard">Dashboard</Link>
+      </Button>
     );
   }
 
@@ -92,9 +105,12 @@ export function StorefrontNav({
     <nav className="storefront-nav" aria-label="Shop">
       <div className="storefront-nav-left">
         {resolvedBack ? (
-          <Link href={resolvedBack} className="storefront-nav-back">
-            ← {backLabel}
-          </Link>
+          <Button asChild variant="ghost" size="sm">
+            <Link href={resolvedBack}>
+              <ChevronLeft className="h-4 w-4" aria-hidden />
+              {backLabel}
+            </Link>
+          </Button>
         ) : null}
         {shopName && shopPath && !onShopHome ? (
           <Link href={shopPath} className="storefront-nav-shop">

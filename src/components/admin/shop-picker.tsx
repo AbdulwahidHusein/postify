@@ -9,6 +9,8 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { telegramBotUsername } from "@/lib/env";
 import type { AdminShop } from "@/components/admin/types";
 import { InlineLoader, PageLoader } from "@/components/ui/loader";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 type ChannelRow = {
   id: string;
@@ -27,19 +29,18 @@ export function ShopPicker() {
   const [channels, setChannels] = useState<ChannelRow[]>([]);
   const [shopsLoading, setShopsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [authNote, setAuthNote] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [creating, setCreating] = useState(false);
 
-  useEffect(() => {
-    const auth = searchParams.get("auth");
-    if (auth === "ok") setAuthNote("Signed in successfully.");
-    else if (auth === "expired")
-      setAuthNote("That login link expired. Request a new one.");
-    else if (auth === "missing")
-      setAuthNote("Login link was incomplete. Try again.");
-    else setAuthNote(null);
-  }, [searchParams]);
+  const auth = searchParams.get("auth");
+  const authNote =
+    auth === "ok"
+      ? "Signed in successfully."
+      : auth === "expired"
+        ? "That login link expired. Request a new one."
+        : auth === "missing"
+          ? "Login link was incomplete. Try again."
+          : null;
 
   useEffect(() => {
     if (!user) return;
@@ -142,9 +143,9 @@ export function ShopPicker() {
           ) : (
             <div className="admin-actions">
               {botLink ? (
-                <a className="btn btn-primary" href={botLink}>
-                  Continue in Telegram
-                </a>
+                <Button asChild variant="primary">
+                  <a href={botLink}>Continue in Telegram</a>
+                </Button>
               ) : null}
             </div>
           )}
@@ -164,13 +165,14 @@ export function ShopPicker() {
               {user.username ? ` (@${user.username})` : ""}
             </p>
           </div>
-          <button
+          <Button
             type="button"
-            className="btn btn-ghost btn-sm"
+            variant="ghost"
+            size="sm"
             onClick={() => logout()}
           >
             Sign out
-          </button>
+          </Button>
         </header>
 
         {error ? <p className="admin-error">{error}</p> : null}
@@ -200,9 +202,9 @@ export function ShopPicker() {
                 >
                   <div className="admin-shop-card-top">
                     <h2>{shop.name}</h2>
-                    <span className="admin-chip">
+                    <Badge variant={linked ? "success" : "neutral"}>
                       {linked ? "Connected" : "Setup"}
-                    </span>
+                    </Badge>
                   </div>
                   <p className="admin-muted">/{shop.slug}</p>
                   <p className="admin-shop-card-meta">
@@ -236,13 +238,13 @@ export function ShopPicker() {
                 maxLength={80}
               />
             </label>
-            <button
+            <Button
               type="submit"
-              className="btn btn-primary"
+              variant="primary"
               disabled={creating || !name.trim()}
             >
               {creating ? "Creating…" : "Create"}
-            </button>
+            </Button>
           </form>
         ) : null}
       </div>
