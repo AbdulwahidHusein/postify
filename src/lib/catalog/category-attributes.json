@@ -1,0 +1,5661 @@
+{
+  "cars": {
+    "path": "Vehicles > Cars",
+    "categoryId": 29,
+    "group": "Vehicles",
+    "advertCount": 22045,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Mileage",
+        "unit": "km",
+        "values": [
+          {
+            "value": "15000",
+            "count": 5
+          },
+          {
+            "value": "90000",
+            "count": 4
+          },
+          {
+            "value": "52000",
+            "count": 3
+          },
+          {
+            "value": "148000",
+            "count": 3
+          },
+          {
+            "value": "160000",
+            "count": 3
+          },
+          {
+            "value": "37000",
+            "count": 3
+          },
+          {
+            "value": "65000",
+            "count": 3
+          },
+          {
+            "value": "30000",
+            "count": 3
+          },
+          {
+            "value": "4900",
+            "count": 2
+          },
+          {
+            "value": "27000",
+            "count": 2
+          },
+          {
+            "value": "6900",
+            "count": 2
+          },
+          {
+            "value": "8500",
+            "count": 2
+          },
+          {
+            "value": "100000",
+            "count": 2
+          },
+          {
+            "value": "84000",
+            "count": 2
+          },
+          {
+            "value": "54000",
+            "count": 2
+          },
+          {
+            "value": "50000",
+            "count": 2
+          },
+          {
+            "value": "18000",
+            "count": 1
+          },
+          {
+            "value": "350000",
+            "count": 1
+          },
+          {
+            "value": "256000",
+            "count": 1
+          },
+          {
+            "value": "122000",
+            "count": 1
+          },
+          {
+            "value": "0",
+            "count": 1
+          },
+          {
+            "value": "22000",
+            "count": 1
+          },
+          {
+            "value": "38000",
+            "count": 1
+          },
+          {
+            "value": "8577",
+            "count": 1
+          },
+          {
+            "value": "3700",
+            "count": 1
+          },
+          {
+            "value": "60000",
+            "count": 1
+          },
+          {
+            "value": "16000",
+            "count": 1
+          },
+          {
+            "value": "26000",
+            "count": 1
+          },
+          {
+            "value": "185000",
+            "count": 1
+          },
+          {
+            "value": "53000",
+            "count": 1
+          },
+          {
+            "value": "170000",
+            "count": 1
+          },
+          {
+            "value": "9000",
+            "count": 1
+          },
+          {
+            "value": "20000",
+            "count": 1
+          },
+          {
+            "value": "146000",
+            "count": 1
+          },
+          {
+            "value": "29000",
+            "count": 1
+          },
+          {
+            "value": "66000",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Local Used",
+            "count": 100
+          },
+          {
+            "value": "Foreign Used",
+            "count": 14
+          },
+          {
+            "value": "Brand New",
+            "count": 4
+          },
+          {
+            "value": "Ethiopian Used",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Transmission",
+        "unit": null,
+        "values": [
+          {
+            "value": "Automatic",
+            "count": 86
+          },
+          {
+            "value": "Manual",
+            "count": 32
+          },
+          {
+            "value": "CVT",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "buses": {
+    "path": "Vehicles > Buses & Microbuses",
+    "categoryId": 382,
+    "group": "Vehicles",
+    "advertCount": 901,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Mileage",
+        "unit": "km",
+        "values": [
+          {
+            "value": "60000",
+            "count": 3
+          },
+          {
+            "value": "110000",
+            "count": 3
+          },
+          {
+            "value": "130000",
+            "count": 2
+          },
+          {
+            "value": "1050000",
+            "count": 2
+          },
+          {
+            "value": "250000",
+            "count": 2
+          },
+          {
+            "value": "75000",
+            "count": 2
+          },
+          {
+            "value": "19000",
+            "count": 2
+          },
+          {
+            "value": "190000",
+            "count": 2
+          },
+          {
+            "value": "145000",
+            "count": 1
+          },
+          {
+            "value": "148000",
+            "count": 1
+          },
+          {
+            "value": "16000",
+            "count": 1
+          },
+          {
+            "value": "45000",
+            "count": 1
+          },
+          {
+            "value": "22000",
+            "count": 1
+          },
+          {
+            "value": "170000",
+            "count": 1
+          },
+          {
+            "value": "230000",
+            "count": 1
+          },
+          {
+            "value": "57000",
+            "count": 1
+          },
+          {
+            "value": "390000",
+            "count": 1
+          },
+          {
+            "value": "210000",
+            "count": 1
+          },
+          {
+            "value": "280000",
+            "count": 1
+          },
+          {
+            "value": "150000",
+            "count": 1
+          },
+          {
+            "value": "98000",
+            "count": 1
+          },
+          {
+            "value": "189000",
+            "count": 1
+          },
+          {
+            "value": "295000",
+            "count": 1
+          },
+          {
+            "value": "153000",
+            "count": 1
+          },
+          {
+            "value": "178000",
+            "count": 1
+          },
+          {
+            "value": "156000",
+            "count": 1
+          },
+          {
+            "value": "85000",
+            "count": 1
+          },
+          {
+            "value": "90000",
+            "count": 1
+          },
+          {
+            "value": "180000",
+            "count": 1
+          },
+          {
+            "value": "175000",
+            "count": 1
+          },
+          {
+            "value": "129000",
+            "count": 1
+          },
+          {
+            "value": "84000",
+            "count": 1
+          },
+          {
+            "value": "140000",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Local Used",
+            "count": 77
+          },
+          {
+            "value": "Foreign Used",
+            "count": 34
+          },
+          {
+            "value": "Brand New",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  },
+  "heavy-equipments-machinery": {
+    "path": "Vehicles > Construction & Heavy Machinery",
+    "categoryId": 274,
+    "group": "Vehicles",
+    "advertCount": 273,
+    "sampledCount": 118,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 71
+          },
+          {
+            "value": "Ethiopian Used",
+            "count": 26
+          },
+          {
+            "value": "Foreign Used",
+            "count": 20
+          },
+          {
+            "value": "Damaged",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "motorcycles-and-scooters": {
+    "path": "Vehicles > Motorcycles & Scooters",
+    "categoryId": 30,
+    "group": "Vehicles",
+    "advertCount": 329,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Colour",
+        "unit": null,
+        "values": [
+          {
+            "value": "Blue",
+            "count": 47
+          },
+          {
+            "value": "Black",
+            "count": 18
+          },
+          {
+            "value": "White",
+            "count": 17
+          },
+          {
+            "value": "Other",
+            "count": 13
+          },
+          {
+            "value": "Red",
+            "count": 12
+          },
+          {
+            "value": "Green",
+            "count": 5
+          },
+          {
+            "value": "Yellow",
+            "count": 3
+          },
+          {
+            "value": "Beige",
+            "count": 1
+          },
+          {
+            "value": "Silver",
+            "count": 1
+          },
+          {
+            "value": "Pink",
+            "count": 1
+          },
+          {
+            "value": "Orange",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 97
+          },
+          {
+            "value": "Local Used",
+            "count": 18
+          },
+          {
+            "value": "Foreign Used",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  },
+  "trucks-commercial-agricultiral": {
+    "path": "Vehicles > Trucks & Trailers",
+    "categoryId": 31,
+    "group": "Vehicles",
+    "advertCount": 409,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Used",
+            "count": 104
+          },
+          {
+            "value": "Brand New",
+            "count": 15
+          }
+        ]
+      }
+    ]
+  },
+  "car-parts-and-accessories": {
+    "path": "Vehicles > Vehicle Parts & Accessories",
+    "categoryId": 12,
+    "group": "Vehicles",
+    "advertCount": 2639,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 120
+          }
+        ]
+      }
+    ]
+  },
+  "watercrafts-vehicle": {
+    "path": "Vehicles > Watercraft & Boats",
+    "categoryId": 275,
+    "group": "Vehicles",
+    "advertCount": 3,
+    "sampledCount": 3,
+    "attributes": []
+  },
+  "new-builds": {
+    "path": "Property > New Builds",
+    "categoryId": 395,
+    "group": "Property",
+    "advertCount": 436,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "houses-apartments-for-rent": {
+    "path": "Property > Houses & Apartments for Rent",
+    "categoryId": 42,
+    "group": "Property",
+    "advertCount": 5360,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Property size",
+        "unit": "sqm",
+        "values": [
+          {
+            "value": "150",
+            "count": 18
+          },
+          {
+            "value": "200",
+            "count": 15
+          },
+          {
+            "value": "100",
+            "count": 9
+          },
+          {
+            "value": "250",
+            "count": 7
+          },
+          {
+            "value": "350",
+            "count": 5
+          },
+          {
+            "value": "120",
+            "count": 5
+          },
+          {
+            "value": "1000",
+            "count": 4
+          },
+          {
+            "value": "105",
+            "count": 4
+          },
+          {
+            "value": "300",
+            "count": 3
+          },
+          {
+            "value": "90",
+            "count": 3
+          },
+          {
+            "value": "70",
+            "count": 3
+          },
+          {
+            "value": "500",
+            "count": 3
+          },
+          {
+            "value": "80",
+            "count": 2
+          },
+          {
+            "value": "96",
+            "count": 2
+          },
+          {
+            "value": "130",
+            "count": 2
+          },
+          {
+            "value": "175",
+            "count": 2
+          },
+          {
+            "value": "400",
+            "count": 2
+          },
+          {
+            "value": "152",
+            "count": 2
+          },
+          {
+            "value": "17",
+            "count": 1
+          },
+          {
+            "value": "176",
+            "count": 1
+          },
+          {
+            "value": "154",
+            "count": 1
+          },
+          {
+            "value": "144",
+            "count": 1
+          },
+          {
+            "value": "118",
+            "count": 1
+          },
+          {
+            "value": "125",
+            "count": 1
+          },
+          {
+            "value": "94",
+            "count": 1
+          },
+          {
+            "value": "198",
+            "count": 1
+          },
+          {
+            "value": "75",
+            "count": 1
+          },
+          {
+            "value": "140",
+            "count": 1
+          },
+          {
+            "value": "64",
+            "count": 1
+          },
+          {
+            "value": "137",
+            "count": 1
+          },
+          {
+            "value": "60",
+            "count": 1
+          },
+          {
+            "value": "170",
+            "count": 1
+          },
+          {
+            "value": "215",
+            "count": 1
+          },
+          {
+            "value": "450",
+            "count": 1
+          },
+          {
+            "value": "186",
+            "count": 1
+          },
+          {
+            "value": "900",
+            "count": 1
+          },
+          {
+            "value": "35",
+            "count": 1
+          },
+          {
+            "value": "165",
+            "count": 1
+          },
+          {
+            "value": "180",
+            "count": 1
+          },
+          {
+            "value": "134",
+            "count": 1
+          },
+          {
+            "value": "240",
+            "count": 1
+          },
+          {
+            "value": "110",
+            "count": 1
+          },
+          {
+            "value": "55",
+            "count": 1
+          },
+          {
+            "value": "360",
+            "count": 1
+          },
+          {
+            "value": "210",
+            "count": 1
+          },
+          {
+            "value": "208",
+            "count": 1
+          },
+          {
+            "value": "47",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Bedrooms",
+        "unit": null,
+        "values": [
+          {
+            "value": "2",
+            "count": 37
+          },
+          {
+            "value": "3",
+            "count": 32
+          },
+          {
+            "value": "1",
+            "count": 15
+          },
+          {
+            "value": "4",
+            "count": 11
+          },
+          {
+            "value": "7",
+            "count": 6
+          },
+          {
+            "value": "8",
+            "count": 5
+          },
+          {
+            "value": "5",
+            "count": 4
+          },
+          {
+            "value": "13",
+            "count": 3
+          },
+          {
+            "value": "10",
+            "count": 2
+          },
+          {
+            "value": "20",
+            "count": 2
+          },
+          {
+            "value": "6",
+            "count": 1
+          },
+          {
+            "value": "16",
+            "count": 1
+          },
+          {
+            "value": "15",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Bathrooms",
+        "unit": null,
+        "values": [
+          {
+            "value": "2",
+            "count": 48
+          },
+          {
+            "value": "3",
+            "count": 23
+          },
+          {
+            "value": "1",
+            "count": 13
+          },
+          {
+            "value": "4",
+            "count": 11
+          },
+          {
+            "value": "5",
+            "count": 7
+          },
+          {
+            "value": "8",
+            "count": 5
+          },
+          {
+            "value": "6",
+            "count": 3
+          },
+          {
+            "value": "7",
+            "count": 3
+          },
+          {
+            "value": "10",
+            "count": 2
+          },
+          {
+            "value": "20",
+            "count": 2
+          },
+          {
+            "value": "19",
+            "count": 1
+          },
+          {
+            "value": "13",
+            "count": 1
+          },
+          {
+            "value": "9",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Furnishing",
+        "unit": null,
+        "values": [
+          {
+            "value": "Furnished",
+            "count": 69
+          },
+          {
+            "value": "Unfurnished",
+            "count": 44
+          },
+          {
+            "value": "Semi-Furnished",
+            "count": 7
+          }
+        ]
+      },
+      {
+        "name": "Listing by",
+        "unit": null,
+        "values": [
+          {
+            "value": "Agent",
+            "count": 39
+          },
+          {
+            "value": "Owner",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "houses-apartments-for-sale": {
+    "path": "Property > Houses & Apartments for Sale",
+    "categoryId": 43,
+    "group": "Property",
+    "advertCount": 12482,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Property size",
+        "unit": "sqm",
+        "values": [
+          {
+            "value": "100",
+            "count": 6
+          },
+          {
+            "value": "140",
+            "count": 6
+          },
+          {
+            "value": "72",
+            "count": 4
+          },
+          {
+            "value": "139",
+            "count": 4
+          },
+          {
+            "value": "80",
+            "count": 4
+          },
+          {
+            "value": "67",
+            "count": 3
+          },
+          {
+            "value": "90",
+            "count": 3
+          },
+          {
+            "value": "142",
+            "count": 3
+          },
+          {
+            "value": "98",
+            "count": 3
+          },
+          {
+            "value": "76",
+            "count": 3
+          },
+          {
+            "value": "60",
+            "count": 2
+          },
+          {
+            "value": "62",
+            "count": 2
+          },
+          {
+            "value": "106",
+            "count": 2
+          },
+          {
+            "value": "125",
+            "count": 2
+          },
+          {
+            "value": "202",
+            "count": 2
+          },
+          {
+            "value": "39",
+            "count": 2
+          },
+          {
+            "value": "112",
+            "count": 2
+          },
+          {
+            "value": "79",
+            "count": 2
+          },
+          {
+            "value": "350",
+            "count": 2
+          },
+          {
+            "value": "169",
+            "count": 2
+          },
+          {
+            "value": "133",
+            "count": 2
+          },
+          {
+            "value": "65",
+            "count": 2
+          },
+          {
+            "value": "122",
+            "count": 2
+          },
+          {
+            "value": "120",
+            "count": 2
+          },
+          {
+            "value": "144",
+            "count": 2
+          },
+          {
+            "value": "155",
+            "count": 2
+          },
+          {
+            "value": "250",
+            "count": 2
+          },
+          {
+            "value": "189",
+            "count": 1
+          },
+          {
+            "value": "131",
+            "count": 1
+          },
+          {
+            "value": "97",
+            "count": 1
+          },
+          {
+            "value": "81",
+            "count": 1
+          },
+          {
+            "value": "587",
+            "count": 1
+          },
+          {
+            "value": "115",
+            "count": 1
+          },
+          {
+            "value": "78",
+            "count": 1
+          },
+          {
+            "value": "149",
+            "count": 1
+          },
+          {
+            "value": "116",
+            "count": 1
+          },
+          {
+            "value": "82",
+            "count": 1
+          },
+          {
+            "value": "146",
+            "count": 1
+          },
+          {
+            "value": "512",
+            "count": 1
+          },
+          {
+            "value": "161",
+            "count": 1
+          },
+          {
+            "value": "77",
+            "count": 1
+          },
+          {
+            "value": "130",
+            "count": 1
+          },
+          {
+            "value": "167",
+            "count": 1
+          },
+          {
+            "value": "95",
+            "count": 1
+          },
+          {
+            "value": "50",
+            "count": 1
+          },
+          {
+            "value": "110",
+            "count": 1
+          },
+          {
+            "value": "196",
+            "count": 1
+          },
+          {
+            "value": "210",
+            "count": 1
+          },
+          {
+            "value": "280",
+            "count": 1
+          },
+          {
+            "value": "190",
+            "count": 1
+          },
+          {
+            "value": "380",
+            "count": 1
+          },
+          {
+            "value": "75",
+            "count": 1
+          },
+          {
+            "value": "1250",
+            "count": 1
+          },
+          {
+            "value": "195",
+            "count": 1
+          },
+          {
+            "value": "84",
+            "count": 1
+          },
+          {
+            "value": "101",
+            "count": 1
+          },
+          {
+            "value": "45",
+            "count": 1
+          },
+          {
+            "value": "132",
+            "count": 1
+          },
+          {
+            "value": "164",
+            "count": 1
+          },
+          {
+            "value": "217",
+            "count": 1
+          },
+          {
+            "value": "165",
+            "count": 1
+          },
+          {
+            "value": "119",
+            "count": 1
+          },
+          {
+            "value": "107",
+            "count": 1
+          },
+          {
+            "value": "105",
+            "count": 1
+          },
+          {
+            "value": "156",
+            "count": 1
+          },
+          {
+            "value": "171",
+            "count": 1
+          },
+          {
+            "value": "185",
+            "count": 1
+          },
+          {
+            "value": "1200",
+            "count": 1
+          },
+          {
+            "value": "58",
+            "count": 1
+          },
+          {
+            "value": "163",
+            "count": 1
+          },
+          {
+            "value": "168",
+            "count": 1
+          },
+          {
+            "value": "40",
+            "count": 1
+          },
+          {
+            "value": "135",
+            "count": 1
+          },
+          {
+            "value": "94",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Bedrooms",
+        "unit": null,
+        "values": [
+          {
+            "value": "2",
+            "count": 48
+          },
+          {
+            "value": "3",
+            "count": 29
+          },
+          {
+            "value": "1",
+            "count": 25
+          },
+          {
+            "value": "4",
+            "count": 6
+          },
+          {
+            "value": "5",
+            "count": 5
+          },
+          {
+            "value": "7",
+            "count": 2
+          },
+          {
+            "value": "6",
+            "count": 2
+          },
+          {
+            "value": "8",
+            "count": 2
+          },
+          {
+            "value": "12",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Bathrooms",
+        "unit": null,
+        "values": [
+          {
+            "value": "2",
+            "count": 60
+          },
+          {
+            "value": "3",
+            "count": 28
+          },
+          {
+            "value": "1",
+            "count": 23
+          },
+          {
+            "value": "4",
+            "count": 6
+          },
+          {
+            "value": "8",
+            "count": 1
+          },
+          {
+            "value": "12",
+            "count": 1
+          },
+          {
+            "value": "5",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Furnishing",
+        "unit": null,
+        "values": [
+          {
+            "value": "Semi-Furnished",
+            "count": 72
+          },
+          {
+            "value": "Furnished",
+            "count": 34
+          },
+          {
+            "value": "Unfurnished",
+            "count": 14
+          }
+        ]
+      },
+      {
+        "name": "Listing by",
+        "unit": null,
+        "values": [
+          {
+            "value": "Agent",
+            "count": 23
+          },
+          {
+            "value": "Developer",
+            "count": 20
+          },
+          {
+            "value": "Owner",
+            "count": 9
+          }
+        ]
+      }
+    ]
+  },
+  "land-and-plots-for-rent": {
+    "path": "Property > Land & Plots for Rent",
+    "categoryId": 283,
+    "group": "Property",
+    "advertCount": 31,
+    "sampledCount": 31,
+    "attributes": [
+      {
+        "name": "Listing by",
+        "unit": null,
+        "values": [
+          {
+            "value": "Agent",
+            "count": 16
+          },
+          {
+            "value": "Owner",
+            "count": 5
+          }
+        ]
+      }
+    ]
+  },
+  "land-and-plots-for-sale": {
+    "path": "Property > Land & Plots for Sale",
+    "categoryId": 44,
+    "group": "Property",
+    "advertCount": 950,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Square meters",
+        "unit": "sqm",
+        "values": [
+          {
+            "value": "500",
+            "count": 27
+          },
+          {
+            "value": "250",
+            "count": 10
+          },
+          {
+            "value": "300",
+            "count": 5
+          },
+          {
+            "value": "140",
+            "count": 5
+          },
+          {
+            "value": "150",
+            "count": 4
+          },
+          {
+            "value": "1000",
+            "count": 3
+          },
+          {
+            "value": "1500",
+            "count": 3
+          },
+          {
+            "value": "200",
+            "count": 3
+          },
+          {
+            "value": "4000",
+            "count": 2
+          },
+          {
+            "value": "600",
+            "count": 2
+          },
+          {
+            "value": "175",
+            "count": 2
+          },
+          {
+            "value": "10000",
+            "count": 2
+          },
+          {
+            "value": "5000",
+            "count": 2
+          },
+          {
+            "value": "1400",
+            "count": 2
+          },
+          {
+            "value": "580",
+            "count": 2
+          },
+          {
+            "value": "365",
+            "count": 2
+          },
+          {
+            "value": "1200",
+            "count": 2
+          },
+          {
+            "value": "415",
+            "count": 1
+          },
+          {
+            "value": "160",
+            "count": 1
+          },
+          {
+            "value": "850",
+            "count": 1
+          },
+          {
+            "value": "350",
+            "count": 1
+          },
+          {
+            "value": "6000",
+            "count": 1
+          },
+          {
+            "value": "461",
+            "count": 1
+          },
+          {
+            "value": "190",
+            "count": 1
+          },
+          {
+            "value": "384",
+            "count": 1
+          },
+          {
+            "value": "2000",
+            "count": 1
+          },
+          {
+            "value": "70",
+            "count": 1
+          },
+          {
+            "value": "354",
+            "count": 1
+          },
+          {
+            "value": "620",
+            "count": 1
+          },
+          {
+            "value": "525",
+            "count": 1
+          },
+          {
+            "value": "340",
+            "count": 1
+          },
+          {
+            "value": "510",
+            "count": 1
+          },
+          {
+            "value": "440",
+            "count": 1
+          },
+          {
+            "value": "6500",
+            "count": 1
+          },
+          {
+            "value": "280",
+            "count": 1
+          },
+          {
+            "value": "260",
+            "count": 1
+          },
+          {
+            "value": "75",
+            "count": 1
+          },
+          {
+            "value": "330",
+            "count": 1
+          },
+          {
+            "value": "1006",
+            "count": 1
+          },
+          {
+            "value": "220",
+            "count": 1
+          },
+          {
+            "value": "153",
+            "count": 1
+          },
+          {
+            "value": "264",
+            "count": 1
+          },
+          {
+            "value": "10006",
+            "count": 1
+          },
+          {
+            "value": "950",
+            "count": 1
+          },
+          {
+            "value": "35000",
+            "count": 1
+          },
+          {
+            "value": "800",
+            "count": 1
+          },
+          {
+            "value": "400",
+            "count": 1
+          },
+          {
+            "value": "7000",
+            "count": 1
+          },
+          {
+            "value": "15000",
+            "count": 1
+          },
+          {
+            "value": "125",
+            "count": 1
+          },
+          {
+            "value": "2600",
+            "count": 1
+          },
+          {
+            "value": "563",
+            "count": 1
+          },
+          {
+            "value": "15",
+            "count": 1
+          },
+          {
+            "value": "453",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Listing by",
+        "unit": null,
+        "values": [
+          {
+            "value": "Agent",
+            "count": 64
+          },
+          {
+            "value": "Owner",
+            "count": 19
+          }
+        ]
+      }
+    ]
+  },
+  "commercial-property-for-rent": {
+    "path": "Property > Commercial Property for Rent",
+    "categoryId": 278,
+    "group": "Property",
+    "advertCount": 2176,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Square meters",
+        "unit": "sqm",
+        "values": [
+          {
+            "value": "1000",
+            "count": 16
+          },
+          {
+            "value": "2000",
+            "count": 8
+          },
+          {
+            "value": "500",
+            "count": 7
+          },
+          {
+            "value": "700",
+            "count": 6
+          },
+          {
+            "value": "400",
+            "count": 5
+          },
+          {
+            "value": "150",
+            "count": 5
+          },
+          {
+            "value": "1500",
+            "count": 4
+          },
+          {
+            "value": "180",
+            "count": 4
+          },
+          {
+            "value": "250",
+            "count": 3
+          },
+          {
+            "value": "170",
+            "count": 3
+          },
+          {
+            "value": "380",
+            "count": 3
+          },
+          {
+            "value": "54",
+            "count": 3
+          },
+          {
+            "value": "3500",
+            "count": 3
+          },
+          {
+            "value": "350",
+            "count": 2
+          },
+          {
+            "value": "1100",
+            "count": 2
+          },
+          {
+            "value": "160",
+            "count": 2
+          },
+          {
+            "value": "115",
+            "count": 2
+          },
+          {
+            "value": "600",
+            "count": 2
+          },
+          {
+            "value": "100",
+            "count": 2
+          },
+          {
+            "value": "90",
+            "count": 2
+          },
+          {
+            "value": "130",
+            "count": 2
+          },
+          {
+            "value": "378",
+            "count": 2
+          },
+          {
+            "value": "3200",
+            "count": 2
+          },
+          {
+            "value": "420",
+            "count": 2
+          },
+          {
+            "value": "300",
+            "count": 2
+          },
+          {
+            "value": "79",
+            "count": 1
+          },
+          {
+            "value": "151",
+            "count": 1
+          },
+          {
+            "value": "50",
+            "count": 1
+          },
+          {
+            "value": "81",
+            "count": 1
+          },
+          {
+            "value": "200",
+            "count": 1
+          },
+          {
+            "value": "49",
+            "count": 1
+          },
+          {
+            "value": "70",
+            "count": 1
+          },
+          {
+            "value": "74",
+            "count": 1
+          },
+          {
+            "value": "800",
+            "count": 1
+          },
+          {
+            "value": "263",
+            "count": 1
+          },
+          {
+            "value": "1300",
+            "count": 1
+          },
+          {
+            "value": "16",
+            "count": 1
+          },
+          {
+            "value": "1400",
+            "count": 1
+          },
+          {
+            "value": "560",
+            "count": 1
+          },
+          {
+            "value": "330",
+            "count": 1
+          },
+          {
+            "value": "30",
+            "count": 1
+          },
+          {
+            "value": "105",
+            "count": 1
+          },
+          {
+            "value": "6000",
+            "count": 1
+          },
+          {
+            "value": "140",
+            "count": 1
+          },
+          {
+            "value": "25",
+            "count": 1
+          },
+          {
+            "value": "8000",
+            "count": 1
+          },
+          {
+            "value": "1200",
+            "count": 1
+          },
+          {
+            "value": "110",
+            "count": 1
+          },
+          {
+            "value": "40",
+            "count": 1
+          },
+          {
+            "value": "80",
+            "count": 1
+          },
+          {
+            "value": "3000",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Furnishing",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unfurnished",
+            "count": 91
+          },
+          {
+            "value": "Furnished",
+            "count": 27
+          },
+          {
+            "value": "Semi-Furnished",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "name": "Listing by",
+        "unit": null,
+        "values": [
+          {
+            "value": "Agent",
+            "count": 95
+          },
+          {
+            "value": "Owner",
+            "count": 5
+          }
+        ]
+      }
+    ]
+  },
+  "commercial-properties": {
+    "path": "Property > Commercial Property for Sale",
+    "categoryId": 46,
+    "group": "Property",
+    "advertCount": 967,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Square meters",
+        "unit": "sqm",
+        "values": [
+          {
+            "value": "1000",
+            "count": 11
+          },
+          {
+            "value": "5000",
+            "count": 6
+          },
+          {
+            "value": "1500",
+            "count": 5
+          },
+          {
+            "value": "10000",
+            "count": 5
+          },
+          {
+            "value": "18",
+            "count": 4
+          },
+          {
+            "value": "17",
+            "count": 4
+          },
+          {
+            "value": "4500",
+            "count": 4
+          },
+          {
+            "value": "3000",
+            "count": 4
+          },
+          {
+            "value": "7000",
+            "count": 4
+          },
+          {
+            "value": "77",
+            "count": 3
+          },
+          {
+            "value": "18500",
+            "count": 3
+          },
+          {
+            "value": "1200",
+            "count": 3
+          },
+          {
+            "value": "8000",
+            "count": 3
+          },
+          {
+            "value": "2000",
+            "count": 3
+          },
+          {
+            "value": "22",
+            "count": 2
+          },
+          {
+            "value": "26",
+            "count": 2
+          },
+          {
+            "value": "20",
+            "count": 2
+          },
+          {
+            "value": "404",
+            "count": 2
+          },
+          {
+            "value": "14500",
+            "count": 2
+          },
+          {
+            "value": "420",
+            "count": 2
+          },
+          {
+            "value": "26000",
+            "count": 2
+          },
+          {
+            "value": "520",
+            "count": 2
+          },
+          {
+            "value": "2500",
+            "count": 2
+          },
+          {
+            "value": "14000",
+            "count": 2
+          },
+          {
+            "value": "2200",
+            "count": 2
+          },
+          {
+            "value": "17000",
+            "count": 2
+          },
+          {
+            "value": "4000",
+            "count": 2
+          },
+          {
+            "value": "6000",
+            "count": 2
+          },
+          {
+            "value": "260",
+            "count": 2
+          },
+          {
+            "value": "3300",
+            "count": 2
+          },
+          {
+            "value": "14",
+            "count": 1
+          },
+          {
+            "value": "35",
+            "count": 1
+          },
+          {
+            "value": "12",
+            "count": 1
+          },
+          {
+            "value": "48",
+            "count": 1
+          },
+          {
+            "value": "15",
+            "count": 1
+          },
+          {
+            "value": "21",
+            "count": 1
+          },
+          {
+            "value": "83",
+            "count": 1
+          },
+          {
+            "value": "11",
+            "count": 1
+          },
+          {
+            "value": "24",
+            "count": 1
+          },
+          {
+            "value": "140",
+            "count": 1
+          },
+          {
+            "value": "350",
+            "count": 1
+          },
+          {
+            "value": "250",
+            "count": 1
+          },
+          {
+            "value": "3500",
+            "count": 1
+          },
+          {
+            "value": "5500",
+            "count": 1
+          },
+          {
+            "value": "150",
+            "count": 1
+          },
+          {
+            "value": "20000",
+            "count": 1
+          },
+          {
+            "value": "7500",
+            "count": 1
+          },
+          {
+            "value": "19000",
+            "count": 1
+          },
+          {
+            "value": "2950",
+            "count": 1
+          },
+          {
+            "value": "491",
+            "count": 1
+          },
+          {
+            "value": "1300",
+            "count": 1
+          },
+          {
+            "value": "994",
+            "count": 1
+          },
+          {
+            "value": "477",
+            "count": 1
+          },
+          {
+            "value": "32",
+            "count": 1
+          },
+          {
+            "value": "162",
+            "count": 1
+          },
+          {
+            "value": "3800",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "event-centers-and-venues": {
+    "path": "Property > Event Centres, Venues & Workstations",
+    "categoryId": 277,
+    "group": "Property",
+    "advertCount": 8,
+    "sampledCount": 8,
+    "attributes": []
+  },
+  "mobile-phones": {
+    "path": "Phones & Tablets > Mobile Phones",
+    "categoryId": 14,
+    "group": "Phones & Tablets",
+    "advertCount": 26083,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 69
+          },
+          {
+            "value": "Used",
+            "count": 51
+          }
+        ]
+      }
+    ]
+  },
+  "cell-phones-tablets-accessories": {
+    "path": "Phones & Tablets > Accessories for Phones & Tablets",
+    "categoryId": 11,
+    "group": "Phones & Tablets",
+    "advertCount": 4574,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 120
+          }
+        ]
+      }
+    ]
+  },
+  "smart-watches": {
+    "path": "Phones & Tablets > Smart Watches",
+    "categoryId": 383,
+    "group": "Phones & Tablets",
+    "advertCount": 2885,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 115
+          }
+        ]
+      }
+    ]
+  },
+  "tablets": {
+    "path": "Phones & Tablets > Tablets",
+    "categoryId": 15,
+    "group": "Phones & Tablets",
+    "advertCount": 9080,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 116
+          },
+          {
+            "value": "Used",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  },
+  "accessories-and-supplies-for-electronics": {
+    "path": "Electronics > Accessories & Supplies for Electronics",
+    "categoryId": 388,
+    "group": "Electronics",
+    "advertCount": 6824,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "computers-and-laptops": {
+    "path": "Electronics > Laptops & Computers",
+    "categoryId": 16,
+    "group": "Electronics",
+    "advertCount": 334710,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Processor",
+        "unit": null,
+        "values": [
+          {
+            "value": "Intel Core i7",
+            "count": 34
+          },
+          {
+            "value": "Intel Core i5",
+            "count": 28
+          },
+          {
+            "value": "Intel Core i9",
+            "count": 24
+          },
+          {
+            "value": "Intel Core Ultra 7",
+            "count": 9
+          },
+          {
+            "value": "AMD Ryzen 7",
+            "count": 5
+          },
+          {
+            "value": "AMD Ryzen 5",
+            "count": 4
+          },
+          {
+            "value": "AMD Ryzen 9",
+            "count": 4
+          },
+          {
+            "value": "Intel Core Ultra 9",
+            "count": 3
+          },
+          {
+            "value": "Apple M4 Pro",
+            "count": 2
+          },
+          {
+            "value": "Intel",
+            "count": 2
+          },
+          {
+            "value": "Intel Core i3",
+            "count": 1
+          },
+          {
+            "value": "Apple M1",
+            "count": 1
+          },
+          {
+            "value": "Apple M5 Pro",
+            "count": 1
+          },
+          {
+            "value": "Intel Core 7",
+            "count": 1
+          },
+          {
+            "value": "Other",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Display Size",
+        "unit": null,
+        "values": [
+          {
+            "value": "14\"",
+            "count": 43
+          },
+          {
+            "value": "15\" / 15.6\"",
+            "count": 28
+          },
+          {
+            "value": "16\"",
+            "count": 26
+          },
+          {
+            "value": "13\" / 13.3\"",
+            "count": 18
+          },
+          {
+            "value": "12\" / 12.3\"",
+            "count": 2
+          },
+          {
+            "value": "17\" / 17.3\"",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 117
+          },
+          {
+            "value": "Used",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  },
+  "tv-dvd-equipment": {
+    "path": "Electronics > TV & DVD Equipment",
+    "categoryId": 17,
+    "group": "Electronics",
+    "advertCount": 13152,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Screen size",
+        "unit": "inches",
+        "values": [
+          {
+            "value": "55",
+            "count": 34
+          },
+          {
+            "value": "65",
+            "count": 29
+          },
+          {
+            "value": "43",
+            "count": 25
+          },
+          {
+            "value": "50",
+            "count": 14
+          },
+          {
+            "value": "75",
+            "count": 7
+          },
+          {
+            "value": "32",
+            "count": 3
+          },
+          {
+            "value": "85",
+            "count": 3
+          },
+          {
+            "value": "24",
+            "count": 2
+          },
+          {
+            "value": "98",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Dislpay Resolution",
+        "unit": null,
+        "values": [
+          {
+            "value": "2160p (4K)",
+            "count": 60
+          },
+          {
+            "value": "1080p (FullHD)",
+            "count": 43
+          },
+          {
+            "value": "4320p (8K)",
+            "count": 7
+          },
+          {
+            "value": "720p (HD)",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 120
+          }
+        ]
+      }
+    ]
+  },
+  "audio-and-music-equipment": {
+    "path": "Electronics > Audio & Music Equipment",
+    "categoryId": 51,
+    "group": "Electronics",
+    "advertCount": 4958,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 118
+          },
+          {
+            "value": "Used",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "computer-accessories": {
+    "path": "Electronics > Computer Accessories ",
+    "categoryId": 172,
+    "group": "Electronics",
+    "advertCount": 5067,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 116
+          },
+          {
+            "value": "Used",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  },
+  "computer-hardware": {
+    "path": "Electronics > Computer Hardware",
+    "categoryId": 284,
+    "group": "Electronics",
+    "advertCount": 1925,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 106
+          },
+          {
+            "value": "Used",
+            "count": 14
+          }
+        ]
+      }
+    ]
+  },
+  "computer-monitors": {
+    "path": "Electronics > Monitors",
+    "categoryId": 348,
+    "group": "Electronics",
+    "advertCount": 1940,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 87
+          },
+          {
+            "value": "Used",
+            "count": 18
+          },
+          {
+            "value": "Refurbished",
+            "count": 10
+          }
+        ]
+      }
+    ]
+  },
+  "headphones": {
+    "path": "Electronics > Headphones",
+    "categoryId": 384,
+    "group": "Electronics",
+    "advertCount": 7410,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Connectivity",
+        "unit": null,
+        "values": [
+          {
+            "value": "Wireless",
+            "count": 95
+          },
+          {
+            "value": "Wired/Wireless",
+            "count": 13
+          },
+          {
+            "value": "Wired",
+            "count": 12
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 120
+          }
+        ]
+      }
+    ]
+  },
+  "networking-products": {
+    "path": "Electronics > Networking Products",
+    "categoryId": 386,
+    "group": "Electronics",
+    "advertCount": 2495,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Brand",
+        "unit": null,
+        "values": [
+          {
+            "value": "Huawei",
+            "count": 21
+          },
+          {
+            "value": "Cisco",
+            "count": 20
+          },
+          {
+            "value": "Other",
+            "count": 20
+          },
+          {
+            "value": "D-Link",
+            "count": 14
+          },
+          {
+            "value": "TP-Link",
+            "count": 14
+          },
+          {
+            "value": "Hikvision",
+            "count": 5
+          },
+          {
+            "value": "Technolink",
+            "count": 2
+          },
+          {
+            "value": "Yeastar",
+            "count": 2
+          },
+          {
+            "value": "Toten",
+            "count": 2
+          },
+          {
+            "value": "Grandstream",
+            "count": 2
+          },
+          {
+            "value": "RJ45 Patch panel",
+            "count": 2
+          },
+          {
+            "value": "TOPLink",
+            "count": 2
+          },
+          {
+            "value": "Totolink",
+            "count": 1
+          },
+          {
+            "value": "Smart",
+            "count": 1
+          },
+          {
+            "value": "ruggas",
+            "count": 1
+          },
+          {
+            "value": "5G",
+            "count": 1
+          },
+          {
+            "value": "Generic",
+            "count": 1
+          },
+          {
+            "value": "other",
+            "count": 1
+          },
+          {
+            "value": "stellar",
+            "count": 1
+          },
+          {
+            "value": "Barracuda Networks",
+            "count": 1
+          },
+          {
+            "value": "Newtecc",
+            "count": 1
+          },
+          {
+            "value": "Belkin",
+            "count": 1
+          },
+          {
+            "value": "Safaricom",
+            "count": 1
+          },
+          {
+            "value": "FS",
+            "count": 1
+          },
+          {
+            "value": "ZTE",
+            "count": 1
+          },
+          {
+            "value": "Itel",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 97
+          },
+          {
+            "value": "Refurbished",
+            "count": 19
+          },
+          {
+            "value": "Used",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  },
+  "cameras-video-cameras-and-accessories": {
+    "path": "Electronics > Photo & Video Cameras",
+    "categoryId": 18,
+    "group": "Electronics",
+    "advertCount": 2256,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 112
+          },
+          {
+            "value": "Used",
+            "count": 8
+          }
+        ]
+      }
+    ]
+  },
+  "printers-and-scanners": {
+    "path": "Electronics > Printers & Scanners",
+    "categoryId": 385,
+    "group": "Electronics",
+    "advertCount": 1182,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Laser Printer",
+            "count": 35
+          },
+          {
+            "value": "Ink-Jet Printer",
+            "count": 19
+          },
+          {
+            "value": "Other",
+            "count": 11
+          },
+          {
+            "value": "Photo Printer",
+            "count": 6
+          },
+          {
+            "value": "Photocopier",
+            "count": 6
+          },
+          {
+            "value": "Flatbed Scanner",
+            "count": 5
+          },
+          {
+            "value": "Ink tank printer",
+            "count": 4
+          },
+          {
+            "value": "Epson EcoTank 3250",
+            "count": 3
+          },
+          {
+            "value": "Ink tank",
+            "count": 3
+          },
+          {
+            "value": "Laserjet",
+            "count": 2
+          },
+          {
+            "value": "Toner",
+            "count": 2
+          },
+          {
+            "value": "Bluetooth printer",
+            "count": 2
+          },
+          {
+            "value": "Thermal Printer",
+            "count": 2
+          },
+          {
+            "value": "ZKT",
+            "count": 2
+          },
+          {
+            "value": "laserjet",
+            "count": 1
+          },
+          {
+            "value": "EcoTank",
+            "count": 1
+          },
+          {
+            "value": "Laminator",
+            "count": 1
+          },
+          {
+            "value": "Canon G3410",
+            "count": 1
+          },
+          {
+            "value": "Brother PT-E110XP",
+            "count": 1
+          },
+          {
+            "value": "label printer",
+            "count": 1
+          },
+          {
+            "value": "Epson L3250 Ink tank",
+            "count": 1
+          },
+          {
+            "value": "Dot-Matrix Printer",
+            "count": 1
+          },
+          {
+            "value": "ABM barcodes canner",
+            "count": 1
+          },
+          {
+            "value": "Smart tank",
+            "count": 1
+          },
+          {
+            "value": "Laser jet pro 4003dn",
+            "count": 1
+          },
+          {
+            "value": "Ink tank system",
+            "count": 1
+          },
+          {
+            "value": "Portable Scanner",
+            "count": 1
+          },
+          {
+            "value": "Epson printer 3251",
+            "count": 1
+          },
+          {
+            "value": "Barcode",
+            "count": 1
+          },
+          {
+            "value": "Zkteco G3 pro",
+            "count": 1
+          },
+          {
+            "value": "Monochrome multifunction laser printer",
+            "count": 1
+          },
+          {
+            "value": "PiXma G3410",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 107
+          },
+          {
+            "value": "Used",
+            "count": 12
+          },
+          {
+            "value": "Refurbished",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "security-and-surveillance": {
+    "path": "Electronics > Security & Surveillance",
+    "categoryId": 387,
+    "group": "Electronics",
+    "advertCount": 3809,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "computer-software": {
+    "path": "Electronics > Software",
+    "categoryId": 312,
+    "group": "Electronics",
+    "advertCount": 420,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Platform",
+        "unit": null,
+        "values": [
+          {
+            "value": "Windows",
+            "count": 79
+          },
+          {
+            "value": "Android",
+            "count": 25
+          },
+          {
+            "value": "iOS",
+            "count": 8
+          },
+          {
+            "value": "Mac",
+            "count": 7
+          }
+        ]
+      }
+    ]
+  },
+  "videogames": {
+    "path": "Electronics > Video Games",
+    "categoryId": 270,
+    "group": "Electronics",
+    "advertCount": 1180,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Genre",
+        "unit": null,
+        "values": [
+          {
+            "value": "Action",
+            "count": 43
+          },
+          {
+            "value": "Other",
+            "count": 24
+          },
+          {
+            "value": "Sports",
+            "count": 21
+          },
+          {
+            "value": "Adventure",
+            "count": 12
+          },
+          {
+            "value": "Shooter",
+            "count": 7
+          },
+          {
+            "value": "Fighting",
+            "count": 5
+          },
+          {
+            "value": "Racing",
+            "count": 4
+          },
+          {
+            "value": "Simulation",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 108
+          },
+          {
+            "value": "Used",
+            "count": 11
+          }
+        ]
+      }
+    ]
+  },
+  "video-games-and-consoles": {
+    "path": "Electronics > Video Game Consoles",
+    "categoryId": 19,
+    "group": "Electronics",
+    "advertCount": 8854,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Used",
+            "count": 71
+          },
+          {
+            "value": "Brand New",
+            "count": 49
+          }
+        ]
+      }
+    ]
+  },
+  "lighting": {
+    "path": "Home, Furniture & Appliances > Lighting",
+    "categoryId": 397,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 1637,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "storage-organization": {
+    "path": "Home, Furniture & Appliances > Storage & Organization",
+    "categoryId": 399,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 1535,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "furniture": {
+    "path": "Home, Furniture & Appliances > Furniture",
+    "categoryId": 20,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 14577,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 117
+          },
+          {
+            "value": "Used",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  },
+  "garden": {
+    "path": "Home, Furniture & Appliances > Garden Supplies",
+    "categoryId": 21,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 987,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "decor-accessories": {
+    "path": "Home, Furniture & Appliances > Home Accessories",
+    "categoryId": 53,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 10310,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "home-appliances": {
+    "path": "Home, Furniture & Appliances > Home Appliances",
+    "categoryId": 22,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 12327,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 120
+          }
+        ]
+      },
+      {
+        "name": "Inverter Technology",
+        "unit": null,
+        "values": [
+          {
+            "value": "No",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  },
+  "kitchen-appliances": {
+    "path": "Home, Furniture & Appliances > Kitchen Appliances",
+    "categoryId": 279,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 26527,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 115
+          },
+          {
+            "value": "Used",
+            "count": 5
+          }
+        ]
+      }
+    ]
+  },
+  "kitchen-and-dining": {
+    "path": "Home, Furniture & Appliances > Kitchenware & Cookware",
+    "categoryId": 280,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 8971,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "household-chemicals": {
+    "path": "Home, Furniture & Appliances > Household Chemicals",
+    "categoryId": 392,
+    "group": "Home, Furniture & Appliances",
+    "advertCount": 290,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "oral-care": {
+    "path": "Beauty & Personal Care > Oral Care",
+    "categoryId": 402,
+    "group": "Beauty & Personal Care",
+    "advertCount": 461,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "bath-body": {
+    "path": "Beauty & Personal Care > Body Care",
+    "categoryId": 256,
+    "group": "Beauty & Personal Care",
+    "advertCount": 3474,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "fragrance": {
+    "path": "Beauty & Personal Care > Fragrances",
+    "categoryId": 255,
+    "group": "Beauty & Personal Care",
+    "advertCount": 9441,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Scent",
+        "unit": null,
+        "values": [
+          {
+            "value": "Oceanic",
+            "count": 30
+          },
+          {
+            "value": "Oriental",
+            "count": 12
+          },
+          {
+            "value": "Spicy",
+            "count": 10
+          },
+          {
+            "value": "Fruity",
+            "count": 5
+          },
+          {
+            "value": "Other",
+            "count": 4
+          },
+          {
+            "value": "Woody",
+            "count": 3
+          },
+          {
+            "value": "Floral",
+            "count": 1
+          },
+          {
+            "value": "Citrus",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Women's",
+            "count": 45
+          },
+          {
+            "value": "Unisex",
+            "count": 44
+          },
+          {
+            "value": "Men's",
+            "count": 31
+          }
+        ]
+      }
+    ]
+  },
+  "hair-beauty": {
+    "path": "Beauty & Personal Care > Hair Beauty",
+    "categoryId": 257,
+    "group": "Beauty & Personal Care",
+    "advertCount": 5438,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "makeup": {
+    "path": "Beauty & Personal Care > Make-Up",
+    "categoryId": 251,
+    "group": "Beauty & Personal Care",
+    "advertCount": 861,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Women's",
+            "count": 99
+          },
+          {
+            "value": "Unisex",
+            "count": 14
+          },
+          {
+            "value": "Men's",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "sexual-wellness": {
+    "path": "Beauty & Personal Care > Sexual Wellness",
+    "categoryId": 253,
+    "group": "Beauty & Personal Care",
+    "advertCount": 2919,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "skin-care": {
+    "path": "Beauty & Personal Care > Face Care",
+    "categoryId": 252,
+    "group": "Beauty & Personal Care",
+    "advertCount": 5025,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unisex",
+            "count": 103
+          },
+          {
+            "value": "Women's",
+            "count": 17
+          }
+        ]
+      }
+    ]
+  },
+  "tools-accessories": {
+    "path": "Beauty & Personal Care > Tools & Accessories",
+    "categoryId": 254,
+    "group": "Beauty & Personal Care",
+    "advertCount": 8273,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "supplements": {
+    "path": "Beauty & Personal Care > Vitamins & Supplements",
+    "categoryId": 258,
+    "group": "Beauty & Personal Care",
+    "advertCount": 6348,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "bags": {
+    "path": "Fashion > Bags",
+    "categoryId": 169,
+    "group": "Fashion",
+    "advertCount": 3440,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unisex",
+            "count": 101
+          },
+          {
+            "value": "Women's",
+            "count": 18
+          },
+          {
+            "value": "Men's",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "clothing": {
+    "path": "Fashion > Clothing",
+    "categoryId": 25,
+    "group": "Fashion",
+    "advertCount": 4525,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Size",
+        "unit": null,
+        "values": [
+          {
+            "value": "M",
+            "count": 14
+          },
+          {
+            "value": "M, L",
+            "count": 9
+          },
+          {
+            "value": "L",
+            "count": 3
+          },
+          {
+            "value": "XL",
+            "count": 3
+          },
+          {
+            "value": "S, M",
+            "count": 2
+          },
+          {
+            "value": "S, M, L, XL, XXL",
+            "count": 2
+          },
+          {
+            "value": "S",
+            "count": 1
+          },
+          {
+            "value": "3XS, XXS, XS, S, M, L, XL, XXL",
+            "count": 1
+          },
+          {
+            "value": "M, L, XL",
+            "count": 1
+          },
+          {
+            "value": "S, M, L",
+            "count": 1
+          },
+          {
+            "value": "L, XL, XXL, 3XL, 4XL",
+            "count": 1
+          },
+          {
+            "value": "L, XL, XXL, 3XL",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unisex",
+            "count": 68
+          },
+          {
+            "value": "Women's",
+            "count": 51
+          }
+        ]
+      }
+    ]
+  },
+  "accessories": {
+    "path": "Fashion > Clothing Accessories",
+    "categoryId": 56,
+    "group": "Fashion",
+    "advertCount": 2115,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "jewellery-and-watches": {
+    "path": "Fashion > Jewelry",
+    "categoryId": 26,
+    "group": "Fashion",
+    "advertCount": 960,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Women's",
+            "count": 82
+          },
+          {
+            "value": "Unisex",
+            "count": 37
+          }
+        ]
+      }
+    ]
+  },
+  "shoes": {
+    "path": "Fashion > Shoes",
+    "categoryId": 55,
+    "group": "Fashion",
+    "advertCount": 10355,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Size",
+        "unit": null,
+        "values": [
+          {
+            "value": "36, 37, 38, 39, 40, 41, 42, 43",
+            "count": 28
+          },
+          {
+            "value": "36, 37, 38, 39, 40",
+            "count": 10
+          },
+          {
+            "value": "40, 41, 42, 43",
+            "count": 9
+          },
+          {
+            "value": "36, 37, 38, 39, 40, 41, 42, 43, 44",
+            "count": 8
+          },
+          {
+            "value": "35, 36, 37, 38, 39, 40, 41, 42, 43",
+            "count": 6
+          },
+          {
+            "value": "36, 37, 38, 39",
+            "count": 6
+          },
+          {
+            "value": "41",
+            "count": 5
+          },
+          {
+            "value": "36.5, 37",
+            "count": 5
+          },
+          {
+            "value": "37",
+            "count": 5
+          },
+          {
+            "value": "38",
+            "count": 4
+          },
+          {
+            "value": "36, 37, 38, 39, 40, 41, 42",
+            "count": 3
+          },
+          {
+            "value": "40, 37, 38, 39",
+            "count": 3
+          },
+          {
+            "value": "42",
+            "count": 3
+          },
+          {
+            "value": "40, 42, 41, 43, 44",
+            "count": 3
+          },
+          {
+            "value": "40, 41, 42, 43, 44",
+            "count": 2
+          },
+          {
+            "value": "38, 39, 40, 41, 42, 43, 44",
+            "count": 2
+          },
+          {
+            "value": "5.5, 36",
+            "count": 1
+          },
+          {
+            "value": "37, 38",
+            "count": 1
+          },
+          {
+            "value": "40, 41, 43, 44",
+            "count": 1
+          },
+          {
+            "value": "38, 39, 40, 41",
+            "count": 1
+          },
+          {
+            "value": "36, 37",
+            "count": 1
+          },
+          {
+            "value": "39, 40, 41, 42, 43",
+            "count": 1
+          },
+          {
+            "value": "37, 37.5",
+            "count": 1
+          },
+          {
+            "value": "40, 42, 41, 43, 36, 37, 38, 39",
+            "count": 1
+          },
+          {
+            "value": "38, 39",
+            "count": 1
+          },
+          {
+            "value": "39",
+            "count": 1
+          },
+          {
+            "value": "36",
+            "count": 1
+          },
+          {
+            "value": "35, 36, 37, 38, 39, 40, 41, 42, 43, 44",
+            "count": 1
+          },
+          {
+            "value": "38, 39, 40, 41, 42, 43",
+            "count": 1
+          },
+          {
+            "value": "40, 42, 41, 43, 44, 36, 37, 38, 39",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unisex",
+            "count": 80
+          },
+          {
+            "value": "Women's",
+            "count": 40
+          }
+        ]
+      }
+    ]
+  },
+  "watches": {
+    "path": "Fashion > Watches",
+    "categoryId": 168,
+    "group": "Fashion",
+    "advertCount": 1867,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Women's",
+            "count": 90
+          },
+          {
+            "value": "Unisex",
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "wedding-wear": {
+    "path": "Fashion > Wedding Wear & Accessories",
+    "categoryId": 57,
+    "group": "Fashion",
+    "advertCount": 210,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "massagers": {
+    "path": "Leisure & Activities > Massagers",
+    "categoryId": 259,
+    "group": "Leisure & Activities",
+    "advertCount": 749,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "art-collectibles": {
+    "path": "Leisure & Activities > Arts, Crafts & Awards",
+    "categoryId": 38,
+    "group": "Leisure & Activities",
+    "advertCount": 998,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "books-and-games": {
+    "path": "Leisure & Activities > Books & Table Games",
+    "categoryId": 36,
+    "group": "Leisure & Activities",
+    "advertCount": 1042,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "camping-gear": {
+    "path": "Leisure & Activities > Outdoor Gear",
+    "categoryId": 76,
+    "group": "Leisure & Activities",
+    "advertCount": 445,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "cds-and-dvds": {
+    "path": "Leisure & Activities > Music & Video",
+    "categoryId": 75,
+    "group": "Leisure & Activities",
+    "advertCount": 16,
+    "sampledCount": 16,
+    "attributes": []
+  },
+  "musical-instruments": {
+    "path": "Leisure & Activities > Musical Instruments & Gear",
+    "categoryId": 37,
+    "group": "Leisure & Activities",
+    "advertCount": 1024,
+    "sampledCount": 118,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 110
+          },
+          {
+            "value": "Used",
+            "count": 8
+          }
+        ]
+      }
+    ]
+  },
+  "sports-bicycles-and-fitness": {
+    "path": "Leisure & Activities > Sports Equipment",
+    "categoryId": 40,
+    "group": "Leisure & Activities",
+    "advertCount": 8615,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "personal-mobility": {
+    "path": "Leisure & Activities > Personal Mobility",
+    "categoryId": 403,
+    "group": "Leisure & Activities",
+    "advertCount": 522,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "hookah-and-vaporizers": {
+    "path": "Leisure & Activities > Smoking Accessories",
+    "categoryId": 389,
+    "group": "Leisure & Activities",
+    "advertCount": 1542,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unisex",
+            "count": 64
+          }
+        ]
+      },
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 21
+          }
+        ]
+      },
+      {
+        "name": "Scent",
+        "unit": null,
+        "values": [
+          {
+            "value": "Woody",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "accounting-and-finance-cvs": {
+    "path": "Seeking Work CVs > Accounting & Finance CVs",
+    "categoryId": 111,
+    "group": "Seeking Work CVs",
+    "advertCount": 127,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "advertising-and-marketing-cvs": {
+    "path": "Seeking Work CVs > Advertising & Marketing CVs",
+    "categoryId": 112,
+    "group": "Seeking Work CVs",
+    "advertCount": 281,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "arts-and-entertainment-cvs": {
+    "path": "Seeking Work CVs > Arts & Entertainment CVs",
+    "categoryId": 113,
+    "group": "Seeking Work CVs",
+    "advertCount": 50,
+    "sampledCount": 50,
+    "attributes": []
+  },
+  "childcare-and-babysitting-cvs": {
+    "path": "Seeking Work CVs > Childcare & Babysitting CVs",
+    "categoryId": 114,
+    "group": "Seeking Work CVs",
+    "advertCount": 5,
+    "sampledCount": 5,
+    "attributes": []
+  },
+  "clerical-and-administrative-cvs": {
+    "path": "Seeking Work CVs > Clerical & Administrative CVs",
+    "categoryId": 115,
+    "group": "Seeking Work CVs",
+    "advertCount": 15,
+    "sampledCount": 15,
+    "attributes": []
+  },
+  "computing-and-it-cvs": {
+    "path": "Seeking Work CVs > Computing & IT CVs",
+    "categoryId": 116,
+    "group": "Seeking Work CVs",
+    "advertCount": 90,
+    "sampledCount": 90,
+    "attributes": []
+  },
+  "construction-and-skilled-trade-cvs": {
+    "path": "Seeking Work CVs > Construction & Skilled Trade CVs",
+    "categoryId": 117,
+    "group": "Seeking Work CVs",
+    "advertCount": 33,
+    "sampledCount": 33,
+    "attributes": []
+  },
+  "consulting-and-strategy-cvs": {
+    "path": "Seeking Work CVs > Consulting & Strategy CVs",
+    "categoryId": 313,
+    "group": "Seeking Work CVs",
+    "advertCount": 11,
+    "sampledCount": 11,
+    "attributes": []
+  },
+  "customer-service-cvs": {
+    "path": "Seeking Work CVs > Customer Services CVs",
+    "categoryId": 118,
+    "group": "Seeking Work CVs",
+    "advertCount": 38,
+    "sampledCount": 38,
+    "attributes": []
+  },
+  "driver-cvs": {
+    "path": "Seeking Work CVs > Driver CVs",
+    "categoryId": 265,
+    "group": "Seeking Work CVs",
+    "advertCount": 84,
+    "sampledCount": 84,
+    "attributes": []
+  },
+  "engineering-and-architecture-cvs": {
+    "path": "Seeking Work CVs > Engineering & Architecture CVs",
+    "categoryId": 119,
+    "group": "Seeking Work CVs",
+    "advertCount": 74,
+    "sampledCount": 74,
+    "attributes": []
+  },
+  "farming-and-veterinary-cvs": {
+    "path": "Seeking Work CVs > Farming & Veterinary CVs",
+    "categoryId": 120,
+    "group": "Seeking Work CVs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": []
+  },
+  "gardening-and-landscaping-cvs": {
+    "path": "Seeking Work CVs > Gardening & Landscaping CVs",
+    "categoryId": 121,
+    "group": "Seeking Work CVs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": []
+  },
+  "health-and-beauty-cvs": {
+    "path": "Seeking Work CVs > Health & Beauty CVs",
+    "categoryId": 122,
+    "group": "Seeking Work CVs",
+    "advertCount": 12,
+    "sampledCount": 12,
+    "attributes": []
+  },
+  "healthcare-and-nursing-cvs": {
+    "path": "Seeking Work CVs > Healthcare & Nursing CVs",
+    "categoryId": 123,
+    "group": "Seeking Work CVs",
+    "advertCount": 34,
+    "sampledCount": 34,
+    "attributes": []
+  },
+  "hotel-cvs": {
+    "path": "Seeking Work CVs > Hotel CVs",
+    "categoryId": 266,
+    "group": "Seeking Work CVs",
+    "advertCount": 31,
+    "sampledCount": 31,
+    "attributes": []
+  },
+  "housekeeping-and-cleaning-cvs": {
+    "path": "Seeking Work CVs > Housekeeping & Cleaning CVs",
+    "categoryId": 124,
+    "group": "Seeking Work CVs",
+    "advertCount": 3,
+    "sampledCount": 3,
+    "attributes": []
+  },
+  "human-resources-cvs": {
+    "path": "Seeking Work CVs > Human Resources CVs",
+    "categoryId": 125,
+    "group": "Seeking Work CVs",
+    "advertCount": 6,
+    "sampledCount": 6,
+    "attributes": []
+  },
+  "internship-cvs": {
+    "path": "Seeking Work CVs > Internship CVs",
+    "categoryId": 126,
+    "group": "Seeking Work CVs",
+    "advertCount": 3,
+    "sampledCount": 3,
+    "attributes": []
+  },
+  "legal-cvs": {
+    "path": "Seeking Work CVs > Legal CVs",
+    "categoryId": 127,
+    "group": "Seeking Work CVs",
+    "advertCount": 6,
+    "sampledCount": 6,
+    "attributes": []
+  },
+  "logistics-and-transportation-cvs": {
+    "path": "Seeking Work CVs > Logistics & Transportation CVs",
+    "categoryId": 128,
+    "group": "Seeking Work CVs",
+    "advertCount": 5,
+    "sampledCount": 5,
+    "attributes": []
+  },
+  "management-cvs": {
+    "path": "Seeking Work CVs > Management CVs",
+    "categoryId": 314,
+    "group": "Seeking Work CVs",
+    "advertCount": 21,
+    "sampledCount": 21,
+    "attributes": []
+  },
+  "manual-labour-cvs": {
+    "path": "Seeking Work CVs > Manual Labour CVs",
+    "categoryId": 129,
+    "group": "Seeking Work CVs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": []
+  },
+  "manufacturing-cvs": {
+    "path": "Seeking Work CVs > Manufacturing CVs",
+    "categoryId": 267,
+    "group": "Seeking Work CVs",
+    "advertCount": 10,
+    "sampledCount": 10,
+    "attributes": []
+  },
+  "mining-industry-cvs": {
+    "path": "Seeking Work CVs > Mining Industry CVs",
+    "categoryId": 130,
+    "group": "Seeking Work CVs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": []
+  },
+  "office-cvs": {
+    "path": "Seeking Work CVs > Office CVs",
+    "categoryId": 131,
+    "group": "Seeking Work CVs",
+    "advertCount": 6,
+    "sampledCount": 6,
+    "attributes": []
+  },
+  "part-time-and-weekend-cvs": {
+    "path": "Seeking Work CVs > Part-Time & Weekend CVs",
+    "categoryId": 268,
+    "group": "Seeking Work CVs",
+    "advertCount": 209,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "quality-control-and-assurance-cvs": {
+    "path": "Seeking Work CVs > Quality Control & Assurance CVs",
+    "categoryId": 315,
+    "group": "Seeking Work CVs",
+    "advertCount": 5,
+    "sampledCount": 5,
+    "attributes": []
+  },
+  "research-and-survey-cvs": {
+    "path": "Seeking Work CVs > Research & Survey CVs",
+    "categoryId": 316,
+    "group": "Seeking Work CVs",
+    "advertCount": 5,
+    "sampledCount": 5,
+    "attributes": []
+  },
+  "restaurant-and-bar-cvs": {
+    "path": "Seeking Work CVs > Restaurant & Bar CVs",
+    "categoryId": 132,
+    "group": "Seeking Work CVs",
+    "advertCount": 12,
+    "sampledCount": 12,
+    "attributes": []
+  },
+  "retail-cvs": {
+    "path": "Seeking Work CVs > Retail CVs",
+    "categoryId": 133,
+    "group": "Seeking Work CVs",
+    "advertCount": 5,
+    "sampledCount": 5,
+    "attributes": []
+  },
+  "sales-and-telemarketing-cvs": {
+    "path": "Seeking Work CVs > Sales & Telemarketing CVs",
+    "categoryId": 134,
+    "group": "Seeking Work CVs",
+    "advertCount": 250,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "security-cvs": {
+    "path": "Seeking Work CVs > Security CVs",
+    "categoryId": 135,
+    "group": "Seeking Work CVs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": []
+  },
+  "sports-club-cvs": {
+    "path": "Seeking Work CVs > Sports Club CVs",
+    "categoryId": 136,
+    "group": "Seeking Work CVs",
+    "advertCount": 9,
+    "sampledCount": 9,
+    "attributes": []
+  },
+  "teaching-cvs": {
+    "path": "Seeking Work CVs > Teaching CVs",
+    "categoryId": 137,
+    "group": "Seeking Work CVs",
+    "advertCount": 79,
+    "sampledCount": 79,
+    "attributes": []
+  },
+  "technology-cvs": {
+    "path": "Seeking Work CVs > Technology CVs",
+    "categoryId": 269,
+    "group": "Seeking Work CVs",
+    "advertCount": 33,
+    "sampledCount": 33,
+    "attributes": []
+  },
+  "travel-and-tourism-cvs": {
+    "path": "Seeking Work CVs > Travel & Tourism CVs",
+    "categoryId": 138,
+    "group": "Seeking Work CVs",
+    "advertCount": 4,
+    "sampledCount": 4,
+    "attributes": []
+  },
+  "other-cvs": {
+    "path": "Seeking Work CVs > Other CVs",
+    "categoryId": 139,
+    "group": "Seeking Work CVs",
+    "advertCount": 63,
+    "sampledCount": 63,
+    "attributes": []
+  },
+  "automotive-services": {
+    "path": "Services > Automotive Services",
+    "categoryId": 141,
+    "group": "Services",
+    "advertCount": 54,
+    "sampledCount": 54,
+    "attributes": []
+  },
+  "building-and-trades-services": {
+    "path": "Services > Building & Trade Services",
+    "categoryId": 142,
+    "group": "Services",
+    "advertCount": 197,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "chauffeur-and-airport-transfer-services": {
+    "path": "Services > Chauffeur & Airport Transfer Services",
+    "categoryId": 143,
+    "group": "Services",
+    "advertCount": 15,
+    "sampledCount": 15,
+    "attributes": []
+  },
+  "child-care-and-education-services": {
+    "path": "Services > Child Care & Education Services",
+    "categoryId": 144,
+    "group": "Services",
+    "advertCount": 56,
+    "sampledCount": 56,
+    "attributes": []
+  },
+  "classes-and-courses": {
+    "path": "Services > Classes & Courses",
+    "categoryId": 160,
+    "group": "Services",
+    "advertCount": 89,
+    "sampledCount": 92,
+    "attributes": []
+  },
+  "cleaning-services": {
+    "path": "Services > Cleaning Services",
+    "categoryId": 145,
+    "group": "Services",
+    "advertCount": 130,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "computer-and-it-services": {
+    "path": "Services > Computer & IT Services",
+    "categoryId": 162,
+    "group": "Services",
+    "advertCount": 416,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "dj-and-entertainment-services": {
+    "path": "Services > DJ & Entertainment Services",
+    "categoryId": 146,
+    "group": "Services",
+    "advertCount": 21,
+    "sampledCount": 21,
+    "attributes": []
+  },
+  "fitness-and-personal-training-services": {
+    "path": "Services > Fitness & Personal Training Services",
+    "categoryId": 149,
+    "group": "Services",
+    "advertCount": 4,
+    "sampledCount": 4,
+    "attributes": []
+  },
+  "health-and-beauty-services": {
+    "path": "Services > Health & Beauty Services",
+    "categoryId": 148,
+    "group": "Services",
+    "advertCount": 17,
+    "sampledCount": 17,
+    "attributes": []
+  },
+  "landscaping-and-gardening-services": {
+    "path": "Services > Landscaping & Gardening Services",
+    "categoryId": 150,
+    "group": "Services",
+    "advertCount": 15,
+    "sampledCount": 15,
+    "attributes": []
+  },
+  "legal-services": {
+    "path": "Services > Legal Services",
+    "categoryId": 151,
+    "group": "Services",
+    "advertCount": 40,
+    "sampledCount": 40,
+    "attributes": []
+  },
+  "removals-and-storage-services": {
+    "path": "Services > Logistics Services",
+    "categoryId": 156,
+    "group": "Services",
+    "advertCount": 20,
+    "sampledCount": 20,
+    "attributes": []
+  },
+  "manufacturing-services": {
+    "path": "Services > Manufacturing Services",
+    "categoryId": 152,
+    "group": "Services",
+    "advertCount": 27,
+    "sampledCount": 27,
+    "attributes": []
+  },
+  "party-catering-and-event-services": {
+    "path": "Services > Party, Catering & Event Services",
+    "categoryId": 147,
+    "group": "Services",
+    "advertCount": 71,
+    "sampledCount": 71,
+    "attributes": []
+  },
+  "pet-services": {
+    "path": "Services > Pet Services",
+    "categoryId": 153,
+    "group": "Services",
+    "advertCount": 21,
+    "sampledCount": 21,
+    "attributes": []
+  },
+  "photography-and-video-services": {
+    "path": "Services > Photography & Video Services",
+    "categoryId": 154,
+    "group": "Services",
+    "advertCount": 107,
+    "sampledCount": 107,
+    "attributes": []
+  },
+  "printing-services": {
+    "path": "Services > Printing Services",
+    "categoryId": 390,
+    "group": "Services",
+    "advertCount": 551,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "recruitment-services": {
+    "path": "Services > Recruitment Services",
+    "categoryId": 155,
+    "group": "Services",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": []
+  },
+  "rental-services": {
+    "path": "Services > Rental Services",
+    "categoryId": 394,
+    "group": "Services",
+    "advertCount": 446,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "repair-services": {
+    "path": "Services > Repair Services",
+    "categoryId": 273,
+    "group": "Services",
+    "advertCount": 157,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "tax-and-financial-services": {
+    "path": "Services > Tax & Financial Services",
+    "categoryId": 157,
+    "group": "Services",
+    "advertCount": 17,
+    "sampledCount": 17,
+    "attributes": []
+  },
+  "travel-agents-and-tours": {
+    "path": "Services > Travel Agents & Tours",
+    "categoryId": 158,
+    "group": "Services",
+    "advertCount": 13,
+    "sampledCount": 13,
+    "attributes": []
+  },
+  "wedding-venues-and-services": {
+    "path": "Services > Wedding Venues & Services",
+    "categoryId": 159,
+    "group": "Services",
+    "advertCount": 125,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "other-services": {
+    "path": "Services > Other Services",
+    "categoryId": 161,
+    "group": "Services",
+    "advertCount": 161,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "business-for-sale-and-investment": {
+    "path": "Business & Industry > Business for Sale & Investment",
+    "categoryId": 405,
+    "group": "Business & Industry",
+    "advertCount": 4,
+    "sampledCount": 4,
+    "attributes": []
+  },
+  "wholesale-and-bulk": {
+    "path": "Business & Industry > Wholesale & Bulk",
+    "categoryId": 406,
+    "group": "Business & Industry",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": []
+  },
+  "accounting-and-finance-jobs": {
+    "path": "Jobs > Accounting & Finance Jobs",
+    "categoryId": 78,
+    "group": "Jobs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 1
+          },
+          {
+            "value": "Internship",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Office",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "advertising-and-marketing-jobs": {
+    "path": "Jobs > Advertising & Marketing Jobs",
+    "categoryId": 79,
+    "group": "Jobs",
+    "advertCount": 12,
+    "sampledCount": 12,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 7
+          },
+          {
+            "value": "Freelance",
+            "count": 3
+          },
+          {
+            "value": "Part-Time",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Hybrid",
+            "count": 4
+          },
+          {
+            "value": "Office",
+            "count": 3
+          },
+          {
+            "value": "Remote",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "arts-and-entertainment-jobs": {
+    "path": "Jobs > Arts & Entertainment Jobs",
+    "categoryId": 80,
+    "group": "Jobs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Contract",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Remote",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "clerical-and-administrative-jobs": {
+    "path": "Jobs > Clerical & Administrative Jobs",
+    "categoryId": 82,
+    "group": "Jobs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 1
+          },
+          {
+            "value": "Temporary",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "computing-and-it-jobs": {
+    "path": "Jobs > Computing & IT Jobs",
+    "categoryId": 83,
+    "group": "Jobs",
+    "advertCount": 5,
+    "sampledCount": 5,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Contract",
+            "count": 3
+          },
+          {
+            "value": "Freelance",
+            "count": 1
+          },
+          {
+            "value": "Full-Time",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Hybrid",
+            "count": 4
+          },
+          {
+            "value": "Office",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "construction-and-skilled-trade-jobs": {
+    "path": "Jobs > Construction & Skilled Trade Jobs",
+    "categoryId": 84,
+    "group": "Jobs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "consulting-and-strategy-jobs": {
+    "path": "Jobs > Consulting & Strategy Jobs",
+    "categoryId": 306,
+    "group": "Jobs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Contract",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Hybrid",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "customer-service-jobs": {
+    "path": "Jobs > Customer Services Jobs",
+    "categoryId": 85,
+    "group": "Jobs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": [
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Office",
+            "count": 1
+          },
+          {
+            "value": "Hybrid",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "driver-jobs": {
+    "path": "Jobs > Driver Jobs",
+    "categoryId": 166,
+    "group": "Jobs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Temporary",
+            "count": 1
+          },
+          {
+            "value": "Full-Time",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "engineering-and-architecture-jobs": {
+    "path": "Jobs > Engineering & Architecture Jobs",
+    "categoryId": 86,
+    "group": "Jobs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Office",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "health-and-beauty-jobs": {
+    "path": "Jobs > Health & Beauty Jobs",
+    "categoryId": 89,
+    "group": "Jobs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Contract",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "healthcare-and-nursing-jobs": {
+    "path": "Jobs > Healthcare & Nursing Jobs",
+    "categoryId": 90,
+    "group": "Jobs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Part-Time",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "hotel-jobs": {
+    "path": "Jobs > Hotel Jobs",
+    "categoryId": 91,
+    "group": "Jobs",
+    "advertCount": 3,
+    "sampledCount": 3,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 2
+          },
+          {
+            "value": "Part-Time",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "human-resources-jobs": {
+    "path": "Jobs > Human Resources Jobs",
+    "categoryId": 93,
+    "group": "Jobs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Contract",
+            "count": 1
+          },
+          {
+            "value": "Full-Time",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Office",
+            "count": 1
+          },
+          {
+            "value": "Hybrid",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "management-jobs": {
+    "path": "Jobs > Management Jobs",
+    "categoryId": 307,
+    "group": "Jobs",
+    "advertCount": 3,
+    "sampledCount": 3,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Temporary",
+            "count": 2
+          },
+          {
+            "value": "Full-Time",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Office",
+            "count": 1
+          },
+          {
+            "value": "Hybrid",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "part-time-and-weekend-jobs": {
+    "path": "Jobs > Part-Time & Weekend Jobs",
+    "categoryId": 101,
+    "group": "Jobs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Part-Time",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Remote",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "restaurant-and-bar-jobs": {
+    "path": "Jobs > Restaurant & Bar Jobs",
+    "categoryId": 102,
+    "group": "Jobs",
+    "advertCount": 3,
+    "sampledCount": 3,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Full-Time",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  },
+  "sales-and-telemarketing-jobs": {
+    "path": "Jobs > Sales & Telemarketing Jobs",
+    "categoryId": 104,
+    "group": "Jobs",
+    "advertCount": 8,
+    "sampledCount": 8,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Freelance",
+            "count": 2
+          },
+          {
+            "value": "Part-Time",
+            "count": 2
+          },
+          {
+            "value": "Full-Time",
+            "count": 2
+          },
+          {
+            "value": "Contract",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "name": "Work Setup",
+        "unit": null,
+        "values": [
+          {
+            "value": "Remote",
+            "count": 3
+          },
+          {
+            "value": "Hybrid",
+            "count": 3
+          },
+          {
+            "value": "Office",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "technology-jobs": {
+    "path": "Jobs > Technology Jobs",
+    "categoryId": 167,
+    "group": "Jobs",
+    "advertCount": 1,
+    "sampledCount": 1,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Freelance",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "other-jobs": {
+    "path": "Jobs > Other Jobs",
+    "categoryId": 109,
+    "group": "Jobs",
+    "advertCount": 2,
+    "sampledCount": 2,
+    "attributes": [
+      {
+        "name": "Job Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Part-Time",
+            "count": 1
+          },
+          {
+            "value": "Full-Time",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "babies-and-kids-accessories": {
+    "path": "Babies & Kids > Baby & Kids' Accessories",
+    "categoryId": 250,
+    "group": "Babies & Kids",
+    "advertCount": 2239,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "baby-care": {
+    "path": "Babies & Kids > Care & Feeding",
+    "categoryId": 249,
+    "group": "Babies & Kids",
+    "advertCount": 2640,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "childrens-clothing": {
+    "path": "Babies & Kids > Children's Clothing",
+    "categoryId": 60,
+    "group": "Babies & Kids",
+    "advertCount": 1282,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unisex",
+            "count": 15
+          },
+          {
+            "value": "Girls",
+            "count": 9
+          },
+          {
+            "value": "Boys",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "childrens-furniture": {
+    "path": "Babies & Kids > Children's Furniture",
+    "categoryId": 62,
+    "group": "Babies & Kids",
+    "advertCount": 307,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 115
+          }
+        ]
+      }
+    ]
+  },
+  "childrens-gear-and-safety": {
+    "path": "Babies & Kids > Baby Gear & Equipment",
+    "categoryId": 65,
+    "group": "Babies & Kids",
+    "advertCount": 1125,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "childrens-shoes": {
+    "path": "Babies & Kids > Children's Shoes",
+    "categoryId": 61,
+    "group": "Babies & Kids",
+    "advertCount": 267,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Size",
+        "unit": null,
+        "values": [
+          {
+            "value": "16",
+            "count": 9
+          },
+          {
+            "value": "30",
+            "count": 8
+          },
+          {
+            "value": "21, 22, 23, 24, 25",
+            "count": 5
+          },
+          {
+            "value": "32",
+            "count": 5
+          },
+          {
+            "value": "31, 32, 33, 34, 35",
+            "count": 4
+          },
+          {
+            "value": "27",
+            "count": 4
+          },
+          {
+            "value": "35",
+            "count": 3
+          },
+          {
+            "value": "28",
+            "count": 3
+          },
+          {
+            "value": "22",
+            "count": 3
+          },
+          {
+            "value": "26",
+            "count": 2
+          },
+          {
+            "value": "17, 18, 19, 20, 21",
+            "count": 2
+          },
+          {
+            "value": "26, 27, 30, 28, 29, 21, 22, 23, 24, 25",
+            "count": 2
+          },
+          {
+            "value": "30, 21, 22, 23, 24, 25, 26, 27, 28, 29",
+            "count": 2
+          },
+          {
+            "value": "16, 17, 18, 19, 20, 21, 22, 23, 24",
+            "count": 2
+          },
+          {
+            "value": "31",
+            "count": 2
+          },
+          {
+            "value": "21",
+            "count": 2
+          },
+          {
+            "value": "26, 27, 28, 30, 29, 31",
+            "count": 2
+          },
+          {
+            "value": "25",
+            "count": 2
+          },
+          {
+            "value": "26, 22, 23, 24, 25",
+            "count": 2
+          },
+          {
+            "value": "26, 27, 28, 30, 29",
+            "count": 2
+          },
+          {
+            "value": "11",
+            "count": 2
+          },
+          {
+            "value": "27, 30, 26, 29, 21, 22, 23, 24, 25, 28",
+            "count": 1
+          },
+          {
+            "value": "27, 30, 28, 29",
+            "count": 1
+          },
+          {
+            "value": "26, 24, 21, 22, 23, 25",
+            "count": 1
+          },
+          {
+            "value": "26, 27, 28, 30, 31",
+            "count": 1
+          },
+          {
+            "value": "30, 31, 33, 32, 34, 21, 22, 23, 24, 25, 26, 27, 28, 29, 35",
+            "count": 1
+          },
+          {
+            "value": "27, 26, 30, 22, 25, 21, 23, 24, 28, 29",
+            "count": 1
+          },
+          {
+            "value": "25, 21, 22, 23, 24",
+            "count": 1
+          },
+          {
+            "value": "30, 31, 33, 34, 24, 25, 26, 27, 28, 29",
+            "count": 1
+          },
+          {
+            "value": "27, 26, 28, 30, 29, 25, 31, 32",
+            "count": 1
+          },
+          {
+            "value": "26, 21, 22, 23, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "27, 26, 28, 30, 29, 31, 32",
+            "count": 1
+          },
+          {
+            "value": "27, 30, 28, 29, 31",
+            "count": 1
+          },
+          {
+            "value": "30, 31, 33, 32, 35, 27, 28, 29, 34",
+            "count": 1
+          },
+          {
+            "value": "16, 17, 18, 19, 20, 21, 22, 23, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "27, 30, 26, 28, 29, 22, 23, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "27, 26, 30, 31",
+            "count": 1
+          },
+          {
+            "value": "22, 23",
+            "count": 1
+          },
+          {
+            "value": "31, 30, 33, 34, 32, 22, 23, 24, 25, 26, 27, 28, 29, 35",
+            "count": 1
+          },
+          {
+            "value": "27, 30, 28, 26, 29, 31, 32, 33, 34, 35",
+            "count": 1
+          },
+          {
+            "value": "27, 28, 30, 29, 31, 32",
+            "count": 1
+          },
+          {
+            "value": "33",
+            "count": 1
+          },
+          {
+            "value": "26, 27, 22, 23, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "27, 30, 28, 29, 31, 32, 33",
+            "count": 1
+          },
+          {
+            "value": "26, 27, 30, 28, 29",
+            "count": 1
+          },
+          {
+            "value": "28, 22",
+            "count": 1
+          },
+          {
+            "value": "23",
+            "count": 1
+          },
+          {
+            "value": "27, 30, 28",
+            "count": 1
+          },
+          {
+            "value": "22, 20, 21, 23, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "27, 28, 30, 29, 32",
+            "count": 1
+          },
+          {
+            "value": "8, 9, 10, 11, 12, 13, 16, 17, 13.5, 18, 19, 20",
+            "count": 1
+          },
+          {
+            "value": "31, 33",
+            "count": 1
+          },
+          {
+            "value": "27, 26, 28, 30, 22, 35, 23, 24, 25, 29, 31, 32, 33, 34, 35.5",
+            "count": 1
+          },
+          {
+            "value": "27, 28, 30",
+            "count": 1
+          },
+          {
+            "value": "26, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "27, 28, 30, 31",
+            "count": 1
+          },
+          {
+            "value": "26, 27, 28, 30, 22, 3.5",
+            "count": 1
+          },
+          {
+            "value": "18",
+            "count": 1
+          },
+          {
+            "value": "35, 32.5, 33, 33.5, 34, 34.5, 35.5, 36, 36.5, 37",
+            "count": 1
+          },
+          {
+            "value": "35, 31, 31.5, 32, 32.5, 33, 34, 34.5, 35.5, 36, 36.5, 37",
+            "count": 1
+          },
+          {
+            "value": "16, 17, 18, 19",
+            "count": 1
+          },
+          {
+            "value": "24",
+            "count": 1
+          },
+          {
+            "value": "26, 27, 23, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "26, 22, 21, 23, 24, 25",
+            "count": 1
+          },
+          {
+            "value": "26, 27, 28, 30, 29, 31, 32",
+            "count": 1
+          },
+          {
+            "value": "19, 20, 21, 22",
+            "count": 1
+          },
+          {
+            "value": "9, 10, 10.5, 11, 11.5",
+            "count": 1
+          },
+          {
+            "value": "17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Unisex",
+            "count": 56
+          },
+          {
+            "value": "Girls",
+            "count": 32
+          },
+          {
+            "value": "Boys",
+            "count": 27
+          }
+        ]
+      }
+    ]
+  },
+  "maternity-and-pregnancy": {
+    "path": "Babies & Kids > Maternity & Pregnancy",
+    "categoryId": 66,
+    "group": "Babies & Kids",
+    "advertCount": 657,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "prams-and-strollers": {
+    "path": "Babies & Kids > Transport & Safety",
+    "categoryId": 64,
+    "group": "Babies & Kids",
+    "advertCount": 301,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "playground-equipment": {
+    "path": "Babies & Kids > Playground Equipment",
+    "categoryId": 393,
+    "group": "Babies & Kids",
+    "advertCount": 160,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "toys": {
+    "path": "Babies & Kids > Toys & Games",
+    "categoryId": 67,
+    "group": "Babies & Kids",
+    "advertCount": 2505,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Age",
+        "unit": null,
+        "values": [
+          {
+            "value": "All Ages",
+            "count": 38
+          },
+          {
+            "value": "8-13 years",
+            "count": 4
+          },
+          {
+            "value": "5-7 years",
+            "count": 2
+          },
+          {
+            "value": "Birth - 24 months",
+            "count": 1
+          },
+          {
+            "value": "14 years and up",
+            "count": 1
+          },
+          {
+            "value": "2-4 years",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "birds": {
+    "path": "Pets > Birds",
+    "categoryId": 71,
+    "group": "Pets",
+    "advertCount": 41,
+    "sampledCount": 41,
+    "attributes": [
+      {
+        "name": "Gender",
+        "unit": null,
+        "values": [
+          {
+            "value": "Male",
+            "count": 29
+          },
+          {
+            "value": "Female",
+            "count": 12
+          }
+        ]
+      }
+    ]
+  },
+  "cats-and-kittens": {
+    "path": "Pets > Cats & Kittens",
+    "categoryId": 70,
+    "group": "Pets",
+    "advertCount": 241,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "dogs-and-puppies": {
+    "path": "Pets > Dogs & Puppies",
+    "categoryId": 33,
+    "group": "Pets",
+    "advertCount": 7623,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "fish": {
+    "path": "Pets > Fish",
+    "categoryId": 72,
+    "group": "Pets",
+    "advertCount": 28,
+    "sampledCount": 29,
+    "attributes": []
+  },
+  "pets-accessories": {
+    "path": "Pets > Pet Accessories",
+    "categoryId": 35,
+    "group": "Pets",
+    "advertCount": 527,
+    "sampledCount": 118,
+    "attributes": []
+  },
+  "other-animals": {
+    "path": "Pets > Other Animals",
+    "categoryId": 34,
+    "group": "Pets",
+    "advertCount": 44,
+    "sampledCount": 44,
+    "attributes": []
+  },
+  "farm-animal-feed-supplements": {
+    "path": "Food, Agriculture & Farming > Farm Animal Feed & Supplements",
+    "categoryId": 293,
+    "group": "Food, Agriculture & Farming",
+    "advertCount": 63,
+    "sampledCount": 63,
+    "attributes": []
+  },
+  "farm-machinery-equipment": {
+    "path": "Food, Agriculture & Farming > Farm Machinery & Equipment",
+    "categoryId": 289,
+    "group": "Food, Agriculture & Farming",
+    "advertCount": 268,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "feeds-supplements-seeds": {
+    "path": "Food, Agriculture & Farming > Seeds & Fertilizers",
+    "categoryId": 288,
+    "group": "Food, Agriculture & Farming",
+    "advertCount": 290,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "livestock-and-poultry": {
+    "path": "Food, Agriculture & Farming > Farm Animals",
+    "categoryId": 74,
+    "group": "Food, Agriculture & Farming",
+    "advertCount": 54,
+    "sampledCount": 56,
+    "attributes": []
+  },
+  "meals-and-drinks": {
+    "path": "Food, Agriculture & Farming > Food & Beverages",
+    "categoryId": 287,
+    "group": "Food, Agriculture & Farming",
+    "advertCount": 2548,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "manufacturing-equipments": {
+    "path": "Commercial Equipment & Tools > Manufacturing Equipment",
+    "categoryId": 301,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 1380,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "manufacturing-materials-and-tools": {
+    "path": "Commercial Equipment & Tools > Manufacturing Materials & Supplies",
+    "categoryId": 310,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 295,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "medical-equipment": {
+    "path": "Commercial Equipment & Tools > Medical Equipment & Supplies",
+    "categoryId": 302,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 73634,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "printing-equipment": {
+    "path": "Commercial Equipment & Tools > Printing & Graphics Equipment",
+    "categoryId": 304,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 265,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "restaurant-and-catering-equipment": {
+    "path": "Commercial Equipment & Tools > Restaurant & Catering Equipment",
+    "categoryId": 300,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 497,
+    "sampledCount": 119,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 107
+          },
+          {
+            "value": "Used",
+            "count": 12
+          }
+        ]
+      }
+    ]
+  },
+  "safety-equipment": {
+    "path": "Commercial Equipment & Tools > Safety Equipment & Protective Gear",
+    "categoryId": 303,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 875,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "salon-equipment": {
+    "path": "Commercial Equipment & Tools > Salon & Beauty Equipment",
+    "categoryId": 305,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 207,
+    "sampledCount": 115,
+    "attributes": []
+  },
+  "stage-lighting-and-effects": {
+    "path": "Commercial Equipment & Tools > Stage & Event Equipment",
+    "categoryId": 349,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 96,
+    "sampledCount": 96,
+    "attributes": []
+  },
+  "stationery": {
+    "path": "Commercial Equipment & Tools > Stationery & Office Equipment",
+    "categoryId": 285,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 728,
+    "sampledCount": 119,
+    "attributes": []
+  },
+  "store-equipments": {
+    "path": "Commercial Equipment & Tools > Retail & Store Equipment",
+    "categoryId": 299,
+    "group": "Commercial Equipment & Tools",
+    "advertCount": 705,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 116
+          },
+          {
+            "value": "Used",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  },
+  "hardware-and-fasteners": {
+    "path": "Repair & Construction > Hardware & Fasteners",
+    "categoryId": 398,
+    "group": "Repair & Construction",
+    "advertCount": 86,
+    "sampledCount": 86,
+    "attributes": []
+  },
+  "building-materials": {
+    "path": "Repair & Construction > Building Materials & Supplies",
+    "categoryId": 165,
+    "group": "Repair & Construction",
+    "advertCount": 2220,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "doors": {
+    "path": "Repair & Construction > Doors & Security",
+    "categoryId": 263,
+    "group": "Repair & Construction",
+    "advertCount": 1137,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Type",
+        "unit": null,
+        "values": [
+          {
+            "value": "Door Locks",
+            "count": 26
+          },
+          {
+            "value": "Door Viewers",
+            "count": 10
+          },
+          {
+            "value": "Room Door",
+            "count": 9
+          },
+          {
+            "value": "Gates",
+            "count": 9
+          },
+          {
+            "value": "Front Door",
+            "count": 8
+          },
+          {
+            "value": "Engineered wood Door",
+            "count": 7
+          },
+          {
+            "value": "Other",
+            "count": 7
+          },
+          {
+            "value": "Engineered wood door",
+            "count": 4
+          },
+          {
+            "value": "Premium wooden Doors",
+            "count": 3
+          },
+          {
+            "value": "water proof doors",
+            "count": 3
+          },
+          {
+            "value": "Engineered wooden DR",
+            "count": 3
+          },
+          {
+            "value": "🪵 water proof Doors",
+            "count": 3
+          },
+          {
+            "value": "🪵/Water proof doors",
+            "count": 3
+          },
+          {
+            "value": "Premium Wooden Doors",
+            "count": 2
+          },
+          {
+            "value": "100%water proof Door",
+            "count": 2
+          },
+          {
+            "value": "Water proof Doors",
+            "count": 2
+          },
+          {
+            "value": "Engineered 🪵doors",
+            "count": 2
+          },
+          {
+            "value": "Luxury Wooden Doors",
+            "count": 2
+          },
+          {
+            "value": "Security Door",
+            "count": 2
+          },
+          {
+            "value": "Lime stone+wood+chem",
+            "count": 1
+          },
+          {
+            "value": "For Indoor&Main gate",
+            "count": 1
+          },
+          {
+            "value": "Water proof doors",
+            "count": 1
+          },
+          {
+            "value": "Engineered wood dood",
+            "count": 1
+          },
+          {
+            "value": "Door soft closer",
+            "count": 1
+          },
+          {
+            "value": "Engineered 🪵 Doors",
+            "count": 1
+          },
+          {
+            "value": "ኢንጂነርድ wooden doors",
+            "count": 1
+          },
+          {
+            "value": "🪵 Water proof door",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "solar-energy-products": {
+    "path": "Repair & Construction > Electrical Equipment > Solar Energy",
+    "categoryId": 272,
+    "group": "Repair & Construction",
+    "advertCount": 522,
+    "sampledCount": 115,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 115
+          }
+        ]
+      }
+    ]
+  },
+  "power-tools": {
+    "path": "Repair & Construction > Electrical Hand Tools",
+    "categoryId": 294,
+    "group": "Repair & Construction",
+    "advertCount": 7226,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 120
+          }
+        ]
+      }
+    ]
+  },
+  "hand-and-power-tools": {
+    "path": "Repair & Construction > Hand Tools",
+    "categoryId": 281,
+    "group": "Repair & Construction",
+    "advertCount": 1383,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 119
+          },
+          {
+            "value": "Used",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "measuring-and-layout-tools": {
+    "path": "Repair & Construction > Measuring & Testing Tools",
+    "categoryId": 291,
+    "group": "Repair & Construction",
+    "advertCount": 907,
+    "sampledCount": 120,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 120
+          }
+        ]
+      }
+    ]
+  },
+  "plumbing-and-water-supply": {
+    "path": "Repair & Construction > Plumbing & Water Systems",
+    "categoryId": 296,
+    "group": "Repair & Construction",
+    "advertCount": 3772,
+    "sampledCount": 120,
+    "attributes": []
+  },
+  "windows": {
+    "path": "Repair & Construction > Windows & Glass",
+    "categoryId": 292,
+    "group": "Repair & Construction",
+    "advertCount": 50,
+    "sampledCount": 50,
+    "attributes": [
+      {
+        "name": "Condition",
+        "unit": null,
+        "values": [
+          {
+            "value": "Brand New",
+            "count": 46
+          },
+          {
+            "value": "Used",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}
