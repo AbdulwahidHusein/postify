@@ -133,8 +133,12 @@ export function ProductForm({
           conditions?: string[];
         };
         if (cancelled) return;
+        // Prefer mined catalog; only use hardcoded group fallback when empty.
+        const mined = data.brands ?? [];
         setBrandOptions(
-          mergeOptions(data.brands, brandsForCategory(category)),
+          mined.length
+            ? mined
+            : mergeOptions(mined, brandsForCategory(category)),
         );
         setBrandsTruncated(Boolean(data.brandsTruncated));
         setConditionOptions(
