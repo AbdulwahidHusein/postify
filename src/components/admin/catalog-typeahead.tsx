@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-
-const LOCAL_CAP = 200;
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 type Kind = "brand" | "model";
 
@@ -14,30 +12,34 @@ type Props = {
   kind: Kind;
   /** Required when kind=model */
   brand?: string;
-  /** Inline options when the list is small enough */
+  /** Inline options when the list fits in the initial payload */
   options: string[];
-  /** True when server capped the list — force remote typeahead */
+  /** True when server capped the list — use remote typeahead */
   truncated?: boolean;
+  /** Total catalog size when truncated (for helper text) */
+  totalCount?: number;
   disabled?: boolean;
   placeholder?: string;
 };
 
-function filterLocal(options: string[], q: string, limit = 40): string[] {
+function filterLocal(options: string[], q: string, limit = 50): string[] {
   const trimmed = q.trim().toLowerCase();
   if (!trimmed) return options.slice(0, limit);
-  const out: string[] = [];
+  const starts: string[] = [];
+  const includes: string[] = [];
   for (const opt of options) {
-    if (opt.toLowerCase().includes(trimmed)) {
-      out.push(opt);
-      if (out.length >= limit) break;
-    }
+    const lower = opt.toLowerCase();
+    if (lower.startsWith(trimmed)) starts.push(opt);
+    else if (lower.includes(trimmed)) includes.push(opt);
+    if (starts.length + includes.length >= limit) break;
   }
-  return out;
+  return [...starts, ...includes].slice(0, limit);
 }
 
 /**
- * Cascading Brand/Model combobox. Uses local filter for small lists;
- * debounced remote suggest when the catalog scope is large/truncated.
+ * Cascading Brand/Model combobox.
+ * Prefers filtering the already-fetched options list; only hits the suggest
+ * API when the server marked the payload as truncated.
  */
 export function CatalogTypeahead({
   label,
@@ -48,6 +50,7 @@ export function CatalogTypeahead({
   brand = "",
   options,
   truncated = false,
+  totalCount,
   disabled,
   placeholder,
 }: Props) {
@@ -58,8 +61,7 @@ export function CatalogTypeahead({
   const [highlight, setHighlight] = useState(0);
   const [remoteOptions, setRemoteOptions] = useState<string[]>([]);
   const [hint, setHint] = useState<string | null>(null);
-  const useRemote =
-    truncated || options.length > LOCAL_CAP || (kind === "model" && truncated);
+  const useRemote = truncated;
 
   useEffect(() => {
     if (!open) setQuery(value);
@@ -93,11 +95,12 @@ export function CatalogTypeahead({
             category,
             kind,
             q: searchQ,
-            limit: "40",
+            limit: "50",
           });
           if (kind === "model") params.set("brand", brand);
           const res = await fetch(`/api/catalog/form-fields?${params}`, {
             signal: ctrl.signal,
+            cache: "no-store",
           });
           const data = (await res.json()) as { suggestions?: string[] };
           setRemoteOptions(data.suggestions ?? []);
@@ -117,6 +120,19 @@ export function CatalogTypeahead({
     ? remoteOptions
     : filterLocal(options, open ? query : value);
 
+  const catalogSize = totalCount ?? options.length;
+  const helper = useMemo(() => {
+    if (kind === "model" && !brand.trim()) return "Pick a brand first";
+    if (!catalogSize) return `No ${label.toLowerCase()} list for this category yet — type a custom value`;
+    if (useRemote) {
+      return `${catalogSize.toLocaleString()} ${label.toLowerCase()}s — type to search`;
+    }
+    if (!(open ? query : value).trim() && catalogSize > 50) {
+      return `${catalogSize.toLocaleString()} ${label.toLowerCase()}s — type to filter (e.g. Toyota)`;
+    }
+    return null;
+  }, [kind, brand, catalogSize, label, useRemote, open, query, value]);
+
   function select(next: string) {
     onChange(next);
     setQuery(next);
@@ -129,7 +145,6 @@ export function CatalogTypeahead({
       setHint(null);
       return;
     }
-    // Skip if already an exact option hit
     if (options.includes(raw) || remoteOptions.includes(raw)) {
       setHint(null);
       return;
@@ -143,6 +158,7 @@ export function CatalogTypeahead({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
+        cache: "no-store",
       });
       const data = (await res.json()) as {
         brand?: string | null;
@@ -152,11 +168,7 @@ export function CatalogTypeahead({
       const canonical = kind === "brand" ? data.brand : data.model;
       const score =
         kind === "brand" ? data.scores?.brand ?? 0 : data.scores?.model ?? 0;
-      if (
-        canonical &&
-        canonical !== raw &&
-        score >= 0.7
-      ) {
+      if (canonical && canonical !== raw && score >= 0.7) {
         setHint(canonical);
       } else {
         setHint(null);
@@ -215,7 +227,7 @@ export function CatalogTypeahead({
             aria-autocomplete="list"
             disabled={disabled}
             value={inputValue}
-            placeholder={placeholder ?? `Search ${label.toLowerCase()}…`}
+            placeholder={placeholder ?? `Type to search ${label.toLowerCase()}…`}
             maxLength={120}
             onFocus={() => {
               setQuery(value);
@@ -231,7 +243,6 @@ export function CatalogTypeahead({
               setHighlight(0);
             }}
             onBlur={() => {
-              // Delay so option click can fire first
               window.setTimeout(() => {
                 void maybeSuggestCanonical(value);
               }, 180);
@@ -253,6 +264,8 @@ export function CatalogTypeahead({
           </button>
         </div>
       </label>
+
+      {helper ? <p className="combo-hint">{helper}</p> : null}
 
       {hint ? (
         <p className="combo-hint">

@@ -31,7 +31,8 @@ export async function GET(request: Request) {
     : 30;
 
   const headers = {
-    "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
+    // Catalog updates with deploys; avoid CDN caching empty/stale brand lists.
+    "Cache-Control": "private, no-store",
   };
 
   if (!category.trim()) {

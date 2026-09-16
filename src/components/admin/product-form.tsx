@@ -16,7 +16,6 @@ import { TagsInput } from "@/components/admin/tags-input";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import type { AdminProduct } from "@/components/admin/types";
 import {
-  brandsForCategory,
   COMMON_CONDITIONS,
   mergeOptions,
 } from "@/lib/catalog/field-options";
@@ -98,6 +97,8 @@ export function ProductForm({
   const [modelOptions, setModelOptions] = useState<string[]>([]);
   const [brandsTruncated, setBrandsTruncated] = useState(false);
   const [modelsTruncated, setModelsTruncated] = useState(false);
+  const [brandsTotal, setBrandsTotal] = useState(0);
+  const [modelsTotal, setModelsTotal] = useState(0);
   const [conditionOptions, setConditionOptions] = useState<string[]>(
     COMMON_CONDITIONS,
   );
@@ -118,6 +119,8 @@ export function ProductForm({
       setModelOptions([]);
       setBrandsTruncated(false);
       setModelsTruncated(false);
+      setBrandsTotal(0);
+      setModelsTotal(0);
       setConditionOptions(COMMON_CONDITIONS);
       return;
     }
@@ -126,27 +129,27 @@ export function ProductForm({
       try {
         const res = await fetch(
           `/api/catalog/form-fields?category=${encodeURIComponent(category)}`,
+          { cache: "no-store" },
         );
         const data = (await res.json()) as {
           brands?: string[];
+          brandsTotal?: number;
           brandsTruncated?: boolean;
           conditions?: string[];
         };
         if (cancelled) return;
-        // Prefer mined catalog; only use hardcoded group fallback when empty.
-        const mined = data.brands ?? [];
-        setBrandOptions(
-          mined.length
-            ? mined
-            : mergeOptions(mined, brandsForCategory(category)),
-        );
+        // Never fall back to the tiny hardcoded group list — that showed
+        // "15 vehicle brands" and hid the real mined catalog.
+        setBrandOptions(data.brands ?? []);
+        setBrandsTotal(data.brandsTotal ?? data.brands?.length ?? 0);
         setBrandsTruncated(Boolean(data.brandsTruncated));
         setConditionOptions(
           mergeOptions(data.conditions, COMMON_CONDITIONS),
         );
       } catch {
         if (!cancelled) {
-          setBrandOptions(brandsForCategory(category));
+          setBrandOptions([]);
+          setBrandsTotal(0);
           setBrandsTruncated(false);
           setConditionOptions(COMMON_CONDITIONS);
         }
@@ -164,6 +167,7 @@ export function ProductForm({
     if (!category || !brand) {
       setModelOptions([]);
       setModelsTruncated(false);
+      setModelsTotal(0);
       return;
     }
     let cancelled = false;
@@ -171,18 +175,22 @@ export function ProductForm({
       try {
         const res = await fetch(
           `/api/catalog/form-fields?category=${encodeURIComponent(category)}&brand=${encodeURIComponent(brand)}`,
+          { cache: "no-store" },
         );
         const data = (await res.json()) as {
           models?: string[];
+          modelsTotal?: number;
           modelsTruncated?: boolean;
         };
         if (!cancelled) {
           setModelOptions(data.models ?? []);
+          setModelsTotal(data.modelsTotal ?? data.models?.length ?? 0);
           setModelsTruncated(Boolean(data.modelsTruncated));
         }
       } catch {
         if (!cancelled) {
           setModelOptions([]);
+          setModelsTotal(0);
           setModelsTruncated(false);
         }
       }
@@ -724,6 +732,7 @@ export function ProductForm({
               value={form.brand}
               options={brandOptions}
               truncated={brandsTruncated}
+              totalCount={brandsTotal}
               onChange={(brand) =>
                 setForm((f) => ({
                   ...f,
@@ -734,7 +743,7 @@ export function ProductForm({
               }
               disabled={saving || !form.category.trim()}
               placeholder={
-                form.category.trim() ? "Search brand…" : "Pick a category first"
+                form.category.trim() ? "Type brand (e.g. Toyota)…" : "Pick a category first"
               }
             />
             <CatalogTypeahead
@@ -745,10 +754,11 @@ export function ProductForm({
               value={form.model}
               options={modelOptions}
               truncated={modelsTruncated}
+              totalCount={modelsTotal}
               onChange={(model) => setForm((f) => ({ ...f, model }))}
               disabled={saving || !form.brand.trim()}
               placeholder={
-                form.brand.trim() ? "Search model…" : "Pick a brand first"
+                form.brand.trim() ? "Type model…" : "Pick a brand first"
               }
             />
           </div>
