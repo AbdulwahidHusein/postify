@@ -1799,8 +1799,8 @@ html[data-platform="tma"] .admin-editor-aside {
 }
 
 /* —— Product editor: wider, cleaner sheet —— */
-.admin-body > *:has(.product-editor) {
-  width: min(1180px, 100%);
+.admin-body > .product-editor {
+  width: min(1240px, 100%);
 }
 
 .product-editor {
