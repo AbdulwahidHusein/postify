@@ -20,10 +20,8 @@ const CUSTOM = "__custom__";
 /**
  * Dynamic attribute dropdowns for the selected category.
  *
- * Fetches attributes lazily per category from /api/catalog/attributes (the
- * full mined JSON is never shipped to the client). Each attribute is a real
- * <select> populated from mined data, with a "Custom…" option that reveals a
- * free-text input for values not in the dropdown.
+ * Fetches attributes lazily per category from /api/catalog/attributes.
+ * Skips Condition / Brand / Model — those map to dedicated product columns.
  */
 export function CategoryAttributes({
   category,
@@ -37,7 +35,10 @@ export function CategoryAttributes({
 
   useEffect(() => {
     const trimmed = category?.trim();
-    if (!trimmed) return;
+    if (!trimmed) {
+      setAttrs([]);
+      return;
+    }
     let cancelled = false;
     void (async () => {
       setLoading(true);
@@ -47,11 +48,13 @@ export function CategoryAttributes({
         );
         const data = (await res.json()) as { attributes?: AttributeSuggestion[] };
         if (!cancelled) {
-          setAttrs(data.attributes ?? []);
-          // Preserve which fields were already in "custom" mode.
+          const filtered = (data.attributes ?? []).filter(
+            (a) => !/^(condition|brand|model|make)$/i.test(a.name.trim()),
+          );
+          setAttrs(filtered);
           setCustomActive((prev) => {
             const next: Record<string, boolean> = {};
-            for (const a of data.attributes ?? []) {
+            for (const a of filtered) {
               next[a.name] = prev[a.name] ?? false;
             }
             return next;

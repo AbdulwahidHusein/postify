@@ -14,6 +14,7 @@ import {
   extractListingFromCaption,
   formatListingTags,
 } from "@/lib/llm/extract-listing";
+import { reconcileProductFields } from "@/lib/catalog/apply-reconcile";
 import {
   ADMIN_PAGE_SIZE,
   buildPageMeta,
@@ -132,6 +133,9 @@ export async function createProductFromChannelPost(input: {
     };
   }
 
+  // Map free-text extract onto canonical catalog values (never sent to the LLM).
+  const recon = reconcileProductFields(parsed, settings.sellCategories ?? []);
+
   // Dedup (fast path): the partial unique indexes below make this the last
   // line of defense — a concurrent insert that slips through here will throw
   // a unique violation at insert time and be recovered below.
@@ -169,13 +173,14 @@ export async function createProductFromChannelPost(input: {
         compareAtPrice:
           parsed.compareAtPrice !== null ? String(parsed.compareAtPrice) : null,
         currency: parsed.currency ?? settings.defaultCurrency,
-        category: parsed.category,
+        category: recon.category,
         sku: parsed.sku,
-        condition: parsed.condition,
-        brand: parsed.brand,
-        model: parsed.model,
+        condition: recon.condition,
+        brand: recon.brand,
+        model: recon.model,
         location: parsed.location,
         isNegotiable: parsed.isNegotiable,
+        attributes: recon.attributes,
         tags: formatListingTags(parsed.tags),
         status,
         confidence: String(parsed.confidence),
@@ -250,6 +255,9 @@ function productListWhere(
     q?: string;
     status?: ProductStatus | "all";
     category?: string;
+    brand?: string;
+    model?: string;
+    condition?: string;
     minPrice?: number;
     maxPrice?: number;
   },
@@ -257,6 +265,9 @@ function productListWhere(
   const status = opts?.status ?? "all";
   const q = opts?.q?.trim();
   const category = opts?.category?.trim();
+  const brand = opts?.brand?.trim();
+  const model = opts?.model?.trim();
+  const condition = opts?.condition?.trim();
   const minPrice = opts?.minPrice;
   const maxPrice = opts?.maxPrice;
 
@@ -265,7 +276,16 @@ function productListWhere(
     conditions.push(eq(products.status, status));
   }
   if (category) {
-    conditions.push(ilike(products.category, `%${category}%`));
+    conditions.push(eq(products.category, category));
+  }
+  if (brand) {
+    conditions.push(eq(products.brand, brand));
+  }
+  if (model) {
+    conditions.push(eq(products.model, model));
+  }
+  if (condition) {
+    conditions.push(eq(products.condition, condition));
   }
   if (q) {
     const pattern = `%${q}%`;
@@ -274,6 +294,8 @@ function productListWhere(
         ilike(products.title, pattern),
         ilike(products.description, pattern),
         ilike(products.category, pattern),
+        ilike(products.brand, pattern),
+        ilike(products.model, pattern),
         ilike(products.sku, pattern),
         ilike(products.tags, pattern),
       )!,
@@ -310,6 +332,9 @@ export async function listProductsForShop(
     q?: string;
     status?: ProductStatus | "all";
     category?: string;
+    brand?: string;
+    model?: string;
+    condition?: string;
     sort?: "newest" | "price_asc" | "price_desc";
     minPrice?: number;
     maxPrice?: number;
@@ -383,6 +408,9 @@ export async function listPublishedProductsForShop(
     pageSize?: number;
     q?: string;
     category?: string;
+    brand?: string;
+    model?: string;
+    condition?: string;
     sort?: "newest" | "price_asc" | "price_desc";
     minPrice?: number;
     maxPrice?: number;
@@ -394,6 +422,9 @@ export async function listPublishedProductsForShop(
     pageSize: opts?.pageSize,
     q: opts?.q,
     category: opts?.category,
+    brand: opts?.brand,
+    model: opts?.model,
+    condition: opts?.condition,
     sort: opts?.sort,
     minPrice: opts?.minPrice,
     maxPrice: opts?.maxPrice,
@@ -442,6 +473,78 @@ export async function listPublishedCategoriesForShop(shopId: string) {
   return rows
     .map((row) => row.category?.trim())
     .filter((value): value is string => Boolean(value));
+}
+
+export type ShopCatalogFacets = {
+  brands: string[];
+  models: string[];
+  conditions: string[];
+};
+
+/**
+ * Facets from this shop's published inventory (not the global Jiji catalog).
+ * Brand/model lists cascade from the active category/brand filters.
+ */
+export async function listPublishedFacetsForShop(
+  shopId: string,
+  opts?: { category?: string; brand?: string },
+): Promise<ShopCatalogFacets> {
+  const category = opts?.category?.trim();
+  const brand = opts?.brand?.trim();
+
+  const base = [
+    eq(products.shopId, shopId),
+    eq(products.status, "published"),
+  ];
+
+  const brandWhere = and(
+    ...base,
+    sql`${products.brand} is not null and btrim(${products.brand}) <> ''`,
+    ...(category ? [eq(products.category, category)] : []),
+  );
+
+  const modelWhere = and(
+    ...base,
+    sql`${products.model} is not null and btrim(${products.model}) <> ''`,
+    ...(category ? [eq(products.category, category)] : []),
+    ...(brand ? [eq(products.brand, brand)] : []),
+  );
+
+  const conditionWhere = and(
+    ...base,
+    sql`${products.condition} is not null and btrim(${products.condition}) <> ''`,
+    ...(category ? [eq(products.category, category)] : []),
+  );
+
+  const [brandRows, modelRows, conditionRows] = await Promise.all([
+    db
+      .selectDistinct({ brand: products.brand })
+      .from(products)
+      .where(brandWhere)
+      .orderBy(asc(products.brand)),
+    db
+      .selectDistinct({ model: products.model })
+      .from(products)
+      .where(modelWhere)
+      .orderBy(asc(products.model)),
+    db
+      .selectDistinct({ condition: products.condition })
+      .from(products)
+      .where(conditionWhere)
+      .orderBy(asc(products.condition)),
+  ]);
+
+  return {
+    brands: brandRows
+      .map((r) => r.brand?.trim())
+      .filter((v): v is string => Boolean(v)),
+    models: modelRows
+      .map((r) => r.model?.trim())
+      .filter((v): v is string => Boolean(v)),
+    conditions: conditionRows
+      .map((r) => r.condition?.trim())
+      .filter((v): v is string => Boolean(v)),
+  };
 }
 
 /** Other published products from the same shop (for product page “more from”). */
@@ -530,6 +633,21 @@ export async function createManualProduct(
   const baseSlug = slugify(title).slice(0, 40) || "item";
   const slug = `${baseSlug}-${uniqueSlugHint(`${input.shop.id}-${Date.now()}`)}`;
 
+  const settings = normalizeShopSettings(input.shop.settings);
+  const recon = reconcileProductFields(
+    {
+      category: input.category,
+      brand: input.brand,
+      model: input.model,
+      condition: input.condition,
+    },
+    settings.sellCategories ?? [],
+  );
+  const attributes = {
+    ...recon.attributes,
+    ...(input.attributes ?? {}),
+  };
+
   const [product] = await db
     .insert(products)
     .values({
@@ -541,18 +659,18 @@ export async function createManualProduct(
       compareAtPrice: numOrNull(input.compareAtPrice ?? null) ?? null,
       currency:
         input.currency?.trim() || input.shop.settings.defaultCurrency || "ETB",
-      category: input.category?.trim() || null,
+      category: recon.category,
       sku: input.sku?.trim() || null,
       stockQuantity:
         input.stockQuantity === undefined
           ? null
           : input.stockQuantity,
       tags: input.tags?.trim() || null,
-      condition: input.condition?.trim() || null,
-      brand: input.brand?.trim() || null,
-      model: input.model?.trim() || null,
+      condition: recon.condition,
+      brand: recon.brand,
+      model: recon.model,
       location: input.location?.trim() || null,
-      attributes: input.attributes ?? {},
+      attributes,
       isNegotiable: input.isNegotiable ?? false,
       shippingInfo: input.shippingInfo?.trim() || null,
       returnPolicy: input.returnPolicy?.trim() || null,
@@ -569,6 +687,49 @@ export async function updateProduct(
   productId: string,
   input: ProductUpdateInput,
 ): Promise<Product> {
+  const touchingCatalog =
+    input.category !== undefined ||
+    input.brand !== undefined ||
+    input.model !== undefined ||
+    input.condition !== undefined;
+
+  let category = input.category;
+  let brand = input.brand;
+  let model = input.model;
+  let condition = input.condition;
+  let attributes = input.attributes;
+
+  if (touchingCatalog) {
+    const existing = await db.query.products.findFirst({
+      where: eq(products.id, productId),
+      with: { shop: true },
+    });
+    if (existing) {
+      const settings = normalizeShopSettings(existing.shop.settings);
+      const recon = reconcileProductFields(
+        {
+          category:
+            category !== undefined ? category : existing.category,
+          brand: brand !== undefined ? brand : existing.brand,
+          model: model !== undefined ? model : existing.model,
+          condition:
+            condition !== undefined ? condition : existing.condition,
+        },
+        settings.sellCategories ?? [],
+      );
+      if (input.category !== undefined) category = recon.category;
+      if (input.brand !== undefined) brand = recon.brand;
+      if (input.model !== undefined) model = recon.model;
+      if (input.condition !== undefined) condition = recon.condition;
+      if (
+        input.attributes !== undefined &&
+        Object.keys(recon.attributes).length
+      ) {
+        attributes = { ...recon.attributes, ...(input.attributes ?? {}) };
+      }
+    }
+  }
+
   const [updated] = await db
     .update(products)
     .set({
@@ -583,25 +744,23 @@ export async function updateProduct(
       ...(input.currency !== undefined
         ? { currency: input.currency.trim() || "ETB" }
         : {}),
-      ...(input.category !== undefined
-        ? { category: input.category?.trim() || null }
+      ...(category !== undefined
+        ? { category: category?.trim() || null }
         : {}),
       ...(input.sku !== undefined ? { sku: input.sku?.trim() || null } : {}),
       ...(input.stockQuantity !== undefined
         ? { stockQuantity: input.stockQuantity }
         : {}),
       ...(input.tags !== undefined ? { tags: input.tags?.trim() || null } : {}),
-      ...(input.condition !== undefined
-        ? { condition: input.condition?.trim() || null }
+      ...(condition !== undefined
+        ? { condition: condition?.trim() || null }
         : {}),
-      ...(input.brand !== undefined ? { brand: input.brand?.trim() || null } : {}),
-      ...(input.model !== undefined ? { model: input.model?.trim() || null } : {}),
+      ...(brand !== undefined ? { brand: brand?.trim() || null } : {}),
+      ...(model !== undefined ? { model: model?.trim() || null } : {}),
       ...(input.location !== undefined
         ? { location: input.location?.trim() || null }
         : {}),
-      ...(input.attributes !== undefined
-        ? { attributes: input.attributes ?? {} }
-        : {}),
+      ...(attributes !== undefined ? { attributes: attributes ?? {} } : {}),
       ...(input.isNegotiable !== undefined ? { isNegotiable: input.isNegotiable } : {}),
       ...(input.shippingInfo !== undefined
         ? { shippingInfo: input.shippingInfo?.trim() || null }

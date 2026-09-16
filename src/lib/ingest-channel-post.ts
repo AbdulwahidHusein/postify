@@ -21,6 +21,7 @@ import {
   extractListingFromCaption,
   formatListingTags,
 } from "@/lib/llm/extract-listing";
+import { reconcileProductFields } from "@/lib/catalog/apply-reconcile";
 import { processOutboxJobs } from "@/lib/chat/outbox";
 import { normalizeShopSettings } from "@/lib/shops";
 import { requireBotToken, serverEnv } from "@/lib/env.server";
@@ -108,6 +109,10 @@ async function appendPhotos(
           hasMedia: true,
           preferredCategories: settings.sellCategories ?? [],
         });
+        const recon = reconcileProductFields(
+          parsed,
+          settings.sellCategories ?? [],
+        );
         await db
           .update(products)
           .set({
@@ -119,13 +124,14 @@ async function appendPhotos(
                 ? String(parsed.compareAtPrice)
                 : null,
             currency: parsed.currency ?? settings.defaultCurrency,
-            category: parsed.category,
+            category: recon.category,
             sku: parsed.sku,
-            condition: parsed.condition,
-            brand: parsed.brand,
-            model: parsed.model,
+            condition: recon.condition,
+            brand: recon.brand,
+            model: recon.model,
             location: parsed.location,
             isNegotiable: parsed.isNegotiable,
+            attributes: recon.attributes,
             tags: formatListingTags(parsed.tags),
             confidence: String(parsed.confidence),
             rawCaption: trimmed,
@@ -331,6 +337,8 @@ async function editChannelListing(input: {
   // than wiping it (the seller can archive it themselves).
   if (!parsed.isProduct) return;
 
+  const recon = reconcileProductFields(parsed, settings.sellCategories ?? []);
+
   const autoPublishMinConfidence = settings.autoPublishMinConfidence ?? 0.8;
   // Promote draft -> published if the edit now clears the threshold. Never
   // downgrade a published product on a weak re-parse (avoids flicker).
@@ -353,13 +361,14 @@ async function editChannelListing(input: {
       compareAtPrice:
         parsed.compareAtPrice !== null ? String(parsed.compareAtPrice) : null,
       currency: parsed.currency ?? settings.defaultCurrency,
-      category: parsed.category,
+      category: recon.category,
       sku: parsed.sku,
-      condition: parsed.condition,
-      brand: parsed.brand,
-      model: parsed.model,
+      condition: recon.condition,
+      brand: recon.brand,
+      model: recon.model,
       location: parsed.location,
       isNegotiable: parsed.isNegotiable,
+      attributes: recon.attributes,
       tags: formatListingTags(parsed.tags),
       confidence: String(parsed.confidence),
       rawCaption: input.caption || null,

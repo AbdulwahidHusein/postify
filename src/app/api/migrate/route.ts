@@ -36,6 +36,11 @@ export async function POST(request: Request) {
     sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS is_negotiable boolean NOT NULL DEFAULT false`,
     sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS shipping_info text`,
     sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS return_policy text`,
+    // Catalog filter / facet indexes for storefront equality filters.
+    sql`CREATE INDEX IF NOT EXISTS products_shop_status_category_idx ON products (shop_id, status, category)`,
+    sql`CREATE INDEX IF NOT EXISTS products_shop_status_brand_idx ON products (shop_id, status, brand)`,
+    sql`CREATE INDEX IF NOT EXISTS products_shop_status_model_idx ON products (shop_id, status, model)`,
+    sql`CREATE INDEX IF NOT EXISTS products_shop_status_condition_idx ON products (shop_id, status, condition)`,
   ];
 
   const results: string[] = [];

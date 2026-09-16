@@ -10,10 +10,16 @@ type Props = {
   shopSlug: string;
   q: string;
   category: string;
+  brand: string;
+  model: string;
+  condition: string;
   sort: ShopSort;
   minPrice: string;
   maxPrice: string;
   categories: string[];
+  brands: string[];
+  models: string[];
+  conditions: string[];
   resultCount: number;
   filtered: boolean;
   priceBounds?: { min: number | null; max: number | null };
@@ -25,6 +31,9 @@ export function shopCatalogHref(
   opts: {
     q?: string;
     category?: string;
+    brand?: string;
+    model?: string;
+    condition?: string;
     sort?: ShopSort;
     minPrice?: string;
     maxPrice?: string;
@@ -34,11 +43,17 @@ export function shopCatalogHref(
   const params = new URLSearchParams();
   const q = opts.q?.trim();
   const category = opts.category?.trim();
+  const brand = opts.brand?.trim();
+  const model = opts.model?.trim();
+  const condition = opts.condition?.trim();
   const sort = opts.sort && opts.sort !== "newest" ? opts.sort : undefined;
   const minPrice = opts.minPrice?.trim();
   const maxPrice = opts.maxPrice?.trim();
   if (q) params.set("q", q);
   if (category) params.set("category", category);
+  if (brand) params.set("brand", brand);
+  if (model) params.set("model", model);
+  if (condition) params.set("condition", condition);
   if (sort) params.set("sort", sort);
   if (minPrice) params.set("minPrice", minPrice);
   if (maxPrice) params.set("maxPrice", maxPrice);
@@ -47,14 +62,25 @@ export function shopCatalogHref(
   return qs ? `/s/${shopSlug}?${qs}` : `/s/${shopSlug}`;
 }
 
+function leafLabel(path: string) {
+  const parts = path.split(">").map((p) => p.trim());
+  return parts[parts.length - 1] || path;
+}
+
 export function ShopCatalogToolbar({
   shopSlug,
   q: initialQ,
   category: initialCategory,
+  brand: initialBrand,
+  model: initialModel,
+  condition: initialCondition,
   sort: initialSort,
   minPrice: initialMin,
   maxPrice: initialMax,
   categories,
+  brands,
+  models,
+  conditions,
   resultCount,
   filtered,
   priceBounds,
@@ -80,14 +106,32 @@ export function ShopCatalogToolbar({
   function apply(next?: {
     q?: string;
     category?: string;
+    brand?: string;
+    model?: string;
+    condition?: string;
     sort?: ShopSort;
     minPrice?: string;
     maxPrice?: string;
   }) {
+    const category = next?.category ?? initialCategory;
+    const brand = next?.brand ?? initialBrand;
+    // Reset cascade dependents when parent changes
+    let model = next?.model ?? initialModel;
+    let condition = next?.condition ?? initialCondition;
+    if (next?.category !== undefined && next.category !== initialCategory) {
+      model = "";
+      // keep brand only if still in new facet set after navigation
+    }
+    if (next?.brand !== undefined && next.brand !== initialBrand) {
+      model = "";
+    }
     router.push(
       shopCatalogHref(shopSlug, {
         q: next?.q ?? q,
-        category: next?.category ?? initialCategory,
+        category,
+        brand,
+        model,
+        condition,
         sort: next?.sort ?? sort,
         minPrice: next?.minPrice ?? minPrice,
         maxPrice: next?.maxPrice ?? maxPrice,
@@ -114,7 +158,7 @@ export function ShopCatalogToolbar({
             className={
               initialCategory ? "shop-collection" : "shop-collection is-active"
             }
-            onClick={() => apply({ category: "" })}
+            onClick={() => apply({ category: "", brand: "", model: "" })}
           >
             All
           </button>
@@ -129,10 +173,14 @@ export function ShopCatalogToolbar({
                   active ? "shop-collection is-active" : "shop-collection"
                 }
                 onClick={() =>
-                  apply({ category: active ? "" : cat })
+                  apply({
+                    category: active ? "" : cat,
+                    brand: "",
+                    model: "",
+                  })
                 }
               >
-                {cat}
+                {leafLabel(cat)}
               </button>
             );
           })}
@@ -174,6 +222,56 @@ export function ShopCatalogToolbar({
             aria-label="Search products"
           />
         </div>
+
+        {brands.length > 0 ? (
+          <select
+            className="shop-sort"
+            value={initialBrand}
+            aria-label="Filter by brand"
+            onChange={(e) =>
+              apply({ brand: e.target.value, model: "" })
+            }
+          >
+            <option value="">All brands</option>
+            {brands.map((b) => (
+              <option key={b} value={b}>
+                {b}
+              </option>
+            ))}
+          </select>
+        ) : null}
+
+        {models.length > 0 ? (
+          <select
+            className="shop-sort"
+            value={initialModel}
+            aria-label="Filter by model"
+            onChange={(e) => apply({ model: e.target.value })}
+          >
+            <option value="">All models</option>
+            {models.map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
+            ))}
+          </select>
+        ) : null}
+
+        {conditions.length > 0 ? (
+          <select
+            className="shop-sort"
+            value={initialCondition}
+            aria-label="Filter by condition"
+            onChange={(e) => apply({ condition: e.target.value })}
+          >
+            <option value="">Any condition</option>
+            {conditions.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        ) : null}
 
         <select
           className="shop-sort"
@@ -249,7 +347,10 @@ export function ShopCatalogToolbar({
       <div className="shop-result-row">
         <p className="shop-result-meta">
           {resultCount} {resultCount === 1 ? "product" : "products"}
-          {initialCategory ? <> · {initialCategory}</> : null}
+          {initialCategory ? <> · {leafLabel(initialCategory)}</> : null}
+          {initialBrand ? <> · {initialBrand}</> : null}
+          {initialModel ? <> · {initialModel}</> : null}
+          {initialCondition ? <> · {initialCondition}</> : null}
           {initialQ ? <> · “{initialQ}”</> : null}
         </p>
         {filtered ? (

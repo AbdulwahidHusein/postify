@@ -2325,6 +2325,18 @@ html[data-platform="tma"] .admin-editor-aside {
   color: var(--muted);
 }
 
+.combo-hint-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .admin-field-span {
   grid-column: 1 / -1;
 }

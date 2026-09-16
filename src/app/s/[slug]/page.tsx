@@ -12,6 +12,7 @@ import { DEFAULT_PAGE_SIZE } from "@/lib/pagination";
 import {
   getPublishedPriceBoundsForShop,
   listPublishedCategoriesForShop,
+  listPublishedFacetsForShop,
   listPublishedProductsForShop,
 } from "@/lib/products";
 import {
@@ -74,6 +75,9 @@ export default async function ShopPage({ params, searchParams }: Props) {
 
   const q = paramString(query.q);
   const category = paramString(query.category);
+  const brand = paramString(query.brand);
+  const model = paramString(query.model);
+  const condition = paramString(query.condition);
   const sort = parseSort(paramString(query.sort));
   const minPriceRaw = paramString(query.minPrice);
   const maxPriceRaw = paramString(query.maxPrice);
@@ -84,6 +88,9 @@ export default async function ShopPage({ params, searchParams }: Props) {
   const filtered = Boolean(
     q ||
       category ||
+      brand ||
+      model ||
+      condition ||
       sort !== "newest" ||
       minPrice != null ||
       maxPrice != null,
@@ -106,18 +113,25 @@ export default async function ShopPage({ params, searchParams }: Props) {
   const sellCategories = settings.sellCategories ?? [];
   const currency = settings.defaultCurrency || "ETB";
 
-  const [catalogPage, productCategories, priceBounds] =
+  const [catalogPage, productCategories, facets, priceBounds] =
     await Promise.all([
       listPublishedProductsForShop(shop.id, {
         page: Number.isFinite(page) ? page : 1,
         pageSize: DEFAULT_PAGE_SIZE,
         q: q || undefined,
         category: category || undefined,
+        brand: brand || undefined,
+        model: model || undefined,
+        condition: condition || undefined,
         sort,
         minPrice,
         maxPrice,
       }),
       listPublishedCategoriesForShop(shop.id),
+      listPublishedFacetsForShop(shop.id, {
+        category: category || undefined,
+        brand: brand || undefined,
+      }),
       getPublishedPriceBoundsForShop(shop.id),
     ]);
 
@@ -137,6 +151,9 @@ export default async function ShopPage({ params, searchParams }: Props) {
     shopCatalogHref(shop.slug, {
       q,
       category,
+      brand,
+      model,
+      condition,
       sort,
       minPrice: minPriceRaw,
       maxPrice: maxPriceRaw,
@@ -203,10 +220,16 @@ export default async function ShopPage({ params, searchParams }: Props) {
             shopSlug={shop.slug}
             q={q}
             category={category}
+            brand={brand}
+            model={model}
+            condition={condition}
             sort={sort}
             minPrice={minPriceRaw}
             maxPrice={maxPriceRaw}
             categories={filterCategories}
+            brands={facets.brands}
+            models={facets.models}
+            conditions={facets.conditions}
             resultCount={pagination.total}
             filtered={filtered}
             priceBounds={priceBounds}

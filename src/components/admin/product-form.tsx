@@ -10,9 +10,16 @@ import {
 import { CategoryCombobox } from "@/components/admin/category-combobox";
 import { CategoryAttributes } from "@/components/admin/category-attributes";
 import { RegionSelect } from "@/components/admin/region-select";
+import { CatalogTypeahead } from "@/components/admin/catalog-typeahead";
+import { SuggestSelect } from "@/components/admin/suggest-select";
 import { TagsInput } from "@/components/admin/tags-input";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import type { AdminProduct } from "@/components/admin/types";
+import {
+  brandsForCategory,
+  COMMON_CONDITIONS,
+  mergeOptions,
+} from "@/lib/catalog/field-options";
 import { telegramMessageUrl } from "@/lib/telegram-links";
 import { PageLoader } from "@/components/ui/loader";
 
@@ -87,6 +94,13 @@ export function ProductForm({
   const [telegramUrl, setTelegramUrl] = useState<string | null>(null);
   const [fromChannel, setFromChannel] = useState(false);
   const [attributes, setAttributes] = useState<Record<string, string>>({});
+  const [brandOptions, setBrandOptions] = useState<string[]>([]);
+  const [modelOptions, setModelOptions] = useState<string[]>([]);
+  const [brandsTruncated, setBrandsTruncated] = useState(false);
+  const [modelsTruncated, setModelsTruncated] = useState(false);
+  const [conditionOptions, setConditionOptions] = useState<string[]>(
+    COMMON_CONDITIONS,
+  );
   const [loading, setLoading] = useState(isEdit);
   const [saving, setSaving] = useState(false);
   const [posting, setPosting] = useState(false);
@@ -95,6 +109,84 @@ export function ProductForm({
   const [postNote, setPostNote] = useState<string | null>(null);
 
   const channelConnected = channels.length > 0;
+
+  // Load Brand + Condition from form_fields when category changes (capped; typeahead searches remotely).
+  useEffect(() => {
+    const category = form.category.trim();
+    if (!category) {
+      setBrandOptions([]);
+      setModelOptions([]);
+      setBrandsTruncated(false);
+      setModelsTruncated(false);
+      setConditionOptions(COMMON_CONDITIONS);
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/catalog/form-fields?category=${encodeURIComponent(category)}`,
+        );
+        const data = (await res.json()) as {
+          brands?: string[];
+          brandsTruncated?: boolean;
+          conditions?: string[];
+        };
+        if (cancelled) return;
+        setBrandOptions(
+          mergeOptions(data.brands, brandsForCategory(category)),
+        );
+        setBrandsTruncated(Boolean(data.brandsTruncated));
+        setConditionOptions(
+          mergeOptions(data.conditions, COMMON_CONDITIONS),
+        );
+      } catch {
+        if (!cancelled) {
+          setBrandOptions(brandsForCategory(category));
+          setBrandsTruncated(false);
+          setConditionOptions(COMMON_CONDITIONS);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [form.category]);
+
+  // Load Model options when Brand changes (capped; large lists use remote typeahead).
+  useEffect(() => {
+    const category = form.category.trim();
+    const brand = form.brand.trim();
+    if (!category || !brand) {
+      setModelOptions([]);
+      setModelsTruncated(false);
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/catalog/form-fields?category=${encodeURIComponent(category)}&brand=${encodeURIComponent(brand)}`,
+        );
+        const data = (await res.json()) as {
+          models?: string[];
+          modelsTruncated?: boolean;
+        };
+        if (!cancelled) {
+          setModelOptions(data.models ?? []);
+          setModelsTruncated(Boolean(data.modelsTruncated));
+        }
+      } catch {
+        if (!cancelled) {
+          setModelOptions([]);
+          setModelsTruncated(false);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [form.category, form.brand]);
 
   async function applyStatus(next: AdminProduct["status"]) {
     if (!currentId) {
@@ -613,54 +705,48 @@ export function ProductForm({
           </div>
 
           <div className="admin-form-grid">
-            <label className="admin-field">
-              <span>Condition</span>
-              <input
-                className="field"
-                list="condition-suggestions"
-                value={form.condition}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, condition: e.target.value }))
-                }
-                placeholder="Brand New, Used, Refurbished…"
-                maxLength={60}
-              />
-              <datalist id="condition-suggestions">
-                <option value="Brand New" />
-                <option value="New" />
-                <option value="Local Used" />
-                <option value="Foreign Used" />
-                <option value="Used" />
-                <option value="Like New" />
-                <option value="Good" />
-                <option value="Fair" />
-                <option value="Refurbished" />
-              </datalist>
-            </label>
-            <label className="admin-field">
-              <span>Brand</span>
-              <input
-                className="field"
-                value={form.brand}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, brand: e.target.value }))
-                }
-                placeholder="Samsung, Nike, Toyota…"
-                maxLength={80}
-              />
-            </label>
-            <label className="admin-field">
-              <span>Model</span>
-              <input
-                className="field"
-                value={form.model}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, model: e.target.value }))
-                }
-                placeholder="Galaxy S23, Air Force 1…"
-                maxLength={120}
-              />
-            </label>
+            <SuggestSelect
+              label="Condition"
+              value={form.condition}
+              options={conditionOptions}
+              onChange={(condition) => setForm((f) => ({ ...f, condition }))}
+              disabled={saving}
+              placeholder="Select condition…"
+            />
+            <CatalogTypeahead
+              label="Brand"
+              kind="brand"
+              category={form.category}
+              value={form.brand}
+              options={brandOptions}
+              truncated={brandsTruncated}
+              onChange={(brand) =>
+                setForm((f) => ({
+                  ...f,
+                  brand,
+                  // Reset model when brand changes — models are brand-specific.
+                  model: brand === f.brand ? f.model : "",
+                }))
+              }
+              disabled={saving || !form.category.trim()}
+              placeholder={
+                form.category.trim() ? "Search brand…" : "Pick a category first"
+              }
+            />
+            <CatalogTypeahead
+              label="Model"
+              kind="model"
+              category={form.category}
+              brand={form.brand}
+              value={form.model}
+              options={modelOptions}
+              truncated={modelsTruncated}
+              onChange={(model) => setForm((f) => ({ ...f, model }))}
+              disabled={saving || !form.brand.trim()}
+              placeholder={
+                form.brand.trim() ? "Search model…" : "Pick a brand first"
+              }
+            />
           </div>
 
           <RegionSelect

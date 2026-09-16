@@ -39,9 +39,10 @@ export function CategoryCombobox({ value, onChange, disabled }: Props) {
     if ((open ? query : value).trim()) {
       return [{ group: "Matches", categories: results }];
     }
+    // Show the full scraped taxonomy (not a truncated preview).
     return CATEGORY_GROUPS.map((g) => ({
       group: g.group,
-      categories: g.categories.slice(0, 8),
+      categories: g.categories,
     }));
   }, [open, query, value, results]);
 

@@ -15,6 +15,13 @@
       "when": 1789511921203,
       "tag": "0001_add_product_commerce_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789540000000,
+      "tag": "0002_product_catalog_filter_indexes",
+      "breakpoints": true
     }
   ]
 }

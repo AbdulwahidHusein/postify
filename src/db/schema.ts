@@ -1,6 +1,7 @@
 import {
   bigint,
   boolean,
+  index,
   integer,
   jsonb,
   numeric,
@@ -213,6 +214,27 @@ export const products = pgTable(
       .where(
         sql`${table.sourceChatId} is not null and ${table.sourceMessageId} is not null`,
       ),
+    // Storefront catalog filters / facets (published lists by shop).
+    index("products_shop_status_category_idx").on(
+      table.shopId,
+      table.status,
+      table.category,
+    ),
+    index("products_shop_status_brand_idx").on(
+      table.shopId,
+      table.status,
+      table.brand,
+    ),
+    index("products_shop_status_model_idx").on(
+      table.shopId,
+      table.status,
+      table.model,
+    ),
+    index("products_shop_status_condition_idx").on(
+      table.shopId,
+      table.status,
+      table.condition,
+    ),
   ],
 );
 
