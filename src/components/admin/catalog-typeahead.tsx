@@ -128,7 +128,8 @@ export function CatalogTypeahead({
       return `${catalogSize.toLocaleString()} ${label.toLowerCase()}s — type to search`;
     }
     if (!(open ? query : value).trim() && catalogSize > 50) {
-      return `${catalogSize.toLocaleString()} ${label.toLowerCase()}s — type to filter (e.g. Toyota)`;
+      const example = kind === "brand" ? "Toyota" : "Corolla";
+      return `${catalogSize.toLocaleString()} ${label.toLowerCase()}s — type to filter (e.g. ${example})`;
     }
     return null;
   }, [kind, brand, catalogSize, label, useRemote, open, query, value]);
