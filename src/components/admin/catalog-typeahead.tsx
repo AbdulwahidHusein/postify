@@ -122,17 +122,20 @@ export function CatalogTypeahead({
 
   const catalogSize = totalCount ?? options.length;
   const helper = useMemo(() => {
+    if (!open) return null;
     if (kind === "model" && !brand.trim()) return "Pick a brand first";
-    if (!catalogSize) return `No ${label.toLowerCase()} list for this category yet — type a custom value`;
-    if (useRemote) {
-      return `${catalogSize.toLocaleString()} ${label.toLowerCase()}s — type to search`;
+    if (!catalogSize) {
+      return `No ${label.toLowerCase()} list yet — type a custom value`;
     }
-    if (!(open ? query : value).trim() && catalogSize > 50) {
+    if (useRemote) {
+      return `${catalogSize.toLocaleString()} available — keep typing`;
+    }
+    if (!query.trim() && catalogSize > 40) {
       const example = kind === "brand" ? "Toyota" : "Corolla";
-      return `${catalogSize.toLocaleString()} ${label.toLowerCase()}s — type to filter (e.g. ${example})`;
+      return `${catalogSize.toLocaleString()} available — try “${example}”`;
     }
     return null;
-  }, [kind, brand, catalogSize, label, useRemote, open, query, value]);
+  }, [open, kind, brand, catalogSize, label, useRemote, query]);
 
   function select(next: string) {
     onChange(next);

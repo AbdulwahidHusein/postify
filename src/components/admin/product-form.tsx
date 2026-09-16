@@ -471,54 +471,34 @@ export function ProductForm({
       : `${form.currency} ${Number(form.compareAtPrice.replace(/,/g, "") || 0).toLocaleString()}`;
 
   return (
-    <form className="admin-editor" onSubmit={onSubmit}>
-      <div className="admin-editor-main admin-stack">
-        <section className="admin-panel admin-form">
-          <header className="admin-section-head">
-            <div>
-              <p className="admin-kicker">
-                {isEdit ? "Edit product" : "New product"}
-              </p>
-              <h1 className="admin-h1">
-                {isEdit ? form.title || "Untitled" : "Create listing"}
-              </h1>
-              <p className="admin-lead">
-                Photos first, then details — save once when you’re ready.
-              </p>
-            </div>
-            <Link
-              href={`/dashboard/s/${shopSlug}/products`}
-              className="btn btn-ghost btn-sm"
-            >
-              Back
-            </Link>
-          </header>
+    <form className="admin-editor product-editor" onSubmit={onSubmit}>
+      <div className="admin-editor-main">
+        <header className="product-editor-head">
+          <div>
+            <p className="admin-kicker">
+              {isEdit ? "Edit product" : "New product"}
+            </p>
+            <h1 className="admin-h1">
+              {isEdit ? form.title || "Untitled" : "Create listing"}
+            </h1>
+          </div>
+          <Link
+            href={`/dashboard/s/${shopSlug}/products`}
+            className="btn btn-ghost btn-sm"
+          >
+            Back
+          </Link>
+        </header>
 
-          {error ? <p className="admin-error">{error}</p> : null}
-          {savedNote ? <p className="admin-success">Saved.</p> : null}
-        </section>
+        {error ? <p className="admin-error">{error}</p> : null}
+        {savedNote ? <p className="admin-success">Saved.</p> : null}
 
-        <div className="admin-panel">
-          <ProductImageGallery
-            productId={currentId}
-            images={images}
-            pendingFiles={pendingFiles}
-            onPendingChange={setPendingFiles}
-            onChange={(product) => {
-              setImages(product.images);
-              setSlug(product.slug);
-            }}
-          />
-        </div>
-
-        <section className="admin-panel admin-form">
+        <section className="admin-panel product-editor-sheet">
           {isEdit && form.status === "draft" ? (
-            <section className="admin-banner admin-banner-wait">
+            <div className="admin-banner admin-banner-wait">
               <div>
                 <strong>Draft</strong>
-                <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
-                  Not visible on the storefront until published.
-                </p>
+                <p>Not visible until published.</p>
               </div>
               <button
                 type="button"
@@ -528,17 +508,14 @@ export function ProductForm({
               >
                 Publish
               </button>
-            </section>
+            </div>
           ) : null}
 
           {isEdit && form.status === "published" ? (
-            <section className="admin-banner admin-banner-live">
+            <div className="admin-banner admin-banner-live">
               <div>
-                <strong>Live on your shop</strong>
-                <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
-                  When it sells, mark it sold — it leaves the catalog but keeps
-                  its link.
-                </p>
+                <strong>Live</strong>
+                <p>Visible in your shop.</p>
               </div>
               <button
                 type="button"
@@ -548,17 +525,14 @@ export function ProductForm({
               >
                 Mark sold
               </button>
-            </section>
+            </div>
           ) : null}
 
           {isEdit && form.status === "sold" ? (
-            <section className="admin-banner admin-banner-sold">
+            <div className="admin-banner admin-banner-sold">
               <div>
                 <strong>Sold</strong>
-                <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
-                  Hidden from the shop catalog. Shared links still open with a
-                  Sold badge.
-                </p>
+                <p>Hidden from the catalog.</p>
               </div>
               <button
                 type="button"
@@ -568,16 +542,14 @@ export function ProductForm({
               >
                 Relist
               </button>
-            </section>
+            </div>
           ) : null}
 
           {isEdit && form.status === "archived" ? (
-            <section className="admin-banner admin-banner-wait">
+            <div className="admin-banner admin-banner-wait">
               <div>
                 <strong>Archived</strong>
-                <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
-                  Hidden from buyers. Restore to put it back on the shop.
-                </p>
+                <p>Hidden from buyers.</p>
               </div>
               <button
                 type="button"
@@ -587,237 +559,271 @@ export function ProductForm({
               >
                 Restore
               </button>
-            </section>
+            </div>
           ) : null}
 
-          <label className="admin-field">
-            <span>Title</span>
-            <input
-              className="field"
-              value={form.title}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, title: e.target.value }))
-              }
-              required
-              maxLength={120}
-              placeholder="Nike Air Force 1 — White"
+          <div className="product-editor-section">
+            <h2 className="product-editor-section-title">Photos</h2>
+            <ProductImageGallery
+              productId={currentId}
+              images={images}
+              pendingFiles={pendingFiles}
+              onPendingChange={setPendingFiles}
+              onChange={(product) => {
+                setImages(product.images);
+                setSlug(product.slug);
+              }}
             />
-          </label>
+          </div>
 
-          <div className="admin-form-grid">
+          <div className="product-editor-section">
+            <h2 className="product-editor-section-title">Basics</h2>
             <label className="admin-field">
-              <span>Price</span>
+              <span>Title</span>
               <input
                 className="field"
-                inputMode="decimal"
-                value={form.price}
+                value={form.title}
                 onChange={(e) =>
-                  setForm((f) => ({ ...f, price: e.target.value }))
+                  setForm((f) => ({ ...f, title: e.target.value }))
                 }
-                placeholder="4500"
+                required
+                maxLength={120}
+                placeholder="e.g. Toyota Corolla 2018"
               />
             </label>
+
+            <div className="product-editor-row product-editor-row-price">
+              <label className="admin-field">
+                <span>Price</span>
+                <input
+                  className="field"
+                  inputMode="decimal"
+                  value={form.price}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, price: e.target.value }))
+                  }
+                  placeholder="4500"
+                />
+              </label>
+              <label className="admin-field product-editor-currency">
+                <span>Currency</span>
+                <input
+                  className="field"
+                  value={form.currency}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, currency: e.target.value }))
+                  }
+                  maxLength={8}
+                />
+              </label>
+              <label className="admin-field">
+                <span>Status</span>
+                <select
+                  className="field"
+                  value={form.status}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      status: e.target.value as AdminProduct["status"],
+                    }))
+                  }
+                >
+                  <option value="published">Published</option>
+                  <option value="draft">Draft</option>
+                  <option value="sold">Sold</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </label>
+            </div>
+
             <label className="admin-field">
-              <span>Currency</span>
-              <input
+              <span>Description</span>
+              <textarea
                 className="field"
-                value={form.currency}
+                rows={3}
+                value={form.description}
                 onChange={(e) =>
-                  setForm((f) => ({ ...f, currency: e.target.value }))
+                  setForm((f) => ({ ...f, description: e.target.value }))
                 }
-                maxLength={8}
+                maxLength={4000}
+                placeholder="Condition, key specs, what’s included…"
               />
             </label>
           </div>
 
-          <label className="admin-field">
-            <span>Description</span>
-            <textarea
-              className="field"
-              rows={4}
-              value={form.description}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, description: e.target.value }))
-              }
-              maxLength={4000}
-              placeholder="Condition, size, materials…"
-            />
-          </label>
-
-          <div className="admin-form-grid">
-            <label className="admin-field">
-              <span>Compare-at price</span>
-              <input
-                className="field"
-                inputMode="decimal"
-                value={form.compareAtPrice}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, compareAtPrice: e.target.value }))
-                }
-                placeholder="Optional original price"
-              />
-            </label>
-            <label className="admin-field">
-              <span>Status</span>
-              <select
-                className="field"
-                value={form.status}
-                onChange={(e) =>
-                  setForm((f) => ({
-                    ...f,
-                    status: e.target.value as AdminProduct["status"],
-                  }))
-                }
-              >
-                <option value="published">Published (live)</option>
-                <option value="draft">Draft</option>
-                <option value="sold">Sold</option>
-                <option value="archived">Archived</option>
-              </select>
-            </label>
-          </div>
-
-          <div className="admin-form-grid">
+          <div className="product-editor-section">
+            <h2 className="product-editor-section-title">Category & specs</h2>
             <CategoryCombobox
               value={form.category}
               onChange={(category) => setForm((f) => ({ ...f, category }))}
               disabled={saving}
             />
-            <label className="admin-field">
-              <span>SKU</span>
-              <input
-                className="field"
-                value={form.sku}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, sku: e.target.value }))
+
+            <div className="product-editor-row">
+              <CatalogTypeahead
+                label="Brand"
+                kind="brand"
+                category={form.category}
+                value={form.brand}
+                options={brandOptions}
+                truncated={brandsTruncated}
+                totalCount={brandsTotal}
+                onChange={(brand) =>
+                  setForm((f) => ({
+                    ...f,
+                    brand,
+                    model: brand === f.brand ? f.model : "",
+                  }))
                 }
-                placeholder="AF1-WHT-42"
-                maxLength={64}
-              />
-            </label>
-            <label className="admin-field">
-              <span>Stock quantity</span>
-              <input
-                className="field"
-                inputMode="numeric"
-                value={form.stockQuantity}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, stockQuantity: e.target.value }))
+                disabled={saving || !form.category.trim()}
+                placeholder={
+                  form.category.trim()
+                    ? "Type to search brand…"
+                    : "Pick a category first"
                 }
-                placeholder="Leave empty if unlimited"
               />
-            </label>
-            <div className="admin-field-span">
+              <CatalogTypeahead
+                label="Model"
+                kind="model"
+                category={form.category}
+                brand={form.brand}
+                value={form.model}
+                options={modelOptions}
+                truncated={modelsTruncated}
+                totalCount={modelsTotal}
+                onChange={(model) => setForm((f) => ({ ...f, model }))}
+                disabled={saving || !form.brand.trim()}
+                placeholder={
+                  form.brand.trim() ? "Type to search model…" : "Pick a brand first"
+                }
+              />
+            </div>
+
+            <div className="product-editor-row">
+              <SuggestSelect
+                label="Condition"
+                value={form.condition}
+                options={conditionOptions}
+                onChange={(condition) =>
+                  setForm((f) => ({ ...f, condition }))
+                }
+                disabled={saving}
+                placeholder="Select condition…"
+              />
+              <RegionSelect
+                value={form.location}
+                onChange={(location) => setForm((f) => ({ ...f, location }))}
+                disabled={saving}
+              />
+            </div>
+
+            {form.category ? (
+              <CategoryAttributes
+                category={form.category}
+                values={attributes}
+                onChange={setAttributes}
+                disabled={saving}
+              />
+            ) : null}
+          </div>
+
+          <details className="product-editor-more">
+            <summary>More details</summary>
+            <div className="product-editor-more-body">
+              <div className="product-editor-row">
+                <label className="admin-field">
+                  <span>Compare-at price</span>
+                  <input
+                    className="field"
+                    inputMode="decimal"
+                    value={form.compareAtPrice}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        compareAtPrice: e.target.value,
+                      }))
+                    }
+                    placeholder="Optional"
+                  />
+                </label>
+                <label className="admin-field">
+                  <span>SKU</span>
+                  <input
+                    className="field"
+                    value={form.sku}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, sku: e.target.value }))
+                    }
+                    placeholder="Optional"
+                    maxLength={64}
+                  />
+                </label>
+                <label className="admin-field">
+                  <span>Stock</span>
+                  <input
+                    className="field"
+                    inputMode="numeric"
+                    value={form.stockQuantity}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        stockQuantity: e.target.value,
+                      }))
+                    }
+                    placeholder="Unlimited"
+                  />
+                </label>
+              </div>
+
               <TagsInput
                 value={form.tags}
                 onChange={(tags) => setForm((f) => ({ ...f, tags }))}
                 disabled={saving}
               />
+
+              <label className="admin-field admin-field-inline product-editor-check">
+                <input
+                  type="checkbox"
+                  checked={form.isNegotiable}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      isNegotiable: e.target.checked,
+                    }))
+                  }
+                  disabled={saving}
+                />
+                <span>Price is negotiable</span>
+              </label>
+
+              <label className="admin-field">
+                <span>Shipping / pickup</span>
+                <input
+                  className="field"
+                  value={form.shippingInfo}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, shippingInfo: e.target.value }))
+                  }
+                  placeholder="Optional"
+                  maxLength={500}
+                />
+              </label>
+              <label className="admin-field">
+                <span>Return policy</span>
+                <input
+                  className="field"
+                  value={form.returnPolicy}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, returnPolicy: e.target.value }))
+                  }
+                  placeholder="Optional"
+                  maxLength={500}
+                />
+              </label>
             </div>
-          </div>
+          </details>
 
-          <div className="admin-form-grid">
-            <SuggestSelect
-              label="Condition"
-              value={form.condition}
-              options={conditionOptions}
-              onChange={(condition) => setForm((f) => ({ ...f, condition }))}
-              disabled={saving}
-              placeholder="Select condition…"
-            />
-            <CatalogTypeahead
-              label="Brand"
-              kind="brand"
-              category={form.category}
-              value={form.brand}
-              options={brandOptions}
-              truncated={brandsTruncated}
-              totalCount={brandsTotal}
-              onChange={(brand) =>
-                setForm((f) => ({
-                  ...f,
-                  brand,
-                  // Reset model when brand changes — models are brand-specific.
-                  model: brand === f.brand ? f.model : "",
-                }))
-              }
-              disabled={saving || !form.category.trim()}
-              placeholder={
-                form.category.trim() ? "Type brand (e.g. Toyota)…" : "Pick a category first"
-              }
-            />
-            <CatalogTypeahead
-              label="Model"
-              kind="model"
-              category={form.category}
-              brand={form.brand}
-              value={form.model}
-              options={modelOptions}
-              truncated={modelsTruncated}
-              totalCount={modelsTotal}
-              onChange={(model) => setForm((f) => ({ ...f, model }))}
-              disabled={saving || !form.brand.trim()}
-              placeholder={
-                form.brand.trim() ? "Type model…" : "Pick a brand first"
-              }
-            />
-          </div>
-
-          <RegionSelect
-            value={form.location}
-            onChange={(location) => setForm((f) => ({ ...f, location }))}
-            disabled={saving}
-          />
-
-          {form.category ? (
-            <CategoryAttributes
-              category={form.category}
-              values={attributes}
-              onChange={setAttributes}
-              disabled={saving}
-            />
-          ) : null}
-
-          <label className="admin-field admin-field-inline">
-            <input
-              type="checkbox"
-              checked={form.isNegotiable}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, isNegotiable: e.target.checked }))
-              }
-              disabled={saving}
-            />
-            <span>Price is negotiable</span>
-          </label>
-
-          <div className="admin-form-grid">
-            <label className="admin-field">
-              <span>Shipping / pickup info (optional)</span>
-              <input
-                className="field"
-                value={form.shippingInfo}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, shippingInfo: e.target.value }))
-                }
-                placeholder="Free delivery in Addis, pickup in Bole…"
-                maxLength={500}
-              />
-            </label>
-            <label className="admin-field">
-              <span>Return policy (optional)</span>
-              <input
-                className="field"
-                value={form.returnPolicy}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, returnPolicy: e.target.value }))
-                }
-                placeholder="7-day returns, no returns…"
-                maxLength={500}
-              />
-            </label>
-          </div>
-
-          <div className="admin-actions">
+          <div className="product-editor-actions">
             <button
               type="submit"
               className="btn btn-primary"
@@ -869,22 +875,11 @@ export function ProductForm({
             ) : null}
           </div>
           {postNote ? <p className="admin-success">{postNote}</p> : null}
-          {!isEdit ? (
-            <p className="admin-hint">
-              Add photos above, fill in the details, then save once.
-            </p>
-          ) : !channelConnected ? (
-            <p className="admin-hint">
-              Connect a channel to post this product to Telegram with an Open in
-              shop button.
-            </p>
-          ) : null}
         </section>
 
         {(isEdit && fromChannel) || telegramUrl ? (
-          <section className="admin-panel">
-            <p className="admin-kicker">Telegram</p>
-            <h2 className="admin-h2">Channel link</h2>
+          <section className="admin-panel product-editor-meta">
+            <h2 className="product-editor-section-title">Telegram</h2>
             {telegramUrl ? (
               <p className="admin-muted">
                 Linked to a channel post.{" "}
@@ -897,107 +892,42 @@ export function ProductForm({
                 </a>
               </p>
             ) : (
-              <p className="admin-muted">
-                Imported from Telegram (private link unavailable without a
-                public @username).
-              </p>
+              <p className="admin-muted">Imported from Telegram.</p>
             )}
-            <dl className="admin-meta-list">
-              {confidence != null ? (
-                <>
-                  <dt>Confidence</dt>
-                  <dd>{(confidence * 100).toFixed(0)}%</dd>
-                </>
-              ) : null}
-              {sourceMessageId != null ? (
-                <>
-                  <dt>Message id</dt>
-                  <dd className="admin-mono">{sourceMessageId}</dd>
-                </>
-              ) : null}
-              {sourceChatId ? (
-                <>
-                  <dt>Chat id</dt>
-                  <dd className="admin-mono">{sourceChatId}</dd>
-                </>
-              ) : null}
-            </dl>
             {rawCaption ? (
-              <>
-                <p className="admin-hint">Original caption</p>
-                <pre className="admin-raw-caption">{rawCaption}</pre>
-              </>
+              <pre className="admin-raw-caption">{rawCaption}</pre>
             ) : null}
           </section>
         ) : null}
       </div>
 
-      <aside className="admin-editor-aside admin-panel">
-        <p className="admin-kicker">Live preview</p>
+      <aside className="admin-editor-aside admin-panel product-editor-preview">
+        <p className="admin-kicker">Preview</p>
         <div className="admin-preview-media">
           {coverSrc ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={coverSrc} alt="" />
           ) : (
-            <span className="admin-muted">No cover image yet</span>
+            <span className="admin-muted">No photo yet</span>
           )}
         </div>
-        {images.length > 1 ? (
-          <div className="preview-thumbs">
-            {images.slice(0, 5).map((img) =>
-              img.src ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={img.id} src={img.src} alt="" />
-              ) : null,
-            )}
-          </div>
-        ) : null}
-        <h2 className="admin-h2">{form.title || "Untitled product"}</h2>
+        <h2 className="admin-h2">{form.title || "Untitled"}</h2>
         <div className="preview-price-row">
           <p className="admin-price">{pricePreview}</p>
           {comparePreview ? (
             <p className="preview-compare">{comparePreview}</p>
           ) : null}
         </div>
-        {form.category || form.sku ? (
+        {(form.brand || form.model || form.category) && (
           <p className="admin-muted">
-            {[form.category, form.sku ? `SKU ${form.sku}` : null]
+            {[form.brand, form.model, form.category]
               .filter(Boolean)
               .join(" · ")}
           </p>
-        ) : null}
-        {form.stockQuantity.trim() ? (
-          <p className="admin-muted">{form.stockQuantity} in stock</p>
-        ) : null}
-        {form.description ? (
-          <p className="admin-muted admin-pre">{form.description}</p>
-        ) : (
-          <p className="admin-muted">Description will appear here.</p>
         )}
-        {form.tags.trim() ? (
-          <div className="preview-tags">
-            {form.tags
-              .split(",")
-              .map((t) => t.trim())
-              .filter(Boolean)
-              .map((tag) => (
-                <span key={tag} className="admin-chip">
-                  {tag}
-                </span>
-              ))}
-          </div>
-        ) : null}
         {slug && (form.status === "published" || form.status === "sold") ? (
           <Link href={`/p/${slug}`} className="btn btn-ghost btn-sm">
-            {form.status === "sold" ? "Open sold page" : "Open public page"}
-          </Link>
-        ) : null}
-        {isEdit && currentId ? (
-          <Link
-            href={`/dashboard/s/${shopSlug}/inbox?productId=${currentId}`}
-            className="btn btn-ghost btn-sm"
-          >
-            Messages
+            Open public page
           </Link>
         ) : null}
       </aside>
