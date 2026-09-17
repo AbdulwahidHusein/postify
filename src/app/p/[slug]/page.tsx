@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/storefront/product-card";
 import { ProductMediaGallery } from "@/components/storefront/product-media-gallery";
+import { ProductSpecs } from "@/components/storefront/product-specs";
 import { StorefrontNav } from "@/components/storefront/storefront-nav";
 import { MessageSellerButton } from "@/components/chat/message-seller-button";
 import { RequestOrderButton } from "@/components/storefront/request-order-button";
@@ -220,28 +221,7 @@ export default async function ProductPage({ params }: Props) {
               </div>
             ) : null}
 
-            {(product.brand || product.model || product.location) ? (
-              <dl className="buy-specs">
-                {product.brand ? (
-                  <div className="buy-spec-row">
-                    <dt>Brand</dt>
-                    <dd>{product.brand}</dd>
-                  </div>
-                ) : null}
-                {product.model ? (
-                  <div className="buy-spec-row">
-                    <dt>Model</dt>
-                    <dd>{product.model}</dd>
-                  </div>
-                ) : null}
-                {product.location ? (
-                  <div className="buy-spec-row">
-                    <dt>Location</dt>
-                    <dd>{product.location}</dd>
-                  </div>
-                ) : null}
-              </dl>
-            ) : null}
+            <ProductSpecs product={product} />
 
             {description ? <p className="buy-desc">{description}</p> : null}
 
@@ -251,20 +231,6 @@ export default async function ProductPage({ params }: Props) {
                   <li key={tag}>{tag}</li>
                 ))}
               </ul>
-            ) : null}
-
-            {product.attributes &&
-            Object.keys(product.attributes).length > 0 ? (
-              <dl className="buy-specs buy-specs-attrs">
-                {Object.entries(product.attributes)
-                  .filter(([, v]) => v?.trim())
-                  .map(([key, value]) => (
-                    <div className="buy-spec-row" key={key}>
-                      <dt>{key}</dt>
-                      <dd>{value}</dd>
-                    </div>
-                  ))}
-              </dl>
             ) : null}
 
             {product.shippingInfo || product.returnPolicy ? (

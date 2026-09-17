@@ -59,6 +59,11 @@ export async function postProductToConnectedChannel(productId: string) {
     description: product.description,
     price: product.price,
     currency: product.currency,
+    brand: product.brand,
+    model: product.model,
+    condition: product.condition,
+    location: product.location,
+    attributes: product.attributes ?? {},
   });
   const keyboard = {
     inline_keyboard: [[{ text: "Open in Goods", url: shopUrl }]],

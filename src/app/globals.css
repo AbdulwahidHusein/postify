@@ -1976,6 +1976,30 @@ html[data-platform="tma"] .admin-editor-aside {
   gap: 0.75rem;
 }
 
+.admin-preview-attrs {
+  margin: 0;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.admin-preview-attrs > div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 0.35rem;
+}
+
+.admin-preview-attrs dt {
+  margin: 0;
+  color: var(--muted);
+}
+
+.admin-preview-attrs dd {
+  margin: 0;
+  font-weight: 600;
+  word-break: break-word;
+}
+
 /* Give the form the full width until large desktops */
 @media (max-width: 1199px) {
   .product-editor {
@@ -3054,25 +3078,43 @@ html[data-platform="tma"] .admin-editor-aside {
   color: #9a3412;
 }
 
-.buy-specs {
-  margin: 0.4rem 0 0;
+.buy-details {
+  margin: 0.85rem 0 0;
   display: grid;
-  gap: 0.3rem;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.6rem 0.8rem;
-  background: var(--paper-muted);
+  gap: 0.45rem;
 }
 
-.buy-specs-attrs {
-  margin-top: 0.6rem;
+.buy-details-title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.buy-specs {
+  margin: 0;
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.15rem 0;
+  background: var(--surface);
+  overflow: hidden;
 }
 
 .buy-spec-row {
   display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.5rem;
-  font-size: 0.86rem;
+  grid-template-columns: minmax(7rem, 38%) 1fr;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.buy-spec-row:first-child {
+  border-top: none;
 }
 
 .buy-spec-row dt {
@@ -3083,7 +3125,26 @@ html[data-platform="tma"] .admin-editor-aside {
 .buy-spec-row dd {
   margin: 0;
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+@media (max-width: 520px) {
+  .buy-spec-row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}
+
+.buy-card-meta {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .buy-policy {

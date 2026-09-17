@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { formatPrice, productImageSrc } from "@/lib/products";
+import { productSpecSummary } from "@/lib/product-specs";
 import type { Product, ProductImage } from "@/db/schema";
 
 type ProductCardProduct = Product & { images: ProductImage[] };
@@ -23,6 +24,7 @@ export function ProductCard({ product }: { product: ProductCardProduct }) {
     !isSold && product.compareAtPrice != null
       ? `${product.currency} ${Number(product.compareAtPrice).toLocaleString()}`
       : null;
+  const summary = productSpecSummary(product);
 
   return (
     <Link href={`/p/${product.slug}`} className="buy-card">
@@ -42,6 +44,7 @@ export function ProductCard({ product }: { product: ProductCardProduct }) {
       </div>
       <div className="buy-card-body">
         <strong className="buy-card-title">{product.title}</strong>
+        {summary ? <p className="buy-card-meta">{summary}</p> : null}
         <div className="buy-card-price-row">
           <span
             className={

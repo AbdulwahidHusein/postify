@@ -934,6 +934,19 @@ export function ProductForm({
               .join(" · ")}
           </p>
         )}
+        {Object.entries(attributes).filter(([, v]) => v.trim()).length > 0 ? (
+          <dl className="admin-preview-attrs">
+            {Object.entries(attributes)
+              .filter(([, v]) => v.trim())
+              .slice(0, 8)
+              .map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+          </dl>
+        ) : null}
         {slug && (form.status === "published" || form.status === "sold") ? (
           <Link href={`/p/${slug}`} className="btn btn-ghost btn-sm">
             Open public page

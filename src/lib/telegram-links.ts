@@ -25,6 +25,11 @@ export function buildProductChannelCaption(product: {
   description?: string | null;
   price?: number | string | null;
   currency?: string | null;
+  brand?: string | null;
+  model?: string | null;
+  condition?: string | null;
+  location?: string | null;
+  attributes?: Record<string, string> | null;
 }): string {
   const lines: string[] = [product.title.trim()];
   if (product.price != null && product.price !== "") {
@@ -35,8 +40,21 @@ export function buildProductChannelCaption(product: {
       );
     }
   }
+
+  const meta = [product.brand, product.model, product.condition, product.location]
+    .map((v) => v?.trim())
+    .filter(Boolean);
+  if (meta.length) lines.push(meta.join(" · "));
+
+  const attrs = Object.entries(product.attributes ?? {})
+    .filter(([, v]) => v?.trim())
+    .slice(0, 8);
+  for (const [k, v] of attrs) {
+    lines.push(`${k}: ${v.trim()}`);
+  }
+
   if (product.description?.trim()) {
-    lines.push("", product.description.trim().slice(0, 800));
+    lines.push("", product.description.trim().slice(0, 600));
   }
   return lines.join("\n").slice(0, 1024);
 }
