@@ -317,7 +317,12 @@ export function ProductForm({
       model: form.model.trim() || null,
       location: form.location.trim() || null,
       isNegotiable: form.isNegotiable,
-      attributes: Object.keys(attributes).length > 0 ? attributes : null,
+      attributes: (() => {
+        const cleaned = Object.fromEntries(
+          Object.entries(attributes).filter(([, v]) => v.trim()),
+        );
+        return Object.keys(cleaned).length > 0 ? cleaned : null;
+      })(),
       shippingInfo: form.shippingInfo.trim() || null,
       returnPolicy: form.returnPolicy.trim() || null,
       status: form.status,
