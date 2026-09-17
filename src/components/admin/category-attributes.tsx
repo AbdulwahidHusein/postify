@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-type AttributeSuggestion = {
+type FormFieldMeta = {
   name: string;
-  unit: string | null;
-  values: string[];
+  required?: boolean;
 };
 
 type Props = {
@@ -15,13 +14,9 @@ type Props = {
   disabled?: boolean;
 };
 
-const CUSTOM = "__custom__";
-
 /**
- * Dynamic attribute dropdowns for the selected category.
- *
- * Fetches attributes lazily per category from /api/catalog/attributes.
- * Skips Condition / Brand / Model — those map to dedicated product columns.
+ * Category-specific detail fields from mined Jiji form_fields (names only).
+ * Values are free text — we don't require enums.
  */
 export function CategoryAttributes({
   category,
@@ -29,14 +24,13 @@ export function CategoryAttributes({
   onChange,
   disabled,
 }: Props) {
-  const [attrs, setAttrs] = useState<AttributeSuggestion[]>([]);
+  const [fields, setFields] = useState<FormFieldMeta[]>([]);
   const [loading, setLoading] = useState(false);
-  const [customActive, setCustomActive] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const trimmed = category?.trim();
     if (!trimmed) {
-      setAttrs([]);
+      setFields([]);
       return;
     }
     let cancelled = false;
@@ -44,24 +38,35 @@ export function CategoryAttributes({
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/catalog/attributes?category=${encodeURIComponent(trimmed)}`,
+          `/api/catalog/form-fields?category=${encodeURIComponent(trimmed)}`,
+          { cache: "no-store" },
         );
-        const data = (await res.json()) as { attributes?: AttributeSuggestion[] };
-        if (!cancelled) {
-          const filtered = (data.attributes ?? []).filter(
-            (a) => !/^(condition|brand|model|make)$/i.test(a.name.trim()),
+        const data = (await res.json()) as {
+          fields?: Array<{ name?: string; required?: boolean }>;
+        };
+        if (cancelled) return;
+        const next = (data.fields ?? [])
+          .map((f) => ({
+            name: (f.name ?? "").trim(),
+            required: Boolean(f.required),
+          }))
+          .filter(
+            (f) =>
+              f.name &&
+              !/^(condition|brand|model|make)$/i.test(f.name),
           );
-          setAttrs(filtered);
-          setCustomActive((prev) => {
-            const next: Record<string, boolean> = {};
-            for (const a of filtered) {
-              next[a.name] = prev[a.name] ?? false;
-            }
-            return next;
-          });
-        }
+        // Dedupe by name
+        const seen = new Set<string>();
+        setFields(
+          next.filter((f) => {
+            const key = f.name.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          }),
+        );
       } catch {
-        if (!cancelled) setAttrs([]);
+        if (!cancelled) setFields([]);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -71,73 +76,41 @@ export function CategoryAttributes({
     };
   }, [category]);
 
-  if (!category?.trim() || (attrs.length === 0 && !loading)) return null;
+  if (!category?.trim() || (fields.length === 0 && !loading)) return null;
 
   function update(name: string, value: string) {
     onChange({ ...values, [name]: value });
   }
 
   return (
-    <div className="admin-form-grid">
-      {attrs.map((attr) => {
-        const current = values[attr.name] ?? "";
-        const isCustom = customActive[attr.name] ?? false;
-        const isKnown =
-          !current || attr.values.includes(current) || current === "";
-        const showSelect = !isCustom && (isKnown || !current);
-
-        return (
-          <label className="admin-field" key={attr.name}>
+    <div className="product-editor-attrs">
+      <p className="product-editor-attrs-label">
+        Category details
+        {loading ? "…" : null}
+      </p>
+      <div className="product-editor-row product-editor-attrs-grid">
+        {fields.map((field) => (
+          <label className="admin-field" key={field.name}>
             <span>
-              {attr.name}
-              {attr.unit ? ` (${attr.unit})` : null}
+              {field.name}
+              {field.required ? (
+                <span className="product-editor-req" aria-hidden>
+                  {" "}
+                  *
+                </span>
+              ) : null}
             </span>
-            {showSelect ? (
-              <select
-                className="field"
-                disabled={disabled}
-                value={current}
-                onChange={(e) => {
-                  if (e.target.value === CUSTOM) {
-                    setCustomActive((p) => ({ ...p, [attr.name]: true }));
-                    update(attr.name, "");
-                  } else {
-                    update(attr.name, e.target.value);
-                  }
-                }}
-              >
-                <option value="">Select {attr.name}…</option>
-                {attr.values.map((v) => (
-                  <option key={v} value={v}>
-                    {v}
-                  </option>
-                ))}
-                <option value={CUSTOM}>Custom…</option>
-              </select>
-            ) : (
-              <div className="attr-custom-row">
-                <input
-                  className="field"
-                  disabled={disabled}
-                  value={current}
-                  onChange={(e) => update(attr.name, e.target.value)}
-                  placeholder={`Enter ${attr.name}`}
-                />
-                <button
-                  type="button"
-                  className="btn btn-ghost btn-xs"
-                  onClick={() => {
-                    setCustomActive((p) => ({ ...p, [attr.name]: false }));
-                    update(attr.name, "");
-                  }}
-                >
-                  ▾
-                </button>
-              </div>
-            )}
+            <input
+              className="field"
+              disabled={disabled}
+              value={values[field.name] ?? ""}
+              onChange={(e) => update(field.name, e.target.value)}
+              placeholder={field.name}
+              maxLength={120}
+            />
           </label>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 }

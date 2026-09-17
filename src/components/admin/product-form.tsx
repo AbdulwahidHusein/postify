@@ -716,20 +716,24 @@ export function ProductForm({
                 disabled={saving}
               />
             </div>
-
-            {form.category ? (
-              <CategoryAttributes
-                category={form.category}
-                values={attributes}
-                onChange={setAttributes}
-                disabled={saving}
-              />
-            ) : null}
           </div>
 
-          <details className="product-editor-more">
+          <details className="product-editor-more" open={Boolean(form.category.trim())}>
             <summary>More details</summary>
             <div className="product-editor-more-body">
+              {form.category ? (
+                <CategoryAttributes
+                  category={form.category}
+                  values={attributes}
+                  onChange={setAttributes}
+                  disabled={saving}
+                />
+              ) : (
+                <p className="admin-muted">
+                  Pick a category to see fields like RAM, screen size, year…
+                </p>
+              )}
+
               <div className="product-editor-row">
                 <label className="admin-field">
                   <span>Compare-at price</span>

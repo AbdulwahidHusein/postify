@@ -1905,6 +1905,33 @@ html[data-platform="tma"] .admin-editor-aside {
   padding: 0.35rem 0 0.25rem;
 }
 
+.product-editor-attrs {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.product-editor-attrs-label {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--muted);
+}
+
+.product-editor-attrs-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .product-editor-attrs-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product-editor-req {
+  color: var(--signal);
+  font-weight: 700;
+}
+
 .product-editor-check {
   flex-direction: row !important;
   align-items: center !important;
