@@ -25,6 +25,10 @@ export async function enqueue(
   opts: EnqueueOptions = {},
 ): Promise<EnqueueResult> {
   if (serverEnv.TASKS_MODE === "cloud") return enqueueCloud(queue, payload, opts);
+  if (serverEnv.TASKS_MODE === "db") {
+    const { enqueueDb } = await import("@/server/services/job-queue");
+    return enqueueDb(queue, payload, opts);
+  }
   return enqueueInline(queue, payload, opts);
 }
 

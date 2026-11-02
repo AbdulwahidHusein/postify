@@ -308,6 +308,8 @@ export const productVariants = pgTable(
 
 export const imageStatusEnum = pgEnum("image_status", ["pending", "ready", "failed"]);
 
+export type TelegramPhotoSize = { fileId: string; width: number; height: number; fileSize?: number };
+
 export const productImages = pgTable(
   "product_images",
   {
@@ -319,8 +321,10 @@ export const productImages = pgTable(
       .notNull()
       .references(() => shops.id, { onDelete: "cascade" }),
     telegramFileId: text("telegram_file_id"),
+    /** Every size Telegram made of this photo; served as-is instead of resizing. */
+    telegramSizes: jsonb("telegram_sizes").$type<TelegramPhotoSize[]>(),
     originalKey: text("original_key"),
-    /** Base key; renditions are `${key}-${width}.webp`. */
+    /** Base key; renditions are `${key}-${width}.webp` (or `.jpg` when the key ends in "@jpg"). */
     storageKey: text("storage_key"),
     width: integer("width"),
     height: integer("height"),
@@ -759,6 +763,38 @@ export const aiCache = pgTable("ai_cache", {
   result: jsonb("result").$type<Record<string, unknown>>().notNull(),
   createdAt: createdAt(),
 });
+
+// ── background jobs (TASKS_MODE=db) ───────────────────────────────────────────
+/**
+ * Durable job queue in Postgres, used on serverless hosts (Vercel). Rows are
+ * claimed with FOR UPDATE SKIP LOCKED, retried with backoff, and kept for a
+ * day after success so `name` keeps de-duplicating (like Cloud Tasks).
+ */
+export const jobStatusEnum = pgEnum("job_status", ["pending", "running", "done", "failed"]);
+
+export const jobs = pgTable(
+  "jobs",
+  {
+    id: id(),
+    queue: text("queue").notNull(),
+    /** Dedup key: unique per queue. */
+    name: text("name"),
+    payload: jsonb("payload").$type<Record<string, unknown>>().notNull(),
+    status: jobStatusEnum("status").notNull().default("pending"),
+    runAt: timestamp("run_at", { withTimezone: true }).notNull().defaultNow(),
+    lockedUntil: timestamp("locked_until", { withTimezone: true }),
+    attempts: integer("attempts").notNull().default(0),
+    lastError: text("last_error"),
+    finishedAt: timestamp("finished_at", { withTimezone: true }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    uniqueIndex("jobs_queue_name_uidx").on(t.queue, t.name),
+    index("jobs_due_idx").on(t.status, t.runAt),
+  ],
+);
+
+export type JobRow = typeof jobs.$inferSelect;
 
 // ── relations ───────────────────────────────────────────────────────────────
 export const shopsRelations = relations(shops, ({ many }) => ({

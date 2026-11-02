@@ -14,8 +14,9 @@ function safeEqual(a: string, b: string) {
 
 /**
  * Authenticate a Cloud Tasks / Cloud Scheduler push: a Google-signed OIDC
- * token for our service account with our audience. In local dev (never in
- * production) a shared INTERNAL_DEV_SECRET header is accepted instead.
+ * token for our service account with our audience, or (Vercel) the shared
+ * CRON_SECRET as a Bearer token. In local dev (never in production) a shared
+ * INTERNAL_DEV_SECRET header is accepted too.
  */
 export async function verifyInternalRequest(request: Request): Promise<boolean> {
   const auth = request.headers.get("authorization") ?? "";
@@ -26,6 +27,9 @@ export async function verifyInternalRequest(request: Request): Promise<boolean> 
     if (dev && safeEqual(dev, serverEnv.INTERNAL_DEV_SECRET)) return true;
   }
   if (!token) return false;
+
+  // Vercel Cron and the GitHub Actions schedule send CRON_SECRET as a Bearer token.
+  if (serverEnv.CRON_SECRET && safeEqual(token, serverEnv.CRON_SECRET)) return true;
 
   const audience = serverEnv.TASKS_AUDIENCE || serverEnv.TASKS_TARGET_URL.replace(/\/$/, "");
   if (!audience || !serverEnv.TASKS_SERVICE_ACCOUNT) return false;

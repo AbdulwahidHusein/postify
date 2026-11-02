@@ -1,6 +1,57 @@
 # Deploying Goods
 
-Target: Cloud Run (GCP) + Neon Postgres + Cloudflare (DNS, R2, Worker). At low traffic everything scales to zero; expect a few dollars a month plus AI usage, which is capped by `AI_DAILY_BUDGET_USD`.
+There are two supported setups. Both run the same code:
+
+- **Vercel (recommended for the beta):** one Next.js app. Background jobs use a Postgres queue (`TASKS_MODE=db`) that runs right after each request, plus a sweep every 5 minutes.
+- **Google Cloud Run:** Docker image, Cloud Tasks and Cloud Scheduler (`TASKS_MODE=cloud`). See the second half of this guide.
+
+Neon (database) and Cloudflare R2 (images) are used in both.
+
+# A. Vercel
+
+## What you need
+- A Neon database: the pooled connection string and the direct one.
+- A Cloudflare R2 bucket pair with an API token (see *2. Cloudflare* below, steps 2–3).
+- The Telegram bot token and a webhook secret (`openssl rand -hex 32`).
+- A cron secret (`openssl rand -hex 32`).
+
+## Steps
+1. Create `.env.production` from `.env.example`. Set:
+   - `TASKS_MODE=db` and `CRON_SECRET`;
+   - `NEXT_PUBLIC_APP_URL`: your Vercel URL, e.g. `https://goods-et.vercel.app`, or your own domain;
+   - `SHOP_SUBDOMAINS=false` until you add a wildcard domain. Shops then live at `<app>/s/<handle>`.
+2. Install the Vercel CLI and link the project (once):
+   ```bash
+   npm i -g vercel && vercel login && vercel link
+   ```
+3. Push the env vars, deploy, and register the bot webhook:
+   ```bash
+   ./scripts/vercel-setup.sh .env.production
+   ```
+   The build runs `npm run vercel-build`, which applies database migrations before `next build`. Functions run in Frankfurt (`fra1`), close to Neon's `eu-central-1`.
+4. Make the background sweep run every 5 minutes. Vercel's free cron only runs daily, so in GitHub, under the repository's Settings → Secrets and variables → Actions:
+   - add the variable `APP_URL` (the production URL);
+   - add the secret `CRON_SECRET` (the same value as in Vercel).
+
+   `.github/workflows/cron.yml` then calls `/internal/cron/sweep` every 5 minutes. `vercel.json` adds a daily nightly job and a daily sweep as a backup.
+5. Open the bot in Telegram, tap **Connect channel**, and post a photo with a price.
+
+## How background work runs on Vercel
+- Telegram's webhook answers in milliseconds. The update is stored and an `ingest` job is inserted into the `jobs` table.
+- Next.js `after()` keeps the function alive after the response and drains due jobs:
+  - it waits a few seconds for album parts to arrive;
+  - jobs are claimed with `FOR UPDATE SKIP LOCKED`, so concurrent instances never run the same job twice.
+- Failures retry with exponential backoff; Telegram rate limits use Telegram's `retry_after`. After too many attempts a job is marked failed and you get an ops message in Telegram.
+- Anything delayed longer, or left behind by a crashed instance (its lock expires after 2 minutes), is picked up by the 5-minute sweep.
+- Channel photos are copied in the sizes Telegram already produced, so no image processing runs on Vercel. Only photos uploaded from the dashboard are resized.
+
+## Preview deployments
+Scope the database variables to **Production** only, or give previews their own Neon branch. Otherwise a preview build would run migrations against the production database.
+
+## Later: shop subdomains
+Add `goods.et` and `*.goods.et` to the Vercel project; the wildcard needs Vercel's nameservers. Then set `ROOT_DOMAIN=goods.et`, `SHOP_SUBDOMAINS=true` and `COOKIE_DOMAIN=.goods.et`, and redeploy.
+
+# B. Google Cloud Run
 
 ## 1. Neon
 

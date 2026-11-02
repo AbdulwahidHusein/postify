@@ -21,6 +21,7 @@ export function proxy(request: NextRequest) {
     host === "localhost" ||
     host === "127.0.0.1" ||
     host.endsWith(".run.app") ||
+    host.endsWith(".vercel.app") ||
     PASSTHROUGH.test(pathname)
   ) {
     return NextResponse.next();

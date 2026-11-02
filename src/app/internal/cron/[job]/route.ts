@@ -4,9 +4,14 @@ import { nightly, sweep } from "@/server/jobs/scheduled";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-export const maxDuration = 300;
+// 60 s fits every Vercel plan; the sweep stops starting new jobs after ~50 s.
+export const maxDuration = 60;
 
-/** Cloud Scheduler targets: /internal/cron/sweep (every 5 min) and /internal/cron/nightly. */
+/**
+ * /internal/cron/sweep (every 5 min) and /internal/cron/nightly. Called by
+ * Cloud Scheduler (POST + OIDC), Vercel Cron (GET + CRON_SECRET) or the
+ * GitHub Actions schedule (POST + CRON_SECRET).
+ */
 export async function POST(request: Request, ctx: { params: Promise<{ job: string }> }) {
   if (!(await verifyInternalRequest(request))) return new Response("forbidden", { status: 403 });
   const { job } = await ctx.params;
@@ -19,3 +24,6 @@ export async function POST(request: Request, ctx: { params: Promise<{ job: strin
     return new Response("failed", { status: 500 });
   }
 }
+
+
+export const GET = POST;

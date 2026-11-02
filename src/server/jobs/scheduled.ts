@@ -23,6 +23,8 @@ import { rollupDay } from "@/server/domain/analytics";
 import { normalizeSettings } from "@/server/domain/shops";
 import { scheduleButtonSyncForProducts } from "@/server/domain/buttons";
 import { notifyOps } from "@/server/domain/notify";
+import { serverEnv } from "@/server/env";
+import { drainFromCron, jobCounts, purgeJobs } from "@/server/services/job-queue";
 
 const MAX_UPDATE_ATTEMPTS = 5;
 
@@ -115,6 +117,18 @@ export async function sweep() {
     log.warn("getWebhookInfo failed", { err });
   }
 
+  // 7. Postgres queue (Vercel): run whatever is due, including retries.
+  if (serverEnv.TASKS_MODE === "db") {
+    const drained = await drainFromCron();
+    out.jobsRan = drained.ran;
+    out.jobsFailed = drained.failed;
+    const counts = await jobCounts();
+    out.jobsPending = counts.pending ?? 0;
+    if ((counts.pending ?? 0) > 500) {
+      await notifyOps(`Job backlog: ${counts.pending} pending jobs`, `jobs_backlog:${Math.floor(now / 3_600_000)}`);
+    }
+  }
+
   log.info("sweep done", out);
   return out;
 }
@@ -123,6 +137,7 @@ export async function sweep() {
 export async function nightly() {
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
   await rollupDay(yesterday);
+  if (serverEnv.TASKS_MODE === "db") await purgeJobs();
 
   // Auto-archive per shop setting.
   const allShops = await db.select().from(shops);

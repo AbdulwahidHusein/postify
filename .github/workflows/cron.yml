@@ -1,0 +1,34 @@
+name: Sweep
+
+# Vercel's free cron runs at most once a day. This schedule calls the sweep
+# every 5 minutes: it runs due background jobs (retries, Telegram rate-limit
+# waits), re-drives stuck button syncs, sends order reminders and checks the
+# webhook. GitHub may delay scheduled runs by a few minutes; that's fine.
+#
+# Repository configuration:
+#   vars.APP_URL        e.g. https://goods.vercel.app
+#   secrets.CRON_SECRET same value as CRON_SECRET in Vercel
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: sweep
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    if: ${{ vars.APP_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Call /internal/cron/sweep
+        run: |
+          curl --fail-with-body -sS -m 90 -X POST \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$APP_URL/internal/cron/sweep"
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}

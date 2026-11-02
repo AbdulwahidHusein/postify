@@ -1,5 +1,7 @@
-name: Deploy
+name: Deploy (Cloud Run)
 
+# Only for the Cloud Run setup. On Vercel, deploys happen through Vercel's Git
+# integration and this workflow stays idle (GCP_PROJECT_ID is not set).
 # Builds the image with Cloud Build, runs migrations as a Cloud Run Job, then
 # rolls out goods-jobs and goods. Auth is keyless (Workload Identity Federation).
 #
@@ -24,6 +26,7 @@ permissions:
 
 jobs:
   deploy:
+    if: ${{ vars.GCP_PROJECT_ID != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: production

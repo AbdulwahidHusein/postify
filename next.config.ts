@@ -5,8 +5,9 @@ import { fileURLToPath } from "node:url";
 const root = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
-  // Self-contained server bundle for the Cloud Run container.
-  output: "standalone",
+  // Self-contained server bundle for the Docker/Cloud Run image. Vercel
+  // packages the app itself, so skip it there.
+  output: process.env.VERCEL ? undefined : "standalone",
   // Local tunnels for testing the Mini App against `next dev`.
   allowedDevOrigins: ["*.trycloudflare.com", "*.ngrok-free.app", "*.ngrok.app"],
   turbopack: { root },

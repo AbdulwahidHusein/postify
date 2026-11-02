@@ -9,7 +9,7 @@
 
 ## Stack
 
-One TypeScript codebase: Next.js 16 (App Router), Drizzle + Postgres (Neon) and grammY. It runs on Cloud Run with Cloud Tasks + Scheduler, Cloudflare R2 for images and a Cloudflare Worker at the edge. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+One TypeScript codebase: Next.js 16 (App Router), Drizzle + Postgres (Neon) and grammY, with Cloudflare R2 for images. It deploys to **Vercel**, with a Postgres job queue that runs after each request plus a 5-minute sweep. It can also run on Cloud Run with Cloud Tasks. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Run locally
 
@@ -38,7 +38,7 @@ The tests run against an in-memory Postgres (PGlite) with a fake Telegram API. T
 
 ## Deploy
 
-[docs/DEPLOY.md](docs/DEPLOY.md): one-time GCP/Cloudflare/Neon setup, then `./infra/deploy.sh`, or push to `main` with the GitHub workflow.
+[docs/DEPLOY.md](docs/DEPLOY.md). On Vercel: fill `.env.production`, then run `./scripts/vercel-setup.sh .env.production` (sets env vars, deploys, registers the bot webhook).
 
 ## Layout
 

@@ -51,7 +51,8 @@ describe("channel post → product with Order button", () => {
     expect(imgs).toHaveLength(1);
     expect(imgs[0].status).toBe("ready");
     expect(imgs[0].storageKey).toContain(`shops/${shop.id}/products/${p.id}/`);
-    expect(imgs[0].width).toBe(1200);
+    expect(imgs[0].storageKey).toMatch(/@jpg$/);
+    expect(imgs[0].width).toBe(1280);
 
     const edits = fake.callsTo("editMessageReplyMarkup");
     expect(edits).toHaveLength(1);
