@@ -25,7 +25,13 @@ export async function enqueue(
   opts: EnqueueOptions = {},
 ): Promise<EnqueueResult> {
   if (serverEnv.TASKS_MODE === "cloud") return enqueueCloud(queue, payload, opts);
-  if (serverEnv.TASKS_MODE === "db") {
+  // On Vercel, in-memory `inline` jobs die when the lambda freezes — listings
+  // get stuck in telegram_updates forever. Prefer the Postgres queue unless
+  // Cloud Tasks is explicitly configured.
+  const useDb =
+    serverEnv.TASKS_MODE === "db" ||
+    (serverEnv.TASKS_MODE === "inline" && Boolean(process.env.VERCEL));
+  if (useDb) {
     const { enqueueDb } = await import("@/server/services/job-queue");
     return enqueueDb(queue, payload, opts);
   }
