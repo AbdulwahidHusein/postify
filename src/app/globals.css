@@ -117,7 +117,8 @@ body {
 }
 
 /* Amharic needs a touch more leading than Latin. */
-:lang(am) {
+/* Inherited default only (zero specificity): explicit leading-* classes win. */
+:where([lang="am"]) {
   line-height: 1.6;
 }
 

@@ -263,145 +263,500 @@
       "page": "Landing page",
       "where": "/",
       "who": "Visitors (sellers deciding to sign up)",
-      "about": "Public marketing page for goods.et. Explains that Goods turns a Telegram channel into an online shop with Order buttons, pay on delivery and a dashboard. Tone: confident, warm, plain.",
+      "about": "Public marketing page (goods.et). Convinces Telegram sellers to sign up. Professional, confident, plain language. Contains an example Telegram post and dashboard picture whose sample texts should read like real Ethiopian sellers wrote them.",
       "strings": {
-        "landing.online_shops_telegram_sellers_ethiopia": {
-          "en": "Online shops for Telegram sellers in Ethiopia. Post in your channel; we handle the store, orders and buyers.",
-          "context": "description",
-          "am": "በኢትዮጵያ ለቴሌግራም ነጋዴዎች የተዘጋጀ የኦንላይን ሱቅ። እርስዎ በቻናልዎ ላይ ይለጥፉ፤ እኛ ሱቁን፣ ትዕዛዞችንና የደንበኞችን ግንኙነት እናስተካክላለን።"
+        "landing.nav_how": {
+          "en": "How it works",
+          "context": "top navigation link",
+          "limit": "short",
+          "am": ""
         },
-        "landing.order_etb_1_500": {
-          "en": "Order · ETB 1,500",
-          "context": "visible text",
-          "am": "ይዘዙ · 1,500 ብር"
+        "landing.nav_features": {
+          "en": "Features",
+          "context": "top navigation link",
+          "limit": "short",
+          "am": ""
         },
-        "landing.ask_seller": {
-          "en": "Ask seller",
-          "context": "visible text",
-          "am": "ሻጩን ይጠይቁ"
+        "landing.nav_pricing": {
+          "en": "Pricing",
+          "context": "top navigation link",
+          "limit": "short",
+          "am": ""
         },
-        "landing.shop": {
-          "en": "Shop",
-          "context": "visible text",
-          "am": "ሱቅ"
+        "landing.nav_faq": {
+          "en": "FAQ",
+          "context": "top navigation link (Frequently asked questions)",
+          "limit": "short",
+          "am": ""
         },
-        "landing.goods_bot": {
-          "en": "Goods bot",
-          "context": "visible text",
-          "am": "Goods ቦት"
+        "landing.cta_start": {
+          "en": "Start free",
+          "context": "primary button in the top navigation",
+          "limit": "short",
+          "am": ""
         },
-        "landing.new_order_1042": {
-          "en": "<b>New order #1042</b>, Hana T., Bole. Jebena set, ETB 1,650 with delivery.",
-          "context": "example Telegram notification shown in the hero illustration (sample order message from the Goods bot). Keep <b>…</b>.",
-          "am": "<b>አዲስ ትዕዛዝ #1042</b>፣ ሀና ተ.፣ ቦሌ። የጀበና ሙሉ እቃ፣ ከማድረሻ ጋር 1,650 ብር።"
+        "landing.hero_badge": {
+          "en": "Free during beta",
+          "context": "small pill above the main headline",
+          "limit": "short",
+          "am": ""
         },
-        "landing.confirm": {
-          "en": "Confirm",
-          "context": "visible text",
-          "am": "ያረጋግጡ"
+        "landing.hero_title": {
+          "en": "Turn your Telegram channel into an online store",
+          "context": "main headline (H1). Short, bold, clear.",
+          "am": ""
         },
-        "landing.call_buyer": {
-          "en": "Call buyer",
-          "context": "visible text",
-          "am": "ለገዢው ይደውሉ"
+        "landing.hero_sub": {
+          "en": "Keep posting products the way you do today. Goods adds an Order button to every post, takes orders with pay on delivery, and gives you one dashboard to run your shop.",
+          "context": "paragraph under the headline",
+          "am": ""
         },
-        "landing.connect_channel": {
-          "en": "Connect your channel",
-          "context": "heading or title",
-          "limit": "keep about as short as the English",
-          "am": "ቻናልዎን ያገናኙ"
+        "landing.cta_primary": {
+          "en": "Start free with Telegram",
+          "context": "main call-to-action button: opens the Goods Telegram bot",
+          "limit": "short",
+          "am": ""
         },
-        "landing.open_goods_bot_tap_connect": {
-          "en": "Open the Goods bot, tap Connect, pick your channel. Your shop exists from that moment.",
-          "context": "body text",
-          "am": "የGoods ቦትን ይክፈቱ፣ «ቻናል ያገናኙ» የሚለውን ይጫኑና ቻናልዎን ይምረጡ። ከዚያች ቅጽበት ጀምሮ ሱቅዎ ዝግጁ ነው።"
+        "landing.cta_secondary": {
+          "en": "See how it works",
+          "context": "secondary button: scrolls to the how-it-works section",
+          "limit": "short",
+          "am": ""
         },
-        "landing.post_like_always_do": {
-          "en": "Post like you always do",
-          "context": "heading or title",
-          "limit": "keep about as short as the English",
-          "am": "እንደተለመደው ይለጥፉ"
+        "landing.trust_setup": {
+          "en": "Set up in 2 minutes",
+          "context": "reassurance line under the buttons (with a check mark)",
+          "limit": "short",
+          "am": ""
         },
-        "landing.photo_price_amharic_english_goods": {
-          "en": "A photo and a price in Amharic or English. Goods reads it and adds Order, Ask and Shop buttons to the post.",
-          "context": "body text",
-          "am": "ፎቶ እና ዋጋ በአማርኛ ወይም በእንግሊዝኛ ይለጥፉ። Goods ልጥፉን አንብቦ «ይዘዙ»፣ «ሻጩን ይጠይቁ» እና «ሱቅ» የሚሉ መጫኛዎችን ከስሩ ይጨምርበታል።"
+        "landing.trust_website": {
+          "en": "No website to build",
+          "context": "reassurance line under the buttons",
+          "limit": "short",
+          "am": ""
         },
-        "landing.confirm_deliver": {
-          "en": "Confirm and deliver",
-          "context": "heading or title",
-          "limit": "keep about as short as the English",
-          "am": "ያረጋግጡና ያድርሱ"
+        "landing.trust_languages": {
+          "en": "Amharic and English",
+          "context": "reassurance line under the buttons",
+          "limit": "short",
+          "am": ""
         },
-        "landing.orders_arrive_bot_confirm_one": {
-          "en": "Orders arrive in the bot. Confirm with one tap, deliver, collect cash on delivery.",
-          "context": "body text",
-          "am": "ትዕዛዞች በቦቱ በኩል ይደርሱዎታል። በአንድ ንኪኪ ያረጋግጡ፣ እቃውን ያድርሱ፣ ሲደርስም ክፍያዎን ይቀበሉ።"
+        "landing.mock_channel": {
+          "en": "Addis Tech Store",
+          "context": "example Telegram channel name in the product picture (shop name; may stay as is)",
+          "am": ""
         },
-        "landing.telegram_channel_now_real_shop": {
-          "en": "Your Telegram channel, now a real shop.",
-          "context": "visible text",
-          "am": "የቴሌግራም ቻናልዎ አሁን ሙሉ የኦንላይን ሱቅ ሆኗል።"
-        },
-        "landing.keep_posting_where_buyers_already": {
-          "en": "Keep posting where your buyers already are. Goods puts an Order button on every post, takes orders with pay on delivery, and gives you an online shop and a dashboard. Free for sellers.",
-          "context": "visible text",
-          "am": "ደንበኞችዎ ባሉበት በቴሌግራም መለጠፍዎን ይቀጥሉ። Goods በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ ያስገባል፣ እቃው ሲደርስ የሚከፈል ትዕዛዝ ይቀበላል፣ እንዲሁም የራስዎ የኦንላይን ሱቅና መቆጣጠሪያ ይሰጥዎታል። ለሻጮች በነፃ።"
-        },
-        "landing.start_telegram": {
-          "en": "Start in Telegram",
-          "context": "visible text",
-          "am": "በቴሌግራም ይጀምሩ"
-        },
-        "landing.takes_about_minute_no_website": {
-          "en": "Takes about a minute. No website, no forms.",
-          "context": "visible text",
-          "am": "አንድ ደቂቃ ብቻ ይወስዳል። ድረ-ገጽ መስራትም ሆነ ረጅም ቅጽ መሙላት አያስፈልግም።"
-        },
-        "landing.three_steps_all_inside_telegram": {
-          "en": "Three steps, all inside Telegram",
-          "context": "visible text",
-          "am": "በሶስት ቀላል ደረጃዎች፣ ሁሉም በቴሌግራም ውስጥ"
-        },
-        "landing.back_office_fits_pocket": {
-          "en": "A back office that fits in your pocket",
-          "context": "visible text",
-          "am": "በኪስዎ የሚያዙት የሱቅ መቆጣጠሪያ"
-        },
-        "landing.everything_shopify_gives_big_store": {
-          "en": "Everything Shopify gives a big store, cut down to what a Telegram seller uses every day. It works in the Telegram app and on a laptop.",
-          "context": "visible text",
-          "am": "ትልልቅ ሱቆች የሚጠቀሙበትን ዘመናዊ አሰራር፣ ለቴሌግራም ነጋዴዎች በሚመችና ቀላል በሆነ መልኩ የቀረበ። በቴሌግራም መተግበሪያም ሆነ በኮምፒውተር ይሰራል።"
-        },
-        "landing.open_shop_today": {
-          "en": "Open your shop today",
-          "context": "visible text",
-          "am": "ሱቅዎን ዛሬውኑ ይክፈቱ"
-        },
-        "landing.free_while_we_grow_online": {
-          "en": "Free while we grow. Online payments are coming.",
-          "context": "visible text",
-          "am": "አብረን እያደግን ስለሆነ አገልግሎቱ ነፃ ነው። የኦንላይን ክፍያ በቅርቡ ይጀመራል።"
-        },
-        "landing.made_addis_ababa": {
-          "en": "Made in Addis Ababa",
-          "context": "visible text",
-          "am": "በአዲስ አበባ የተሰራ"
-        },
-        "landing.example_channel_subscribers": {
+        "landing.mock_subscribers": {
           "en": "{count} subscribers",
-          "context": "Telegram channel subscriber count in the hero illustration",
+          "context": "subscriber count under the example channel name",
           "am": "{count} ተከታዮች"
         },
-        "landing.example_post_caption": {
-          "en": "Handmade jebena set with 6 cups. Delivered in Addis Ababa today. Price: 1,500 birr",
-          "context": "Example Telegram post caption in the hero illustration (currently written directly in Amharic; give the Amharic version a seller would actually post)",
-          "am": "በእጅ የተሰራ የጀበና ሙሉ እቃ ከ6 ስኒ ጋር። አዲስ አበባ ውስጥ ዛሬውኑ እናደርሳለን። ዋጋ፦ 1,500 ብር"
+        "landing.mock_caption": {
+          "en": "iPhone 15 Pro, 256GB, natural titanium. Like new, with box and charger. Delivery in Addis today.",
+          "context": "example product post caption a phone seller would write in Telegram",
+          "am": ""
         },
-        "landing.tagline_am": {
-          "en": "Post on Telegram. Sell like a shop.",
-          "context": "Amharic subtitle under the main headline (currently: \"ቴሌግራም ላይ ይለጥፉ፣ እንደ ሱቅ ይሽጡ።\"). Short and catchy.",
-          "am": "ቴሌግራም ላይ ይለጥፉ፣ እንደ ሱቅ ይሽጡ።"
+        "landing.mock_price": {
+          "en": "Price: 92,000 birr",
+          "context": "example price line in the post caption",
+          "am": ""
+        },
+        "landing.mock_new_order": {
+          "en": "New order",
+          "context": "label on the example order notification",
+          "am": "አዲስ ትዕዛዝ"
+        },
+        "landing.mock_order_line": {
+          "en": "Hana T., Bole, ETB 92,150 with delivery",
+          "context": "example order details in the notification",
+          "am": ""
+        },
+        "landing.mock_confirm": {
+          "en": "Confirm",
+          "context": "button on the example order notification",
+          "limit": "short",
+          "am": "ያረጋግጡ"
+        },
+        "landing.mock_sales": {
+          "en": "Sales today",
+          "context": "label in the example dashboard",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.mock_orders": {
+          "en": "Orders",
+          "context": "label in the example dashboard",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.mock_to_confirm": {
+          "en": "To confirm",
+          "context": "order status in the example dashboard",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.mock_on_the_way": {
+          "en": "On the way",
+          "context": "order status in the example dashboard",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.mock_delivered": {
+          "en": "Delivered",
+          "context": "order status in the example dashboard",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.pain_title": {
+          "en": "Selling in Telegram DMs doesn’t scale",
+          "context": "section heading",
+          "am": ""
+        },
+        "landing.pain_sub": {
+          "en": "Your channel brings buyers. Then everything happens in private messages, phone calls and notebooks.",
+          "context": "section intro",
+          "am": ""
+        },
+        "landing.pain_before": {
+          "en": "Without Goods",
+          "context": "column heading (the old way)",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.pain_after": {
+          "en": "With Goods",
+          "context": "column heading (the new way)",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.pain_1": {
+          "en": "Every post gets the same “how much?” messages",
+          "context": "old-way bullet",
+          "am": ""
+        },
+        "landing.pain_2": {
+          "en": "Orders get lost between chats and calls",
+          "context": "old-way bullet",
+          "am": ""
+        },
+        "landing.pain_3": {
+          "en": "No catalog or link buyers can browse",
+          "context": "old-way bullet",
+          "am": ""
+        },
+        "landing.pain_4": {
+          "en": "You count stock and money by hand",
+          "context": "old-way bullet",
+          "am": ""
+        },
+        "landing.gain_1": {
+          "en": "Price and Order button right on the post",
+          "context": "new-way bullet",
+          "am": ""
+        },
+        "landing.gain_2": {
+          "en": "Every order in one list with its status",
+          "context": "new-way bullet",
+          "am": ""
+        },
+        "landing.gain_3": {
+          "en": "A store link with search and categories",
+          "context": "new-way bullet",
+          "am": ""
+        },
+        "landing.gain_4": {
+          "en": "Stock and sales update automatically",
+          "context": "new-way bullet",
+          "am": ""
+        },
+        "landing.how_title": {
+          "en": "Up and running in three steps",
+          "context": "section heading; the three steps all happen inside Telegram",
+          "am": ""
+        },
+        "landing.how_1_title": {
+          "en": "Connect your channel",
+          "context": "step 1 title",
+          "am": "ቻናልዎን ያገናኙ"
+        },
+        "landing.how_1_body": {
+          "en": "Open the Goods bot, tap Connect channel and pick your channel. Your store is created instantly.",
+          "context": "step 1 text",
+          "am": ""
+        },
+        "landing.how_2_title": {
+          "en": "Post like you always do",
+          "context": "step 2 title",
+          "am": "እንደተለመደው ይለጥፉ"
+        },
+        "landing.how_2_body": {
+          "en": "A photo and a price in Amharic or English. Goods reads it and adds Order, Ask and Shop buttons to the post.",
+          "context": "step 2 text",
+          "am": "ፎቶ እና ዋጋ በአማርኛ ወይም በእንግሊዝኛ ይለጥፉ። Goods ልጥፉን አንብቦ «ይዘዙ»፣ «ሻጩን ይጠይቁ» እና «ሱቅ» የሚሉ መጫኛዎችን ከስሩ ይጨምርበታል።"
+        },
+        "landing.how_3_title": {
+          "en": "Confirm and deliver",
+          "context": "step 3 title",
+          "am": "ያረጋግጡና ያድርሱ"
+        },
+        "landing.how_3_body": {
+          "en": "Orders arrive in the bot. Confirm with one tap, deliver, collect cash on delivery.",
+          "context": "step 3 text",
+          "am": "ትዕዛዞች በቦቱ በኩል ይደርሱዎታል። በአንድ ንኪኪ ያረጋግጡ፣ እቃውን ያድርሱ፣ ሲደርስም ክፍያዎን ይቀበሉ።"
+        },
+        "landing.feat_title": {
+          "en": "Everything you need to sell on Telegram",
+          "context": "section heading",
+          "am": ""
+        },
+        "landing.feat_sub": {
+          "en": "Built around how Ethiopian shops already sell: channels, groups, phone calls and cash on delivery.",
+          "context": "section intro",
+          "am": ""
+        },
+        "landing.feat_order_title": {
+          "en": "An Order button on every post",
+          "context": "feature title",
+          "am": ""
+        },
+        "landing.feat_order_body": {
+          "en": "Buyers order in two taps without leaving Telegram. Price, stock and sold-out update on the post by themselves.",
+          "context": "feature text",
+          "am": ""
+        },
+        "landing.feat_ai_title": {
+          "en": "Reads Amharic and English",
+          "context": "feature title",
+          "am": ""
+        },
+        "landing.feat_ai_body": {
+          "en": "Captions like “ዋጋ 4500 ብር” become a product with a title, price and category. Unclear posts wait for your review.",
+          "context": "feature text (keep the Amharic example as it is)",
+          "am": ""
+        },
+        "landing.feat_orders_title": {
+          "en": "Orders without the chaos",
+          "context": "feature title",
+          "am": ""
+        },
+        "landing.feat_orders_body": {
+          "en": "Every order in one list. Confirm in one tap, copy a delivery slip for your rider, record the cash when it arrives.",
+          "context": "feature text",
+          "am": ""
+        },
+        "landing.feat_store_title": {
+          "en": "Your own online store",
+          "context": "feature title",
+          "am": ""
+        },
+        "landing.feat_store_body": {
+          "en": "A fast store with search, categories and a link you can share. It also opens inside Telegram as a Mini App.",
+          "context": "feature text",
+          "am": ""
+        },
+        "landing.feat_inbox_title": {
+          "en": "Every question in one inbox",
+          "context": "feature title",
+          "am": ""
+        },
+        "landing.feat_inbox_body": {
+          "en": "Buyer questions from all your posts land in one place. Reply from the dashboard or straight from Telegram.",
+          "context": "feature text",
+          "am": ""
+        },
+        "landing.feat_stats_title": {
+          "en": "Know what sells",
+          "context": "feature title",
+          "am": ""
+        },
+        "landing.feat_stats_body": {
+          "en": "Views, orders and the posts that bring sales, so you know what to post next.",
+          "context": "feature text",
+          "am": ""
+        },
+        "landing.show_title": {
+          "en": "Run your whole shop from your phone",
+          "context": "section heading",
+          "am": ""
+        },
+        "landing.show_sub": {
+          "en": "A dashboard made for Telegram sellers. It works inside the Telegram app and in any browser.",
+          "context": "section intro",
+          "am": ""
+        },
+        "landing.show_1": {
+          "en": "Orders, products, customers and messages in one place",
+          "context": "checklist item",
+          "am": ""
+        },
+        "landing.show_2": {
+          "en": "Stock that never oversells, even with many buyers at once",
+          "context": "checklist item",
+          "am": ""
+        },
+        "landing.show_3": {
+          "en": "Add staff with their own access",
+          "context": "checklist item",
+          "am": ""
+        },
+        "landing.price_title": {
+          "en": "Free while we’re in beta",
+          "context": "pricing section heading",
+          "am": ""
+        },
+        "landing.price_sub": {
+          "en": "No setup fee, no monthly fee, no commission on your sales.",
+          "context": "pricing intro",
+          "am": ""
+        },
+        "landing.price_amount": {
+          "en": "ETB 0",
+          "context": "price shown big (zero birr)",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.price_period": {
+          "en": "per month",
+          "context": "after the price",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.price_plan": {
+          "en": "Beta",
+          "context": "plan name",
+          "limit": "short",
+          "am": ""
+        },
+        "landing.price_1": {
+          "en": "Unlimited products and orders",
+          "context": "included feature",
+          "am": ""
+        },
+        "landing.price_2": {
+          "en": "Order buttons on every post",
+          "context": "included feature",
+          "am": ""
+        },
+        "landing.price_3": {
+          "en": "Online store and Telegram Mini App",
+          "context": "included feature",
+          "am": ""
+        },
+        "landing.price_4": {
+          "en": "Dashboard, inbox and analytics",
+          "context": "included feature",
+          "am": ""
+        },
+        "landing.price_5": {
+          "en": "Staff accounts",
+          "context": "included feature",
+          "am": ""
+        },
+        "landing.price_note": {
+          "en": "Online payments with telebirr and CBE Birr are coming. We’ll tell you well before anything changes.",
+          "context": "small note under the pricing card",
+          "am": ""
+        },
+        "landing.faq_title": {
+          "en": "Questions sellers ask",
+          "context": "FAQ section heading",
+          "am": ""
+        },
+        "landing.faq_website_q": {
+          "en": "Do I need a website?",
+          "context": "FAQ question",
+          "am": ""
+        },
+        "landing.faq_website_a": {
+          "en": "No. Goods creates your online store automatically when you connect your channel.",
+          "context": "FAQ answer",
+          "am": ""
+        },
+        "landing.faq_buyers_q": {
+          "en": "Do my buyers need to install anything?",
+          "context": "FAQ question",
+          "am": ""
+        },
+        "landing.faq_buyers_a": {
+          "en": "No. They tap Order on your post and checkout opens inside Telegram. It also works in any browser.",
+          "context": "FAQ answer",
+          "am": ""
+        },
+        "landing.faq_paid_q": {
+          "en": "How do I get paid?",
+          "context": "FAQ question",
+          "am": ""
+        },
+        "landing.faq_paid_a": {
+          "en": "Buyers pay on delivery, in cash or by transfer. Online payments with telebirr and CBE Birr are coming soon.",
+          "context": "FAQ answer",
+          "am": ""
+        },
+        "landing.faq_group_q": {
+          "en": "Can I use a Telegram group instead of a channel?",
+          "context": "FAQ question",
+          "am": ""
+        },
+        "landing.faq_group_a": {
+          "en": "Yes. Connect a channel or a group. In groups, only admins’ posts become products.",
+          "context": "FAQ answer",
+          "am": ""
+        },
+        "landing.faq_edit_q": {
+          "en": "What happens if I edit or delete a post?",
+          "context": "FAQ question",
+          "am": ""
+        },
+        "landing.faq_edit_a": {
+          "en": "Goods keeps up. Edits update the product, writing “SOLD” marks it sold, and deleting the post hides it from your store.",
+          "context": "FAQ answer",
+          "am": ""
+        },
+        "landing.faq_free_q": {
+          "en": "Is it really free?",
+          "context": "FAQ question",
+          "am": ""
+        },
+        "landing.faq_free_a": {
+          "en": "Yes. There are no fees during the beta, and we’ll give you plenty of notice before any paid plan.",
+          "context": "FAQ answer",
+          "am": ""
+        },
+        "landing.final_title": {
+          "en": "Open your store today",
+          "context": "closing call-to-action heading",
+          "am": "ሱቅዎን ዛሬውኑ ይክፈቱ"
+        },
+        "landing.final_sub": {
+          "en": "It takes about two minutes. All you need is your Telegram channel.",
+          "context": "closing call-to-action text",
+          "am": ""
+        },
+        "landing.footer_made": {
+          "en": "Made in Addis Ababa",
+          "context": "footer",
+          "am": "በአዲስ አበባ የተሰራ"
+        },
+        "landing.footer_rights": {
+          "en": "© {year} Goods",
+          "context": "footer copyright",
+          "am": ""
+        },
+        "landing.meta_title": {
+          "en": "Goods: turn your Telegram channel into an online store",
+          "context": "browser tab / search result title",
+          "am": ""
+        },
+        "landing.meta_description": {
+          "en": "Post products in your Telegram channel. Goods adds an Order button to every post, takes orders with pay on delivery and gives you a store and a dashboard. Free during beta.",
+          "context": "search result description",
+          "am": ""
+        },
+        "landing.mock_now": {
+          "en": "now",
+          "context": "time label on the example notification (\"just now\")",
+          "limit": "short",
+          "am": ""
         }
       }
     },
