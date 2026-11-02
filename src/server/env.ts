@@ -72,6 +72,14 @@ const schema = z.object({
   S3_SECRET_ACCESS_KEY: z.string().default(""),
   /** Public image base, e.g. https://img.goods.et */
   MEDIA_PUBLIC_URL: z.string().default(""),
+  /** Legacy alias for MEDIA_PUBLIC_URL (older Postify deploys). */
+  S3_PUBLIC_URL: z.string().default(""),
+  /**
+   * Optional Cloudflare Worker that writes to R2 (Bearer secret). Used when
+   * S3 access keys are not set — same path the original Postify upload used.
+   */
+  MEDIA_UPLOAD_URL: z.string().default(""),
+  MEDIA_UPLOAD_SECRET: z.string().default(""),
 
   /** Cloudflare API for cache purge (optional). */
   CLOUDFLARE_API_TOKEN: z.string().default(""),
@@ -86,7 +94,11 @@ function load() {
       .join("; ");
     throw new Error(`Invalid server environment: ${msg}`);
   }
-  return parsed.data;
+  const data = parsed.data;
+  if (!data.MEDIA_PUBLIC_URL && data.S3_PUBLIC_URL) {
+    data.MEDIA_PUBLIC_URL = data.S3_PUBLIC_URL;
+  }
+  return data;
 }
 
 export const serverEnv = load();

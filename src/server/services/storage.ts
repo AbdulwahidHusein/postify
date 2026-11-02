@@ -10,12 +10,13 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { AppError } from "@/server/http";
 import { isProduction, serverEnv } from "@/server/env";
 
 /**
- * Object storage: Cloudflare R2 through the S3 API in production, the local
- * filesystem in development. Public renditions live in S3_BUCKET (served from
- * MEDIA_PUBLIC_URL); originals and chat images live in S3_PRIVATE_BUCKET.
+ * Object storage: Cloudflare R2 through the S3 API when keys are set; otherwise
+ * the legacy MEDIA_UPLOAD Worker; otherwise the local filesystem in development.
+ * Public renditions live in S3_BUCKET (served from MEDIA_PUBLIC_URL).
  */
 
 export const IMAGE_WIDTHS = [320, 800, 1600] as const;
@@ -30,6 +31,14 @@ export function cloudStorageEnabled() {
       serverEnv.S3_ACCESS_KEY_ID &&
       serverEnv.S3_SECRET_ACCESS_KEY,
   );
+}
+
+export function mediaWorkerEnabled() {
+  return Boolean(serverEnv.MEDIA_UPLOAD_URL && serverEnv.MEDIA_UPLOAD_SECRET);
+}
+
+function cloudConfigured() {
+  return cloudStorageEnabled() || mediaWorkerEnabled();
 }
 
 let client: S3Client | null = null;
@@ -64,9 +73,47 @@ function localPath(visibility: "public" | "private", key: string) {
 }
 
 function requireCloudInProduction() {
-  if (isProduction && !cloudStorageEnabled()) {
-    throw new Error("Object storage is not configured (S3_* env vars are required in production)");
+  if (isProduction && !cloudConfigured()) {
+    throw new AppError(
+      "Image storage is not configured. Set S3 access keys, or MEDIA_UPLOAD_URL + MEDIA_UPLOAD_SECRET.",
+      503,
+      "storage_unconfigured",
+    );
   }
+}
+
+async function putViaWorker(key: string, body: Buffer, contentType: string) {
+  const base = serverEnv.MEDIA_UPLOAD_URL.replace(/\/$/, "");
+  const res = await fetch(`${base}/${key}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${serverEnv.MEDIA_UPLOAD_SECRET}`,
+      "Content-Type": contentType,
+    },
+    body,
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Media worker upload failed (${res.status}): ${text.slice(0, 200)}`);
+  }
+}
+
+async function deleteViaWorker(key: string) {
+  const base = serverEnv.MEDIA_UPLOAD_URL.replace(/\/$/, "");
+  const res = await fetch(`${base}/${key}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${serverEnv.MEDIA_UPLOAD_SECRET}` },
+  });
+  return res.ok || res.status === 404;
+}
+
+/** When only the Worker is configured, objects live in the public R2 bucket. */
+async function getViaPublicUrl(key: string): Promise<Buffer> {
+  const base = (serverEnv.MEDIA_PUBLIC_URL || "").replace(/\/$/, "");
+  if (!base) throw new Error("MEDIA_PUBLIC_URL is required when using the media worker");
+  const res = await fetch(`${base}/${key}`, { signal: AbortSignal.timeout(20_000) });
+  if (!res.ok) throw new Error(`Failed to read object (${res.status}): ${key}`);
+  return Buffer.from(await res.arrayBuffer());
 }
 
 export async function putObject(
@@ -90,6 +137,10 @@ export async function putObject(
     );
     return;
   }
+  if (mediaWorkerEnabled()) {
+    await putViaWorker(key, body, contentType);
+    return;
+  }
   const file = localPath(visibility, key);
   await mkdir(path.dirname(file), { recursive: true });
   await writeFile(file, body);
@@ -107,6 +158,9 @@ export async function getObject(
     if (!bytes) throw new Error(`Empty object: ${key}`);
     return Buffer.from(bytes);
   }
+  if (mediaWorkerEnabled()) {
+    return getViaPublicUrl(key);
+  }
   return readFile(localPath(visibility, key));
 }
 
@@ -117,6 +171,10 @@ export async function deleteObject(
   assertSafeKey(key);
   if (cloudStorageEnabled()) {
     await s3().send(new DeleteObjectCommand({ Bucket: bucket(visibility), Key: key }));
+    return;
+  }
+  if (mediaWorkerEnabled()) {
+    await deleteViaWorker(key);
     return;
   }
   await rm(localPath(visibility, key), { force: true });
@@ -140,7 +198,7 @@ export function imageUrl(storageKey: string, width: ImageWidth = 800): string {
   return publicUrl(renditionKey(storageKey, width));
 }
 
-// ── direct browser uploads ─────────────────────────────────────────────────
+// ── browser uploads (presigned S3, or signed proxy → Worker / local) ───────
 const UPLOAD_TTL_SECONDS = 600;
 
 function localUploadSignature(key: string, contentType: string, expires: number) {
@@ -150,8 +208,8 @@ function localUploadSignature(key: string, contentType: string, expires: number)
 }
 
 /**
- * Presigned PUT the browser uploads to directly, so image bytes never pass
- * through Cloud Run. Originals go to the private bucket.
+ * Presigned PUT for the browser. Prefers R2 S3 when keys exist; otherwise a
+ * signed same-origin URL that our API forwards to the media Worker (or local disk).
  */
 export async function presignUpload(
   key: string,
@@ -173,9 +231,11 @@ export async function presignUpload(
   return { url: `/api/media/local-upload?${qs.toString()}`, headers: { "Content-Type": contentType } };
 }
 
-/** Dev-only counterpart of presignUpload. */
+/** Verify a signed browser→API upload (local disk or media Worker proxy). */
 export function verifyLocalUpload(params: URLSearchParams): { key: string; contentType: string } | null {
-  if (isProduction) return null;
+  // S3 path never uses this route. Worker/local both need the signed proxy.
+  if (isProduction && cloudStorageEnabled()) return null;
+  if (isProduction && !mediaWorkerEnabled()) return null;
   const key = params.get("key") ?? "";
   const ct = params.get("ct") ?? "";
   const exp = Number(params.get("exp") ?? "0");
@@ -189,7 +249,7 @@ export function verifyLocalUpload(params: URLSearchParams): { key: string; conte
 }
 
 export async function readLocalPublic(key: string): Promise<Buffer | null> {
-  if (cloudStorageEnabled()) return null;
+  if (cloudConfigured()) return null;
   assertSafeKey(key);
   try {
     return await readFile(localPath("public", key));
@@ -205,6 +265,9 @@ export async function privateUrl(key: string): Promise<string> {
     return getSignedUrl(s3(), new GetObjectCommand({ Bucket: bucket("private"), Key: key }), {
       expiresIn: 3600,
     });
+  }
+  if (mediaWorkerEnabled() && serverEnv.MEDIA_PUBLIC_URL) {
+    return `${serverEnv.MEDIA_PUBLIC_URL.replace(/\/$/, "")}/${key}`;
   }
   return `/api/media/private/${key}`;
 }
