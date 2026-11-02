@@ -94,7 +94,7 @@ export default async function OrderPage({ params }: { params: Promise<{ shop: st
           <section className="panel" aria-labelledby="cust-title">
             <div className="panel-head">
               <h2 id="cust-title" className="panel-title">Customer</h2>
-              <Link href={`${base}/customers/${customer.id}`} className="text-[13px] font-semibold text-brand hover:underline">Profile</Link>
+              <Link href={`${base}/customers/${customer.id}`} className="text-[13px] font-semibold text-brand-ink hover:underline">Profile</Link>
             </div>
             <div className="space-y-3 px-4 py-4 sm:px-5">
               <div>
@@ -104,7 +104,7 @@ export default async function OrderPage({ params }: { params: Promise<{ shop: st
                   {customer.cancelCount ? `, ${customer.cancelCount} cancelled` : ""}
                 </p>
               </div>
-              <a href={`tel:${o.contactPhone}`} className="flex items-center gap-2.5 text-sm font-medium text-ink hover:text-brand">
+              <a href={`tel:${o.contactPhone}`} className="flex items-center gap-2.5 text-sm font-medium text-ink hover:text-brand-ink">
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-sunken"><Phone size={15} /></span>
                 <span className="num">{formatPhone(o.contactPhone)}</span>
               </a>

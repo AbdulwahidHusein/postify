@@ -23,8 +23,8 @@ export function ProductCard({ p, base, locale, priority }: { p: P; base: string;
       ? Math.round((1 - Number(p.priceMinor) / Number(p.compareAtMinor)) * 100)
       : 0;
   return (
-    <Link href={`${base}/p/${p.slug}`} className="group block rounded-[16px] outline-offset-4">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[16px] bg-sunken" style={{ background: img?.color ?? undefined }}>
+    <Link href={`${base}/p/${p.slug}`} className="group block rounded-[24px] bg-surface p-2 outline-offset-4 transition-transform duration-200 hover:-translate-y-0.5">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[18px] bg-sunken" style={{ background: img?.color ?? undefined }}>
         {img?.src ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -39,20 +39,20 @@ export function ProductCard({ p, base, locale, priority }: { p: P; base: string;
           <span className="grid h-full w-full place-items-center text-faint"><ImageIcon size={28} /></span>
         )}
         {soldOut ? (
-          <span className="absolute left-2.5 top-2.5 rounded-full bg-ink/85 px-2.5 py-1 text-[11px] font-bold text-white">
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-ink px-2.5 py-1 font-display text-[12px] font-bold text-white">
             {p.status === "sold" ? t(locale, "product.sold") : t(locale, "product.soldOut")}
           </span>
         ) : off >= 5 ? (
-          <span className="num absolute left-2.5 top-2.5 rounded-full bg-adey px-2.5 py-1 text-[11px] font-bold text-ink">−{off}%</span>
+          <span className="num absolute left-2.5 top-2.5 rounded-full bg-accent px-2.5 py-1 font-display text-[12px] font-bold text-accent-fg">−{off}%</span>
         ) : null}
       </div>
-      <div className="px-0.5 pt-2.5">
-        <p className="line-clamp-2 text-[14px] font-medium leading-snug text-ink">{p.title}</p>
+      <div className="px-1.5 pb-1.5 pt-2.5">
+        <p className="line-clamp-2 font-display text-[15px] font-semibold leading-snug text-ink">{p.title}</p>
         <p className="mt-1 flex flex-wrap items-baseline gap-x-1.5">
           {p.priceMinor ? (
-            <span className="num font-display text-[15px] font-bold">{formatMoney(BigInt(p.priceMinor), p.currency)}</span>
+            <span className="num font-display text-[17px] font-extrabold tracking-[-0.02em]">{formatMoney(BigInt(p.priceMinor), p.currency)}</span>
           ) : (
-            <span className="text-[13px] font-semibold text-accent">{t(locale, "product.askPrice")}</span>
+            <span className="font-display text-[14px] font-bold text-accent-ink">{t(locale, "product.askPrice")}</span>
           )}
           {p.compareAtMinor && off ? <span className="num text-xs text-faint line-through">{formatMoney(BigInt(p.compareAtMinor), p.currency)}</span> : null}
         </p>

@@ -92,7 +92,7 @@ export function CartView({ shop, base, locale }: { shop: string; base: string; l
         </div>
         <p className="mt-1 text-xs text-mist">{t(locale, "cart.feesAtCheckout")}</p>
         <div className="mt-4 hidden md:block">{checkout}</div>
-        <Link href={base || "/"} className="mt-3 hidden text-center text-sm font-semibold text-accent hover:underline md:block">{t(locale, "cart.continue")}</Link>
+        <Link href={base || "/"} className="mt-3 hidden text-center text-sm font-semibold text-accent-ink hover:underline md:block">{t(locale, "cart.continue")}</Link>
       </aside>
       <div className="fixed inset-x-0 bottom-0 z-30 bg-surface/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-bar backdrop-blur-md md:hidden">{checkout}</div>
     </div>

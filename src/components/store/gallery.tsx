@@ -16,14 +16,14 @@ export function Gallery({ images, title }: { images: Img[]; title: string }) {
     if (el) el.scrollTo({ left: idx * el.clientWidth, behavior: "smooth" });
   };
   if (!images.length) {
-    return <div className="-mx-4 grid aspect-square place-items-center bg-sunken text-faint sm:mx-0 sm:rounded-[20px]"><ImageIcon size={36} /></div>;
+    return <div className="-mx-4 grid aspect-square place-items-center bg-sunken text-faint sm:mx-0 sm:rounded-[28px]"><ImageIcon size={36} /></div>;
   }
   return (
     <div className="md:sticky md:top-20">
       <div className="relative -mx-4 sm:mx-0">
         <div
           ref={rail}
-          className="no-scrollbar flex aspect-square snap-x snap-mandatory overflow-x-auto bg-sunken sm:rounded-[20px]"
+          className="no-scrollbar flex aspect-square snap-x snap-mandatory overflow-x-auto bg-surface sm:rounded-[28px]"
           onScroll={(e) => {
             const el = e.currentTarget;
             const idx = Math.round(el.scrollLeft / el.clientWidth);
@@ -50,26 +50,26 @@ export function Gallery({ images, title }: { images: Img[]; title: string }) {
         </div>
         {images.length > 1 ? (
           <>
-            <span className="num absolute right-3 top-3 rounded-full bg-ink/70 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur md:hidden">
+            <span className="num absolute right-3 top-3 rounded-full bg-ink px-3 py-1 font-display text-xs font-bold text-white md:hidden">
               {i + 1} / {images.length}
             </span>
             <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1.5 md:hidden" aria-hidden>
               {images.map((img, idx) => (
-                <span key={img.id} className={cn("h-1.5 rounded-full bg-white shadow transition-all", idx === i ? "w-5" : "w-1.5 opacity-60")} />
+                <span key={img.id} className={cn("h-1.5 rounded-full transition-all duration-200", idx === i ? "w-5 bg-ink" : "w-1.5 bg-ink/25")} />
               ))}
             </div>
           </>
         ) : null}
       </div>
       {images.length > 1 ? (
-        <div className="mt-3 hidden gap-2 md:flex">
+        <div className="mt-3 hidden gap-2.5 md:flex">
           {images.map((img, idx) => (
             <button
               key={img.id}
               onClick={() => go(idx)}
               aria-label={`Photo ${idx + 1}`}
               aria-current={idx === i}
-              className={cn("h-16 w-16 shrink-0 overflow-hidden rounded-xl ring-offset-2 ring-offset-canvas transition-shadow", idx === i ? "ring-2 ring-accent" : "opacity-75 hover:opacity-100")}
+              className={cn("h-[72px] w-[72px] shrink-0 overflow-hidden rounded-[18px] transition-[box-shadow,opacity]", idx === i ? "ring-[3px] ring-ink" : "opacity-70 hover:opacity-100")}
               style={{ background: img.color ?? "var(--sunken)" }}
             >
               {img.thumb ? (

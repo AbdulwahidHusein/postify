@@ -81,13 +81,13 @@ export function OrderToast({ locale, className }: { locale: Locale; className?: 
   return (
     <div className={cn("w-[260px] rounded-2xl bg-white p-3 shadow-[0_24px_48px_-20px_rgb(15_23_20/0.45)] ring-1 ring-black/5", className)}>
       <div className="flex items-center gap-2">
-        <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand text-white"><ShoppingBag size={14} /></span>
+        <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand text-brand-fg"><ShoppingBag size={14} /></span>
         <span className="text-[12px] font-bold text-ink">{t("mock_new_order")} #1042</span>
         <span className="ml-auto text-[10px] text-faint">{t("mock_now")}</span>
       </div>
       <p className="mt-1.5 text-[12px] leading-snug text-ink-soft">{t("mock_order_line")}</p>
       <div className="mt-2.5 flex gap-1.5">
-        <span className="flex h-7 flex-1 items-center justify-center gap-1 rounded-lg bg-brand text-[11.5px] font-semibold text-white">
+        <span className="flex h-7 flex-1 items-center justify-center gap-1 rounded-lg bg-brand text-[11.5px] font-semibold text-brand-fg">
           <Check size={12} strokeWidth={3} /> {t("mock_confirm")}
         </span>
       </div>
@@ -124,9 +124,9 @@ export function DashboardWindow({ locale, className, rows = 4 }: { locale: Local
       </div>
       <div className="flex">
         <div className="hidden w-12 shrink-0 flex-col items-center gap-3 border-r border-line bg-canvas py-4 sm:flex">
-          <span className="mb-1 grid h-6 w-6 place-items-center rounded-md bg-brand text-[10px] font-bold text-white">A</span>
+          <span className="mb-1 grid h-6 w-6 place-items-center rounded-md bg-brand text-[10px] font-bold text-brand-fg">A</span>
           {nav.map((Icon, i) => (
-            <span key={i} className={cn("grid h-7 w-7 place-items-center rounded-lg", i === 1 ? "bg-white text-brand shadow-sm ring-1 ring-line" : "text-faint")}>
+            <span key={i} className={cn("grid h-7 w-7 place-items-center rounded-lg", i === 1 ? "bg-white text-brand-ink shadow-sm ring-1 ring-line" : "text-faint")}>
               <Icon size={14} />
             </span>
           ))}

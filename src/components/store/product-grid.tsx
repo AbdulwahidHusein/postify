@@ -24,7 +24,7 @@ export function ProductGrid({ shop, base, locale, initial, cursor, query }: { sh
   }
   return (
     <>
-      <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4 lg:gap-x-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
         {items.map((p, i) => <ProductCard key={p.id} p={p} base={base} locale={locale} priority={i < 4} />)}
       </div>
       {next ? (

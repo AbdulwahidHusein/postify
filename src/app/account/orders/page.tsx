@@ -17,7 +17,7 @@ export default async function MyOrders() {
     <main className="mx-auto max-w-2xl px-4 py-6">
       <div className="mb-5 flex items-center justify-between">
         <h1 className="page-title">My orders</h1>
-        <Link href="/inbox" className="text-sm text-signal">Messages</Link>
+        <Link href="/inbox" className="text-sm text-accent-ink">Messages</Link>
       </div>
       {rows.length ? (
         <div className="card divide-y divide-line">

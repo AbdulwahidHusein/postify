@@ -112,7 +112,7 @@ export function ChatThread({ conversationId, productHref }: { conversationId: st
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold">{role === "seller" ? header?.buyer?.name ?? "Buyer" : header?.shop?.name ?? "Seller"}</p>
           {p ? (
-            href ? <Link href={href} className="block truncate text-xs text-signal">{p.title} · {p.priceMinor ? formatMoney(p.priceMinor, p.currency) : "Ask for price"}</Link>
+            href ? <Link href={href} className="block truncate text-xs text-accent-ink">{p.title} · {p.priceMinor ? formatMoney(p.priceMinor, p.currency) : "Ask for price"}</Link>
               : <p className="truncate text-xs text-mist">{p.title}</p>
           ) : null}
         </div>
@@ -124,7 +124,7 @@ export function ChatThread({ conversationId, productHref }: { conversationId: st
           if (m.role === "system") return <p key={m.id} className="mx-auto max-w-sm whitespace-pre-wrap rounded-lg bg-paper-muted px-3 py-2 text-center text-xs text-mist">{m.body}</p>;
           return (
             <div key={m.id} className={cn("flex", mine ? "justify-end" : "justify-start")}>
-              <div className={cn("max-w-[80%] rounded-2xl px-3.5 py-2 text-sm shadow-sm", mine ? "rounded-br-sm bg-signal text-white" : "rounded-bl-sm bg-surface", m.pending && "opacity-60")}>
+              <div className={cn("max-w-[80%] rounded-2xl px-3.5 py-2 text-sm shadow-sm", mine ? "rounded-br-sm bg-signal text-accent-fg" : "rounded-bl-sm bg-surface", m.pending && "opacity-60")}>
                 {m.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={m.image} alt="" className="mb-1 max-h-64 rounded-lg" />
@@ -150,7 +150,7 @@ export function ChatThread({ conversationId, productHref }: { conversationId: st
           placeholder="Write a message…"
           className="textarea min-h-10 flex-1 resize-none py-2"
         />
-        <button type="submit" aria-label="Send" disabled={!text.trim() || sending} className="rounded-lg bg-signal p-2.5 text-white disabled:opacity-40"><Send size={18} /></button>
+        <button type="submit" aria-label="Send" disabled={!text.trim() || sending} className="rounded-lg bg-signal p-2.5 text-accent-fg disabled:opacity-40"><Send size={18} /></button>
       </form>
     </div>
   );

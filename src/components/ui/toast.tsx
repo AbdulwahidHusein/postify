@@ -22,12 +22,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div
             key={t.id}
             role={t.tone === "error" ? "alert" : "status"}
-            className="pointer-events-auto flex max-w-md animate-sheet-in items-center gap-2.5 rounded-xl bg-ink py-2.5 pl-3 pr-4 text-sm font-medium text-white shadow-pop"
+            className="pointer-events-auto flex max-w-md animate-sheet-in items-center gap-3 rounded-[20px] bg-ink py-3 pl-3.5 pr-5 text-[15px] font-bold text-white shadow-float"
           >
             {t.tone === "error" ? (
-              <CircleAlert size={18} className="shrink-0 text-[#ff8a7f]" />
+              <CircleAlert size={18} className="shrink-0 text-[#ff8fb0]" />
             ) : t.tone === "success" ? (
-              <CircleCheck size={18} className="shrink-0 text-adey" />
+              <CircleCheck size={18} className="shrink-0 text-brand" />
             ) : null}
             <span className={cn(t.tone === "default" && "pl-1")}>{t.text}</span>
           </div>

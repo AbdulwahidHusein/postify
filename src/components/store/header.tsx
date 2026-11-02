@@ -6,20 +6,20 @@ import { CartCount } from "@/components/store/cart-count";
 
 export function StoreHeader({ shop, base, locale, logoUrl, apiShop }: { shop: { name: string }; base: string; locale: Locale; logoUrl: string | null; apiShop: string }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-surface/90 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
+    <header className="sticky top-0 z-30 bg-canvas/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4">
         <Link href={base || "/"} className="flex min-w-0 items-center gap-2.5">
           {logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt="" className="h-8 w-8 rounded-[10px] object-cover ring-1 ring-line" />
+            <img src={logoUrl} alt="" className="h-10 w-10 rounded-full object-cover ring-1 ring-line" />
           ) : (
-            <span className="grid h-8 w-8 place-items-center rounded-[10px] bg-accent font-display text-sm font-bold text-accent-fg">{shop.name.slice(0, 1)}</span>
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-base font-extrabold text-white">{shop.name.slice(0, 1)}</span>
           )}
-          <span className="truncate font-display text-[15px] font-semibold">{shop.name}</span>
+          <span className="truncate font-display text-[17px] font-bold tracking-[-0.01em]">{shop.name}</span>
         </Link>
         <div className="ml-auto flex items-center gap-1">
           <LangToggle locale={locale} />
-          <Link href={`${base}/cart`} className="relative grid h-10 w-10 place-items-center rounded-xl text-ink hover:bg-sunken" aria-label={t(locale, "nav.cart")}>
+          <Link href={`${base}/cart`} className="relative grid h-11 w-11 place-items-center rounded-full bg-surface text-ink transition-colors hover:bg-sunken" aria-label={t(locale, "nav.cart")}>
             <ShoppingBag size={20} />
             <CartCount shop={apiShop} />
           </Link>

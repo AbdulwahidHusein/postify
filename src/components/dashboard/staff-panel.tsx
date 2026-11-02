@@ -62,7 +62,7 @@ export function StaffPanel({ handle, members, canManage, me }: { handle: string;
         {link ? (
           <div className="flex items-center gap-2 rounded-lg bg-paper-muted px-3 py-2 text-xs">
             <span className="flex-1 truncate">{link}</span>
-            <button onClick={() => navigator.clipboard.writeText(link).then(() => toast("Link copied"))} className="text-signal"><Copy size={14} /></button>
+            <button onClick={() => navigator.clipboard.writeText(link).then(() => toast("Link copied"))} className="text-accent-ink"><Copy size={14} /></button>
           </div>
         ) : null}
         {link ? <p className="text-xs text-mist">Send this one-time link. It opens the Goods bot and adds them to your shop. Valid for 7 days.</p> : null}

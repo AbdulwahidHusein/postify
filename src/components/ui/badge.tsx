@@ -7,17 +7,17 @@ import { cn } from "@/lib/utils";
  * neutral and readable; color never carries meaning on its own.
  */
 const badgeVariants = cva(
-  "inline-flex h-[22px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2 text-xs font-semibold leading-none",
+  "inline-flex h-7 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 font-display text-[12.5px] font-bold leading-none",
   {
     variants: {
       variant: {
         default: "bg-brand-soft text-brand-ink",
         neutral: "bg-sunken text-ink-soft",
-        success: "bg-brand-soft text-brand-ink",
+        success: "bg-success-soft text-success",
         warning: "bg-adey-soft text-adey-ink",
         danger: "bg-danger-soft text-danger",
-        info: "bg-telegram-soft text-[#106a96]",
-        outline: "border border-line-strong bg-surface text-ink-soft",
+        info: "bg-telegram-soft text-[#0d5f87]",
+        outline: "border-2 border-line-strong bg-surface text-ink-soft",
       },
     },
     defaultVariants: { variant: "default" },
@@ -27,7 +27,7 @@ const badgeVariants = cva(
 const DOT: Record<string, string> = {
   default: "bg-brand",
   neutral: "bg-faint",
-  success: "bg-brand",
+  success: "bg-success-dot",
   warning: "bg-adey",
   danger: "bg-danger",
   info: "bg-telegram",

@@ -95,12 +95,12 @@ export function DashboardShell({
   return (
     <div className="min-h-dvh lg:pl-[248px]">
       {/* Sidebar (desktop) */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] flex-col border-r border-line bg-canvas lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[248px] flex-col bg-canvas lg:flex">
         <div className="px-3 pt-3">
           <ShopSwitcher shop={shop} shops={shops} host={storeHost} />
           <button
             onClick={() => setCmdOpen(true)}
-            className="mt-2 flex h-9 w-full items-center gap-2 rounded-[var(--radius-control)] border border-line bg-surface px-3 text-[13px] text-mist transition-colors hover:border-line-strong"
+            className="mt-3 flex h-11 w-full items-center gap-2 rounded-full border-2 border-transparent bg-surface px-4 text-sm font-semibold text-mist transition-colors hover:border-line-strong"
           >
             <Search size={15} /> Search
             <span className="ml-auto flex gap-0.5"><kbd className="kbd">⌘</kbd><kbd className="kbd">K</kbd></span>
@@ -112,36 +112,36 @@ export function DashboardShell({
             if (!items.length) return null;
             return (
               <div key={g.key} className="mb-4">
-                {g.label ? <p className="px-2.5 pb-1 text-xs font-medium text-faint">{g.label}</p> : null}
-                <div className="space-y-px">
+                {g.label ? <p className="px-4 pb-1.5 text-xs font-extrabold uppercase tracking-[0.06em] text-faint">{g.label}</p> : null}
+                <div className="space-y-1">
                   {items.map((n) => <SideLink key={n.href} item={n} active={isActive(n.href)} />)}
                 </div>
               </div>
             );
           })}
         </nav>
-        <div className="space-y-px border-t border-line px-3 py-3">
+        <div className="space-y-1 border-t border-line px-3 py-3">
           {nav.filter((n) => n.group === "admin").map((n) => <SideLink key={n.href} item={n} active={isActive(n.href)} />)}
-          <a href={store} target="_blank" rel="noreferrer" className="flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium text-ink-soft hover:bg-sunken hover:text-ink">
-            <Store size={17} strokeWidth={1.9} /> View your store <ArrowUpRight size={14} className="ml-auto text-faint" />
+          <a href={store} target="_blank" rel="noreferrer" className="flex h-11 items-center gap-3 rounded-full px-4 font-display text-[15px] font-semibold text-ink-soft hover:bg-sunken hover:text-ink">
+            <Store size={18} strokeWidth={2} /> View your store <ArrowUpRight size={14} className="ml-auto text-faint" />
           </a>
-          <Link href="/account/orders" className="flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium text-ink-soft hover:bg-sunken hover:text-ink">
-            <User size={17} strokeWidth={1.9} /> Your account
+          <Link href="/account/orders" className="flex h-11 items-center gap-3 rounded-full px-4 font-display text-[15px] font-semibold text-ink-soft hover:bg-sunken hover:text-ink">
+            <User size={18} strokeWidth={2} /> Your account
           </Link>
         </div>
         <div className="flex items-center justify-between px-5 pb-4">
-          <GoodsLogo size={20} className="[&>span:last-child]:text-sm [&>span:last-child]:text-ink-soft" />
-          <span className="text-[11px] text-faint">Free plan</span>
+          <GoodsLogo size={24} />
+          <span className="rounded-full bg-sunken px-2.5 py-1 text-[11px] font-bold text-mist">Free plan</span>
         </div>
       </aside>
 
       {/* Top bar (phones) */}
-      <header className="sticky top-0 z-20 flex h-14 items-center gap-1 border-b border-line bg-surface/90 px-3 backdrop-blur-md lg:hidden">
+      <header className="sticky top-0 z-20 flex h-16 items-center gap-1.5 bg-canvas/90 px-3 backdrop-blur-md lg:hidden">
         <ShopSwitcher shop={shop} shops={shops} compact />
-        <button aria-label="Search" onClick={() => setCmdOpen(true)} className="ml-auto grid h-10 w-10 place-items-center rounded-xl text-ink-soft hover:bg-sunken">
+        <button aria-label="Search" onClick={() => setCmdOpen(true)} className="ml-auto grid h-11 w-11 place-items-center rounded-full bg-surface text-ink hover:bg-sunken">
           <Search size={20} />
         </button>
-        <a aria-label="View your store" href={store} target="_blank" rel="noreferrer" className="grid h-10 w-10 place-items-center rounded-xl text-ink-soft hover:bg-sunken">
+        <a aria-label="View your store" href={store} target="_blank" rel="noreferrer" className="grid h-11 w-11 place-items-center rounded-full bg-surface text-ink hover:bg-sunken">
           <Store size={20} />
         </a>
       </header>
@@ -153,8 +153,8 @@ export function DashboardShell({
         {tabs.map((n) => {
           const on = isActive(n.href);
           return (
-            <Link key={n.href} href={n.href} aria-current={on ? "page" : undefined} className={cn("relative flex h-14 flex-col items-center justify-center gap-0.5 text-[11px] font-semibold", on ? "text-brand" : "text-mist")}>
-              <span className={cn("grid h-7 w-12 place-items-center rounded-full transition-colors", on && "bg-brand-soft")}>
+            <Link key={n.href} href={n.href} aria-current={on ? "page" : undefined} className={cn("relative flex h-16 flex-col items-center justify-center gap-1 font-display text-[11px] font-semibold", on ? "text-ink" : "text-mist")}>
+              <span className={cn("grid h-8 w-14 place-items-center rounded-full transition-colors duration-200", on && "bg-ink text-brand")}>
                 <n.icon size={19} strokeWidth={on ? 2.2 : 1.9} />
               </span>
               {n.label}
@@ -162,8 +162,8 @@ export function DashboardShell({
             </Link>
           );
         })}
-        <button onClick={() => setMoreOpen(true)} className={cn("flex h-14 flex-col items-center justify-center gap-0.5 text-[11px] font-semibold", rest.some((n) => isActive(n.href)) ? "text-brand" : "text-mist")}>
-          <span className={cn("grid h-7 w-12 place-items-center rounded-full", rest.some((n) => isActive(n.href)) && "bg-brand-soft")}>
+        <button onClick={() => setMoreOpen(true)} className={cn("flex h-16 flex-col items-center justify-center gap-1 font-display text-[11px] font-semibold", rest.some((n) => isActive(n.href)) ? "text-ink" : "text-mist")}>
+          <span className={cn("grid h-8 w-14 place-items-center rounded-full", rest.some((n) => isActive(n.href)) && "bg-ink text-brand")}>
             <Ellipsis size={19} />
           </span>
           More
@@ -173,8 +173,8 @@ export function DashboardShell({
       <Dialog open={moreOpen} onOpenChange={setMoreOpen} title={shop.name}>
         <div className="-mx-2 divide-y divide-line">
           {[...rest, { href: store, label: "View your store", icon: Store, group: "admin" as const }, { href: "/account/orders", label: "Your account", icon: User, group: "admin" as const }].map((n) => (
-            <Link key={n.href} href={n.href} onClick={() => setMoreOpen(false)} className="flex items-center gap-3 rounded-lg px-2 py-3.5 text-[15px] font-medium hover:bg-sunken">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-sunken text-ink-soft"><n.icon size={18} /></span>
+            <Link key={n.href} href={n.href} onClick={() => setMoreOpen(false)} className="flex items-center gap-3 rounded-[16px] px-2 py-3 font-display text-[15px] font-semibold hover:bg-sunken">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-sunken text-ink"><n.icon size={18} /></span>
               {n.label}
               {n.href === store ? <ArrowUpRight size={15} className="ml-auto text-faint" /> : null}
             </Link>
@@ -189,7 +189,7 @@ export function DashboardShell({
 
 function TabBadge({ n, tone }: { n: number; tone?: NavItem["badgeTone"] }) {
   return (
-    <span className={cn("num absolute left-1/2 top-1.5 ml-2 min-w-[18px] rounded-full px-1 text-center text-[10px] font-bold leading-[18px] ring-2 ring-surface", tone === "attention" ? "bg-adey text-ink" : "bg-brand text-white")}>
+    <span className={cn("num absolute left-1/2 top-1.5 ml-2 min-w-[18px] rounded-full px-1 text-center text-[10px] font-bold leading-[18px] ring-2 ring-surface", tone === "attention" ? "bg-brand text-brand-fg" : "bg-ink text-white")}>
       {n > 99 ? "99+" : n}
     </span>
   );
@@ -201,14 +201,14 @@ function SideLink({ item: n, active }: { item: NavItem; active: boolean }) {
       href={n.href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium transition-colors",
-        active ? "bg-surface text-ink shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(22_32_27/0.06)]" : "text-ink-soft hover:bg-sunken hover:text-ink",
+        "group flex h-11 items-center gap-3 rounded-full px-4 font-display text-[15px] font-semibold transition-colors duration-150",
+        active ? "bg-ink text-white" : "text-ink-soft hover:bg-sunken hover:text-ink",
       )}
     >
-      <n.icon size={17} strokeWidth={active ? 2.2 : 1.9} className={cn(active ? (n.label === "Telegram" ? "text-telegram" : "text-brand") : "text-mist group-hover:text-ink-soft")} />
+      <n.icon size={18} strokeWidth={active ? 2.4 : 2} className={cn(active ? "text-brand" : "text-mist group-hover:text-ink-soft")} />
       {n.label}
       {n.badge ? (
-        <span className={cn("num ml-auto min-w-[20px] rounded-full px-1.5 text-center text-[11px] font-bold leading-5", n.badgeTone === "attention" ? "bg-adey text-ink" : "bg-brand text-white")}>
+        <span className={cn("num ml-auto min-w-[22px] rounded-full px-1.5 text-center text-[12px] font-extrabold leading-[22px]", n.badgeTone === "attention" ? "bg-brand text-brand-fg" : active ? "bg-white text-ink" : "bg-ink text-white")}>
           {n.badge > 99 ? "99+" : n.badge}
         </span>
       ) : null}
@@ -238,27 +238,27 @@ function ShopSwitcher({ shop, shops, compact, host }: { shop: ShopRef; shops: Sh
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className={cn("flex w-full min-w-0 items-center gap-2.5 rounded-xl text-left transition-colors hover:bg-sunken", compact ? "px-1.5 py-1.5" : "px-2 py-2")}
+        className={cn("flex w-full min-w-0 items-center gap-2.5 rounded-[20px] text-left transition-colors hover:bg-sunken", compact ? "px-1.5 py-1.5" : "bg-surface px-2.5 py-2.5")}
       >
         <ShopAvatar shop={shop} size={compact ? 30 : 32} />
         <span className="min-w-0 flex-1">
-          <span className="block truncate font-display text-[15px] font-semibold leading-tight">{shop.name}</span>
-          {!compact && host ? <span className="block truncate text-xs text-mist">{host}</span> : null}
+          <span className="block truncate font-display text-[16px] font-bold leading-tight tracking-[-0.01em]">{shop.name}</span>
+          {!compact && host ? <span className="block truncate text-xs font-semibold text-mist">{host}</span> : null}
         </span>
         <ChevronsUpDown size={15} className="shrink-0 text-faint" />
       </button>
       {open ? (
-        <div role="menu" className="absolute left-0 top-full z-40 mt-1 w-64 animate-fade-in rounded-xl bg-surface p-1 shadow-pop">
-          <p className="px-2.5 pb-1 pt-1.5 text-xs font-medium text-faint">Your shops</p>
+        <div role="menu" className="absolute left-0 top-full z-40 mt-2 w-72 animate-fade-in rounded-[20px] bg-surface p-1.5 shadow-pop">
+          <p className="px-3 pb-1 pt-2 text-xs font-extrabold uppercase tracking-[0.06em] text-faint">Your shops</p>
           {shops.map((s) => (
-            <Link key={s.handle} role="menuitem" href={`/dashboard/${s.handle}`} onClick={() => setOpen(false)} className="flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm hover:bg-sunken">
-              <ShopAvatar shop={s} size={24} /> <span className="min-w-0 flex-1 truncate font-medium">{s.name}</span>
-              {s.handle === shop.handle ? <Check size={15} className="text-brand" /> : null}
+            <Link key={s.handle} role="menuitem" href={`/dashboard/${s.handle}`} onClick={() => setOpen(false)} className="flex min-h-11 items-center gap-2.5 rounded-[14px] px-2.5 py-2 text-sm hover:bg-sunken">
+              <ShopAvatar shop={s} size={28} /> <span className="min-w-0 flex-1 truncate font-display font-semibold">{s.name}</span>
+              {s.handle === shop.handle ? <Check size={15} className="text-brand-ink" /> : null}
             </Link>
           ))}
           <div className="my-1 h-px bg-line" />
-          <Link role="menuitem" href="/dashboard/new" onClick={() => setOpen(false)} className="flex items-center gap-2.5 rounded-lg px-2 py-2 text-sm font-medium text-ink-soft hover:bg-sunken">
-            <span className="grid h-6 w-6 place-items-center rounded-lg border border-dashed border-line-strong"><Plus size={14} /></span>
+          <Link role="menuitem" href="/dashboard/new" onClick={() => setOpen(false)} className="flex min-h-11 items-center gap-2.5 rounded-[14px] px-2.5 py-2 font-display text-sm font-semibold text-ink hover:bg-sunken">
+            <span className="grid h-7 w-7 place-items-center rounded-full bg-brand text-brand-fg"><Plus size={15} strokeWidth={2.6} /></span>
             Create another shop
           </Link>
         </div>
@@ -274,7 +274,7 @@ export function ShopAvatar({ shop, size = 28 }: { shop: { name: string; logoUrl:
     <img src={shop.logoUrl} alt="" width={size} height={size} className="shrink-0 object-cover ring-1 ring-line" style={{ width: size, height: size, borderRadius: r }} />
   ) : (
     <span
-      className="grid shrink-0 place-items-center bg-brand font-display font-bold text-white"
+      className="grid shrink-0 place-items-center bg-brand font-display font-bold text-brand-fg"
       style={{ width: size, height: size, borderRadius: r, fontSize: Math.round(size * 0.44) }}
     >
       {shop.name.slice(0, 1).toUpperCase()}
@@ -354,7 +354,7 @@ function CommandBar({ open, onOpenChange, handle, nav }: { open: boolean; onOpen
   return (
     <Dialog open={open} onOpenChange={setOpen} title="Search" className="sm:top-[16%] sm:max-w-xl sm:translate-y-0">
       <div className="relative">
-        <Search size={17} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-faint" />
+        <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-mist" />
         <input
           autoFocus
           value={q}
@@ -365,7 +365,7 @@ function CommandBar({ open, onOpenChange, handle, nav }: { open: boolean; onOpen
           onKeyDown={onKey}
           placeholder="Order number, product, customer name or phone"
           aria-label="Search"
-          className="input h-11 pl-10"
+          className="input pl-11"
         />
       </div>
       <div className="-mx-2 mt-3 max-h-[52vh] overflow-y-auto" role="listbox">
@@ -374,16 +374,16 @@ function CommandBar({ open, onOpenChange, handle, nav }: { open: boolean; onOpen
           lastGroup = it.group;
           return (
             <div key={it.key}>
-              {header ? <p className="px-3 pb-1 pt-2 text-xs font-medium text-faint">{header}</p> : null}
+              {header ? <p className="px-3 pb-1 pt-3 text-xs font-extrabold uppercase tracking-[0.06em] text-faint">{header}</p> : null}
               <button
                 role="option"
                 aria-selected={i === sel}
                 onMouseEnter={() => setActive(i)}
                 onClick={() => go(it.href)}
-                className={cn("flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm", i === sel ? "bg-sunken" : "")}
+                className={cn("flex min-h-11 w-full items-center gap-3 rounded-[14px] px-3 py-2 text-left text-[15px]", i === sel ? "bg-sunken" : "")}
               >
                 <it.icon size={16} className="shrink-0 text-mist" />
-                <span className="min-w-0 truncate font-medium">{it.label}</span>
+                <span className="min-w-0 truncate font-display font-semibold">{it.label}</span>
                 {it.detail ? <span className="min-w-0 truncate text-mist">{it.detail}</span> : null}
                 {i === sel ? <CornerDownLeft size={14} className="ml-auto shrink-0 text-faint" /> : null}
               </button>

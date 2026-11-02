@@ -20,8 +20,9 @@ const SECTIONS = [
   { key: "about", label: "About" },
   { key: "contact", label: "Contact" },
 ] as const;
-// Every accent passes WCAG AA with white button text.
+// Every accent passes WCAG AA with its button text (ink on coral, white on the rest).
 const ACCENTS = [
+  { hex: "#ff5a36", name: "Goods coral" },
   { hex: "#0e6b4e", name: "Merkato green" },
   { hex: "#1d5fa8", name: "Lake Tana blue" },
   { hex: "#6b3e26", name: "Buna brown" },
@@ -93,7 +94,7 @@ export function StoreEditor({ shop, address, bannerUrl, collections }: { shop: S
           <p className="truncate font-medium">{address}</p>
         </div>
         <Button size="sm" variant="secondary" onClick={() => navigator.clipboard.writeText(address).then(() => toast("Address copied"))}><Copy size={14} /> Copy</Button>
-        <a href={address} target="_blank" className="inline-flex h-9 items-center gap-1 rounded-lg px-3 text-sm text-signal hover:bg-paper-muted">Open <ExternalLink size={14} /></a>
+        <a href={address} target="_blank" className="inline-flex h-9 items-center gap-1 rounded-lg px-3 text-sm text-accent-ink hover:bg-paper-muted">Open <ExternalLink size={14} /></a>
       </section>
 
       <section className="card space-y-5 p-4 md:p-6">

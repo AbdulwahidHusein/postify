@@ -37,7 +37,7 @@ export function defaultShopSettings(): ShopSettings {
       pickupAddress: null,
     },
     contact: { phone: null, telegramUsername: null, address: null },
-    theme: { accent: "#0e6b4e", font: "sans", tagline: null, bannerKey: null, sections: ["hero", "grid", "about", "contact"] },
+    theme: { accent: "#ff5a36", font: "sans", tagline: null, bannerKey: null, sections: ["hero", "grid", "about", "contact"] },
     sellCategories: [],
   };
 }

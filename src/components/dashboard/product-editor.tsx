@@ -199,6 +199,8 @@ export function ProductEditor({
   const lowConfidence = product?.aiConfidence !== null && product?.aiConfidence !== undefined && product.aiConfidence < 0.8;
   const photoCount = images.length + pendingKeys.length;
   const busy = saving || uploading > 0;
+  const cover = images.find((i) => i.thumb)?.thumb ?? pendingKeys[0]?.preview ?? null;
+  const currency = product?.currency ?? "ETB";
   const STATUS = [
     { v: "published", label: "Active", hint: "Visible in your shop, Order button on posts" },
     { v: "draft", label: "Draft", hint: "Hidden from buyers" },
@@ -212,12 +214,12 @@ export function ProductEditor({
       {dirty ? (
         <div className="fixed inset-x-0 bottom-[60px] z-40 border-t border-white/10 bg-ink px-4 py-2.5 text-white pb-[max(0.625rem,env(safe-area-inset-bottom))] lg:bottom-auto lg:left-[248px] lg:top-0 lg:border-t-0 lg:pb-2.5">
           <div className="mx-auto flex max-w-[1120px] items-center gap-3 lg:px-6">
-            <p className="text-sm font-semibold">Unsaved changes</p>
+            <p className="font-display text-[15px] font-bold">Unsaved changes</p>
             <div className="ml-auto flex gap-2">
-              <button type="button" onClick={() => setF(JSON.parse(initial))} className="h-9 rounded-[10px] px-3 text-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white">
+              <button type="button" onClick={() => setF(JSON.parse(initial))} className="h-10 rounded-full px-4 font-display text-sm font-semibold text-white/80 transition-colors hover:bg-white/10 hover:text-white">
                 Discard
               </button>
-              <button type="submit" disabled={busy} className="h-9 rounded-[10px] bg-adey px-4 text-sm font-bold text-ink hover:bg-[#ffc81f] disabled:opacity-60">
+              <button type="submit" disabled={busy} className="h-10 rounded-full bg-brand px-5 font-display text-sm font-bold text-brand-fg transition-colors hover:bg-brand-hover active:scale-[0.98] disabled:opacity-60">
                 {saving ? "Saving…" : uploading ? "Uploading…" : "Save"}
               </button>
             </div>
@@ -226,8 +228,8 @@ export function ProductEditor({
       ) : null}
 
       <div className="mb-5 sm:mb-6">
-        <Link href={`/dashboard/${handle}/products`} className="mb-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-mist hover:text-ink">
-          <ArrowLeft size={15} /> Products
+        <Link href={`/dashboard/${handle}/products`} className="mb-3 inline-flex h-10 items-center gap-2 rounded-full bg-surface pl-3 pr-4 font-display text-[13px] font-semibold text-ink transition-colors hover:bg-sunken">
+          <ArrowLeft size={16} strokeWidth={2.4} /> Products
         </Link>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex min-w-0 flex-wrap items-center gap-3">
@@ -236,12 +238,12 @@ export function ProductEditor({
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {product && product.status !== "draft" ? (
-              <a href={`/s/${handle}/p/${product.slug}`} target="_blank" rel="noreferrer" className={buttonVariants({ variant: "secondary", size: "sm" })}>
+              <a href={`/s/${handle}/p/${product.slug}`} target="_blank" rel="noreferrer" className={buttonVariants({ variant: "secondary" })}>
                 View in shop <ArrowUpRight size={14} />
               </a>
             ) : null}
             {!product ? (
-              <Button type="submit" disabled={busy} size="sm">
+              <Button type="submit" disabled={busy}>
                 {saving ? "Saving…" : uploading ? "Uploading…" : "Create product"}
               </Button>
             ) : null}
@@ -250,9 +252,9 @@ export function ProductEditor({
       </div>
 
       {lowConfidence ? (
-        <div className="mb-5 flex gap-3 rounded-[var(--radius-card)] bg-adey-soft px-4 py-3 text-sm text-adey-ink">
+        <div className="mb-5 flex gap-3 rounded-[20px] bg-adey-soft px-4 py-3.5 text-[15px] font-semibold text-adey-ink">
           <Sparkles size={17} className="mt-0.5 shrink-0" />
-          <p><b className="font-semibold">Read automatically from your Telegram post.</b> Check the title, price and category, then set it Active.</p>
+          <p><b className="font-extrabold">Read automatically from your Telegram post.</b> Check the title, price and category, then set it Active.</p>
         </div>
       ) : null}
 
@@ -262,12 +264,12 @@ export function ProductEditor({
             <Field label="Title" htmlFor="p-title"><Input id="p-title" value={f.title} onChange={(e) => set("title", e.target.value)} maxLength={120} required placeholder="iPhone 13 Pro 128GB" /></Field>
             <Field label="Description" htmlFor="p-desc"><Textarea id="p-desc" rows={6} value={f.description} onChange={(e) => set("description", e.target.value)} maxLength={6000} placeholder="Condition, what's included, delivery details" /></Field>
             {product?.rawCaption ? (
-              <details className="group rounded-xl bg-sunken text-sm">
-                <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-2.5 font-medium text-ink-soft">
+              <details className="group rounded-[16px] bg-sunken text-sm">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 px-4 py-2.5 font-display font-semibold text-ink-soft">
                   <Send size={14} className="text-telegram" /> Original Telegram caption
                   <ChevronDown size={15} className="ml-auto text-faint transition-transform group-open:rotate-180" />
                 </summary>
-                <p className="whitespace-pre-wrap border-t border-line px-3 py-3 text-ink-soft">{product.rawCaption}</p>
+                <p className="whitespace-pre-wrap border-t border-line px-4 py-3 font-semibold text-ink-soft">{product.rawCaption}</p>
               </details>
             ) : null}
           </section>
@@ -275,12 +277,12 @@ export function ProductEditor({
           <section className="panel">
             <div className="panel-head">
               <h2 className="panel-title">Photos</h2>
-              <span className="num text-[13px] text-mist">{photoCount} of 10</span>
+              <span className="num text-[13px] font-bold text-mist">{photoCount} of 10 · first photo is the cover</span>
             </div>
             <div className="p-4 sm:p-5">
-              <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
+              <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
                 {images.map((img, i) => (
-                  <div key={img.id} className={cn("group relative aspect-square overflow-hidden rounded-xl bg-sunken ring-1 ring-line", i === 0 && "col-span-2 row-span-2")} style={{ background: img.color ?? undefined }}>
+                  <div key={img.id} className={cn("group relative aspect-square overflow-hidden rounded-[18px] bg-sunken", i === 0 ? "col-span-2 row-span-2 ring-[3px] ring-ink" : "ring-1 ring-line")} style={{ background: img.color ?? undefined }}>
                     {img.thumb ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={img.thumb} alt="" className="h-full w-full object-cover" />
@@ -292,23 +294,23 @@ export function ProductEditor({
                       <PhotoButton label="Remove photo" onClick={() => removeImage(img.id)} danger><Trash2 size={14} /></PhotoButton>
                       <PhotoButton label="Move later" disabled={i === images.length - 1} onClick={() => move(img.id, 1)}><ChevronRight size={15} /></PhotoButton>
                     </div>
-                    {i === 0 ? <span className="absolute left-2 top-2 rounded-md bg-surface/95 px-1.5 py-0.5 text-[11px] font-bold">Cover</span> : null}
+                    {i === 0 ? <span className="absolute left-2.5 top-2.5 rounded-full bg-ink px-2.5 py-1 font-display text-[11px] font-bold text-white">Cover</span> : null}
                   </div>
                 ))}
                 {pendingKeys.map((p, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img key={p.key} src={p.preview} alt="" className={cn("aspect-square h-full w-full rounded-xl object-cover ring-1 ring-line", images.length === 0 && i === 0 && "col-span-2 row-span-2")} />
+                  <img key={p.key} src={p.preview} alt="" className={cn("aspect-square h-full w-full animate-pulse rounded-[18px] object-cover ring-1 ring-line", images.length === 0 && i === 0 && "col-span-2 row-span-2")} />
                 ))}
                 {photoCount < 10 ? (
                   <button
                     type="button"
                     onClick={() => fileRef.current?.click()}
-                    className={cn("grid aspect-square place-items-center rounded-xl border-[1.5px] border-dashed border-line-strong text-mist transition-colors hover:border-brand hover:bg-brand-soft/40 hover:text-brand", photoCount === 0 && "col-span-3 aspect-auto py-10 sm:col-span-4")}
+                    className={cn("group/add grid aspect-square place-items-center rounded-[18px] border-2 border-dashed border-line-strong text-ink transition-colors hover:border-ink hover:bg-canvas", photoCount === 0 && "col-span-3 aspect-auto py-10 sm:col-span-4")}
                   >
-                    <span className="flex flex-col items-center gap-1.5 text-[13px] font-semibold">
-                      <ImagePlus size={photoCount === 0 ? 24 : 20} />
+                    <span className="flex flex-col items-center gap-2 font-display text-[14px] font-bold">
+                      <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-brand-fg transition-transform group-hover/add:scale-105"><ImagePlus size={20} strokeWidth={2.4} /></span>
                       {uploading ? "Uploading…" : photoCount === 0 ? "Add photos" : "Add"}
-                      {photoCount === 0 ? <span className="text-xs font-normal text-faint">JPG, PNG or WebP, up to 10</span> : null}
+                      {photoCount === 0 ? <span className="font-sans text-xs font-semibold text-mist">JPG, PNG or WebP, up to 10</span> : null}
                     </span>
                   </button>
                 ) : null}
@@ -321,10 +323,10 @@ export function ProductEditor({
             <div className="panel-head"><h2 className="panel-title">Price and stock</h2></div>
             <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
               <Field label="Price" htmlFor="p-price" hint="Leave empty to show “Ask for price”.">
-                <Prefixed prefix={product?.currency ?? "ETB"}><Input id="p-price" inputMode="decimal" value={f.price} onChange={(e) => set("price", e.target.value)} placeholder="4,500" className="num pl-12" /></Prefixed>
+                <Prefixed prefix={product?.currency ?? "ETB"}><Input id="p-price" inputMode="decimal" value={f.price} onChange={(e) => set("price", e.target.value)} placeholder="4,500" className="num pr-20 font-display text-lg font-extrabold" /></Prefixed>
               </Field>
               <Field label="Was" htmlFor="p-compare" hint="Optional old price, shown crossed out.">
-                <Prefixed prefix={product?.currency ?? "ETB"}><Input id="p-compare" inputMode="decimal" value={f.compareAtPrice} onChange={(e) => set("compareAtPrice", e.target.value)} className="num pl-12" /></Prefixed>
+                <Prefixed prefix={product?.currency ?? "ETB"}><Input id="p-compare" inputMode="decimal" value={f.compareAtPrice} onChange={(e) => set("compareAtPrice", e.target.value)} className="num pr-20 font-display text-lg font-extrabold" /></Prefixed>
               </Field>
               <Toggle checked={f.isNegotiable} onChange={(v) => set("isNegotiable", v)} label="Price is negotiable" hint="Buyers see “Negotiable” and are nudged to ask." />
               <div className="hidden sm:block" />
@@ -338,7 +340,7 @@ export function ProductEditor({
           </section>
 
           <section className="panel">
-            <div className="panel-head"><h2 className="panel-title">Details</h2><span className="text-[13px] text-mist">Helps buyers filter and search</span></div>
+            <div className="panel-head"><h2 className="panel-title">Details</h2><span className="text-[13px] font-semibold text-mist">Helps buyers filter and search</span></div>
             <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
               <Field label="Category"><SuggestInput kind="categories" value={f.category} onChange={(v) => set("category", v)} placeholder="Mobile Phones" /></Field>
               <Field label="Condition"><SuggestInput kind="conditions" value={f.condition} onChange={(v) => set("condition", v)} params={{ category: f.category }} placeholder="Brand New" /></Field>
@@ -351,16 +353,48 @@ export function ProductEditor({
         </div>
 
         <aside className="space-y-5">
+          <section className="rounded-[var(--radius-card)] bg-ink p-4 text-white" aria-labelledby="tg-preview">
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h2 id="tg-preview" className="font-display text-[15px] font-bold">How it looks in your channel</h2>
+              <span className="rounded-full bg-white/10 px-2.5 py-1 font-display text-[11px] font-bold text-white/70">Preview</span>
+            </div>
+            <div className="overflow-hidden rounded-[18px] bg-surface text-ink">
+              <div className="grid aspect-[4/3] place-items-center bg-sunken">
+                {cover ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={cover} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <ImagePlus size={28} className="text-faint" aria-hidden />
+                )}
+              </div>
+              <div className="space-y-1 px-3.5 py-3 text-[14px] leading-snug">
+                <p className="font-bold">{f.title || "Your product title"}</p>
+                <p>
+                  <b className="num">{f.price ? `${f.price} ${currency}` : "Ask for price"}</b>
+                  {f.compareAtPrice ? <span className="num ml-1.5 text-mist line-through">{f.compareAtPrice}</span> : null}
+                  {f.isNegotiable ? <span className="ml-1.5 text-mist">· Negotiable</span> : null}
+                </p>
+                {f.description ? <p className="line-clamp-2 text-ink-soft">{f.description}</p> : null}
+              </div>
+            </div>
+            <div className="mt-1.5 grid grid-cols-2 gap-1.5" aria-hidden>
+              <span className="grid h-10 place-items-center rounded-[12px] bg-white/10 font-display text-[13px] font-bold">Order</span>
+              <span className="grid h-10 place-items-center rounded-[12px] bg-white/10 font-display text-[13px] font-bold">Ask seller</span>
+            </div>
+          </section>
           <section className="panel">
             <div className="panel-head"><h2 className="panel-title">Status</h2></div>
-            <fieldset className="space-y-1 p-2">
+            <fieldset className="space-y-2 p-3">
               <legend className="sr-only">Product status</legend>
               {STATUS.map((o) => (
-                <label key={o.v} className={cn("flex cursor-pointer gap-3 rounded-xl px-3 py-2.5 transition-colors", f.status === o.v ? "bg-sunken" : "hover:bg-canvas")}>
-                  <input type="radio" name="status" value={o.v} checked={f.status === o.v} onChange={() => set("status", o.v)} className="mt-1 h-4 w-4 accent-[var(--brand)]" />
+                <label key={o.v} className={cn("flex cursor-pointer gap-3 rounded-[16px] border-2 px-3.5 py-3 transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink", f.status === o.v ? "border-ink bg-surface" : "border-transparent bg-sunken hover:border-line-strong")}>
+                  <input type="radio" name="status" value={o.v} checked={f.status === o.v} onChange={() => set("status", o.v)} className="sr-only" />
+                  <span aria-hidden className={cn("mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border-2", f.status === o.v ? "border-ink bg-ink" : "border-line-strong bg-surface")}>
+                    {f.status === o.v ? <span className="h-2 w-2 rounded-full bg-brand" /> : null}
+                  </span>
                   <span>
-                    <span className="block text-sm font-semibold">{o.label}</span>
-                    <span className="block text-xs text-mist">{o.hint}</span>
+                    <span className="block font-display text-[15px] font-bold">{o.label}</span>
+                    <span className="block text-[13px] font-semibold text-mist">{o.hint}</span>
                   </span>
                 </label>
               ))}
@@ -378,13 +412,13 @@ export function ProductEditor({
                     {sources.map((s) => {
                       const bad = s.buttonStatus === "failed" || s.buttonStatus === "deleted";
                       return (
-                        <li key={s.id} className="rounded-xl border border-line px-3 py-2.5">
+                        <li key={s.id} className="rounded-[16px] bg-sunken px-3.5 py-3">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="truncate text-sm font-semibold">{s.channel?.title ?? "Telegram chat"}</span>
+                            <span className="truncate font-display text-sm font-bold">{s.channel?.title ?? "Telegram chat"}</span>
                             {s.link ? <a href={s.link} target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-telegram hover:underline">Open post</a> : null}
                           </div>
                           <p className={cn("mt-0.5 flex items-center gap-1.5 text-xs", bad ? "font-medium text-danger" : "text-mist")}>
-                            <span className={cn("h-1.5 w-1.5 shrink-0 rounded-full", bad ? "bg-danger" : s.buttonMode === "none" ? "bg-faint" : "bg-brand")} />
+                            <span className={cn("h-1.5 w-1.5 shrink-0 rounded-full", bad ? "bg-danger" : s.buttonMode === "none" ? "bg-faint" : "bg-success-dot")} />
                             {s.buttonStatus === "deleted" ? "Post was deleted" : s.buttonStatus === "failed" ? `Button problem: ${s.lastError ?? "unknown"}` : s.buttonMode === "reply_card" ? "Order button in a card under the post" : s.buttonMode === "none" ? "No button while hidden" : "Order button on the post"}
                           </p>
                         </li>
@@ -396,12 +430,12 @@ export function ProductEditor({
                 )}
                 {channels.length && product.status === "published" ? (
                   <div className="space-y-2 border-t border-line pt-3">
-                    <p className="text-[13px] font-medium">Post it to a channel</p>
+                    <p className="text-[14px] font-extrabold">Post it to a channel</p>
                     <div className="flex gap-2">
-                      <Select value={postChannel} onChange={(e) => setPostChannel(e.target.value)} className="h-9 min-w-0 flex-1" aria-label="Channel">
+                      <div className="min-w-0 flex-1"><Select value={postChannel} onChange={(e) => setPostChannel(e.target.value)} className="h-11" aria-label="Channel">
                         {channels.map((c) => <option key={c.id} value={c.id}>{c.title ?? c.chatType}</option>)}
-                      </Select>
-                      <Button type="button" size="sm" variant="telegram" className="h-9" onClick={postToChannel}>Post</Button>
+                      </Select></div>
+                      <Button type="button" variant="telegram" onClick={postToChannel}>Post</Button>
                     </div>
                   </div>
                 ) : null}
@@ -410,7 +444,7 @@ export function ProductEditor({
           ) : null}
 
           {product ? (
-            <button type="button" onClick={() => setDeleteOpen(true)} className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-control)] py-2.5 text-sm font-semibold text-danger hover:bg-danger-soft">
+            <button type="button" onClick={() => setDeleteOpen(true)} className="flex h-11 w-full items-center justify-center gap-2 rounded-full font-display text-sm font-bold text-danger transition-colors hover:bg-danger-soft">
               <Trash2 size={15} /> Delete product
             </button>
           ) : null}
@@ -437,7 +471,7 @@ export function ProductEditor({
 
 function PhotoButton({ label, danger, children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: string; danger?: boolean }) {
   return (
-    <button type="button" aria-label={label} title={label} {...props} className={cn("grid h-7 w-7 place-items-center rounded-lg bg-surface/95 shadow-sm disabled:opacity-0", danger ? "text-danger" : "text-ink")}>
+    <button type="button" aria-label={label} title={label} {...props} className={cn("grid h-8 w-8 place-items-center rounded-full bg-surface/95 shadow-sm transition-transform active:scale-95 disabled:opacity-0", danger ? "text-danger" : "text-ink")}>
       {children}
     </button>
   );
@@ -446,7 +480,7 @@ function PhotoButton({ label, danger, children, ...props }: React.ButtonHTMLAttr
 function Prefixed({ prefix, children }: { prefix: string; children: React.ReactNode }) {
   return (
     <div className="relative">
-      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[13px] font-semibold text-mist">{prefix}</span>
+      <span className="pointer-events-none absolute right-2 top-1/2 grid h-8 -translate-y-1/2 place-items-center rounded-[12px] bg-ink px-2.5 font-display text-[13px] font-bold text-brand">{prefix}</span>
       {children}
     </div>
   );
@@ -456,8 +490,8 @@ function Toggle({ checked, onChange, label, hint }: { checked: boolean; onChange
   return (
     <label className="flex cursor-pointer items-start justify-between gap-4">
       <span>
-        <span className="block text-sm font-semibold">{label}</span>
-        {hint ? <span className="block text-xs text-mist">{hint}</span> : null}
+        <span className="block font-display text-[15px] font-bold">{label}</span>
+        {hint ? <span className="block text-[13px] font-semibold text-mist">{hint}</span> : null}
       </span>
       <Switch checked={checked} onCheckedChange={onChange} className="mt-0.5" />
     </label>

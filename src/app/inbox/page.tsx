@@ -15,7 +15,7 @@ export default async function BuyerInbox() {
     <main className="mx-auto max-w-2xl px-4 py-6">
       <div className="mb-5 flex items-center justify-between">
         <h1 className="page-title">Messages</h1>
-        <Link href="/account/orders" className="text-sm text-signal">My orders</Link>
+        <Link href="/account/orders" className="text-sm text-accent-ink">My orders</Link>
       </div>
       {items.length ? (
         <div className="card divide-y divide-line">
@@ -31,7 +31,7 @@ export default async function BuyerInbox() {
               </div>
               <div className="text-right">
                 <p className="text-xs text-mist">{c.lastMessageAt ? timeAgo(c.lastMessageAt) : ""}</p>
-                {c.unread ? <span className="rounded-full bg-signal px-1.5 text-xs font-semibold text-white">{c.unread}</span> : null}
+                {c.unread ? <span className="rounded-full bg-signal px-1.5 text-xs font-semibold text-accent-fg">{c.unread}</span> : null}
               </div>
             </Link>
           ))}

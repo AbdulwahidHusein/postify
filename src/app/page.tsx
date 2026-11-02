@@ -32,7 +32,7 @@ function Cta({ href, children, size = "lg", variant = "primary", className }: { 
       className={cn(
         "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[12px] font-semibold transition-colors",
         size === "lg" ? "h-12 px-5 text-[15px]" : "h-10 px-4 text-sm",
-        variant === "primary" && "bg-brand text-white shadow-[inset_0_-1px_0_rgb(0_0_0/0.2),0_8px_20px_-8px_rgb(14_107_78/0.6)] hover:bg-brand-hover",
+        variant === "primary" && "bg-brand text-brand-fg shadow-[inset_0_-1px_0_rgb(0_0_0/0.2),0_8px_20px_-8px_rgb(14_107_78/0.6)] hover:bg-brand-hover",
         variant === "secondary" && "bg-white text-ink ring-1 ring-line-strong hover:bg-canvas",
         variant === "light" && "bg-white text-ink hover:bg-white/90",
         className,
@@ -113,7 +113,7 @@ export default async function Landing() {
               </div>
               <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[14px] text-ink-soft">
                 {["trust_setup", "trust_website", "trust_languages"].map((k) => (
-                  <li key={k} className="flex items-center gap-1.5"><Check size={16} className="text-brand" strokeWidth={2.5} /> {t(k)}</li>
+                  <li key={k} className="flex items-center gap-1.5"><Check size={16} className="text-brand-ink" strokeWidth={2.5} /> {t(k)}</li>
                 ))}
               </ul>
             </div>
@@ -143,11 +143,11 @@ export default async function Landing() {
                 </ul>
               </div>
               <div className="rounded-[20px] bg-white p-6 ring-2 ring-brand sm:p-8">
-                <p className="text-sm font-semibold text-brand">{t("pain_after")}</p>
+                <p className="text-sm font-semibold text-brand-ink">{t("pain_after")}</p>
                 <ul className="mt-5 space-y-4">
                   {[1, 2, 3, 4].map((i) => (
                     <li key={i} className="flex gap-3 text-[16px] font-medium text-ink">
-                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-white"><Check size={12} strokeWidth={3} /></span>
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-brand-fg"><Check size={12} strokeWidth={3} /></span>
                       {t(`gain_${i}`)}
                     </li>
                   ))}
@@ -183,7 +183,7 @@ export default async function Landing() {
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {features.map((f) => (
                 <div key={f.title} className="rounded-[20px] bg-white p-6 ring-1 ring-line sm:p-7">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-soft text-brand"><f.icon size={19} /></span>
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-soft text-brand-ink"><f.icon size={19} /></span>
                   <h3 className="mt-5 font-display text-[18px] font-bold">{f.title}</h3>
                   <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">{f.body}</p>
                 </div>
@@ -200,7 +200,7 @@ export default async function Landing() {
               <ul className="mt-8 space-y-3.5">
                 {["show_1", "show_2", "show_3"].map((k) => (
                   <li key={k} className="flex gap-3 text-[16px] text-ink">
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-white"><Check size={12} strokeWidth={3} /></span>
+                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-brand-fg"><Check size={12} strokeWidth={3} /></span>
                     {t(k)}
                   </li>
                 ))}
@@ -228,7 +228,7 @@ export default async function Landing() {
               <ul className="mt-6 space-y-3 border-t border-line pt-6">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <li key={i} className="flex gap-3 text-[15px]">
-                    <Check size={18} className="shrink-0 text-brand" strokeWidth={2.5} /> {t(`price_${i}`)}
+                    <Check size={18} className="shrink-0 text-brand-ink" strokeWidth={2.5} /> {t(`price_${i}`)}
                   </li>
                 ))}
               </ul>

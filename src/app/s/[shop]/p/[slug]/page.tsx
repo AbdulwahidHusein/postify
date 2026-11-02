@@ -68,22 +68,22 @@ export default async function ProductPage({ params, searchParams }: Props) {
         <Gallery images={p.images} title={p.title} />
         <div className="min-w-0">
           {p.category ? (
-            <Link href={`${base}/?category=${encodeURIComponent(p.category)}`} className="text-[13px] font-semibold text-accent hover:underline">{p.category.split(" > ").at(-1)}</Link>
+            <Link href={`${base}/?category=${encodeURIComponent(p.category)}`} className="inline-flex h-8 items-center rounded-full bg-surface px-3 font-display text-[13px] font-bold text-ink ring-1 ring-line hover:ring-ink">{p.category.split(" > ").at(-1)}</Link>
           ) : null}
-          <h1 className="mt-1 font-display text-[22px] font-bold leading-tight tracking-[-0.01em] sm:text-[28px]">{p.title}</h1>
-          <div className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+          <h1 className="mt-3 font-display text-[26px] font-extrabold leading-[1.1] tracking-[-0.03em] sm:text-[36px]">{p.title}</h1>
+          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
             {p.priceMinor ? (
-              <span className="num font-display text-[28px] font-bold leading-none tracking-[-0.01em]">{formatMoney(BigInt(p.priceMinor), p.currency)}</span>
+              <span className="num font-display text-[34px] font-extrabold leading-none tracking-[-0.03em] sm:text-[40px]">{formatMoney(BigInt(p.priceMinor), p.currency)}</span>
             ) : (
-              <span className="font-display text-xl font-bold text-accent">{t(locale, "product.askPrice")}</span>
+              <span className="font-display text-xl font-bold text-accent-ink">{t(locale, "product.askPrice")}</span>
             )}
             {off ? (
               <>
-                <span className="num text-base text-faint line-through">{formatMoney(BigInt(p.compareAtMinor!), p.currency)}</span>
-                <span className="num rounded-full bg-adey px-2 py-0.5 text-xs font-bold text-ink">−{off}%</span>
+                <span className="num text-lg font-semibold text-faint line-through">{formatMoney(BigInt(p.compareAtMinor!), p.currency)}</span>
+                <span className="num rounded-full bg-accent px-2.5 py-1 font-display text-[13px] font-bold text-accent-fg">−{off}%</span>
               </>
             ) : null}
-            {p.isNegotiable ? <span className="rounded-full bg-sunken px-2.5 py-1 text-xs font-semibold text-ink-soft">{t(locale, "product.negotiable")}</span> : null}
+            {p.isNegotiable ? <span className="rounded-full bg-sunken px-3 py-1 font-display text-[13px] font-bold text-ink-soft">{t(locale, "product.negotiable")}</span> : null}
           </div>
 
           <BuyBox
@@ -100,11 +100,11 @@ export default async function ProductPage({ params, searchParams }: Props) {
             autoOrder={sp.order === "1"}
           />
 
-          <ul className="mt-5 divide-y divide-line rounded-[16px] bg-surface text-sm ring-1 ring-line">
-            <li className="flex items-center gap-3 px-4 py-3"><Banknote size={18} className="shrink-0 text-accent" /> <span className="text-ink-soft">{t(locale, "product.payOnDelivery")}</span></li>
+          <ul className="mt-6 divide-y divide-line rounded-[20px] bg-surface text-[15px] font-semibold">
+            <li className="flex items-center gap-3 px-4 py-3"><Banknote size={18} className="shrink-0 text-accent-ink" /> <span className="text-ink-soft">{t(locale, "product.payOnDelivery")}</span></li>
             {settings.delivery.deliveryEnabled ? (
               <li className="flex items-center gap-3 px-4 py-3">
-                <Truck size={18} className="shrink-0 text-accent" />
+                <Truck size={18} className="shrink-0 text-accent-ink" />
                 <span className="text-ink-soft">
                   <b className="font-semibold text-ink">{fee > 0n ? t(locale, "product.deliveryFee", { fee: formatMoney(fee, p.currency) ?? "" }) : t(locale, "product.freeDelivery")}</b>
                   {settings.delivery.deliveryNote ? `, ${settings.delivery.deliveryNote}` : ""}
@@ -112,25 +112,25 @@ export default async function ProductPage({ params, searchParams }: Props) {
               </li>
             ) : null}
             {settings.delivery.pickupEnabled ? (
-              <li className="flex items-center gap-3 px-4 py-3"><MapPin size={18} className="shrink-0 text-accent" /> <span className="text-ink-soft">{t(locale, "product.pickup")}{settings.delivery.pickupAddress ? `: ${settings.delivery.pickupAddress}` : ""}</span></li>
+              <li className="flex items-center gap-3 px-4 py-3"><MapPin size={18} className="shrink-0 text-accent-ink" /> <span className="text-ink-soft">{t(locale, "product.pickup")}{settings.delivery.pickupAddress ? `: ${settings.delivery.pickupAddress}` : ""}</span></li>
             ) : null}
           </ul>
 
           {specs.length ? (
-            <dl className="mt-6 divide-y divide-line border-y border-line text-sm">
+            <dl className="mt-6 divide-y divide-line overflow-hidden rounded-[20px] bg-surface px-4 text-[15px]">
               {specs.map(([k, v]) => (
-                <div key={k} className="grid grid-cols-[120px_1fr] gap-4 py-2.5"><dt className="text-mist">{k}</dt><dd className="font-medium">{v}</dd></div>
+                <div key={k} className="grid grid-cols-[120px_1fr] gap-4 py-3"><dt className="font-semibold text-mist">{k}</dt><dd className="font-bold">{v}</dd></div>
               ))}
             </dl>
           ) : null}
           {p.description ? (
             <div className="mt-6">
-              <h2 className="font-display text-base font-bold">{t(locale, "product.details")}</h2>
+              <h2 className="font-display text-lg font-extrabold tracking-[-0.02em]">{t(locale, "product.details")}</h2>
               <p className="mt-2 whitespace-pre-wrap text-[15px] leading-relaxed text-ink-soft">{p.description}</p>
             </div>
           ) : null}
           {tgLink ? (
-            <a href={tgLink} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-telegram-soft px-3.5 py-2 text-[13px] font-semibold text-[#106a96] hover:bg-telegram/15">
+            <a href={tgLink} target="_blank" rel="noreferrer" className="mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-telegram-soft px-4 font-display text-[14px] font-bold text-[#0d5f87] hover:bg-telegram/15">
               <Send size={14} /> {t(locale, "product.viewOnTelegram")}
             </a>
           ) : null}
@@ -138,8 +138,8 @@ export default async function ProductPage({ params, searchParams }: Props) {
       </div>
       {related.length ? (
         <section className="mt-12 border-t border-line pt-8" aria-labelledby="related-title">
-          <h2 id="related-title" className="mb-4 font-display text-lg font-bold">{t(locale, "product.related")}</h2>
-          <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-4 sm:gap-x-4">
+          <h2 id="related-title" className="mb-5 font-display text-2xl font-extrabold tracking-[-0.03em]">{t(locale, "product.related")}</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {related.slice(0, 8).map((r) => <ProductCard key={r.id} p={r} base={base} locale={locale} />)}
           </div>
         </section>

@@ -92,7 +92,7 @@ export function CheckoutForm({
     return (
       <div className="flex flex-col items-center rounded-[18px] bg-surface py-14 text-center ring-1 ring-line">
         <p className="font-display font-semibold">{t(locale, "cart.empty")}</p>
-        <a href={base || "/"} className="mt-3 text-sm font-semibold text-accent hover:underline">{t(locale, "cart.continue")}</a>
+        <a href={base || "/"} className="mt-3 text-sm font-semibold text-accent-ink hover:underline">{t(locale, "cart.continue")}</a>
       </div>
     );
   }

@@ -25,7 +25,7 @@ export default async function CustomerPage({ params }: { params: Promise<{ shop:
   return (
     <>
       <PageHeader back={{ href: `${base}/customers`, label: "Customers" }} title={c.name}
-        description={<a href={`tel:${c.phone}`} className="inline-flex items-center gap-1 text-signal"><Phone size={14} /> {formatPhone(c.phone)}</a>} />
+        description={<a href={`tel:${c.phone}`} className="inline-flex items-center gap-1 text-accent-ink"><Phone size={14} /> {formatPhone(c.phone)}</a>} />
       <div className="mb-5 grid grid-cols-3 gap-3">
         <Stat label="Orders" value={c.orderCount} />
         <Stat label="Spent" value={formatMoney(c.totalSpentMinor, shop.currency)} />

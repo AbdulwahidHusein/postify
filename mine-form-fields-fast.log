@@ -1,0 +1,1225 @@
+starting FAST mine at Wed Sep 16 08:48:23 AM EAT 2026 concurrency=3 saveEvery=50 delay=0
+Leaves=213 concurrency=3 saveEvery=50 delay=0
+Resume checkpoint: 26333/41705 model keys
+Model jobs remaining: 15372
+saved (models:jewellery-and-watches) writes=1 modelKeys=26383/41705 done=50 flushed≈50
+… jewellery-and-watches / Otazu: 0 (100/15372)
+saved (models:jewellery-and-watches) writes=2 modelKeys=26433/41705 done=100 flushed≈50
+saved (models:jewellery-and-watches) writes=3 modelKeys=26483/41705 done=150 flushed≈50
+… jewellery-and-watches / Pono: 0 (200/15372)
+saved (models:jewellery-and-watches) writes=4 modelKeys=26533/41705 done=200 flushed≈50
+saved (models:jewellery-and-watches) writes=5 modelKeys=26583/41705 done=250 flushed≈50
+… jewellery-and-watches / REO: 0 (300/15372)
+saved (models:jewellery-and-watches) writes=6 modelKeys=26633/41705 done=300 flushed≈50
+saved (models:jewellery-and-watches) writes=7 modelKeys=26683/41705 done=350 flushed≈50
+… jewellery-and-watches / Sanctuary: 0 (400/15372)
+saved (models:jewellery-and-watches) writes=8 modelKeys=26733/41705 done=400 flushed≈50
+saved (models:jewellery-and-watches) writes=9 modelKeys=26783/41705 done=450 flushed≈50
+… jewellery-and-watches / SJ: 0 (500/15372)
+saved (models:jewellery-and-watches) writes=10 modelKeys=26833/41705 done=500 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:jewellery-and-watches) writes=11 modelKeys=26883/41705 done=550 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… jewellery-and-watches / Sunshine: 0 (600/15372)
+saved (models:jewellery-and-watches) writes=12 modelKeys=26933/41705 done=600 flushed≈50
+saved (models:jewellery-and-watches) writes=13 modelKeys=26983/41705 done=650 flushed≈50
+… jewellery-and-watches / Tory Burch: 0 (700/15372)
+saved (models:jewellery-and-watches) writes=14 modelKeys=27033/41705 done=700 flushed≈50
+saved (models:jewellery-and-watches) writes=15 modelKeys=27083/41705 done=750 flushed≈50
+… jewellery-and-watches / Viennois: 0 (800/15372)
+saved (models:jewellery-and-watches) writes=16 modelKeys=27133/41705 done=800 flushed≈50
+saved (models:jewellery-and-watches) writes=17 modelKeys=27183/41705 done=850 flushed≈50
+… jewellery-and-watches / Xhilaration: 0 (900/15372)
+saved (models:jewellery-and-watches) writes=18 modelKeys=27233/41705 done=900 flushed≈50
+saved (models:shoes) writes=19 modelKeys=27283/41705 done=950 flushed≈50
+… shoes / Aston M. Jazz: 0 (1000/15372)
+saved (models:shoes) writes=20 modelKeys=27333/41705 done=1000 flushed≈50
+saved (models:shoes) writes=21 modelKeys=27383/41705 done=1050 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… shoes / Christian Louboutin: 0 (1100/15372)
+saved (models:shoes) writes=22 modelKeys=27433/41705 done=1100 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:shoes) writes=23 modelKeys=27485/41705 done=1152 flushed≈50
+… shoes / Fendi: 0 (1200/15372)
+saved (models:shoes) writes=24 modelKeys=27533/41705 done=1200 flushed≈50
+saved (models:shoes) writes=25 modelKeys=27583/41705 done=1250 flushed≈50
+… shoes / Jaguar: 0 (1300/15372)
+saved (models:shoes) writes=26 modelKeys=27633/41705 done=1300 flushed≈50
+saved (models:shoes) writes=27 modelKeys=27683/41705 done=1350 flushed≈50
+… shoes / Manolo Blahnik: 0 (1400/15372)
+saved (models:shoes) writes=28 modelKeys=27733/41705 done=1400 flushed≈50
+saved (models:shoes) writes=29 modelKeys=27783/41705 done=1450 flushed≈50
+… shoes / Olivia Fan: 0 (1500/15372)
+saved (models:shoes) writes=30 modelKeys=27835/41705 done=1502 flushed≈50
+saved (models:shoes) writes=31 modelKeys=27883/41705 done=1550 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… shoes / Salvatore Ferragamo: 0 (1600/15372)
+saved (models:shoes) writes=32 modelKeys=27933/41705 done=1600 flushed≈50
+saved (models:shoes) writes=33 modelKeys=27983/41705 done=1650 flushed≈50
+… shoes / Verati: 0 (1700/15372)
+saved (models:shoes) writes=34 modelKeys=28033/41705 done=1700 flushed≈50
+saved (models:watches) writes=35 modelKeys=28083/41705 done=1750 flushed≈50
+… watches / Chanel: 0 (1800/15372)
+saved (models:watches) writes=36 modelKeys=28133/41705 done=1800 flushed≈50
+saved (models:watches) writes=37 modelKeys=28183/41705 done=1850 flushed≈50
+… watches / Longbo: 0 (1900/15372)
+saved (models:watches) writes=38 modelKeys=28233/41705 done=1900 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:watches) writes=39 modelKeys=28283/41705 done=1950 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… watches / Soxy: 0 (2000/15372)
+saved (models:watches) writes=40 modelKeys=28333/41705 done=2000 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:watches) writes=41 modelKeys=28383/41705 done=2050 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… wedding-wear / Elegance by Carbonneau: 0 (2100/15372)
+saved (models:wedding-wear) writes=42 modelKeys=28433/41705 done=2100 flushed≈50
+saved (models:wedding-wear) writes=43 modelKeys=28483/41705 done=2150 flushed≈50
+… massagers / Breo: 0 (2200/15372)
+saved (models:massagers) writes=44 modelKeys=28533/41705 done=2200 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:massagers) writes=45 modelKeys=28583/41705 done=2250 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… massagers / WOLONOW: 0 (2300/15372)
+saved (models:massagers) writes=46 modelKeys=28633/41705 done=2300 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:camping-gear) writes=47 modelKeys=28683/41705 done=2350 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… camping-gear / Black Diamond: 0 (2400/15372)
+saved (models:camping-gear) writes=48 modelKeys=28733/41705 done=2400 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:camping-gear) writes=49 modelKeys=28783/41705 done=2450 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… camping-gear / Dare 2B: 0 (2500/15372)
+saved (models:camping-gear) writes=50 modelKeys=28833/41705 done=2500 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:camping-gear) writes=51 modelKeys=28883/41705 done=2550 flushed≈50
+… camping-gear / Gain: 0 (2600/15372)
+saved (models:camping-gear) writes=52 modelKeys=28933/41705 done=2600 flushed≈50
+saved (models:camping-gear) writes=53 modelKeys=28983/41705 done=2650 flushed≈50
+… camping-gear / Icon: 0 (2700/15372)
+saved (models:camping-gear) writes=54 modelKeys=29033/41705 done=2700 flushed≈50
+saved (models:camping-gear) writes=55 modelKeys=29083/41705 done=2750 flushed≈50
+… camping-gear / Lloytron: 0 (2800/15372)
+saved (models:camping-gear) writes=56 modelKeys=29133/41705 done=2800 flushed≈50
+saved (models:camping-gear) writes=57 modelKeys=29183/41705 done=2850 flushed≈50
+… camping-gear / OGIO: 0 (2900/15372)
+saved (models:camping-gear) writes=58 modelKeys=29234/41705 done=2901 flushed≈50
+saved (models:camping-gear) writes=59 modelKeys=29283/41705 done=2950 flushed≈50
+… camping-gear / Reebok: 0 (3000/15372)
+saved (models:camping-gear) writes=60 modelKeys=29333/41705 done=3000 flushed≈50
+saved (models:camping-gear) writes=61 modelKeys=29383/41705 done=3050 flushed≈50
+… camping-gear / Sprayway: 0 (3100/15372)
+saved (models:camping-gear) writes=62 modelKeys=29433/41705 done=3100 flushed≈50
+saved (models:camping-gear) writes=63 modelKeys=29483/41705 done=3150 flushed≈50
+… camping-gear / Valley: 0 (3200/15372)
+saved (models:camping-gear) writes=64 modelKeys=29533/41705 done=3200 flushed≈50
+saved (models:camping-gear) writes=65 modelKeys=29583/41705 done=3250 flushed≈50
+… musical-instruments / Bacchus: 0 (3300/15372)
+saved (models:musical-instruments) writes=66 modelKeys=29633/41705 done=3300 flushed≈50
+saved (models:musical-instruments) writes=67 modelKeys=29683/41705 done=3350 flushed≈50
+… musical-instruments / Fender: 0 (3400/15372)
+saved (models:musical-instruments) writes=68 modelKeys=29733/41705 done=3400 flushed≈50
+saved (models:musical-instruments) writes=69 modelKeys=29783/41705 done=3450 flushed≈50
+… musical-instruments / Maestro: 0 (3500/15372)
+saved (models:musical-instruments) writes=70 modelKeys=29833/41705 done=3500 flushed≈50
+saved (models:musical-instruments) writes=71 modelKeys=29883/41705 done=3550 flushed≈50
+… musical-instruments / Suzuki: 0 (3600/15372)
+saved (models:musical-instruments) writes=72 modelKeys=29933/41705 done=3600 flushed≈50
+saved (models:musical-instruments) writes=73 modelKeys=29983/41705 done=3650 flushed≈50
+… sports-bicycles-and-fitness / Bodygym: 0 (3700/15372)
+saved (models:sports-bicycles-and-fitness) writes=74 modelKeys=30033/41705 done=3700 flushed≈50
+saved (models:sports-bicycles-and-fitness) writes=75 modelKeys=30083/41705 done=3750 flushed≈50
+… sports-bicycles-and-fitness / Goplus: 0 (3800/15372)
+saved (models:sports-bicycles-and-fitness) writes=76 modelKeys=30133/41705 done=3800 flushed≈50
+saved (models:sports-bicycles-and-fitness) writes=77 modelKeys=30183/41705 done=3850 flushed≈50
+… sports-bicycles-and-fitness / New Balance: 0 (3900/15372)
+saved (models:sports-bicycles-and-fitness) writes=78 modelKeys=30233/41705 done=3900 flushed≈50
+429 rate-limit — sleeping 15s
+saved (models:sports-bicycles-and-fitness) writes=79 modelKeys=30283/41705 done=3950 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… sports-bicycles-and-fitness / Spirit Fitness: 0 (4000/15372)
+saved (models:sports-bicycles-and-fitness) writes=80 modelKeys=30333/41705 done=4000 flushed≈50
+saved (models:sports-bicycles-and-fitness) writes=81 modelKeys=30383/41705 done=4050 flushed≈50
+… personal-mobility / A-Tec: 0 (4100/15372)
+saved (models:personal-mobility) writes=82 modelKeys=30433/41705 done=4100 flushed≈50
+saved (models:personal-mobility) writes=83 modelKeys=30483/41705 done=4150 flushed≈50
+… personal-mobility / Backfire: 0 (4200/15372)
+saved (models:personal-mobility) writes=84 modelKeys=30533/41705 done=4200 flushed≈50
+saved (models:personal-mobility) writes=85 modelKeys=30583/41705 done=4250 flushed≈50
+… personal-mobility / Bosch: 0 (4300/15372)
+saved (models:personal-mobility) writes=86 modelKeys=30633/41705 done=4300 flushed≈50
+saved (models:personal-mobility) writes=87 modelKeys=30683/41705 done=4350 flushed≈50
+… personal-mobility / CPO: 0 (4400/15372)
+saved (models:personal-mobility) writes=88 modelKeys=30733/41705 done=4400 flushed≈50
+saved (models:personal-mobility) writes=89 modelKeys=30783/41705 done=4450 flushed≈50
+… personal-mobility / Easy: 0 (4500/15372)
+saved (models:personal-mobility) writes=90 modelKeys=30833/41705 done=4500 flushed≈50
+saved (models:personal-mobility) writes=91 modelKeys=30883/41705 done=4550 flushed≈50
+… personal-mobility / Fix: 0 (4600/15372)
+saved (models:personal-mobility) writes=92 modelKeys=30933/41705 done=4600 flushed≈50
+saved (models:personal-mobility) writes=93 modelKeys=30983/41705 done=4650 flushed≈50
+… personal-mobility / Greys: 0 (4700/15372)
+saved (models:personal-mobility) writes=94 modelKeys=31033/41705 done=4700 flushed≈50
+saved (models:personal-mobility) writes=95 modelKeys=31083/41705 done=4750 flushed≈50
+… personal-mobility / Jamis: 0 (4800/15372)
+saved (models:personal-mobility) writes=96 modelKeys=31133/41705 done=4800 flushed≈50
+saved (models:personal-mobility) writes=97 modelKeys=31183/41705 done=4850 flushed≈50
+… personal-mobility / Leader: 0 (4900/15372)
+saved (models:personal-mobility) writes=98 modelKeys=31233/41705 done=4900 flushed≈50
+saved (models:personal-mobility) writes=99 modelKeys=31283/41705 done=4950 flushed≈50
+… personal-mobility / Mic: 0 (5000/15372)
+saved (models:personal-mobility) writes=100 modelKeys=31333/41705 done=5000 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:personal-mobility) writes=101 modelKeys=31383/41705 done=5050 flushed≈50
+… personal-mobility / Norco: 0 (5100/15372)
+saved (models:personal-mobility) writes=102 modelKeys=31433/41705 done=5100 flushed≈50
+saved (models:personal-mobility) writes=103 modelKeys=31483/41705 done=5150 flushed≈50
+… personal-mobility / Prestan: 0 (5200/15372)
+saved (models:personal-mobility) writes=104 modelKeys=31533/41705 done=5200 flushed≈50
+saved (models:personal-mobility) writes=105 modelKeys=31583/41705 done=5250 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… personal-mobility / Rmiott: 0 (5300/15372)
+saved (models:personal-mobility) writes=106 modelKeys=31633/41705 done=5300 flushed≈50
+saved (models:personal-mobility) writes=107 modelKeys=31683/41705 done=5350 flushed≈50
+… personal-mobility / Shimeng: 0 (5400/15372)
+saved (models:personal-mobility) writes=108 modelKeys=31733/41705 done=5400 flushed≈50
+saved (models:personal-mobility) writes=109 modelKeys=31784/41705 done=5451 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… personal-mobility / STM: 0 (5500/15372)
+saved (models:personal-mobility) writes=110 modelKeys=31833/41705 done=5500 flushed≈50
+saved (models:personal-mobility) writes=111 modelKeys=31883/41705 done=5550 flushed≈50
+… personal-mobility / Top Gear: 0 (5600/15372)
+saved (models:personal-mobility) writes=112 modelKeys=31933/41705 done=5600 flushed≈50
+saved (models:personal-mobility) writes=113 modelKeys=31983/41705 done=5650 flushed≈50
+… personal-mobility / Viper: 0 (5700/15372)
+saved (models:personal-mobility) writes=114 modelKeys=32033/41705 done=5700 flushed≈50
+saved (models:personal-mobility) writes=115 modelKeys=32083/41705 done=5750 flushed≈50
+… personal-mobility / YinXing: 0 (5800/15372)
+saved (models:personal-mobility) writes=116 modelKeys=32133/41705 done=5800 flushed≈50
+saved (models:hookah-and-vaporizers) writes=117 modelKeys=32183/41705 done=5850 flushed≈50
+… hookah-and-vaporizers / Minifit: 0 (5900/15372)
+saved (models:hookah-and-vaporizers) writes=118 modelKeys=32233/41705 done=5900 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:baby-care) writes=119 modelKeys=32283/41705 done=5950 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… baby-care / Simmons: 0 (6000/15372)
+saved (models:baby-care) writes=120 modelKeys=32333/41705 done=6000 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:baby-care) writes=121 modelKeys=32383/41705 done=6050 flushed≈50
+… baby-care / Levtex Home: 0 (6100/15372)
+saved (models:baby-care) writes=122 modelKeys=32433/41705 done=6100 flushed≈50
+saved (models:baby-care) writes=123 modelKeys=32483/41705 done=6150 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… baby-care / Clevamama: 0 (6200/15372)
+saved (models:baby-care) writes=124 modelKeys=32533/41705 done=6200 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:baby-care) writes=125 modelKeys=32583/41705 done=6250 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-clothing / AIRWALK: 0 (6300/15372)
+saved (models:childrens-clothing) writes=126 modelKeys=32633/41705 done=6300 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-clothing) writes=127 modelKeys=32683/41705 done=6350 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-clothing / B. Darlin: 0 (6400/15372)
+saved (models:childrens-clothing) writes=128 modelKeys=32733/41705 done=6400 flushed≈50
+saved (models:childrens-clothing) writes=129 modelKeys=32783/41705 done=6450 flushed≈50
+… childrens-clothing / Blue Light: 0 (6500/15372)
+saved (models:childrens-clothing) writes=130 modelKeys=32833/41705 done=6500 flushed≈50
+saved (models:childrens-clothing) writes=131 modelKeys=32883/41705 done=6550 flushed≈50
+… childrens-clothing / Cartoon Network: 0 (6600/15372)
+saved (models:childrens-clothing) writes=132 modelKeys=32933/41705 done=6600 flushed≈50
+saved (models:childrens-clothing) writes=133 modelKeys=32983/41705 done=6650 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-clothing / Copper Key: 0 (6700/15372)
+saved (models:childrens-clothing) writes=134 modelKeys=33033/41705 done=6700 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-clothing) writes=135 modelKeys=33083/41705 done=6750 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-clothing / DOCKERS: 0 (6800/15372)
+saved (models:childrens-clothing) writes=136 modelKeys=33133/41705 done=6800 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-clothing) writes=137 modelKeys=33183/41705 done=6850 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-clothing / Ethos: 0 (6900/15372)
+saved (models:childrens-clothing) writes=138 modelKeys=33233/41705 done=6900 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-clothing) writes=139 modelKeys=33283/41705 done=6950 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-clothing / FULL TILT: 0 (7000/15372)
+saved (models:childrens-clothing) writes=140 modelKeys=33333/41705 done=7000 flushed≈50
+saved (models:childrens-clothing) writes=141 modelKeys=33383/41705 done=7050 flushed≈50
+… childrens-clothing / H by Hudson: 0 (7100/15372)
+saved (models:childrens-clothing) writes=142 modelKeys=33433/41705 done=7100 flushed≈50
+FAIL models childrens-clothing/Hart Schaffner Marx TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hartstrings TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hasbro TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hatley TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Havaianas TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Havengirl TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hawaiian TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/HAWK TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hawke & Co TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hayden TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/HEAD TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Healthtex TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/HeartSoul TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Heinz TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Helena TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Helix TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hello Kitty TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Helly Hansen TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Henri Lloyd TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Henry TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Heritage TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hibobi TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 2)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/Hickey Freeman TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 1)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+FAIL models childrens-clothing/High Five TypeError: fetch failed
+    at node:internal/deps/undici/undici:14902:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchFields (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:135:17)
+    at async <anonymous> (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:384:11)
+    at async run (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:238:7)
+    at async Promise.all (index 0)
+    at async mapPool (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:244:3)
+    at async main (/home/abdu/Documents/Codes/Postify/scripts/mine-form-fields.ts:374:5) {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted address: jiji.com.et:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:2718:28)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:2699:11)
+      at process.processImmediate (node:internal/timers:485:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT',
+    [Symbol(undici.error.UND_ERR)]: true,
+    [Symbol(undici.error.UND_ERR_CONNECT_TIMEOUT)]: true
+  }
+}
+saved (models:childrens-clothing) writes=143 modelKeys=33483/41705 done=7150 flushed≈50
+… childrens-clothing / J Brand: 0 (7200/15372)
+saved (models:childrens-clothing) writes=144 modelKeys=33533/41705 done=7200 flushed≈50
+saved (models:childrens-clothing) writes=145 modelKeys=33583/41705 done=7250 flushed≈50
+… childrens-clothing / K2: 0 (7300/15372)
+saved (models:childrens-clothing) writes=146 modelKeys=33633/41705 done=7300 flushed≈50
+saved (models:childrens-clothing) writes=147 modelKeys=33683/41705 done=7350 flushed≈50
+… childrens-clothing / Limited Too: 0 (7400/15372)
+saved (models:childrens-clothing) writes=148 modelKeys=33733/41705 done=7400 flushed≈50
+saved (models:childrens-clothing) writes=149 modelKeys=33783/41705 done=7450 flushed≈50
+… childrens-clothing / Mason's: 0 (7500/15372)
+saved (models:childrens-clothing) writes=150 modelKeys=33833/41705 done=7500 flushed≈50
+saved (models:childrens-clothing) writes=151 modelKeys=33883/41705 done=7550 flushed≈50
+… childrens-clothing / Mud Pie: 0 (7600/15372)
+saved (models:childrens-clothing) writes=152 modelKeys=33933/41705 done=7600 flushed≈50
+429 rate-limit — sleeping 15s
+saved (models:childrens-clothing) writes=153 modelKeys=33983/41705 done=7650 flushed≈50
+… childrens-clothing / Overdrive: 0 (7700/15372)
+saved (models:childrens-clothing) writes=154 modelKeys=34033/41705 done=7700 flushed≈50
+saved (models:childrens-clothing) writes=155 modelKeys=34083/41705 done=7750 flushed≈50
+… childrens-clothing / Precious Cargo: 0 (7800/15372)
+saved (models:childrens-clothing) writes=156 modelKeys=34133/41705 done=7800 flushed≈50
+saved (models:childrens-clothing) writes=157 modelKeys=34183/41705 done=7850 flushed≈50
+… childrens-clothing / ROCKY: 0 (7900/15372)
+saved (models:childrens-clothing) writes=158 modelKeys=34233/41705 done=7900 flushed≈50
+saved (models:childrens-clothing) writes=159 modelKeys=34283/41705 done=7950 flushed≈50
+… childrens-clothing / Slazenger: 0 (8000/15372)
+saved (models:childrens-clothing) writes=160 modelKeys=34333/41705 done=8000 flushed≈50
+saved (models:childrens-clothing) writes=161 modelKeys=34383/41705 done=8050 flushed≈50
+… childrens-clothing / Target: 0 (8100/15372)
+saved (models:childrens-clothing) writes=162 modelKeys=34433/41705 done=8100 flushed≈50
+saved (models:childrens-clothing) writes=163 modelKeys=34483/41705 done=8150 flushed≈50
+… childrens-clothing / Universal Studios Hollywood: 0 (8200/15372)
+saved (models:childrens-clothing) writes=164 modelKeys=34533/41705 done=8200 flushed≈50
+saved (models:childrens-clothing) writes=165 modelKeys=34583/41705 done=8250 flushed≈50
+… childrens-clothing / Wrapper: 0 (8300/15372)
+saved (models:childrens-clothing) writes=166 modelKeys=34633/41705 done=8300 flushed≈50
+saved (models:childrens-furniture) writes=167 modelKeys=34683/41705 done=8350 flushed≈50
+… childrens-furniture / Contour Products: 0 (8400/15372)
+saved (models:childrens-furniture) writes=168 modelKeys=34733/41705 done=8400 flushed≈50
+saved (models:childrens-furniture) writes=169 modelKeys=34783/41705 done=8450 flushed≈50
+… childrens-furniture / Marco: 0 (8500/15372)
+saved (models:childrens-furniture) writes=170 modelKeys=34833/41705 done=8500 flushed≈50
+saved (models:childrens-furniture) writes=171 modelKeys=34883/41705 done=8550 flushed≈50
+429 rate-limit — sleeping 15s
+… childrens-furniture / Vertbaudet: 0 (8600/15372)
+saved (models:childrens-furniture) writes=172 modelKeys=34933/41705 done=8600 flushed≈50
+saved (models:childrens-shoes) writes=173 modelKeys=34983/41705 done=8650 flushed≈50
+… childrens-shoes / Arena: 0 (8700/15372)
+saved (models:childrens-shoes) writes=174 modelKeys=35033/41705 done=8700 flushed≈50
+saved (models:childrens-shoes) writes=175 modelKeys=35083/41705 done=8750 flushed≈50
+… childrens-shoes / Best: 0 (8800/15372)
+saved (models:childrens-shoes) writes=176 modelKeys=35133/41705 done=8800 flushed≈50
+saved (models:childrens-shoes) writes=177 modelKeys=35183/41705 done=8850 flushed≈50
+… childrens-shoes / Bundgaard: 0 (8900/15372)
+saved (models:childrens-shoes) writes=178 modelKeys=35233/41705 done=8900 flushed≈50
+saved (models:childrens-shoes) writes=179 modelKeys=35283/41705 done=8950 flushed≈50
+… childrens-shoes / Cole Haan: 0 (9000/15372)
+saved (models:childrens-shoes) writes=180 modelKeys=35333/41705 done=9000 flushed≈50
+saved (models:childrens-shoes) writes=181 modelKeys=35383/41705 done=9050 flushed≈50
+… childrens-shoes / Diadora: 0 (9100/15372)
+saved (models:childrens-shoes) writes=182 modelKeys=35433/41705 done=9100 flushed≈50
+saved (models:childrens-shoes) writes=183 modelKeys=35483/41705 done=9150 flushed≈50
+… childrens-shoes / Emoji: 0 (9200/15372)
+saved (models:childrens-shoes) writes=184 modelKeys=35533/41705 done=9200 flushed≈50
+saved (models:childrens-shoes) writes=185 modelKeys=35583/41705 done=9250 flushed≈50
+… childrens-shoes / Frye: 0 (9300/15372)
+saved (models:childrens-shoes) writes=186 modelKeys=35633/41705 done=9300 flushed≈50
+saved (models:childrens-shoes) writes=187 modelKeys=35683/41705 done=9350 flushed≈50
+… childrens-shoes / HEAD: 0 (9400/15372)
+saved (models:childrens-shoes) writes=188 modelKeys=35734/41705 done=9401 flushed≈50
+saved (models:childrens-shoes) writes=189 modelKeys=35783/41705 done=9450 flushed≈50
+… childrens-shoes / Jeep: 0 (9500/15372)
+saved (models:childrens-shoes) writes=190 modelKeys=35833/41705 done=9500 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-shoes) writes=191 modelKeys=35883/41705 done=9550 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-shoes / Kiss: 0 (9600/15372)
+saved (models:childrens-shoes) writes=192 modelKeys=35933/41705 done=9600 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-shoes) writes=193 modelKeys=35983/41705 done=9650 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-shoes / Lonsdale: 0 (9700/15372)
+saved (models:childrens-shoes) writes=194 modelKeys=36033/41705 done=9700 flushed≈50
+saved (models:childrens-shoes) writes=195 modelKeys=36083/41705 done=9750 flushed≈50
+… childrens-shoes / Memphis: 0 (9800/15372)
+saved (models:childrens-shoes) writes=196 modelKeys=36133/41705 done=9800 flushed≈50
+saved (models:childrens-shoes) writes=197 modelKeys=36183/41705 done=9850 flushed≈50
+… childrens-shoes / NBA: 0 (9900/15372)
+saved (models:childrens-shoes) writes=198 modelKeys=36233/41705 done=9900 flushed≈50
+saved (models:childrens-shoes) writes=199 modelKeys=36283/41705 done=9950 flushed≈50
+… childrens-shoes / Pajar: 0 (10000/15372)
+saved (models:childrens-shoes) writes=200 modelKeys=36333/41705 done=10000 flushed≈50
+saved (models:childrens-shoes) writes=201 modelKeys=36383/41705 done=10050 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-shoes / Pure & Precious: 0 (10100/15372)
+saved (models:childrens-shoes) writes=202 modelKeys=36433/41705 done=10100 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-shoes) writes=203 modelKeys=36483/41705 done=10150 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-shoes / Runner: 0 (10200/15372)
+saved (models:childrens-shoes) writes=204 modelKeys=36533/41705 done=10200 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-shoes) writes=205 modelKeys=36583/41705 done=10250 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-shoes / Softwaves: 0 (10300/15372)
+saved (models:childrens-shoes) writes=206 modelKeys=36633/41705 done=10300 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-shoes) writes=207 modelKeys=36683/41705 done=10350 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… childrens-shoes / Tahari: 0 (10400/15372)
+saved (models:childrens-shoes) writes=208 modelKeys=36733/41705 done=10400 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-shoes) writes=209 modelKeys=36783/41705 done=10450 flushed≈50
+… childrens-shoes / Underground: 0 (10500/15372)
+saved (models:childrens-shoes) writes=210 modelKeys=36833/41705 done=10500 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:childrens-shoes) writes=211 modelKeys=36883/41705 done=10550 flushed≈50
+… childrens-shoes / Woodland: 0 (10600/15372)
+saved (models:childrens-shoes) writes=212 modelKeys=36933/41705 done=10600 flushed≈50
+saved (models:prams-and-strollers) writes=213 modelKeys=36983/41705 done=10650 flushed≈50
+… playground-equipment / KOMPAN: 0 (10700/15372)
+saved (models:playground-equipment) writes=214 modelKeys=37033/41705 done=10700 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:toys) writes=215 modelKeys=37083/41705 done=10750 flushed≈50
+… toys / GOOC: 0 (10800/15372)
+saved (models:toys) writes=216 modelKeys=37133/41705 done=10800 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:toys) writes=217 modelKeys=37183/41705 done=10850 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… toys / Schleich: 0 (10900/15372)
+saved (models:toys) writes=218 modelKeys=37233/41705 done=10900 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:feeds-supplements-seeds) writes=219 modelKeys=37283/41705 done=10950 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… feeds-supplements-seeds / Club 4 Paws: 0 (11000/15372)
+saved (models:feeds-supplements-seeds) writes=220 modelKeys=37334/41705 done=11001 flushed≈50
+saved (models:feeds-supplements-seeds) writes=221 modelKeys=37383/41705 done=11050 flushed≈50
+… feeds-supplements-seeds / OneWay Manufacturing: 0 (11100/15372)
+saved (models:feeds-supplements-seeds) writes=222 modelKeys=37433/41705 done=11100 flushed≈50
+saved (models:feeds-supplements-seeds) writes=223 modelKeys=37483/41705 done=11150 flushed≈50
+… meals-and-drinks / Crystal Geyser: 0 (11200/15372)
+saved (models:meals-and-drinks) writes=224 modelKeys=37533/41705 done=11200 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:meals-and-drinks) writes=225 modelKeys=37583/41705 done=11250 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… meals-and-drinks / Red Bull: 0 (11300/15372)
+saved (models:meals-and-drinks) writes=226 modelKeys=37633/41705 done=11300 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:meals-and-drinks) writes=227 modelKeys=37683/41705 done=11350 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… medical-equipment / Philips: 0 (11400/15372)
+saved (models:medical-equipment) writes=228 modelKeys=37733/41705 done=11400 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:restaurant-and-catering-equipment) writes=229 modelKeys=37783/41705 done=11450 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… safety-equipment / Aqara: 0 (11500/15372)
+saved (models:safety-equipment) writes=230 modelKeys=37833/41705 done=11500 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:safety-equipment) writes=231 modelKeys=37883/41705 done=11550 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… safety-equipment / Semonth: 0 (11600/15372)
+saved (models:safety-equipment) writes=232 modelKeys=37933/41705 done=11600 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:hardware-and-fasteners) writes=233 modelKeys=37983/41705 done=11650 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… doors / Megfin: 0 (11700/15372)
+saved (models:doors) writes=234 modelKeys=38033/41705 done=11700 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:solar-energy-products) writes=235 modelKeys=38083/41705 done=11750 flushed≈50
+… solar-energy-products / Aviba: 0 (11800/15372)
+saved (models:solar-energy-products) writes=236 modelKeys=38133/41705 done=11800 flushed≈50
+saved (models:solar-energy-products) writes=237 modelKeys=38183/41705 done=11850 flushed≈50
+… solar-energy-products / Dubai: 0 (11900/15372)
+saved (models:solar-energy-products) writes=238 modelKeys=38233/41705 done=11900 flushed≈50
+saved (models:solar-energy-products) writes=239 modelKeys=38283/41705 done=11950 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… solar-energy-products / Goodwe: 0 (12000/15372)
+saved (models:solar-energy-products) writes=240 modelKeys=38333/41705 done=12000 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:solar-energy-products) writes=241 modelKeys=38383/41705 done=12050 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… solar-energy-products / Lento: 0 (12100/15372)
+saved (models:solar-energy-products) writes=242 modelKeys=38433/41705 done=12100 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:solar-energy-products) writes=243 modelKeys=38483/41705 done=12150 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… solar-energy-products / Patriot: 0 (12200/15372)
+saved (models:solar-energy-products) writes=244 modelKeys=38533/41705 done=12200 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:solar-energy-products) writes=245 modelKeys=38583/41705 done=12250 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… solar-energy-products / Sharper Image: 0 (12300/15372)
+saved (models:solar-energy-products) writes=246 modelKeys=38633/41705 done=12300 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:solar-energy-products) writes=247 modelKeys=38683/41705 done=12350 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… solar-energy-products / Tasha: 0 (12400/15372)
+saved (models:solar-energy-products) writes=248 modelKeys=38733/41705 done=12400 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:solar-energy-products) writes=249 modelKeys=38783/41705 done=12450 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… power-tools / 3M: 0 (12500/15372)
+saved (models:power-tools) writes=250 modelKeys=38833/41705 done=12500 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:power-tools) writes=251 modelKeys=38883/41705 done=12550 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… power-tools / Cgw: 0 (12600/15372)
+saved (models:power-tools) writes=252 modelKeys=38933/41705 done=12600 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:power-tools) writes=253 modelKeys=38983/41705 done=12650 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… power-tools / Falcon: 0 (12700/15372)
+saved (models:power-tools) writes=254 modelKeys=39033/41705 done=12700 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:power-tools) writes=255 modelKeys=39083/41705 done=12750 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… power-tools / Hyundai: 0 (12800/15372)
+saved (models:power-tools) writes=256 modelKeys=39133/41705 done=12800 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:power-tools) writes=257 modelKeys=39183/41705 done=12850 flushed≈50
+… power-tools / Master Mechanic: 0 (12900/15372)
+saved (models:power-tools) writes=258 modelKeys=39233/41705 done=12900 flushed≈50
+saved (models:power-tools) writes=259 modelKeys=39283/41705 done=12950 flushed≈50
+… power-tools / Pyrex: 0 (13000/15372)
+saved (models:power-tools) writes=260 modelKeys=39333/41705 done=13000 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:power-tools) writes=261 modelKeys=39383/41705 done=13050 flushed≈50
+… power-tools / Stihl: 0 (13100/15372)
+saved (models:power-tools) writes=262 modelKeys=39433/41705 done=13100 flushed≈50
+saved (models:power-tools) writes=263 modelKeys=39483/41705 done=13150 flushed≈50
+… power-tools / Work Zone: 0 (13200/15372)
+saved (models:power-tools) writes=264 modelKeys=39533/41705 done=13200 flushed≈50
+saved (models:hand-and-power-tools) writes=265 modelKeys=39583/41705 done=13250 flushed≈50
+… hand-and-power-tools / Bodum: 0 (13300/15372)
+saved (models:hand-and-power-tools) writes=266 modelKeys=39634/41705 done=13301 flushed≈50
+saved (models:hand-and-power-tools) writes=267 modelKeys=39683/41705 done=13350 flushed≈50
+… hand-and-power-tools / Duralast: 0 (13400/15372)
+saved (models:hand-and-power-tools) writes=268 modelKeys=39733/41705 done=13400 flushed≈50
+saved (models:hand-and-power-tools) writes=269 modelKeys=39783/41705 done=13450 flushed≈50
+… hand-and-power-tools / Hakko: 0 (13500/15372)
+saved (models:hand-and-power-tools) writes=270 modelKeys=39833/41705 done=13500 flushed≈50
+saved (models:hand-and-power-tools) writes=271 modelKeys=39883/41705 done=13550 flushed≈50
+… hand-and-power-tools / Live Mechanics: 0 (13600/15372)
+saved (models:hand-and-power-tools) writes=272 modelKeys=39933/41705 done=13600 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:hand-and-power-tools) writes=273 modelKeys=39983/41705 done=13650 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… hand-and-power-tools / Pc Products: 0 (13700/15372)
+saved (models:hand-and-power-tools) writes=274 modelKeys=40033/41705 done=13700 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:hand-and-power-tools) writes=275 modelKeys=40083/41705 done=13750 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… hand-and-power-tools / Skyhome: 0 (13800/15372)
+saved (models:hand-and-power-tools) writes=276 modelKeys=40133/41705 done=13800 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:hand-and-power-tools) writes=277 modelKeys=40183/41705 done=13850 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… hand-and-power-tools / Von: 0 (13900/15372)
+saved (models:hand-and-power-tools) writes=278 modelKeys=40233/41705 done=13900 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:hand-and-power-tools) writes=279 modelKeys=40283/41705 done=13950 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… measuring-and-layout-tools / Gloor: 0 (14000/15372)
+saved (models:measuring-and-layout-tools) writes=280 modelKeys=40333/41705 done=14000 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+saved (models:measuring-and-layout-tools) writes=281 modelKeys=40383/41705 done=14050 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… measuring-and-layout-tools / Tesa: 0 (14100/15372)
+saved (models:measuring-and-layout-tools) writes=282 modelKeys=40433/41705 done=14100 flushed≈50
+saved (models:plumbing-and-water-supply) writes=283 modelKeys=40483/41705 done=14150 flushed≈50
+… plumbing-and-water-supply / Artisan: 0 (14200/15372)
+saved (models:plumbing-and-water-supply) writes=284 modelKeys=40533/41705 done=14200 flushed≈50
+saved (models:plumbing-and-water-supply) writes=285 modelKeys=40583/41705 done=14250 flushed≈50
+… plumbing-and-water-supply / Cantrio: 0 (14300/15372)
+saved (models:plumbing-and-water-supply) writes=286 modelKeys=40633/41705 done=14300 flushed≈50
+saved (models:plumbing-and-water-supply) writes=287 modelKeys=40683/41705 done=14350 flushed≈50
+… plumbing-and-water-supply / Deca: 0 (14400/15372)
+saved (models:plumbing-and-water-supply) writes=288 modelKeys=40733/41705 done=14400 flushed≈50
+saved (models:plumbing-and-water-supply) writes=289 modelKeys=40783/41705 done=14450 flushed≈50
+… plumbing-and-water-supply / FANMATS: 0 (14500/15372)
+saved (models:plumbing-and-water-supply) writes=290 modelKeys=40833/41705 done=14500 flushed≈50
+saved (models:plumbing-and-water-supply) writes=291 modelKeys=40883/41705 done=14550 flushed≈50
+… plumbing-and-water-supply / Hallmark: 0 (14600/15372)
+saved (models:plumbing-and-water-supply) writes=292 modelKeys=40933/41705 done=14600 flushed≈50
+saved (models:plumbing-and-water-supply) writes=293 modelKeys=40983/41705 done=14650 flushed≈50
+… plumbing-and-water-supply / Joy: 0 (14700/15372)
+saved (models:plumbing-and-water-supply) writes=294 modelKeys=41033/41705 done=14700 flushed≈50
+saved (models:plumbing-and-water-supply) writes=295 modelKeys=41083/41705 done=14750 flushed≈50
+429 rate-limit — sleeping 15s
+429 rate-limit — sleeping 15s
+… plumbing-and-water-supply / Marksman: 0 (14800/15372)
+saved (models:plumbing-and-water-supply) writes=296 modelKeys=41134/41705 done=14801 flushed≈50
+saved (models:plumbing-and-water-supply) writes=297 modelKeys=41183/41705 done=14850 flushed≈50
+… plumbing-and-water-supply / Pacific Coast: 0 (14900/15372)
+saved (models:plumbing-and-water-supply) writes=298 modelKeys=41233/41705 done=14900 flushed≈50
+saved (models:plumbing-and-water-supply) writes=299 modelKeys=41283/41705 done=14950 flushed≈50
+… plumbing-and-water-supply / Royal Doulton: 0 (15000/15372)
+saved (models:plumbing-and-water-supply) writes=300 modelKeys=41333/41705 done=15000 flushed≈50
+saved (models:plumbing-and-water-supply) writes=301 modelKeys=41383/41705 done=15050 flushed≈50
+… plumbing-and-water-supply / Springmaid: 0 (15100/15372)
+saved (models:plumbing-and-water-supply) writes=302 modelKeys=41433/41705 done=15100 flushed≈50
+saved (models:plumbing-and-water-supply) writes=303 modelKeys=41484/41705 done=15151 flushed≈50
+… plumbing-and-water-supply / Tre Mercati: 0 (15200/15372)
+saved (models:plumbing-and-water-supply) writes=304 modelKeys=41533/41705 done=15200 flushed≈50
+saved (models:plumbing-and-water-supply) writes=305 modelKeys=41583/41705 done=15250 flushed≈50
+… plumbing-and-water-supply / Wright: 0 (15300/15372)
+saved (models:plumbing-and-water-supply) writes=306 modelKeys=41633/41705 done=15300 flushed≈50
+saved (final) writes=307 modelKeys=41681/41705 done=15348 flushed≈48
+Wrote /home/abdu/Documents/Codes/Postify/src/lib/catalog/form-fields.json
+Leaves=213 concurrency=2 saveEvery=10 delay=40
+Resume checkpoint: 41681/41705 model keys
+Model jobs remaining: 24
+saved (models:childrens-clothing) writes=1 modelKeys=41691/41705 done=10 flushed≈10
+saved (models:childrens-clothing) writes=2 modelKeys=41701/41705 done=20 flushed≈10
+saved (final) writes=3 modelKeys=41705/41705 done=24 flushed≈4
+Wrote /home/abdu/Documents/Codes/Postify/src/lib/catalog/form-fields.json

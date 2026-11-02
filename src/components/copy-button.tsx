@@ -20,7 +20,7 @@ export function CopyButton({ value, label = "Copy", className }: { value: string
       }}
       className={cn("inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line-strong bg-surface px-2.5 text-[13px] font-semibold text-ink hover:bg-canvas", className)}
     >
-      {done ? <Check size={14} className="text-brand" /> : <Copy size={14} />}
+      {done ? <Check size={14} className="text-brand-ink" /> : <Copy size={14} />}
       {done ? "Copied" : label}
     </button>
   );

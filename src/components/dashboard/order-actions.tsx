@@ -136,7 +136,7 @@ export function OrderActions({ handle, order }: { handle: string; order: Order }
     <section className="panel overflow-hidden" aria-labelledby="next-step">
       <div className="p-4 sm:p-5">
         <div className="flex items-start gap-3">
-          <span className={cn("mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl", finished ? (order.status === "cancelled" ? "bg-sunken text-mist" : "bg-brand-soft text-brand") : "bg-adey-soft text-adey-ink")}>
+          <span className={cn("mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl", finished ? (order.status === "cancelled" ? "bg-sunken text-mist" : "bg-brand-soft text-brand-ink") : "bg-adey-soft text-adey-ink")}>
             {order.status === "cancelled" ? <X size={18} /> : finished ? <Check size={18} strokeWidth={2.5} /> : <span className="h-2.5 w-2.5 rounded-full bg-adey" />}
           </span>
           <div className="min-w-0 flex-1">

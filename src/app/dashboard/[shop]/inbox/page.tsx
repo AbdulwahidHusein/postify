@@ -38,7 +38,7 @@ export default async function InboxPage({ params, searchParams }: { params: Prom
               </div>
               <div className="flex flex-col items-end gap-1">
                 <span className="text-xs text-mist">{c.lastMessageAt ? timeAgo(c.lastMessageAt) : ""}</span>
-                {c.unread ? <span className="rounded-full bg-signal px-1.5 text-xs font-semibold text-white">{c.unread}</span> : null}
+                {c.unread ? <span className="rounded-full bg-signal px-1.5 text-xs font-semibold text-accent-fg">{c.unread}</span> : null}
               </div>
             </Link>
           ))}

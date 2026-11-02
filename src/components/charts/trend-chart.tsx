@@ -115,18 +115,18 @@ export function TrendChart({
                   y={H - padBottom - ((pt.secondary / maxSecondary) * (H - padTop - padBottom)) * 0.45}
                   height={((pt.secondary / maxSecondary) * (H - padTop - padBottom)) * 0.45}
                   rx="2"
-                  fill="var(--adey)"
+                  fill="var(--line-strong)"
                   opacity={i === active ? 1 : 0.55}
                 />
               ) : null,
             )
           : null}
         <path d={path.area} fill={`url(#g${id})`} />
-        <path d={path.line} fill="none" stroke="var(--brand)" strokeWidth="2.25" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        <path d={path.line} fill="none" stroke="var(--brand)" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
         {p ? (
           <>
             <line x1={x(active)} x2={x(active)} y1={padTop - 6} y2={H - padBottom} stroke="var(--ink)" strokeOpacity="0.18" vectorEffect="non-scaling-stroke" />
-            <circle cx={x(active)} cy={y(p.value)} r="4.5" fill="var(--surface)" stroke="var(--brand)" strokeWidth="2.25" vectorEffect="non-scaling-stroke" />
+            <circle cx={x(active)} cy={y(p.value)} r="4.5" fill="var(--ink)" stroke="var(--brand)" strokeWidth="3" vectorEffect="non-scaling-stroke" />
           </>
         ) : null}
       </svg>

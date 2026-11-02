@@ -24,7 +24,7 @@ export function Field({
         </label>
       ) : null}
       {children}
-      {error ? <p className="mt-1.5 text-xs font-medium text-danger">{error}</p> : hint ? <p className="field-hint">{hint}</p> : null}
+      {error ? <p role="alert" className="mt-1.5 text-[13px] font-bold text-danger">{error}</p> : hint ? <p className="field-hint">{hint}</p> : null}
     </div>
   );
 }
@@ -39,16 +39,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, React.TextareaHTML
 );
 Textarea.displayName = "Textarea";
 
-export const Select = React.forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement>>(
-  ({ className, children, ...props }, ref) => (
-    <select ref={ref} className={cn("input appearance-none bg-[length:16px] bg-[right_10px_center] bg-no-repeat pr-8", className)}
-      style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2358615b'%3E%3Cpath d='M5.5 7.5 10 12l4.5-4.5'/%3E%3C/svg%3E\")" }}
-      {...props}>
-      {children}
-    </select>
-  ),
-);
-Select.displayName = "Select";
+export { Select } from "./select";
 
 export function EmptyState({
   icon,
@@ -62,16 +53,16 @@ export function EmptyState({
   title: string;
   body?: React.ReactNode;
   action?: React.ReactNode;
-  /** "woven" adds the tibeb band: use for first-run moments, not for "no results". */
+  /** "woven" adds an accent band on top: use for first-run moments, not for "no results". */
   tone?: "plain" | "woven";
   className?: string;
 }) {
   return (
     <div className={cn("panel overflow-hidden", className)}>
-      {tone === "woven" ? <div aria-hidden className="tibeb h-3.5" /> : null}
+      {tone === "woven" ? <div aria-hidden className="h-2 bg-accent" /> : null}
       <div className="flex flex-col items-center px-6 py-12 text-center">
-        {icon ? <div className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-sunken text-ink-soft">{icon}</div> : null}
-        <h3 className="font-display text-[17px] font-semibold">{title}</h3>
+        {icon ? <div className="mb-4 grid h-14 w-14 place-items-center rounded-[20px] bg-brand-soft text-brand-ink">{icon}</div> : null}
+        <h3 className="font-display text-xl font-extrabold tracking-[-0.02em]">{title}</h3>
         {body ? <p className="mt-1.5 max-w-sm text-sm text-mist">{body}</p> : null}
         {action ? <div className="mt-5 flex flex-wrap justify-center gap-2">{action}</div> : null}
       </div>
@@ -86,8 +77,8 @@ export function StatStrip({ items, className }: { items: { label: string; value:
       {items.map((it) => {
         const inner = (
           <>
-            <p className="text-[13px] text-mist">{it.label}</p>
-            <p className="num mt-1 font-display text-[22px] font-semibold leading-tight tracking-[-0.01em] sm:text-2xl">{it.value}</p>
+            <p className="text-[13px] font-bold text-mist">{it.label}</p>
+            <p className="num mt-1 font-display text-[26px] font-extrabold leading-tight tracking-[-0.03em] sm:text-[30px]">{it.value}</p>
             {it.hint ? <p className="mt-0.5 text-xs text-mist">{it.hint}</p> : null}
           </>
         );
@@ -104,8 +95,8 @@ export function StatStrip({ items, className }: { items: { label: string; value:
 export function Stat({ label, value, hint }: { label: string; value: React.ReactNode; hint?: React.ReactNode }) {
   return (
     <div className="panel px-4 py-3.5">
-      <p className="text-[13px] text-mist">{label}</p>
-      <p className="num mt-1 font-display text-2xl font-semibold tracking-[-0.01em]">{value}</p>
+      <p className="text-[13px] font-bold text-mist">{label}</p>
+      <p className="num mt-1 font-display text-[28px] font-extrabold tracking-[-0.03em]">{value}</p>
       {hint ? <p className="mt-0.5 text-xs text-mist">{hint}</p> : null}
     </div>
   );

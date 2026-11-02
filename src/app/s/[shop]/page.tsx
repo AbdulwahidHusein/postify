@@ -82,9 +82,9 @@ export default async function StorefrontHome({ params, searchParams }: { params:
             <h1 className="mt-3 font-display text-[24px] font-bold leading-tight tracking-[-0.01em] sm:text-[28px]">{shop.name}</h1>
             {tagline ? <p className="mt-1 max-w-2xl text-[15px] text-ink-soft">{tagline}</p> : null}
             <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] font-medium text-mist">
-              <li className="flex items-center gap-1.5"><Banknote size={15} className="text-accent" /> {t(locale, "shop.payOnDelivery")}</li>
-              {s.delivery.deliveryEnabled ? <li className="flex items-center gap-1.5"><Truck size={15} className="text-accent" /> {s.delivery.deliveryNote ?? t(locale, "shop.delivery")}</li> : null}
-              {s.delivery.pickupEnabled && s.delivery.pickupAddress ? <li className="flex items-center gap-1.5"><MapPin size={15} className="text-accent" /> {s.delivery.pickupAddress}</li> : null}
+              <li className="flex items-center gap-1.5"><Banknote size={15} className="text-accent-ink" /> {t(locale, "shop.payOnDelivery")}</li>
+              {s.delivery.deliveryEnabled ? <li className="flex items-center gap-1.5"><Truck size={15} className="text-accent-ink" /> {s.delivery.deliveryNote ?? t(locale, "shop.delivery")}</li> : null}
+              {s.delivery.pickupEnabled && s.delivery.pickupAddress ? <li className="flex items-center gap-1.5"><MapPin size={15} className="text-accent-ink" /> {s.delivery.pickupAddress}</li> : null}
             </ul>
           </div>
         </section>
@@ -127,7 +127,7 @@ export default async function StorefrontHome({ params, searchParams }: { params:
             <div className="flex flex-col items-center py-16 text-center">
               <span className="mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-sunken text-ink-soft"><Search size={20} /></span>
               <p className="font-display font-semibold">{filtered ? t(locale, "shop.noResults") : t(locale, "shop.empty")}</p>
-              {filtered ? <Link href={base || "/"} className="mt-3 text-sm font-semibold text-accent hover:underline">{t(locale, "shop.all")}</Link> : null}
+              {filtered ? <Link href={base || "/"} className="mt-3 text-sm font-semibold text-accent-ink hover:underline">{t(locale, "shop.all")}</Link> : null}
             </div>
           )}
         </section>
@@ -144,9 +144,9 @@ export default async function StorefrontHome({ params, searchParams }: { params:
           {showContact ? (
             <div className="space-y-2.5 rounded-[16px] bg-surface p-5 text-sm ring-1 ring-line">
               <h2 className="font-display font-bold">{t(locale, "shop.contact")}</h2>
-              {s.contact.phone ? <a href={`tel:${s.contact.phone}`} className="flex items-center gap-2.5 font-medium hover:text-accent"><Phone size={15} className="text-mist" /> <span className="num">{s.contact.phone}</span></a> : null}
-              {chan?.username ? <a href={`https://t.me/${chan.username}`} className="flex items-center gap-2.5 font-medium hover:text-accent"><Send size={15} className="text-telegram" /> {t(locale, "shop.telegram")}</a> : null}
-              {s.contact.telegramUsername ? <a href={`https://t.me/${s.contact.telegramUsername}`} className="flex items-center gap-2.5 font-medium hover:text-accent"><Send size={15} className="text-telegram" /> @{s.contact.telegramUsername}</a> : null}
+              {s.contact.phone ? <a href={`tel:${s.contact.phone}`} className="flex items-center gap-2.5 font-medium hover:text-accent-ink"><Phone size={15} className="text-mist" /> <span className="num">{s.contact.phone}</span></a> : null}
+              {chan?.username ? <a href={`https://t.me/${chan.username}`} className="flex items-center gap-2.5 font-medium hover:text-accent-ink"><Send size={15} className="text-telegram" /> {t(locale, "shop.telegram")}</a> : null}
+              {s.contact.telegramUsername ? <a href={`https://t.me/${s.contact.telegramUsername}`} className="flex items-center gap-2.5 font-medium hover:text-accent-ink"><Send size={15} className="text-telegram" /> @{s.contact.telegramUsername}</a> : null}
               {s.contact.address ? <p className="flex items-center gap-2.5 text-ink-soft"><MapPin size={15} className="text-mist" /> {s.contact.address}</p> : null}
             </div>
           ) : null}
