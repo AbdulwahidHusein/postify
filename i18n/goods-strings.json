@@ -277,45 +277,16 @@
           "limit": "short",
           "am": "ጥቅሞቹ"
         },
-        "landing.nav_pricing": {
-          "en": "Pricing",
-          "context": "top navigation link",
-          "limit": "short",
-          "am": "ክፍያ"
-        },
         "landing.nav_faq": {
           "en": "FAQ",
           "context": "top navigation link (Frequently asked questions)",
           "limit": "short",
           "am": "ተደጋጋሚ ጥያቄዎች"
         },
-        "landing.cta_start": {
-          "en": "Start free",
-          "context": "primary button in the top navigation",
-          "limit": "short",
-          "am": "በነፃ ይጀምሩ"
-        },
-        "landing.hero_badge": {
-          "en": "Free during beta",
-          "context": "small pill above the main headline",
-          "limit": "short",
-          "am": "በሙከራ ጊዜ ነፃ"
-        },
-        "landing.hero_title": {
-          "en": "Turn your Telegram channel into an online store",
-          "context": "main headline (H1). Short, bold, clear.",
-          "am": "የቴሌግራም ቻናልዎን ወደ ኦንላይን ሱቅ ይቀይሩት"
-        },
         "landing.hero_sub": {
           "en": "Keep posting products the way you do today. Goods adds an Order button to every post, takes orders with pay on delivery, and gives you one dashboard to run your shop.",
           "context": "paragraph under the headline",
           "am": "እቃዎችዎን እንደተለመደው መለጠፍዎን ይቀጥሉ። Goods በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ ይጨምራል፣ እቃው ሲደርስ የሚከፈል ትዕዛዝ ይቀበላል፣ እንዲሁም ሱቅዎን የሚያስተዳድሩበት አንድ መቆጣጠሪያ ይሰጥዎታል።"
-        },
-        "landing.cta_primary": {
-          "en": "Start free with Telegram",
-          "context": "main call-to-action button: opens the Goods Telegram bot",
-          "limit": "short",
-          "am": "በቴሌግራም በነፃ ይጀምሩ"
         },
         "landing.cta_secondary": {
           "en": "See how it works",
@@ -549,11 +520,6 @@
           "context": "feature title",
           "am": "የራስዎ የኦንላይን ሱቅ"
         },
-        "landing.feat_store_body": {
-          "en": "A fast store with search, categories and a link you can share. It also opens inside Telegram as a Mini App.",
-          "context": "feature text",
-          "am": "መፈለጊያ፣ የምርት ምድቦች እና ለደንበኞች የሚያጋሩት ሊንክ ያለው ፈጣን ሱቅ። በቴሌግራም ውስጥም በቀጥታ ይከፈታል።"
-        },
         "landing.feat_inbox_title": {
           "en": "Every question in one inbox",
           "context": "feature title",
@@ -579,11 +545,6 @@
           "context": "section heading",
           "am": "ሙሉ ሱቅዎን በስልክዎ ያስተዳድሩ"
         },
-        "landing.show_sub": {
-          "en": "A dashboard made for Telegram sellers. It works inside the Telegram app and in any browser.",
-          "context": "section intro",
-          "am": "ለቴሌግራም ነጋዴዎች ተብሎ የተዘጋጀ የሱቅ መቆጣጠሪያ። በቴሌግራም መተግበሪያ ውስጥም ሆነ በማንኛውም ማሰሻ (Browser) ይሰራል።"
-        },
         "landing.show_1": {
           "en": "Orders, products, customers and messages in one place",
           "context": "checklist item",
@@ -598,64 +559,6 @@
           "en": "Add staff with their own access",
           "context": "checklist item",
           "am": "የራሳቸው መግቢያ ያላቸው የሱቅ ሰራተኞችን መጨመር የሚያስችል"
-        },
-        "landing.price_title": {
-          "en": "Free while we’re in beta",
-          "context": "pricing section heading",
-          "am": "በሙከራ ጊዜያችን አገልግሎቱ ነፃ ነው"
-        },
-        "landing.price_sub": {
-          "en": "No setup fee, no monthly fee, no commission on your sales.",
-          "context": "pricing intro",
-          "am": "የመክፈቻ ክፍያ የለም፣ ወርሃዊ ክፍያ የለም፣ ከሽያጭዎ ላይ የሚቆረጥ ኮሚሽን የለም።"
-        },
-        "landing.price_amount": {
-          "en": "ETB 0",
-          "context": "price shown big (zero birr)",
-          "limit": "short",
-          "am": "0 ብር"
-        },
-        "landing.price_period": {
-          "en": "per month",
-          "context": "after the price",
-          "limit": "short",
-          "am": "በወር"
-        },
-        "landing.price_plan": {
-          "en": "Beta",
-          "context": "plan name",
-          "limit": "short",
-          "am": "የሙከራ ጊዜ"
-        },
-        "landing.price_1": {
-          "en": "Unlimited products and orders",
-          "context": "included feature",
-          "am": "ያልተገደበ የምርት እና የትዕዛዝ ብዛት"
-        },
-        "landing.price_2": {
-          "en": "Order buttons on every post",
-          "context": "included feature",
-          "am": "በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ"
-        },
-        "landing.price_3": {
-          "en": "Online store and Telegram Mini App",
-          "context": "included feature",
-          "am": "የኦንላይን ሱቅ እና የቴሌግራም ውስጥ መተግበሪያ (Mini App)"
-        },
-        "landing.price_4": {
-          "en": "Dashboard, inbox and analytics",
-          "context": "included feature",
-          "am": "የሱቅ መቆጣጠሪያ፣ የመልዕክት ሳጥን እና የሽያጭ መረጃ"
-        },
-        "landing.price_5": {
-          "en": "Staff accounts",
-          "context": "included feature",
-          "am": "የሰራተኞች መግቢያ አካውንት"
-        },
-        "landing.price_note": {
-          "en": "Online payments with telebirr and CBE Birr are coming. We’ll tell you well before anything changes.",
-          "context": "small note under the pricing card",
-          "am": "በtelebirr እና በCBE Birr የሚደረግ የኦንላይን ክፍያ በቅርቡ ይጀመራል። ማንኛውም ለውጥ ከመደረጉ ከብዙ ጊዜ በፊት አስቀድመን እናሳውቅዎታለን።"
         },
         "landing.faq_title": {
           "en": "Questions sellers ask",
@@ -712,16 +615,6 @@
           "context": "FAQ answer",
           "am": "Goods አብሮ ያስተካክለዋል። ልጥፉን ሲቀይሩት ምርቱም አብሮ ይቀየራል፣ “SOLD” ወይም “ተሽጧል” ብለው ሲጽፉ እንደተሸጠ ይመዘገባል፣ ልጥፉን ሲሰርዙት ደግሞ ከሱቅዎ ላይ ይደበቃል።"
         },
-        "landing.faq_free_q": {
-          "en": "Is it really free?",
-          "context": "FAQ question",
-          "am": "በእውነት ነፃ ነው?"
-        },
-        "landing.faq_free_a": {
-          "en": "Yes. There are no fees during the beta, and we’ll give you plenty of notice before any paid plan.",
-          "context": "FAQ answer",
-          "am": "አዎ። በሙከራ ጊዜው ምንም አይነት ክፍያ የለውም፤ ወደፊት የሚከፈልበት አሰራር ከመጀመሩ በፊትም በቂ ጊዜ ሰጥተን አስቀድመን እናሳውቅዎታለን።"
-        },
         "landing.final_title": {
           "en": "Open your store today",
           "context": "closing call-to-action heading",
@@ -746,11 +639,6 @@
           "en": "Goods: turn your Telegram channel into an online store",
           "context": "browser tab / search result title",
           "am": "Goods፦ የቴሌግራም ቻናልዎን ወደ ኦንላይን ሱቅ ይቀይሩት"
-        },
-        "landing.meta_description": {
-          "en": "Post products in your Telegram channel. Goods adds an Order button to every post, takes orders with pay on delivery and gives you a store and a dashboard. Free during beta.",
-          "context": "search result description",
-          "am": "በቴሌግራም ቻናልዎ ላይ እቃ ይለጥፉ። Goods በእያንዳንዱ ልጥፍ ስር «ይዘዙ» መጫኛ ይጨምራል፣ እቃው ሲደርስ የሚከፈል ትዕዛዝ ይቀበላል፣ ሱቅና መቆጣጠሪያም ይሰጥዎታል። በሙከራ ጊዜ ነፃ።"
         },
         "landing.mock_now": {
           "en": "now",
@@ -777,6 +665,282 @@
           "en": "Classic leather watch",
           "am": "የቆዳ ሰዓት",
           "context": "mock product name on landing dashboard"
+        },
+        "landing.nav_designer": {
+          "en": "Store designer",
+          "context": "top navigation link",
+          "limit": "keep about as long as the English",
+          "am_draft": "የሱቅ ዲዛይን"
+        },
+        "landing.cta_open": {
+          "en": "Open your store",
+          "context": "main button, opens the Goods bot",
+          "limit": "keep about as long as the English",
+          "am_draft": "ሱቅዎን ይክፈቱ"
+        },
+        "landing.cta_open_tg": {
+          "en": "Open your store in Telegram",
+          "context": "main button, opens the Goods bot",
+          "limit": "keep about as long as the English",
+          "am_draft": "ሱቅዎን በቴሌግራም ይክፈቱ"
+        },
+        "landing.hero_kicker": {
+          "en": "For Telegram sellers in Ethiopia",
+          "context": "small label above the main headline",
+          "limit": "keep about as long as the English",
+          "am_draft": "በኢትዮጵያ ላሉ የቴሌግራም ነጋዴዎች"
+        },
+        "landing.hero_title_a": {
+          "en": "Your Telegram channel.",
+          "context": "main headline, first half",
+          "limit": "keep about as long as the English",
+          "am_draft": "የቴሌግራም ቻናልዎ፤"
+        },
+        "landing.hero_title_b": {
+          "en": "Now a real store.",
+          "context": "main headline, second half (highlighted)",
+          "limit": "keep about as long as the English",
+          "am_draft": "አሁን እውነተኛ ሱቅ።"
+        },
+        "landing.stage_post": {
+          "en": "You post",
+          "context": "label over a picture of a channel post",
+          "limit": "keep about as long as the English",
+          "am_draft": "እርስዎ ይለጥፋሉ"
+        },
+        "landing.stage_order": {
+          "en": "Buyers order",
+          "context": "label over a picture of an order notification",
+          "limit": "keep about as long as the English",
+          "am_draft": "ገዢዎች ያዝዛሉ"
+        },
+        "landing.stage_store": {
+          "en": "Your store fills itself",
+          "context": "label over a picture of the online store",
+          "limit": "keep about as long as the English",
+          "am_draft": "ሱቅዎ በራሱ ይሞላል"
+        },
+        "landing.btn_order": {
+          "en": "Order",
+          "context": "button under a channel post",
+          "limit": "keep about as long as the English",
+          "am_draft": "ይዘዙ"
+        },
+        "landing.btn_ask": {
+          "en": "Ask",
+          "context": "button under a channel post",
+          "limit": "keep about as long as the English",
+          "am_draft": "ይጠይቁ"
+        },
+        "landing.btn_shop": {
+          "en": "Shop",
+          "context": "button under a channel post that opens the store",
+          "limit": "keep about as long as the English",
+          "am_draft": "ሱቅ"
+        },
+        "landing.marquee_label": {
+          "en": "What sellers sell with Goods",
+          "context": "screen-reader label for a scrolling list of product types",
+          "limit": "keep about as long as the English",
+          "am_draft": "ነጋዴዎች በGoods የሚሸጡት"
+        },
+        "landing.marquee_1": {
+          "en": "Phones",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "ስልኮች"
+        },
+        "landing.marquee_2": {
+          "en": "Sneakers",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "ስኒከሮች"
+        },
+        "landing.marquee_3": {
+          "en": "Fashion",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "ፋሽን"
+        },
+        "landing.marquee_4": {
+          "en": "Beauty",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "የውበት ዕቃዎች"
+        },
+        "landing.marquee_5": {
+          "en": "Electronics",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "ኤሌክትሮኒክስ"
+        },
+        "landing.marquee_6": {
+          "en": "Furniture",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "የቤት ዕቃዎች"
+        },
+        "landing.marquee_7": {
+          "en": "Home & kitchen",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "የቤትና የኩሽና ዕቃዎች"
+        },
+        "landing.marquee_8": {
+          "en": "Baby & kids",
+          "context": "product type",
+          "limit": "keep about as long as the English",
+          "am_draft": "የሕፃናት ዕቃዎች"
+        },
+        "landing.pain_kicker": {
+          "en": "The problem",
+          "context": "small label",
+          "limit": "keep about as long as the English",
+          "am_draft": "ችግሩ"
+        },
+        "landing.scene_connect": {
+          "en": "Pick the channel to connect",
+          "context": "text inside a picture of the bot",
+          "limit": "keep about as long as the English",
+          "am_draft": "የሚያገናኙትን ቻናል ይምረጡ"
+        },
+        "landing.scene_caption": {
+          "en": "ሄድፎን ገመድ አልባ ዋጋ 4500 ብር ቦሌ ማድረስ አለ",
+          "context": "example post caption shown in Amharic in both languages",
+          "limit": "keep about as long as the English",
+          "am_draft": "ሄድፎን ገመድ አልባ ዋጋ 4500 ብር ቦሌ ማድረስ አለ"
+        },
+        "landing.scene_read": {
+          "en": "Goods read your post",
+          "context": "label in a picture",
+          "limit": "keep about as long as the English",
+          "am_draft": "Goods ልጥፍዎን አነበበ"
+        },
+        "landing.scene_field_title": {
+          "en": "Title",
+          "context": "field label",
+          "limit": "keep about as long as the English",
+          "am_draft": "ስም"
+        },
+        "landing.scene_field_price": {
+          "en": "Price",
+          "context": "field label",
+          "limit": "keep about as long as the English",
+          "am_draft": "ዋጋ"
+        },
+        "landing.scene_field_category": {
+          "en": "Category",
+          "context": "field label",
+          "limit": "keep about as long as the English",
+          "am_draft": "ምድብ"
+        },
+        "landing.scene_category": {
+          "en": "Audio",
+          "context": "example category",
+          "limit": "keep about as long as the English",
+          "am_draft": "የድምፅ ዕቃዎች"
+        },
+        "landing.scene_slip": {
+          "en": "Delivery slip",
+          "context": "button in a picture",
+          "limit": "keep about as long as the English",
+          "am_draft": "የማድረሻ ወረቀት"
+        },
+        "landing.scene_hero_bold": {
+          "en": "New in stock",
+          "context": "banner text in a store picture",
+          "limit": "keep about as long as the English",
+          "am_draft": "አዲስ የገቡ"
+        },
+        "landing.scene_hero_night": {
+          "en": "Drop 07 is live",
+          "context": "banner text in a store picture",
+          "limit": "keep about as long as the English",
+          "am_draft": "አዲሱ ስብስብ ገብቷል"
+        },
+        "landing.scene_hero_clean": {
+          "en": "Calm home, simple things",
+          "context": "banner text in a store picture",
+          "limit": "keep about as long as the English",
+          "am_draft": "ለተረጋጋ ቤት ቀላል ዕቃዎች"
+        },
+        "landing.feat_order_chip": {
+          "en": "Sold out: updated by itself",
+          "context": "label on a sold-out product in a picture",
+          "limit": "keep about as long as the English",
+          "am_draft": "አልቋል፦ በራሱ ተስተካክሏል"
+        },
+        "landing.feat_store_body_v2": {
+          "en": "A fast store with search, categories and one link to share anywhere: your channel, Instagram or TikTok.",
+          "context": "feature description",
+          "limit": "keep about as long as the English",
+          "am_draft": "መፈለጊያና ምድቦች ያሉት ፈጣን ሱቅ፣ በአንድ ሊንክ በቻናልዎ፣ በኢንስታግራም ወይም በቲክቶክ ያጋሩት።"
+        },
+        "landing.feat_store_copy": {
+          "en": "Copy",
+          "context": "button in a picture",
+          "limit": "keep about as long as the English",
+          "am_draft": "ቅዳ"
+        },
+        "landing.design_kicker": {
+          "en": "Store designer",
+          "context": "small label",
+          "limit": "keep about as long as the English",
+          "am_draft": "የሱቅ ዲዛይን"
+        },
+        "landing.design_title": {
+          "en": "A store that looks like your brand",
+          "context": "section heading",
+          "limit": "keep about as long as the English",
+          "am_draft": "የብራንድዎን መልክ የያዘ ሱቅ"
+        },
+        "landing.design_sub": {
+          "en": "Pick a theme, set your colors and fonts, add banners, deals with a countdown and answers to common questions. See every change live before your buyers do.",
+          "context": "section text",
+          "limit": "keep about as long as the English",
+          "am_draft": "ገጽታ ይምረጡ፣ ቀለምና ፊደል ያስተካክሉ፣ ባነሮችን፣ በሰዓት ቆጣሪ የሚያበቁ ቅናሾችን እና ለተደጋጋሚ ጥያቄዎች መልስ ይጨምሩ። ገዢዎችዎ ከማየታቸው በፊት እያንዳንዱን ለውጥ በቀጥታ ይመልከቱ።"
+        },
+        "landing.design_1": {
+          "en": "Themes and any brand color",
+          "context": "list item",
+          "limit": "keep about as long as the English",
+          "am_draft": "ገጽታዎች እና የፈለጉት የብራንድ ቀለም"
+        },
+        "landing.design_2": {
+          "en": "Drag sections into the order you want",
+          "context": "list item",
+          "limit": "keep about as long as the English",
+          "am_draft": "ክፍሎችን በፈለጉት ቅደም ተከተል ይጎትቱ"
+        },
+        "landing.design_3": {
+          "en": "Deals that end on their own",
+          "context": "list item",
+          "limit": "keep about as long as the English",
+          "am_draft": "በራሳቸው የሚያበቁ ቅናሾች"
+        },
+        "landing.design_cta": {
+          "en": "Design your store",
+          "context": "button",
+          "limit": "keep about as long as the English",
+          "am_draft": "ሱቅዎን ይንደፉ"
+        },
+        "landing.show_kicker": {
+          "en": "Dashboard",
+          "context": "small label",
+          "limit": "keep about as long as the English",
+          "am_draft": "የሱቅ መቆጣጠሪያ"
+        },
+        "landing.show_sub_v2": {
+          "en": "A dashboard made for Telegram sellers. It works in any browser, on your phone or your laptop.",
+          "context": "section text",
+          "limit": "keep about as long as the English",
+          "am_draft": "ለቴሌግራም ነጋዴዎች የተዘጋጀ የሱቅ መቆጣጠሪያ። በማንኛውም ብራውዘር፣ በስልክዎም ሆነ በላፕቶፕዎ ይሰራል።"
+        },
+        "landing.meta_description_v2": {
+          "en": "Post products in your Telegram channel. Goods adds an Order button to every post, takes orders with pay on delivery and gives you a store you can design and a dashboard.",
+          "context": "search engine description",
+          "limit": "keep about as long as the English",
+          "am_draft": "በቴሌግራም ቻናልዎ ላይ እቃ ይለጥፉ። Goods በእያንዳንዱ ልጥፍ ላይ «ይዘዙ» የሚል መጫኛ ይጨምራል፣ ሲደርስ በሚከፈል ትዕዛዝ ይቀበላል፣ የሚንደፉት ሱቅና የሱቅ መቆጣጠሪያ ይሰጥዎታል።"
         }
       }
     },
@@ -1060,12 +1224,6 @@
           "context": "visible text; also label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
           "am": "አካውንትዎ"
-        },
-        "dash.shell.free_plan": {
-          "en": "Free plan",
-          "context": "visible text",
-          "limit": "max 12 characters (fits a phone tab bar)",
-          "am": "ነፃ አገልግሎት"
         },
         "dash.shell.more": {
           "en": "More",

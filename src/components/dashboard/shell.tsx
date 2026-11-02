@@ -129,9 +129,8 @@ export function DashboardShell({
             <User size={18} strokeWidth={2} /> Your account
           </Link>
         </div>
-        <div className="flex items-center justify-between px-5 pb-4">
+        <div className="px-5 pb-4">
           <GoodsLogo size={24} />
-          <span className="rounded-full bg-sunken px-2.5 py-1 text-[11px] font-bold text-mist">Free plan</span>
         </div>
       </aside>
 
