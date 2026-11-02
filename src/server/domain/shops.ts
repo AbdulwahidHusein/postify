@@ -13,6 +13,7 @@ import {
 import { AppError } from "@/server/http";
 import { shortCode, slugify } from "@/server/ids";
 import { publicUrl } from "@/server/services/storage";
+import { appUrl, serverEnv } from "@/server/env";
 
 export const RESERVED_HANDLES = new Set([
   "www", "app", "api", "admin", "dashboard", "img", "static", "assets", "cdn", "mail",
@@ -36,7 +37,7 @@ export function defaultShopSettings(): ShopSettings {
       pickupAddress: null,
     },
     contact: { phone: null, telegramUsername: null, address: null },
-    theme: { accent: "#2b6cb0", font: "sans", tagline: null, bannerKey: null, sections: ["hero", "grid", "about", "contact"] },
+    theme: { accent: "#0e6b4e", font: "sans", tagline: null, bannerKey: null, sections: ["hero", "grid", "about", "contact"] },
     sellCategories: [],
   };
 }
@@ -251,3 +252,15 @@ export function serializeShop(shop: Shop) {
 }
 
 export type SerializedShop = ReturnType<typeof serializeShop>;
+
+/** Public storefront address: the shop subdomain in production, /s/<handle> locally. */
+export function storefrontUrl(handle: string) {
+  const root = serverEnv.ROOT_DOMAIN.toLowerCase();
+  if (!root || root.startsWith("localhost") || root.startsWith("127.")) return `${appUrl()}/s/${handle}`;
+  return `https://${handle}.${root}`;
+}
+
+/** Storefront address for display, without the scheme. */
+export function storefrontHost(handle: string) {
+  return storefrontUrl(handle).replace(/^https?:\/\//, "");
+}

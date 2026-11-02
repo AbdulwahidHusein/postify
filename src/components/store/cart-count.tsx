@@ -20,5 +20,5 @@ export function CartCount({ shop }: { shop: string }) {
       window.removeEventListener(CART_EVENT, on);
     };
   }, [shop]);
-  return n ? <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-[var(--shop-accent)] px-1 text-[10px] font-bold text-white">{n}</span> : null;
+  return n ? <span className="num absolute right-0.5 top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-fg ring-2 ring-surface">{n}</span> : null;
 }

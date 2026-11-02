@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
+import { CircleAlert, CircleCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Toast = { id: number; text: string; tone: "default" | "error" | "success" };
@@ -16,13 +17,19 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <Ctx.Provider value={push}>
       {children}
-      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-20 z-[100] flex flex-col items-center gap-2 px-4 sm:bottom-6">
+      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-24 z-[100] flex flex-col items-center gap-2 px-4 sm:bottom-6">
         {items.map((t) => (
-          <div key={t.id} className={cn(
-            "pointer-events-auto max-w-md rounded-lg px-4 py-2.5 text-sm font-medium text-white shadow-lg",
-            t.tone === "error" ? "bg-danger" : t.tone === "success" ? "bg-success" : "bg-ink",
-          )}>
-            {t.text}
+          <div
+            key={t.id}
+            role={t.tone === "error" ? "alert" : "status"}
+            className="pointer-events-auto flex max-w-md animate-sheet-in items-center gap-2.5 rounded-xl bg-ink py-2.5 pl-3 pr-4 text-sm font-medium text-white shadow-pop"
+          >
+            {t.tone === "error" ? (
+              <CircleAlert size={18} className="shrink-0 text-[#ff8a7f]" />
+            ) : t.tone === "success" ? (
+              <CircleCheck size={18} className="shrink-0 text-adey" />
+            ) : null}
+            <span className={cn(t.tone === "default" && "pl-1")}>{t.text}</span>
           </div>
         ))}
       </div>

@@ -1,4 +1,7 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Banknote, MapPin, Send, Truck } from "lucide-react";
+import { normalizeSettings } from "@/server/domain/shops";
 import { getStorefront } from "@/server/page";
 import { relatedProducts } from "@/server/domain/storefront";
 import { getStorefrontProduct, serializeProduct } from "@/server/domain/products";
@@ -53,19 +56,36 @@ export default async function ProductPage({ params, searchParams }: Props) {
       : undefined,
   };
 
+  const settings = normalizeSettings(shop.settings);
+  const fee = BigInt(settings.delivery.deliveryFeeMinor || "0");
+  const off = p.priceMinor && p.compareAtMinor && BigInt(p.compareAtMinor) > BigInt(p.priceMinor) ? Math.round((1 - Number(p.priceMinor) / Number(p.compareAtMinor)) * 100) : 0;
+
   return (
-    <article>
+    <article className="pb-24 md:pb-0">
       <ViewBeacon shop={shop.handle} type="product_viewed" productId={p.id} sourceCode={sourceCode} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="grid gap-6 md:grid-cols-2 md:gap-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <div className="-mt-4 grid gap-5 sm:mt-0 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-10">
         <Gallery images={p.images} title={p.title} />
-        <div>
-          <h1 className="text-2xl font-semibold leading-tight">{p.title}</h1>
-          <p className="mt-2 flex flex-wrap items-baseline gap-2">
-            {p.priceMinor ? <span className="text-2xl font-semibold tabular-nums">{formatMoney(p.priceMinor, p.currency)}</span> : <span className="text-lg text-mist">{t(locale, "product.askPrice")}</span>}
-            {p.compareAtMinor ? <span className="text-mist line-through tabular-nums">{formatMoney(p.compareAtMinor, p.currency)}</span> : null}
-            {p.isNegotiable ? <span className="rounded bg-paper-muted px-2 py-0.5 text-xs">{t(locale, "product.negotiable")}</span> : null}
-          </p>
+        <div className="min-w-0">
+          {p.category ? (
+            <Link href={`${base}/?category=${encodeURIComponent(p.category)}`} className="text-[13px] font-semibold text-accent hover:underline">{p.category.split(" > ").at(-1)}</Link>
+          ) : null}
+          <h1 className="mt-1 font-display text-[22px] font-bold leading-tight tracking-[-0.01em] sm:text-[28px]">{p.title}</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+            {p.priceMinor ? (
+              <span className="num font-display text-[28px] font-bold leading-none tracking-[-0.01em]">{formatMoney(BigInt(p.priceMinor), p.currency)}</span>
+            ) : (
+              <span className="font-display text-xl font-bold text-accent">{t(locale, "product.askPrice")}</span>
+            )}
+            {off ? (
+              <>
+                <span className="num text-base text-faint line-through">{formatMoney(BigInt(p.compareAtMinor!), p.currency)}</span>
+                <span className="num rounded-full bg-adey px-2 py-0.5 text-xs font-bold text-ink">−{off}%</span>
+              </>
+            ) : null}
+            {p.isNegotiable ? <span className="rounded-full bg-sunken px-2.5 py-1 text-xs font-semibold text-ink-soft">{t(locale, "product.negotiable")}</span> : null}
+          </div>
+
           <BuyBox
             shop={shop.handle}
             base={base}
@@ -79,26 +99,47 @@ export default async function ProductPage({ params, searchParams }: Props) {
             sourceCode={sourceCode}
             autoOrder={sp.order === "1"}
           />
+
+          <ul className="mt-5 divide-y divide-line rounded-[16px] bg-surface text-sm ring-1 ring-line">
+            <li className="flex items-center gap-3 px-4 py-3"><Banknote size={18} className="shrink-0 text-accent" /> <span className="text-ink-soft">{t(locale, "product.payOnDelivery")}</span></li>
+            {settings.delivery.deliveryEnabled ? (
+              <li className="flex items-center gap-3 px-4 py-3">
+                <Truck size={18} className="shrink-0 text-accent" />
+                <span className="text-ink-soft">
+                  <b className="font-semibold text-ink">{fee > 0n ? t(locale, "product.deliveryFee", { fee: formatMoney(fee, p.currency) ?? "" }) : t(locale, "product.freeDelivery")}</b>
+                  {settings.delivery.deliveryNote ? `, ${settings.delivery.deliveryNote}` : ""}
+                </span>
+              </li>
+            ) : null}
+            {settings.delivery.pickupEnabled ? (
+              <li className="flex items-center gap-3 px-4 py-3"><MapPin size={18} className="shrink-0 text-accent" /> <span className="text-ink-soft">{t(locale, "product.pickup")}{settings.delivery.pickupAddress ? `: ${settings.delivery.pickupAddress}` : ""}</span></li>
+            ) : null}
+          </ul>
+
           {specs.length ? (
-            <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm">
+            <dl className="mt-6 divide-y divide-line border-y border-line text-sm">
               {specs.map(([k, v]) => (
-                <div key={k} className="contents"><dt className="text-mist">{k}</dt><dd>{v}</dd></div>
+                <div key={k} className="grid grid-cols-[120px_1fr] gap-4 py-2.5"><dt className="text-mist">{k}</dt><dd className="font-medium">{v}</dd></div>
               ))}
             </dl>
           ) : null}
           {p.description ? (
             <div className="mt-6">
-              <h2 className="text-sm font-semibold">{t(locale, "product.details")}</h2>
-              <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-ink-soft">{p.description}</p>
+              <h2 className="font-display text-base font-bold">{t(locale, "product.details")}</h2>
+              <p className="mt-2 whitespace-pre-wrap text-[15px] leading-relaxed text-ink-soft">{p.description}</p>
             </div>
           ) : null}
-          {tgLink ? <a href={tgLink} target="_blank" className="mt-6 inline-block text-sm text-signal">{t(locale, "product.viewOnTelegram")} ↗</a> : null}
+          {tgLink ? (
+            <a href={tgLink} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-telegram-soft px-3.5 py-2 text-[13px] font-semibold text-[#106a96] hover:bg-telegram/15">
+              <Send size={14} /> {t(locale, "product.viewOnTelegram")}
+            </a>
+          ) : null}
         </div>
       </div>
       {related.length ? (
-        <section className="mt-14">
-          <h2 className="mb-4 text-lg font-semibold">{t(locale, "product.related")}</h2>
-          <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-4">
+        <section className="mt-12 border-t border-line pt-8" aria-labelledby="related-title">
+          <h2 id="related-title" className="mb-4 font-display text-lg font-bold">{t(locale, "product.related")}</h2>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-4 sm:gap-x-4">
             {related.slice(0, 8).map((r) => <ProductCard key={r.id} p={r} base={base} locale={locale} />)}
           </div>
         </section>

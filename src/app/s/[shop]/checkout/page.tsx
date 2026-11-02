@@ -11,8 +11,8 @@ export default async function CheckoutPage({ params }: { params: Promise<{ shop:
   const s = normalizeSettings(shop.settings);
   const viewer = await getViewer();
   return (
-    <div className="mx-auto max-w-xl">
-      <h1 className="mb-5 text-2xl font-semibold">{t(locale, "checkout.title")}</h1>
+    <div className="mx-auto max-w-4xl">
+      <h1 className="mb-5 font-display text-[26px] font-bold tracking-[-0.01em]">{t(locale, "checkout.title")}</h1>
       <CheckoutForm
         shop={shop.handle}
         base={base}

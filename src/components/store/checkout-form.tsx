@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Banknote, CreditCard, Send, Store, Truck } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { formatMoney } from "@/lib/money";
 import { cn } from "@/lib/utils";
@@ -88,88 +89,152 @@ export function CheckoutForm({
   }
 
   if (cart && !cart.lines.length) {
-    return <p className="card py-12 text-center text-mist">{t(locale, "cart.empty")}</p>;
+    return (
+      <div className="flex flex-col items-center rounded-[18px] bg-surface py-14 text-center ring-1 ring-line">
+        <p className="font-display font-semibold">{t(locale, "cart.empty")}</p>
+        <a href={base || "/"} className="mt-3 text-sm font-semibold text-accent hover:underline">{t(locale, "cart.continue")}</a>
+      </div>
+    );
   }
 
   const option = (active: boolean) =>
-    cn("flex cursor-pointer items-start gap-3 rounded-xl border p-3 text-sm", active ? "border-[var(--shop-accent)] bg-[color-mix(in_oklab,var(--shop-accent)_6%,white)]" : "border-line");
+    cn(
+      "flex cursor-pointer items-start gap-3 rounded-[14px] border p-3.5 text-sm transition-colors",
+      active ? "border-accent bg-accent-soft ring-1 ring-accent" : "border-line-strong bg-surface hover:border-faint",
+    );
+  const inTelegram = Boolean(tgApp()?.initData);
+  const canShareContact = Boolean(tgApp()?.requestContact) && inTelegram;
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); void place(); }} className="space-y-5">
-      <section className="card space-y-4 p-4">
-        <h2 className="font-semibold">{t(locale, "checkout.contact")}</h2>
-        <Field label={t(locale, "checkout.name")}><Input value={name} onChange={(e) => setName(e.target.value)} required minLength={2} maxLength={80} autoComplete="name" /></Field>
-        <Field label={t(locale, "checkout.phone")} hint={t(locale, "checkout.phoneHint")}>
-          <div className="flex gap-2">
-            <Input value={phone} onChange={(e) => setPhone(e.target.value)} required inputMode="tel" autoComplete="tel" placeholder="09XX XXX XXX" />
-            {tgApp()?.requestContact ? <button type="button" onClick={sharePhone} className="shrink-0 rounded-lg border border-line px-3 text-sm">📱</button> : null}
-          </div>
-        </Field>
-      </section>
-
-      <section className="card space-y-3 p-4">
-        <h2 className="font-semibold">{t(locale, "checkout.fulfillment")}</h2>
-        {delivery.enabled ? (
-          <label className={option(fulfillment === "delivery")}>
-            <input type="radio" name="f" checked={fulfillment === "delivery"} onChange={() => setFulfillment("delivery")} className="mt-0.5" />
-            <span className="flex-1">
-              <b>{t(locale, "checkout.delivery")}</b> · {formatMoney(delivery.feeMinor || "0", currency)}
-              {delivery.note ? <span className="block text-mist">{delivery.note}</span> : null}
-            </span>
-          </label>
-        ) : null}
-        {pickup.enabled ? (
-          <label className={option(fulfillment === "pickup")}>
-            <input type="radio" name="f" checked={fulfillment === "pickup"} onChange={() => setFulfillment("pickup")} className="mt-0.5" />
-            <span className="flex-1">
-              <b>{t(locale, "checkout.pickup")}</b>
-              {pickup.address ? <span className="block text-mist">{t(locale, "checkout.pickupAt", { address: pickup.address })}</span> : null}
-            </span>
-          </label>
-        ) : null}
-        {fulfillment === "delivery" ? (
-          <Field label={t(locale, "checkout.address")} hint={t(locale, "checkout.addressHint")}>
-            <Textarea rows={2} value={address} onChange={(e) => setAddress(e.target.value)} required maxLength={300} autoComplete="street-address" />
+    <form onSubmit={(e) => { e.preventDefault(); void place(); }} className="grid gap-5 pb-28 md:grid-cols-[minmax(0,1fr)_340px] md:items-start md:pb-0">
+      <div className="space-y-5">
+        <Step n={1} title={t(locale, "checkout.contact")}>
+          <Field label={t(locale, "checkout.name")} htmlFor="c-name"><Input id="c-name" value={name} onChange={(e) => setName(e.target.value)} required minLength={2} maxLength={80} autoComplete="name" /></Field>
+          <Field label={t(locale, "checkout.phone")} htmlFor="c-phone" hint={t(locale, "checkout.phoneHint")}>
+            <Input id="c-phone" value={phone} onChange={(e) => setPhone(e.target.value)} required inputMode="tel" autoComplete="tel" placeholder="09XX XXX XXX" className="num" />
+            {canShareContact ? (
+              <button type="button" onClick={sharePhone} className="mt-2 inline-flex items-center gap-1.5 text-[13px] font-semibold text-telegram hover:underline">
+                <Send size={13} /> {t(locale, "checkout.useTelegramPhone")}
+              </button>
+            ) : null}
           </Field>
-        ) : null}
-        <Field label={t(locale, "checkout.notes")}><Input value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={500} /></Field>
-      </section>
+        </Step>
 
-      <section className="card space-y-3 p-4">
-        <h2 className="font-semibold">{t(locale, "checkout.payment")}</h2>
-        <label className={option(true)}>
-          <input type="radio" name="pay" checked readOnly className="mt-0.5" />
-          <span><b>{t(locale, "checkout.payOnDelivery")}</b><span className="block text-mist">{t(locale, "checkout.payOnDeliveryHint")}</span></span>
-        </label>
-        <div
-          role="radio"
-          aria-checked="false"
-          aria-disabled="true"
-          tabIndex={-1}
-          onClick={() => void api(`/api/storefront/${shop}/events`, { body: { type: "online_payment_interest" } }).catch(() => undefined)}
-          className="flex cursor-not-allowed items-start gap-3 rounded-xl border border-dashed border-line p-3 text-sm opacity-60"
-        >
-          <input type="radio" disabled className="mt-0.5" />
-          <span className="flex-1">
-            <b>{t(locale, "checkout.payOnline")}</b>
-            <span className="ml-2 rounded bg-paper-muted px-1.5 py-0.5 text-[11px] font-semibold text-mist">{t(locale, "checkout.comingSoon")}</span>
-            <span className="block text-mist">{t(locale, "checkout.payOnlineHint")}</span>
-          </span>
+        <Step n={2} title={t(locale, "checkout.fulfillment")}>
+          <div className="space-y-2">
+            {delivery.enabled ? (
+              <label className={option(fulfillment === "delivery")}>
+                <input type="radio" name="f" checked={fulfillment === "delivery"} onChange={() => setFulfillment("delivery")} className="mt-0.5 h-4 w-4 accent-[var(--accent)]" />
+                <Truck size={18} className="mt-px shrink-0 text-ink-soft" />
+                <span className="flex-1">
+                  <span className="flex justify-between gap-3 font-semibold"><span>{t(locale, "checkout.delivery")}</span><span className="num">{BigInt(delivery.feeMinor || "0") > 0n ? formatMoney(BigInt(delivery.feeMinor), currency) : t(locale, "product.freeDelivery")}</span></span>
+                  {delivery.note ? <span className="mt-0.5 block text-mist">{delivery.note}</span> : null}
+                </span>
+              </label>
+            ) : null}
+            {pickup.enabled ? (
+              <label className={option(fulfillment === "pickup")}>
+                <input type="radio" name="f" checked={fulfillment === "pickup"} onChange={() => setFulfillment("pickup")} className="mt-0.5 h-4 w-4 accent-[var(--accent)]" />
+                <Store size={18} className="mt-px shrink-0 text-ink-soft" />
+                <span className="flex-1">
+                  <span className="block font-semibold">{t(locale, "checkout.pickup")}</span>
+                  {pickup.address ? <span className="mt-0.5 block text-mist">{t(locale, "checkout.pickupAt", { address: pickup.address })}</span> : null}
+                </span>
+              </label>
+            ) : null}
+          </div>
+          {fulfillment === "delivery" ? (
+            <Field label={t(locale, "checkout.address")} htmlFor="c-addr" hint={t(locale, "checkout.addressHint")}>
+              <Textarea id="c-addr" rows={2} value={address} onChange={(e) => setAddress(e.target.value)} required maxLength={300} autoComplete="street-address" className="min-h-0" />
+            </Field>
+          ) : null}
+          <Field label={t(locale, "checkout.notes")} htmlFor="c-notes"><Input id="c-notes" value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={500} /></Field>
+        </Step>
+
+        <Step n={3} title={t(locale, "checkout.payment")}>
+          <div className="space-y-2" role="radiogroup" aria-label={t(locale, "checkout.payment")}>
+            <label className={option(true)}>
+              <input type="radio" name="pay" checked readOnly className="mt-0.5 h-4 w-4 accent-[var(--accent)]" />
+              <Banknote size={18} className="mt-px shrink-0 text-ink-soft" />
+              <span><span className="block font-semibold">{t(locale, "checkout.payOnDelivery")}</span><span className="mt-0.5 block text-mist">{t(locale, "checkout.payOnDeliveryHint")}</span></span>
+            </label>
+            <div
+              role="radio"
+              aria-checked="false"
+              aria-disabled="true"
+              tabIndex={-1}
+              onClick={() => void api(`/api/storefront/${shop}/events`, { body: { type: "online_payment_interest" } }).catch(() => undefined)}
+              className="flex cursor-not-allowed items-start gap-3 rounded-[14px] border border-dashed border-line-strong p-3.5 text-sm"
+            >
+              <input type="radio" disabled className="mt-0.5 h-4 w-4" />
+              <CreditCard size={18} className="mt-px shrink-0 text-faint" />
+              <span className="flex-1 text-faint">
+                <span className="flex flex-wrap items-center gap-2 font-semibold text-mist">
+                  {t(locale, "checkout.payOnline")}
+                  <span className="rounded-full bg-adey-soft px-2 py-0.5 text-[11px] font-bold text-adey-ink">{t(locale, "checkout.comingSoon")}</span>
+                </span>
+                <span className="mt-0.5 block">{t(locale, "checkout.payOnlineHint")}</span>
+              </span>
+            </div>
+          </div>
+        </Step>
+      </div>
+
+      <aside className="rounded-[18px] bg-surface ring-1 ring-line md:sticky md:top-20">
+        <h2 className="border-b border-line px-4 py-3 font-display font-bold">{t(locale, "checkout.summary")}</h2>
+        <ul className="divide-y divide-line">
+          {cart?.lines.map((l) => (
+            <li key={l.variantId} className="flex items-center gap-3 px-4 py-3">
+              <span className="relative h-12 w-12 shrink-0 overflow-visible">
+                {l.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={l.image} alt="" className="h-12 w-12 rounded-[10px] object-cover ring-1 ring-line" />
+                ) : <span className="block h-12 w-12 rounded-[10px] bg-sunken" />}
+                {l.quantity > 1 ? <span className="num absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-ink px-1 text-[11px] font-bold text-white">{l.quantity}</span> : null}
+              </span>
+              <span className="min-w-0 flex-1 truncate text-sm font-medium">{l.title}</span>
+              <span className="num text-sm font-semibold">{l.unitPriceMinor ? formatMoney(BigInt(l.unitPriceMinor) * BigInt(l.quantity), l.currency) : ""}</span>
+            </li>
+          ))}
+          {!cart ? <li className="p-4"><div className="skeleton h-12 rounded-xl" /></li> : null}
+        </ul>
+        <dl className="space-y-1.5 border-t border-line bg-canvas px-4 py-3 text-sm md:rounded-b-[18px]">
+          <div className="flex justify-between text-mist"><dt>{t(locale, "cart.subtotal")}</dt><dd className="num">{cart ? formatMoney(BigInt(cart.subtotalMinor), currency) : ""}</dd></div>
+          {fulfillment === "delivery" ? <div className="flex justify-between text-mist"><dt>{t(locale, "checkout.deliveryFee")}</dt><dd className="num">{fee > 0n ? formatMoney(fee, currency) : t(locale, "product.freeDelivery")}</dd></div> : null}
+          <div className="flex items-baseline justify-between border-t border-line pt-2"><dt className="font-semibold">{t(locale, "checkout.total")}</dt><dd className="num font-display text-xl font-bold">{totalText}</dd></div>
+        </dl>
+        <div className="hidden p-4 pt-0 md:block md:bg-canvas md:rounded-b-[18px]">
+          {error ? <p role="alert" className="mb-3 rounded-xl bg-danger-soft px-3 py-2 text-sm font-medium text-danger">{error}</p> : null}
+          <button type="submit" disabled={busy || !cart} className="h-12 w-full rounded-[14px] bg-accent text-[15px] font-bold text-accent-fg shadow-[inset_0_-1px_0_rgb(0_0_0/0.18)] hover:bg-accent-hover disabled:opacity-60">
+            {busy ? t(locale, "checkout.placing") : t(locale, "checkout.place", { total: totalText })}
+          </button>
+          <p className="mt-2 text-center text-xs text-mist">{t(locale, "checkout.noPaymentNow")}</p>
         </div>
-      </section>
+      </aside>
 
-      <section className="card space-y-1.5 p-4 text-sm">
-        {cart?.lines.map((l) => (
-          <div key={l.variantId} className="flex justify-between gap-3"><span className="truncate">{l.title} × {l.quantity}</span><span className="tabular-nums">{l.unitPriceMinor ? formatMoney(BigInt(l.unitPriceMinor) * BigInt(l.quantity), l.currency) : ""}</span></div>
-        ))}
-        {fulfillment === "delivery" ? <div className="flex justify-between text-mist"><span>{t(locale, "checkout.deliveryFee")}</span><span className="tabular-nums">{formatMoney(fee, currency)}</span></div> : null}
-        <div className="flex justify-between border-t border-line pt-2 text-base font-semibold"><span>{t(locale, "checkout.total")}</span><span className="tabular-nums">{totalText}</span></div>
-      </section>
-
-      {error ? <p className="rounded-lg bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p> : null}
-      <button type="submit" disabled={busy || !cart} className="h-12 w-full rounded-xl bg-[var(--shop-accent)] font-semibold text-white disabled:opacity-60">
-        {busy ? t(locale, "checkout.placing") : t(locale, "checkout.place", { total: totalText })}
-      </button>
+      {/* Phones outside Telegram: sticky place-order bar. Inside Telegram the MainButton does this. */}
+      {!inTelegram ? (
+        <div className="fixed inset-x-0 bottom-0 z-30 bg-surface/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-bar backdrop-blur-md md:hidden">
+          {error ? <p role="alert" className="mb-2 rounded-xl bg-danger-soft px-3 py-2 text-sm font-medium text-danger">{error}</p> : null}
+          <button type="submit" disabled={busy || !cart} className="h-12 w-full rounded-[14px] bg-accent text-[15px] font-bold text-accent-fg disabled:opacity-60">
+            {busy ? t(locale, "checkout.placing") : t(locale, "checkout.place", { total: totalText })}
+          </button>
+        </div>
+      ) : error ? (
+        <p role="alert" className="rounded-xl bg-danger-soft px-3 py-2 text-sm font-medium text-danger md:hidden">{error}</p>
+      ) : null}
     </form>
+  );
+}
+
+function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
+  return (
+    <section className="rounded-[18px] bg-surface p-4 ring-1 ring-line sm:p-5">
+      <h2 className="mb-4 flex items-center gap-2.5 font-display text-[17px] font-bold">
+        <span className="num grid h-6 w-6 place-items-center rounded-full bg-ink text-xs font-bold text-white">{n}</span>
+        {title}
+      </h2>
+      <div className="space-y-4">{children}</div>
+    </section>
   );
 }

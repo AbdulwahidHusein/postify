@@ -24,6 +24,9 @@ async function main() {
   const { putObject } = await import("@/server/services/storage");
   const { sealSession } = await import("@/server/auth/session");
   const { uuidv7 } = await import("@/server/ids");
+  const { channels, events, orders: ordersTable } = await import("@/server/db/schema");
+  const { addToCart } = await import("@/server/domain/cart");
+  const { placeOrder, applyOrderAction } = await import("@/server/domain/orders");
 
   let user = await db.query.users.findFirst({ where: eq(users.telegramId, telegramId) });
   if (!user) {
@@ -65,6 +68,42 @@ async function main() {
       for (const img of product.images) await processImage(img.id);
     }
     console.log(`seeded shop "${shop.handle}" with ${items.length} products`);
+
+    // Demo activity so every dashboard screen has something to show.
+    await db.insert(channels).values({
+      shopId: shop.id, telegramChatId: -1001999000111n, chatType: "channel", title: "Demo Shop Deals", username: "demoshopdeals",
+      botIsAdmin: true, canPostMessages: true, canEditMessages: true, lastPostAt: new Date(Date.now() - 3 * 3600_000), connectedByUserId: user.id,
+    });
+    const all = await db.query.products.findMany({ where: eq((await import("@/server/db/schema")).products.shopId, shop.id), with: { variants: true } });
+    const buyers = [
+      ["Hana Tesfaye", "0911223344", "Bole, near Edna Mall"],
+      ["Dawit Bekele", "0922334455", "Piassa, behind the post office"],
+      ["Selam Girma", "0933445566", "CMC, Michael condominium block 12"],
+      ["Yonas Alemu", "0944556677", "Sarbet, opposite Canada embassy"],
+      ["Meron Haile", "0955667788", "Kazanchis, Intercontinental area"],
+    ];
+    const plan: [number, string[]][] = [[0, []], [1, ["confirm"]], [2, ["confirm", "ship"]], [3, ["confirm", "ship", "deliver", "mark_paid"]], [4, []]];
+    for (const [i, actions] of plan) {
+      const [name, phone, address] = buyers[i];
+      const product = all.filter((p) => p.variants[0]?.priceMinor && p.variants[0].inventoryQty > 1)[i % 3] ?? all[0];
+      const key = `seed:${i}`;
+      await addToCart({ shopId: shop.id, ownerKey: key, variantId: product.variants[0].id, quantity: 1 });
+      const order = await placeOrder({ shop, ownerKey: key, buyerUserId: null, checkout: { contactName: name, contactPhone: phone, fulfillment: "delivery", address, paymentMethod: "on_delivery" } });
+      for (const action of actions) await applyOrderAction({ shopId: shop.id, orderId: order.id, action: action as never, actorUserId: user.id, notifyBuyer: false });
+      await db.update(ordersTable).set({ placedAt: new Date(Date.now() - (i * 26 + 1) * 3600_000) }).where(eq(ordersTable.id, order.id));
+    }
+    const rows: (typeof events.$inferInsert)[] = [];
+    for (let d = 0; d < 7; d += 1) {
+      const n = 14 + Math.round(Math.sin(d) * 6) + d * 3;
+      for (let k = 0; k < n; k += 1) {
+        const p = all[(d + k) % all.length];
+        rows.push({ shopId: shop.id, type: k % 9 === 0 ? "inquiry_started" : "product_viewed", productId: p.id, createdAt: new Date(Date.now() - d * 86_400_000 - k * 60_000) });
+      }
+    }
+    await db.insert(events).values(rows);
+    const { rollupDay } = await import("@/server/domain/analytics");
+    for (let d = 1; d < 7; d += 1) await rollupDay(new Date(Date.now() - d * 86_400_000).toISOString().slice(0, 10));
+    console.log(`seeded ${plan.length} orders, ${rows.length} events, 1 channel`);
   } else {
     console.log(`shop "${shop.handle}" already exists`);
   }

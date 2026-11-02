@@ -1,90 +1,209 @@
 @import "tailwindcss";
 
+/*
+ * Goods design tokens.
+ *
+ * Canvas is a cool off-white with a hint of green. Ink is a green-black.
+ * Brand is "Merkato green". Adey (the Meskel daisy yellow) marks only
+ * what needs the seller's attention. Telegram blue is reserved for Telegram
+ * affordances, so it always means "this happens in Telegram".
+ */
 :root {
-  --ink: #16202e;
-  --ink-soft: #2a3648;
-  --paper: #f5f7fa;
-  --paper-muted: #eaeef4;
-  --mist: #5f6e80;
-  --signal: #2b6cb0;
-  --signal-bright: #3b82c4;
-  --danger: #c0352b;
-  --success: #1f8a4c;
-  --warning: #b7791f;
-  --line: color-mix(in oklab, var(--ink) 9%, transparent);
-  --line-strong: color-mix(in oklab, var(--ink) 16%, transparent);
+  --canvas: #f4f5f1;
   --surface: #ffffff;
-  --accent: var(--signal);
+  --sunken: #eceee8;
+  --ink: #16201b;
+  --ink-soft: #39443e;
+  --mist: #58615b;
+  --faint: #6b746e;
+  --line: #e2e5de;
+  --line-strong: #cfd4cb;
+
+  --brand: #0e6b4e;
+  --brand-hover: #0b5a41;
+  --brand-soft: #e3f0e9;
+  --brand-ink: #0a5038;
+
+  --adey: #f2b705;
+  --adey-soft: #fdf3cf;
+  --adey-ink: #74520a;
+
+  --danger: #c2362b;
+  --danger-soft: #fbe9e6;
+  --telegram: #1279ad;
+  --telegram-soft: #e6f4fb;
+
+  /* Storefront overrides these with the shop's own accent. */
+  --accent: var(--brand);
+  --accent-hover: var(--brand-hover);
   --accent-fg: #ffffff;
-  --accent-soft: #e8f1fa;
-  --radius: 10px;
+  --accent-soft: var(--brand-soft);
+
+  --radius-control: 10px;
+  --radius-card: 14px;
+  --radius-sheet: 20px;
+  --shadow-pop: 0 0 0 1px var(--line), 0 16px 40px -16px rgb(22 32 27 / 0.28);
+  --shadow-bar: 0 -1px 0 var(--line), 0 -8px 24px -12px rgb(22 32 27 / 0.12);
 }
 
 @theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
-  --color-paper: var(--paper);
-  --color-paper-muted: var(--paper-muted);
   --color-mist: var(--mist);
-  --color-signal: var(--signal);
-  --color-signal-bright: var(--signal-bright);
-  --color-danger: var(--danger);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
+  --color-faint: var(--faint);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
-  --color-surface: var(--surface);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --color-adey: var(--adey);
+  --color-adey-soft: var(--adey-soft);
+  --color-adey-ink: var(--adey-ink);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-telegram: var(--telegram);
+  --color-telegram-soft: var(--telegram-soft);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-fg: var(--accent-fg);
   --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-dm-sans), var(--font-ethiopic), system-ui, sans-serif;
-  --font-display: var(--font-dm-sans), var(--font-ethiopic), system-ui, sans-serif;
+
+  /* Legacy aliases kept so older class names resolve to the new system. */
+  --color-paper: var(--canvas);
+  --color-paper-muted: var(--sunken);
+  --color-signal: var(--accent);
+  --color-signal-bright: var(--accent-hover);
+  --color-success: var(--brand);
+  --color-warning: var(--adey-ink);
+
+  --font-sans: var(--font-ui), var(--font-ethiopic), system-ui, sans-serif;
+  --font-display: var(--font-menbere), var(--font-ethiopic), var(--font-ui), system-ui, sans-serif;
+
+  --radius-control: var(--radius-control);
+  --radius-card: var(--radius-card);
+  --radius-sheet: var(--radius-sheet);
+  --shadow-pop: var(--shadow-pop);
+  --shadow-bar: var(--shadow-bar);
+
+  --animate-sheet-in: sheet-in 220ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  --animate-fade-in: fade-in 160ms ease-out;
+}
+
+@keyframes sheet-in {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 html {
-  background: var(--paper);
+  background: var(--canvas);
   color: var(--ink);
   -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   min-height: 100dvh;
   font-family: var(--font-sans);
-  font-feature-settings: "ss01";
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Amharic needs a touch more leading than Latin. */
+:lang(am) {
+  line-height: 1.6;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+/* Prices, counts, order numbers. */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 /* Telegram Mini App: respect the safe areas Telegram reports. */
 html[data-platform="tma"] body {
   padding-top: var(--tg-content-safe-area-inset-top, 0px);
-  padding-bottom: var(--tg-content-safe-area-inset-bottom, 0px);
 }
 
 :focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--signal) 55%, transparent);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * Tibeb: the woven border of habesha cloth. Goods' one signature
+ * ornament: brand mark, default shop banner, empty and connect states.
+ * Nowhere else.
+ */
+.tibeb {
+  background-color: var(--brand);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 0h28v1.5H0zM0 12.5h28V14H0z' fill='%23f2b705'/%3E%3Cpath d='M14 2.5 19 7l-5 4.5L9 7z' fill='%23f2b705'/%3E%3Cpath d='M14 5l2 2-2 2-2-2z' fill='%23ffffff'/%3E%3Cpath d='M0 2.5 4 7l-4 4.5zM28 2.5 24 7l4 4.5z' fill='%23083d2c'/%3E%3C/svg%3E");
+  background-size: 28px 14px;
+  background-repeat: repeat-x;
+  background-position: left center;
+}
+.tibeb-thin {
+  background-color: var(--brand);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='6' viewBox='0 0 14 6'%3E%3Cpath d='M7 0l3.5 3L7 6 3.5 3z' fill='%23f2b705'/%3E%3C/svg%3E");
+  background-size: 14px 6px;
+  background-repeat: repeat-x;
 }
 
 @layer components {
   .card {
-    @apply rounded-xl border border-line bg-surface;
+    @apply rounded-[var(--radius-card)] border border-line bg-surface;
+  }
+  .panel {
+    @apply rounded-[var(--radius-card)] border border-line bg-surface;
+  }
+  .panel-head {
+    @apply flex items-center justify-between gap-3 border-b border-line px-4 py-3 sm:px-5;
+  }
+  .panel-title {
+    @apply text-[15px] font-semibold text-ink;
   }
   .field-label {
-    @apply mb-1.5 block text-sm font-medium text-ink;
+    @apply mb-1.5 block text-[13px] font-medium text-ink;
   }
   .field-hint {
-    @apply mt-1 text-xs text-mist;
+    @apply mt-1.5 text-xs text-mist;
   }
   .input {
-    @apply h-10 w-full rounded-lg border border-line-strong bg-surface px-3 text-sm text-ink outline-none transition-colors placeholder:text-mist/70 focus:border-signal focus:ring-2 focus:ring-signal/20 disabled:opacity-60;
+    @apply h-10 w-full rounded-[var(--radius-control)] border border-line-strong bg-surface px-3 text-[15px] text-ink outline-none transition-[border-color,box-shadow] placeholder:text-faint hover:border-faint focus:border-accent focus:ring-[3px] focus:ring-accent/15 disabled:bg-sunken disabled:opacity-70 sm:text-sm;
   }
   .textarea {
-    @apply min-h-24 w-full rounded-lg border border-line-strong bg-surface px-3 py-2 text-sm text-ink outline-none transition-colors placeholder:text-mist/70 focus:border-signal focus:ring-2 focus:ring-signal/20;
+    @apply min-h-24 w-full rounded-[var(--radius-control)] border border-line-strong bg-surface px-3 py-2.5 text-[15px] text-ink outline-none transition-[border-color,box-shadow] placeholder:text-faint hover:border-faint focus:border-accent focus:ring-[3px] focus:ring-accent/15 sm:text-sm;
   }
   .page-title {
-    @apply text-xl font-semibold tracking-tight text-ink sm:text-2xl;
+    @apply font-display text-[22px] font-semibold leading-tight tracking-[-0.01em] text-ink sm:text-[26px];
   }
   .muted {
     @apply text-sm text-mist;
+  }
+  .link {
+    @apply font-medium text-accent underline-offset-4 hover:underline;
+  }
+  .kbd {
+    @apply rounded-md border border-line bg-surface px-1.5 font-sans text-[11px] font-medium text-mist;
   }
 }
 
@@ -93,7 +212,15 @@ html[data-platform="tma"] body {
   100% { background-position: 400px 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, var(--paper-muted) 25%, #f3f5f8 37%, var(--paper-muted) 63%);
+  background: linear-gradient(90deg, var(--sunken) 25%, #f6f7f4 37%, var(--sunken) 63%);
   background-size: 800px 100%;
   animation: shimmer 1.4s ease infinite;
+}
+
+/* Hide scrollbars on horizontal chip rails while keeping them scrollable. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

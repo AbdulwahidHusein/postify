@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { Copy, ExternalLink, Trash2 } from "lucide-react";
+import { Check, Copy, ExternalLink, Trash2 } from "lucide-react";
 import { api, uploadImage } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +20,16 @@ const SECTIONS = [
   { key: "about", label: "About" },
   { key: "contact", label: "Contact" },
 ] as const;
-const ACCENTS = ["#2b6cb0", "#0f766e", "#7c3aed", "#be123c", "#c2410c", "#1f2937"];
+// Every accent passes WCAG AA with white button text.
+const ACCENTS = [
+  { hex: "#0e6b4e", name: "Merkato green" },
+  { hex: "#1d5fa8", name: "Lake Tana blue" },
+  { hex: "#6b3e26", name: "Buna brown" },
+  { hex: "#a3281b", name: "Berbere red" },
+  { hex: "#6d2e66", name: "Plum" },
+  { hex: "#8a6100", name: "Teff gold" },
+  { hex: "#1f2a24", name: "Ink" },
+];
 
 export function StoreEditor({ shop, address, bannerUrl, collections }: { shop: SerializedShop; address: string; bannerUrl: string | null; collections: Collection[] }) {
   const router = useRouter();
@@ -80,7 +89,7 @@ export function StoreEditor({ shop, address, bannerUrl, collections }: { shop: S
     <div className="space-y-6">
       <section className="card flex flex-wrap items-center gap-3 p-4">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium uppercase tracking-wide text-mist">Your shop address</p>
+          <p className="text-[13px] text-mist">Your shop address</p>
           <p className="truncate font-medium">{address}</p>
         </div>
         <Button size="sm" variant="secondary" onClick={() => navigator.clipboard.writeText(address).then(() => toast("Address copied"))}><Copy size={14} /> Copy</Button>
@@ -95,19 +104,36 @@ export function StoreEditor({ shop, address, bannerUrl, collections }: { shop: S
           <input ref={logoRef} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(e) => upload("logo", e.target.files?.[0])} />
         </div>
         <div>
-          <div className="aspect-[8/3] w-full overflow-hidden rounded-xl" style={{ background: bannerUrl ? undefined : accent }}>
+          <div className="relative aspect-[8/3] w-full overflow-hidden rounded-xl" style={{ background: bannerUrl ? undefined : accent }}>
             {bannerUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={bannerUrl} alt="" className="h-full w-full object-cover" />
-            ) : null}
+            ) : (
+              <>
+                <div aria-hidden className="tibeb absolute inset-x-0 bottom-0 h-3.5" />
+                <p className="absolute bottom-7 left-5 right-5 font-display text-xl font-bold text-white sm:text-2xl">{shop.name}</p>
+                <p className="absolute left-5 top-4 rounded-full bg-white/15 px-2.5 py-1 text-xs font-semibold text-white">Default banner</p>
+              </>
+            )}
           </div>
           <Button size="sm" variant="secondary" className="mt-2" onClick={() => bannerRef.current?.click()}>Change banner</Button>
           <input ref={bannerRef} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(e) => upload("banner", e.target.files?.[0])} />
         </div>
-        <Field label="Accent colour">
+        <Field label="Brand colour" hint="Used for buttons and highlights in your shop.">
           <div className="flex flex-wrap gap-2">
             {ACCENTS.map((c) => (
-              <button key={c} type="button" aria-label={c} onClick={() => setAccent(c)} className={`h-8 w-8 rounded-full ring-offset-2 ${accent === c ? "ring-2 ring-ink" : ""}`} style={{ background: c }} />
+              <button
+                key={c.hex}
+                type="button"
+                aria-label={c.name}
+                aria-pressed={accent === c.hex}
+                title={c.name}
+                onClick={() => setAccent(c.hex)}
+                className={`grid h-9 w-9 place-items-center rounded-full ring-offset-2 ring-offset-surface transition-shadow ${accent === c.hex ? "ring-2 ring-ink" : "hover:ring-2 hover:ring-line-strong"}`}
+                style={{ background: c.hex }}
+              >
+                {accent === c.hex ? <Check size={16} className="text-white" strokeWidth={3} /> : null}
+              </button>
             ))}
           </div>
         </Field>

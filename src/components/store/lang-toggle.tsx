@@ -7,7 +7,8 @@ export function LangToggle({ locale }: { locale: Locale }) {
   const router = useRouter();
   return (
     <button
-      className="rounded-lg px-2 py-1.5 text-sm text-mist hover:bg-paper-muted"
+      className="h-9 rounded-full border border-line px-3 text-[13px] font-semibold text-ink-soft hover:bg-sunken"
+      lang={locale === "am" ? "en" : "am"}
       onClick={() => {
         document.cookie = `goods_lang=${locale === "am" ? "en" : "am"}; path=/; max-age=31536000; samesite=lax`;
         router.refresh();

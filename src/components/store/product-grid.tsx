@@ -24,12 +24,12 @@ export function ProductGrid({ shop, base, locale, initial, cursor, query }: { sh
   }
   return (
     <>
-      <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
-        {items.map((p) => <ProductCard key={p.id} p={p} base={base} locale={locale} />)}
+      <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4 lg:gap-x-5">
+        {items.map((p, i) => <ProductCard key={p.id} p={p} base={base} locale={locale} priority={i < 4} />)}
       </div>
       {next ? (
         <div className="mt-8 text-center">
-          <button onClick={more} disabled={loading} className="rounded-lg border border-line px-5 py-2 text-sm font-medium hover:bg-paper-muted disabled:opacity-50">
+          <button onClick={more} disabled={loading} className="h-11 rounded-full border border-line-strong bg-surface px-6 text-sm font-semibold hover:bg-sunken disabled:opacity-50">
             {loading ? "…" : t(locale, "shop.loadMore")}
           </button>
         </div>
