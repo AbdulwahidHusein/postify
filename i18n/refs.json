@@ -1,0 +1,2413 @@
+{
+ "common.analytics": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:11",
+  "src/app/dashboard/[shop]/analytics/page.tsx:27"
+ ],
+ "common.orders": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:43",
+  "src/app/dashboard/[shop]/analytics/page.tsx:97"
+ ],
+ "common.cancelled": [
+  "src/app/dashboard/[shop]/customers/[id]/page.tsx:32"
+ ],
+ "common.customer": [
+  "src/app/dashboard/[shop]/customers/page.tsx:33"
+ ],
+ "common.order": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:16"
+ ],
+ "common.delivered": [
+  "src/app/dashboard/[shop]/orders/page.tsx:19"
+ ],
+ "common.status": [
+  "src/app/dashboard/[shop]/orders/page.tsx:64"
+ ],
+ "common.add_product": [
+  "src/app/dashboard/[shop]/page.tsx:70",
+  "src/app/dashboard/[shop]/page.tsx:71"
+ ],
+ "common.telegram": [
+  "src/app/dashboard/[shop]/page.tsx:205"
+ ],
+ "common.products": [
+  "src/app/dashboard/[shop]/products/page.tsx:14",
+  "src/app/dashboard/[shop]/products/page.tsx:43"
+ ],
+ "common.active": [
+  "src/app/dashboard/[shop]/products/page.tsx:18"
+ ],
+ "common.sold": [
+  "src/app/dashboard/[shop]/products/page.tsx:21"
+ ],
+ "common.archived": [
+  "src/app/dashboard/[shop]/products/page.tsx:22"
+ ],
+ "common.sign": [
+  "src/app/login/page.tsx:7"
+ ],
+ "common.upload_failed": [
+  "src/components/chat/chat-thread.tsx:99"
+ ],
+ "common.could_not_save": [
+  "src/components/dashboard/customer-controls.tsx:22"
+ ],
+ "common.saving": [
+  "src/components/dashboard/order-actions.tsx:153",
+  "src/components/dashboard/order-actions.tsx:158"
+ ],
+ "landing.online_shops_telegram_sellers_ethiopia": [
+  "src/app/layout.tsx:24"
+ ],
+ "landing.order_etb_1_500": [
+  "src/app/page.tsx:69"
+ ],
+ "landing.ask_seller": [
+  "src/app/page.tsx:72"
+ ],
+ "landing.shop": [
+  "src/app/page.tsx:75"
+ ],
+ "landing.goods_bot": [
+  "src/app/page.tsx:84"
+ ],
+ "landing.new_order_1042": [
+  "src/app/page.tsx:87"
+ ],
+ "landing.confirm": [
+  "src/app/page.tsx:89"
+ ],
+ "landing.call_buyer": [
+  "src/app/page.tsx:90"
+ ],
+ "landing.connect_channel": [
+  "src/app/page.tsx:100"
+ ],
+ "landing.open_goods_bot_tap_connect": [
+  "src/app/page.tsx:100"
+ ],
+ "landing.post_like_always_do": [
+  "src/app/page.tsx:101"
+ ],
+ "landing.photo_price_amharic_english_goods": [
+  "src/app/page.tsx:101"
+ ],
+ "landing.confirm_deliver": [
+  "src/app/page.tsx:102"
+ ],
+ "landing.orders_arrive_bot_confirm_one": [
+  "src/app/page.tsx:102"
+ ],
+ "landing.telegram_channel_now_real_shop": [
+  "src/app/page.tsx:117"
+ ],
+ "landing.keep_posting_where_buyers_already": [
+  "src/app/page.tsx:121"
+ ],
+ "landing.start_telegram": [
+  "src/app/page.tsx:124",
+  "src/app/page.tsx:179"
+ ],
+ "landing.takes_about_minute_no_website": [
+  "src/app/page.tsx:127"
+ ],
+ "landing.three_steps_all_inside_telegram": [
+  "src/app/page.tsx:136"
+ ],
+ "landing.back_office_fits_pocket": [
+  "src/app/page.tsx:152"
+ ],
+ "landing.everything_shopify_gives_big_store": [
+  "src/app/page.tsx:153"
+ ],
+ "landing.open_shop_today": [
+  "src/app/page.tsx:175"
+ ],
+ "landing.free_while_we_grow_online": [
+  "src/app/page.tsx:176"
+ ],
+ "landing.made_addis_ababa": [
+  "src/app/page.tsx:190"
+ ],
+ "landing.example_channel_subscribers": [],
+ "landing.example_post_caption": [],
+ "landing.tagline_am": [],
+ "signin.signing_telegram": [
+  "src/components/auth/login-panel.tsx:38"
+ ],
+ "signin.sign_goods": [
+  "src/components/auth/login-panel.tsx:42"
+ ],
+ "signin.goods_uses_telegram_account_no": [
+  "src/components/auth/login-panel.tsx:43"
+ ],
+ "signin.sign_link_expired_try_again": [
+  "src/components/auth/login-panel.tsx:44"
+ ],
+ "signin.sign_failed_try_again": [
+  "src/components/auth/login-panel.tsx:44"
+ ],
+ "signin.sign_telegram_app": [
+  "src/components/auth/login-panel.tsx:48"
+ ],
+ "signin.opens_goods_bot_which_sends": [
+  "src/components/auth/login-panel.tsx:50"
+ ],
+ "system.something_went_wrong": [
+  "src/app/error.tsx:6"
+ ],
+ "system.please_try_again_if_keeps": [
+  "src/app/error.tsx:7"
+ ],
+ "system.try_again": [
+  "src/app/error.tsx:8"
+ ],
+ "system.page_isn_apos_t_here": [
+  "src/app/not-found.tsx:7"
+ ],
+ "system.shop_product_may_have_moved": [
+  "src/app/not-found.tsx:8"
+ ],
+ "system.go_goods": [
+  "src/app/not-found.tsx:9"
+ ],
+ "onboarding.create_shop": [
+  "src/app/dashboard/new/page.tsx:6",
+  "src/components/dashboard/create-shop-form.tsx:47"
+ ],
+ "onboarding.create_shop_2": [
+  "src/app/dashboard/new/page.tsx:13"
+ ],
+ "onboarding.can_connect_telegram_channel_later": [
+  "src/app/dashboard/new/page.tsx:14"
+ ],
+ "onboarding.dashboard": [
+  "src/app/dashboard/page.tsx:10"
+ ],
+ "onboarding.let_apos_s_set_up": [
+  "src/app/dashboard/page.tsx:21"
+ ],
+ "onboarding.connect_telegram_channel_group_every": [
+  "src/app/dashboard/page.tsx:23"
+ ],
+ "onboarding.connect_channel": [
+  "src/app/dashboard/page.tsx:26"
+ ],
+ "onboarding.connect_group": [
+  "src/app/dashboard/page.tsx:26"
+ ],
+ "onboarding.pick_chat_from_list_we": [
+  "src/app/dashboard/page.tsx:27"
+ ],
+ "onboarding.post_as_usual_orders_messages": [
+  "src/app/dashboard/page.tsx:28"
+ ],
+ "onboarding.connect_telegram": [
+  "src/app/dashboard/page.tsx:31"
+ ],
+ "onboarding.create_shop_without_channel": [
+  "src/app/dashboard/page.tsx:34"
+ ],
+ "onboarding.shop_name": [
+  "src/components/dashboard/create-shop-form.tsx:34"
+ ],
+ "onboarding.abel_phones": [
+  "src/components/dashboard/create-shop-form.tsx:35"
+ ],
+ "onboarding.shop_address": [
+  "src/components/dashboard/create-shop-form.tsx:37"
+ ],
+ "onboarding.optional_letters_numbers_hyphens_e": [
+  "src/components/dashboard/create-shop-form.tsx:37"
+ ],
+ "onboarding.storefront_language": [
+  "src/components/dashboard/create-shop-form.tsx:40"
+ ],
+ "onboarding.english": [
+  "src/components/dashboard/create-shop-form.tsx:42"
+ ],
+ "onboarding.amharic": [
+  "src/components/dashboard/create-shop-form.tsx:43"
+ ],
+ "onboarding.creating": [
+  "src/components/dashboard/create-shop-form.tsx:47"
+ ],
+ "onboarding.welcome": [],
+ "onboarding.open_goods_bot_tap": [],
+ "dash.shell.copied": [
+  "src/components/copy-button.tsx:24"
+ ],
+ "dash.shell.home": [
+  "src/components/dashboard/shell.tsx:46"
+ ],
+ "dash.shell.customers": [
+  "src/components/dashboard/shell.tsx:49"
+ ],
+ "dash.shell.inbox": [
+  "src/components/dashboard/shell.tsx:50"
+ ],
+ "dash.shell.online_store": [
+  "src/components/dashboard/shell.tsx:52"
+ ],
+ "dash.shell.settings": [
+  "src/components/dashboard/shell.tsx:54"
+ ],
+ "dash.shell.sales_channels": [
+  "src/components/dashboard/shell.tsx:91"
+ ],
+ "dash.shell.search": [
+  "src/components/dashboard/shell.tsx:105",
+  "src/components/dashboard/shell.tsx:141",
+  "src/components/dashboard/shell.tsx:355",
+  "src/components/dashboard/shell.tsx:367"
+ ],
+ "dash.shell.dashboard": [
+  "src/components/dashboard/shell.tsx:109",
+  "src/components/dashboard/shell.tsx:152"
+ ],
+ "dash.shell.view_store": [
+  "src/components/dashboard/shell.tsx:126",
+  "src/components/dashboard/shell.tsx:144",
+  "src/components/dashboard/shell.tsx:175"
+ ],
+ "dash.shell.account": [
+  "src/components/dashboard/shell.tsx:129",
+  "src/components/dashboard/shell.tsx:175"
+ ],
+ "dash.shell.free_plan": [
+  "src/components/dashboard/shell.tsx:134"
+ ],
+ "dash.shell.more": [
+  "src/components/dashboard/shell.tsx:169"
+ ],
+ "dash.shell.shops": [
+  "src/components/dashboard/shell.tsx:252"
+ ],
+ "dash.shell.create_another_shop": [
+  "src/components/dashboard/shell.tsx:262"
+ ],
+ "dash.shell.order_number_product_customer_name": [
+  "src/components/dashboard/shell.tsx:366"
+ ],
+ "dash.shell.nothing_matches": [
+  "src/components/dashboard/shell.tsx:393"
+ ],
+ "dash.shell.close": [
+  "src/components/ui/dialog.tsx:47"
+ ],
+ "dash.status.confirm": [
+  "src/components/status.tsx:6"
+ ],
+ "dash.status.confirmed": [
+  "src/components/status.tsx:7"
+ ],
+ "dash.status.way": [
+  "src/components/status.tsx:8"
+ ],
+ "dash.status.completed": [
+  "src/components/status.tsx:10"
+ ],
+ "dash.status.paid": [
+  "src/components/status.tsx:20"
+ ],
+ "dash.status.voided": [
+  "src/components/status.tsx:21"
+ ],
+ "dash.status.unpaid": [
+  "src/components/status.tsx:22"
+ ],
+ "dash.status.draft": [
+  "src/components/status.tsx:27"
+ ],
+ "dash.home.home": [
+  "src/app/dashboard/[shop]/page.tsx:24"
+ ],
+ "dash.home.telegram_posts_lost_their_order": [
+  "src/app/dashboard/[shop]/page.tsx:49"
+ ],
+ "dash.home.connect_telegram_channel": [
+  "src/app/dashboard/[shop]/page.tsx:56"
+ ],
+ "dash.home.pick_channel_bot_goods_adds": [
+  "src/app/dashboard/[shop]/page.tsx:56"
+ ],
+ "dash.home.open_bot": [
+  "src/app/dashboard/[shop]/page.tsx:56"
+ ],
+ "dash.home.post_first_product": [
+  "src/app/dashboard/[shop]/page.tsx:57"
+ ],
+ "dash.home.photo_price_channel_enough_add": [
+  "src/app/dashboard/[shop]/page.tsx:57"
+ ],
+ "dash.home.add_product": [
+  "src/app/dashboard/[shop]/page.tsx:57"
+ ],
+ "dash.home.share_shop_link": [
+  "src/app/dashboard/[shop]/page.tsx:58"
+ ],
+ "dash.home.put_channel_description_so_buyers": [
+  "src/app/dashboard/[shop]/page.tsx:58"
+ ],
+ "dash.home.open_shop": [
+  "src/app/dashboard/[shop]/page.tsx:58"
+ ],
+ "dash.home.needs": [
+  "src/app/dashboard/[shop]/page.tsx:113"
+ ],
+ "dash.home.nothing_waiting_new_orders_messages": [
+  "src/app/dashboard/[shop]/page.tsx:133"
+ ],
+ "dash.home.last_7_days": [
+  "src/app/dashboard/[shop]/page.tsx:140"
+ ],
+ "dash.home.sales": [
+  "src/app/dashboard/[shop]/page.tsx:147"
+ ],
+ "dash.home.product_views": [
+  "src/app/dashboard/[shop]/page.tsx:149"
+ ],
+ "dash.home.questions": [
+  "src/app/dashboard/[shop]/page.tsx:150"
+ ],
+ "dash.home.sales_over_last_7_days": [
+  "src/app/dashboard/[shop]/page.tsx:165"
+ ],
+ "dash.home.recent_orders": [
+  "src/app/dashboard/[shop]/page.tsx:172"
+ ],
+ "dash.home.all_orders": [
+  "src/app/dashboard/[shop]/page.tsx:174"
+ ],
+ "dash.home.orders_appear_here_moment_buyer": [
+  "src/app/dashboard/[shop]/page.tsx:197"
+ ],
+ "dash.home.manage": [
+  "src/app/dashboard/[shop]/page.tsx:206"
+ ],
+ "dash.home.last_post": [
+  "src/app/dashboard/[shop]/page.tsx:222"
+ ],
+ "dash.home.listening_posts": [
+  "src/app/dashboard/[shop]/page.tsx:222"
+ ],
+ "dash.home.needs_admin_rights": [
+  "src/app/dashboard/[shop]/page.tsx:222"
+ ],
+ "dash.home.open": [
+  "src/app/dashboard/[shop]/page.tsx:225"
+ ],
+ "dash.home.connect_channel_group_every_post": [
+  "src/app/dashboard/[shop]/page.tsx:232"
+ ],
+ "dash.home.connect_telegram": [
+  "src/app/dashboard/[shop]/page.tsx:234"
+ ],
+ "dash.home.shop_link": [
+  "src/app/dashboard/[shop]/page.tsx:241"
+ ],
+ "dash.home.pin_channel_so_buyers_can": [
+  "src/app/dashboard/[shop]/page.tsx:242"
+ ],
+ "dash.home.share_telegram": [
+  "src/app/dashboard/[shop]/page.tsx:253"
+ ],
+ "dash.home.todo_to_confirm_one": [],
+ "dash.home.todo_to_confirm_other": [],
+ "dash.home.todo_unread_one": [],
+ "dash.home.todo_unread_other": [],
+ "dash.home.todo_broken_buttons_one": [],
+ "dash.home.todo_broken_buttons_other": [],
+ "dash.home.todo_to_deliver_one": [],
+ "dash.home.todo_to_deliver_other": [],
+ "dash.home.todo_needs_price_one": [],
+ "dash.home.todo_needs_price_other": [],
+ "dash.home.todo_drafts_one": [],
+ "dash.home.todo_drafts_other": [],
+ "dash.home.greeting_morning": [],
+ "dash.home.greeting_afternoon": [],
+ "dash.home.greeting_evening": [],
+ "dash.home.setup_title": [],
+ "dash.home.setup_progress": [],
+ "dash.orders.confirm": [
+  "src/app/dashboard/[shop]/orders/page.tsx:17"
+ ],
+ "dash.orders.deliver": [
+  "src/app/dashboard/[shop]/orders/page.tsx:18"
+ ],
+ "dash.orders.all_orders": [
+  "src/app/dashboard/[shop]/orders/page.tsx:21"
+ ],
+ "dash.orders.confirm_deliver_record_payment_buyers": [
+  "src/app/dashboard/[shop]/orders/page.tsx:45"
+ ],
+ "dash.orders.order_number_name_phone": [
+  "src/app/dashboard/[shop]/orders/page.tsx:50"
+ ],
+ "dash.orders.items": [
+  "src/app/dashboard/[shop]/orders/page.tsx:61"
+ ],
+ "dash.orders.total": [
+  "src/app/dashboard/[shop]/orders/page.tsx:62"
+ ],
+ "dash.orders.payment": [
+  "src/app/dashboard/[shop]/orders/page.tsx:63"
+ ],
+ "dash.orders.pickup": [
+  "src/app/dashboard/[shop]/orders/page.tsx:76"
+ ],
+ "dash.orders.items_2": [
+  "src/app/dashboard/[shop]/orders/page.tsx:81",
+  "src/app/dashboard/[shop]/orders/page.tsx:103"
+ ],
+ "dash.orders.no_orders_match": [
+  "src/app/dashboard/[shop]/orders/page.tsx:119"
+ ],
+ "dash.orders.nothing_here": [
+  "src/app/dashboard/[shop]/orders/page.tsx:119"
+ ],
+ "dash.orders.try_order_number_without_buyer": [
+  "src/app/dashboard/[shop]/orders/page.tsx:120"
+ ],
+ "dash.orders.newest": [
+  "src/app/dashboard/[shop]/orders/page.tsx:125"
+ ],
+ "dash.orders.older": [
+  "src/app/dashboard/[shop]/orders/page.tsx:126"
+ ],
+ "dash.order.order": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:32"
+ ],
+ "dash.order.items": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:42"
+ ],
+ "dash.order.subtotal": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:68"
+ ],
+ "dash.order.delivery": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:70"
+ ],
+ "dash.order.free": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:70"
+ ],
+ "dash.order.paid": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:73",
+  "src/components/dashboard/order-actions.tsx:75"
+ ],
+ "dash.order.collect": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:73"
+ ],
+ "dash.order.note_from_buyer": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:83"
+ ],
+ "dash.order.cancelled": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:89"
+ ],
+ "dash.order.profile": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:97"
+ ],
+ "dash.order.first_order": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:103"
+ ],
+ "dash.order.orders": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:103"
+ ],
+ "dash.order.picks_up_from_shop": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:115"
+ ],
+ "dash.order.buyer_often_cancels_confirm_by": [
+  "src/app/dashboard/[shop]/orders/[id]/page.tsx:119"
+ ],
+ "dash.order.call_confirm": [
+  "src/components/dashboard/order-actions.tsx:43"
+ ],
+ "dash.order.check_item_available_agree_delivery": [
+  "src/components/dashboard/order-actions.tsx:44"
+ ],
+ "dash.order.confirm_order": [
+  "src/components/dashboard/order-actions.tsx:45"
+ ],
+ "dash.order.order_confirmed": [
+  "src/components/dashboard/order-actions.tsx:45"
+ ],
+ "dash.order.already_delivered": [
+  "src/components/dashboard/order-actions.tsx:46"
+ ],
+ "dash.order.marked_as_delivered": [
+  "src/components/dashboard/order-actions.tsx:46",
+  "src/components/dashboard/order-actions.tsx:52",
+  "src/components/dashboard/order-actions.tsx:53",
+  "src/components/dashboard/order-actions.tsx:56"
+ ],
+ "dash.order.wait_pickup": [
+  "src/components/dashboard/order-actions.tsx:50"
+ ],
+ "dash.order.send_out": [
+  "src/components/dashboard/order-actions.tsx:50"
+ ],
+ "dash.order.mark_delivered_when_buyer_collects": [
+  "src/components/dashboard/order-actions.tsx:51"
+ ],
+ "dash.order.copy_delivery_slip_rider_then": [
+  "src/components/dashboard/order-actions.tsx:51"
+ ],
+ "dash.order.picked_up": [
+  "src/components/dashboard/order-actions.tsx:52"
+ ],
+ "dash.order.mark_way": [
+  "src/components/dashboard/order-actions.tsx:52"
+ ],
+ "dash.order.marked_way": [
+  "src/components/dashboard/order-actions.tsx:52"
+ ],
+ "dash.order.mark_delivered": [
+  "src/components/dashboard/order-actions.tsx:53",
+  "src/components/dashboard/order-actions.tsx:56"
+ ],
+ "dash.order.way": [
+  "src/components/dashboard/order-actions.tsx:56"
+ ],
+ "dash.order.mark_delivered_when_arrives_rider": [
+  "src/components/dashboard/order-actions.tsx:56"
+ ],
+ "dash.order.collect_2": [
+  "src/components/dashboard/order-actions.tsx:59"
+ ],
+ "dash.order.record_payment_once_have_cash": [
+  "src/components/dashboard/order-actions.tsx:59"
+ ],
+ "dash.order.payment_received": [
+  "src/components/dashboard/order-actions.tsx:59"
+ ],
+ "dash.order.payment_recorded": [
+  "src/components/dashboard/order-actions.tsx:59"
+ ],
+ "dash.order.delivered_paid": [
+  "src/components/dashboard/order-actions.tsx:60"
+ ],
+ "dash.order.nothing_left_do": [
+  "src/components/dashboard/order-actions.tsx:60"
+ ],
+ "dash.order.completed": [
+  "src/components/dashboard/order-actions.tsx:62"
+ ],
+ "dash.order.delivered_paid_nothing_left_do": [
+  "src/components/dashboard/order-actions.tsx:62"
+ ],
+ "dash.order.items_went_back_into_stock": [
+  "src/components/dashboard/order-actions.tsx:64"
+ ],
+ "dash.order.placed": [
+  "src/components/dashboard/order-actions.tsx:71"
+ ],
+ "dash.order.confirmed": [
+  "src/components/dashboard/order-actions.tsx:72"
+ ],
+ "dash.order.sent": [
+  "src/components/dashboard/order-actions.tsx:73"
+ ],
+ "dash.order.order_progress": [
+  "src/components/dashboard/order-actions.tsx:84"
+ ],
+ "dash.order.couldn_t_update_order_try": [
+  "src/components/dashboard/order-actions.tsx:117"
+ ],
+ "dash.order.call": [
+  "src/components/dashboard/order-actions.tsx:162"
+ ],
+ "dash.order.delivery_slip_copied_paste_rider": [
+  "src/components/dashboard/order-actions.tsx:169"
+ ],
+ "dash.order.copy_slip": [
+  "src/components/dashboard/order-actions.tsx:172"
+ ],
+ "dash.order.cancel_order": [
+  "src/components/dashboard/order-actions.tsx:177",
+  "src/components/dashboard/order-actions.tsx:191"
+ ],
+ "dash.order.cancel_order_2": [
+  "src/components/dashboard/order-actions.tsx:185"
+ ],
+ "dash.order.items_go_back_into_stock": [
+  "src/components/dashboard/order-actions.tsx:186"
+ ],
+ "dash.order.keep_order": [
+  "src/components/dashboard/order-actions.tsx:189"
+ ],
+ "dash.order.cancelling": [
+  "src/components/dashboard/order-actions.tsx:191"
+ ],
+ "dash.order.reason": [
+  "src/components/dashboard/order-actions.tsx:196"
+ ],
+ "dash.order.example_sold_out_couldn_t": [
+  "src/components/dashboard/order-actions.tsx:197"
+ ],
+ "dash.order.orders_cancelled": [],
+ "dash.order.placed_delivery": [],
+ "dash.order.placed_pickup": [],
+ "dash.products.all_products": [
+  "src/app/dashboard/[shop]/products/page.tsx:17"
+ ],
+ "dash.products.needs_attention": [
+  "src/app/dashboard/[shop]/products/page.tsx:19"
+ ],
+ "dash.products.drafts": [
+  "src/app/dashboard/[shop]/products/page.tsx:20"
+ ],
+ "dash.products.posts_from_channels_land_here": [
+  "src/app/dashboard/[shop]/products/page.tsx:44"
+ ],
+ "dash.products.no_products_match": [
+  "src/app/dashboard/[shop]/products/page.tsx:51"
+ ],
+ "dash.products.nothing_needs_attention": [
+  "src/app/dashboard/[shop]/products/page.tsx:51"
+ ],
+ "dash.products.no_products_here": [
+  "src/app/dashboard/[shop]/products/page.tsx:51"
+ ],
+ "dash.products.try_shorter_search_look_another": [
+  "src/app/dashboard/[shop]/products/page.tsx:52"
+ ],
+ "dash.products.posts_missing_price_details_land": [
+  "src/app/dashboard/[shop]/products/page.tsx:52"
+ ],
+ "dash.products.post_photo_price_telegram_channel": [
+  "src/app/dashboard/[shop]/products/page.tsx:52"
+ ],
+ "dash.products.search_products": [
+  "src/app/dashboard/[shop]/products/page.tsx:57"
+ ],
+ "dash.products.from": [
+  "src/app/dashboard/[shop]/products/page.tsx:60"
+ ],
+ "dash.products.anywhere": [
+  "src/app/dashboard/[shop]/products/page.tsx:61"
+ ],
+ "dash.products.first_page": [
+  "src/app/dashboard/[shop]/products/page.tsx:78"
+ ],
+ "dash.products.next_page": [
+  "src/app/dashboard/[shop]/products/page.tsx:79"
+ ],
+ "dash.products.couldn_t_update_those_products": [
+  "src/components/dashboard/product-table.tsx:73"
+ ],
+ "dash.products.select_all_products_page": [
+  "src/components/dashboard/product-table.tsx:91"
+ ],
+ "dash.products.product": [
+  "src/components/dashboard/product-table.tsx:93"
+ ],
+ "dash.products.price": [
+  "src/components/dashboard/product-table.tsx:94"
+ ],
+ "dash.products.stock": [
+  "src/components/dashboard/product-table.tsx:95"
+ ],
+ "dash.products.select": [
+  "src/components/dashboard/product-table.tsx:103",
+  "src/components/dashboard/product-table.tsx:124"
+ ],
+ "dash.products.no_price_yet": [
+  "src/components/dashboard/product-table.tsx:129"
+ ],
+ "dash.products.bulk_actions": [
+  "src/components/dashboard/product-table.tsx:148"
+ ],
+ "dash.products.publish": [
+  "src/components/dashboard/product-table.tsx:150"
+ ],
+ "dash.products.unpublish": [
+  "src/components/dashboard/product-table.tsx:151"
+ ],
+ "dash.products.mark_sold": [
+  "src/components/dashboard/product-table.tsx:152"
+ ],
+ "dash.products.archive": [
+  "src/components/dashboard/product-table.tsx:153"
+ ],
+ "dash.products.add_collection": [
+  "src/components/dashboard/product-table.tsx:160",
+  "src/components/dashboard/product-table.tsx:162"
+ ],
+ "dash.products.delete": [
+  "src/components/dashboard/product-table.tsx:166",
+  "src/components/dashboard/product-table.tsx:181"
+ ],
+ "dash.products.clear_selection": [
+  "src/components/dashboard/product-table.tsx:167"
+ ],
+ "dash.products.delete_product": [
+  "src/components/dashboard/product-table.tsx:176"
+ ],
+ "dash.products.products_still_posted_telegram_archived": [
+  "src/components/dashboard/product-table.tsx:177"
+ ],
+ "dash.products.keep_them": [
+  "src/components/dashboard/product-table.tsx:180"
+ ],
+ "dash.products.deleting": [
+  "src/components/dashboard/product-table.tsx:181"
+ ],
+ "dash.products.can_apos_t_undone": [
+  "src/components/dashboard/product-table.tsx:185"
+ ],
+ "dash.products.from_telegram": [
+  "src/components/dashboard/product-table.tsx:209"
+ ],
+ "dash.products.needs_price": [
+  "src/components/dashboard/product-table.tsx:210"
+ ],
+ "dash.products.check_details": [
+  "src/components/dashboard/product-table.tsx:211"
+ ],
+ "dash.products.not_tracked": [
+  "src/components/dashboard/product-table.tsx:217"
+ ],
+ "dash.products.out_stock": [
+  "src/components/dashboard/product-table.tsx:218"
+ ],
+ "dash.products.enter_valid_price": [
+  "src/components/dashboard/product-table.tsx:234"
+ ],
+ "dash.products.price_updated_telegram_buttons_update": [
+  "src/components/dashboard/product-table.tsx:241"
+ ],
+ "dash.products.add_price": [
+  "src/components/dashboard/product-table.tsx:265"
+ ],
+ "dash.products.price_2": [
+  "src/components/dashboard/product-table.tsx:267"
+ ],
+ "dash.products.updated_one": [],
+ "dash.products.updated_other": [],
+ "dash.products.in_stock": [],
+ "dash.product.add_title": [
+  "src/components/dashboard/product-editor.tsx:110"
+ ],
+ "dash.product.saved_telegram_buttons_update_few": [
+  "src/components/dashboard/product-editor.tsx:115"
+ ],
+ "dash.product.product_created": [
+  "src/components/dashboard/product-editor.tsx:121"
+ ],
+ "dash.product.could_not_remove_image": [
+  "src/components/dashboard/product-editor.tsx:159"
+ ],
+ "dash.product.could_not_reorder": [
+  "src/components/dashboard/product-editor.tsx:172"
+ ],
+ "dash.product.posted_telegram": [
+  "src/components/dashboard/product-editor.tsx:180"
+ ],
+ "dash.product.could_not_post": [
+  "src/components/dashboard/product-editor.tsx:183"
+ ],
+ "dash.product.product_deleted": [
+  "src/components/dashboard/product-editor.tsx:191"
+ ],
+ "dash.product.couldn_t_delete_product_try": [
+  "src/components/dashboard/product-editor.tsx:194"
+ ],
+ "dash.product.visible_shop_order_button_posts": [
+  "src/components/dashboard/product-editor.tsx:202"
+ ],
+ "dash.product.draft": [
+  "src/components/dashboard/product-editor.tsx:203"
+ ],
+ "dash.product.hidden_from_buyers": [
+  "src/components/dashboard/product-editor.tsx:203"
+ ],
+ "dash.product.shown_as_sold_can_t": [
+  "src/components/dashboard/product-editor.tsx:204"
+ ],
+ "dash.product.hidden_everywhere": [
+  "src/components/dashboard/product-editor.tsx:205"
+ ],
+ "dash.product.unsaved_changes": [
+  "src/components/dashboard/product-editor.tsx:214"
+ ],
+ "dash.product.new_product": [
+  "src/components/dashboard/product-editor.tsx:214"
+ ],
+ "dash.product.discard": [
+  "src/components/dashboard/product-editor.tsx:218"
+ ],
+ "dash.product.uploading": [
+  "src/components/dashboard/product-editor.tsx:222",
+  "src/components/dashboard/product-editor.tsx:304"
+ ],
+ "dash.product.save": [
+  "src/components/dashboard/product-editor.tsx:222"
+ ],
+ "dash.product.create_product": [
+  "src/components/dashboard/product-editor.tsx:222"
+ ],
+ "dash.product.untitled_product": [
+  "src/components/dashboard/product-editor.tsx:235"
+ ],
+ "dash.product.view_shop": [
+  "src/components/dashboard/product-editor.tsx:240"
+ ],
+ "dash.product.read_automatically_from_telegram_post": [
+  "src/components/dashboard/product-editor.tsx:249"
+ ],
+ "dash.product.check_title_price_category_then": [
+  "src/components/dashboard/product-editor.tsx:249"
+ ],
+ "dash.product.title": [
+  "src/components/dashboard/product-editor.tsx:256"
+ ],
+ "dash.product.iphone_13_pro_128gb": [
+  "src/components/dashboard/product-editor.tsx:256"
+ ],
+ "dash.product.description": [
+  "src/components/dashboard/product-editor.tsx:257"
+ ],
+ "dash.product.condition_what_s_included_delivery": [
+  "src/components/dashboard/product-editor.tsx:257"
+ ],
+ "dash.product.original_telegram_caption": [
+  "src/components/dashboard/product-editor.tsx:261"
+ ],
+ "dash.product.photos": [
+  "src/components/dashboard/product-editor.tsx:271"
+ ],
+ "dash.product.couldn_t_process": [
+  "src/components/dashboard/product-editor.tsx:282"
+ ],
+ "dash.product.processing": [
+  "src/components/dashboard/product-editor.tsx:282"
+ ],
+ "dash.product.move_earlier": [
+  "src/components/dashboard/product-editor.tsx:285"
+ ],
+ "dash.product.remove_photo": [
+  "src/components/dashboard/product-editor.tsx:286"
+ ],
+ "dash.product.move_later": [
+  "src/components/dashboard/product-editor.tsx:287"
+ ],
+ "dash.product.cover": [
+  "src/components/dashboard/product-editor.tsx:289"
+ ],
+ "dash.product.add_photos": [
+  "src/components/dashboard/product-editor.tsx:304"
+ ],
+ "dash.product.add": [
+  "src/components/dashboard/product-editor.tsx:304"
+ ],
+ "dash.product.jpg_png_webp_up_10": [
+  "src/components/dashboard/product-editor.tsx:305"
+ ],
+ "dash.product.price_stock": [
+  "src/components/dashboard/product-editor.tsx:315"
+ ],
+ "dash.product.price": [
+  "src/components/dashboard/product-editor.tsx:317"
+ ],
+ "dash.product.leave_empty_show_ask_price": [
+  "src/components/dashboard/product-editor.tsx:317"
+ ],
+ "dash.product.was": [
+  "src/components/dashboard/product-editor.tsx:320"
+ ],
+ "dash.product.optional_old_price_shown_crossed": [
+  "src/components/dashboard/product-editor.tsx:320"
+ ],
+ "dash.product.price_negotiable": [
+  "src/components/dashboard/product-editor.tsx:323"
+ ],
+ "dash.product.buyers_see_negotiable_nudged_ask": [
+  "src/components/dashboard/product-editor.tsx:323"
+ ],
+ "dash.product.track_stock": [
+  "src/components/dashboard/product-editor.tsx:326"
+ ],
+ "dash.product.sells_out_automatically_at_zero": [
+  "src/components/dashboard/product-editor.tsx:326"
+ ],
+ "dash.product.stock": [
+  "src/components/dashboard/product-editor.tsx:328"
+ ],
+ "dash.product.sku": [
+  "src/components/dashboard/product-editor.tsx:329"
+ ],
+ "dash.product.optional": [
+  "src/components/dashboard/product-editor.tsx:329"
+ ],
+ "dash.product.details": [
+  "src/components/dashboard/product-editor.tsx:335"
+ ],
+ "dash.product.helps_buyers_filter_search": [
+  "src/components/dashboard/product-editor.tsx:335"
+ ],
+ "dash.product.category": [
+  "src/components/dashboard/product-editor.tsx:337"
+ ],
+ "dash.product.mobile_phones": [
+  "src/components/dashboard/product-editor.tsx:337"
+ ],
+ "dash.product.condition": [
+  "src/components/dashboard/product-editor.tsx:338"
+ ],
+ "dash.product.brand_new": [
+  "src/components/dashboard/product-editor.tsx:338"
+ ],
+ "dash.product.brand": [
+  "src/components/dashboard/product-editor.tsx:339"
+ ],
+ "dash.product.model": [
+  "src/components/dashboard/product-editor.tsx:340"
+ ],
+ "dash.product.location": [
+  "src/components/dashboard/product-editor.tsx:341"
+ ],
+ "dash.product.addis_ababa": [
+  "src/components/dashboard/product-editor.tsx:341"
+ ],
+ "dash.product.tags": [
+  "src/components/dashboard/product-editor.tsx:342"
+ ],
+ "dash.product.separate_commas": [
+  "src/components/dashboard/product-editor.tsx:342"
+ ],
+ "dash.product.unlocked_dual_sim": [
+  "src/components/dashboard/product-editor.tsx:342"
+ ],
+ "dash.product.product_status": [
+  "src/components/dashboard/product-editor.tsx:351"
+ ],
+ "dash.product.telegram_chat": [
+  "src/components/dashboard/product-editor.tsx:377"
+ ],
+ "dash.product.open_post": [
+  "src/components/dashboard/product-editor.tsx:378"
+ ],
+ "dash.product.post_was_deleted": [
+  "src/components/dashboard/product-editor.tsx:382"
+ ],
+ "dash.product.button_problem": [
+  "src/components/dashboard/product-editor.tsx:382"
+ ],
+ "dash.product.order_button_card_under_post": [
+  "src/components/dashboard/product-editor.tsx:382"
+ ],
+ "dash.product.no_button_while_hidden": [
+  "src/components/dashboard/product-editor.tsx:382"
+ ],
+ "dash.product.order_button_post": [
+  "src/components/dashboard/product-editor.tsx:382"
+ ],
+ "dash.product.not_any_telegram_post_yet": [
+  "src/components/dashboard/product-editor.tsx:389"
+ ],
+ "dash.product.post_channel": [
+  "src/components/dashboard/product-editor.tsx:393"
+ ],
+ "dash.product.channel": [
+  "src/components/dashboard/product-editor.tsx:395"
+ ],
+ "dash.product.post": [
+  "src/components/dashboard/product-editor.tsx:398"
+ ],
+ "dash.product.delete_product": [
+  "src/components/dashboard/product-editor.tsx:408",
+  "src/components/dashboard/product-editor.tsx:422"
+ ],
+ "dash.product.delete_product_2": [
+  "src/components/dashboard/product-editor.tsx:417"
+ ],
+ "dash.product.if_s_posted_telegram_s": [
+  "src/components/dashboard/product-editor.tsx:418"
+ ],
+ "dash.product.keep": [
+  "src/components/dashboard/product-editor.tsx:421"
+ ],
+ "dash.product.photo_count": [],
+ "dash.customers.customers": [
+  "src/app/dashboard/[shop]/customers/[id]/page.tsx:27",
+  "src/app/dashboard/[shop]/customers/page.tsx:13",
+  "src/app/dashboard/[shop]/customers/page.tsx:25"
+ ],
+ "dash.customers.spent": [
+  "src/app/dashboard/[shop]/customers/[id]/page.tsx:31",
+  "src/app/dashboard/[shop]/customers/page.tsx:36"
+ ],
+ "dash.customers.everyone_who_has_ordered_from": [
+  "src/app/dashboard/[shop]/customers/page.tsx:25"
+ ],
+ "dash.customers.name_phone_number": [
+  "src/app/dashboard/[shop]/customers/page.tsx:27"
+ ],
+ "dash.customers.phone": [
+  "src/app/dashboard/[shop]/customers/page.tsx:34"
+ ],
+ "dash.customers.last_order": [
+  "src/app/dashboard/[shop]/customers/page.tsx:37"
+ ],
+ "dash.customers.blocked": [
+  "src/app/dashboard/[shop]/customers/page.tsx:47",
+  "src/app/dashboard/[shop]/customers/page.tsx:64"
+ ],
+ "dash.customers.cancels_often": [
+  "src/app/dashboard/[shop]/customers/page.tsx:47",
+  "src/app/dashboard/[shop]/customers/page.tsx:64"
+ ],
+ "dash.customers.no_customers_match": [
+  "src/app/dashboard/[shop]/customers/page.tsx:76"
+ ],
+ "dash.customers.no_customers_yet": [
+  "src/app/dashboard/[shop]/customers/page.tsx:76"
+ ],
+ "dash.customers.search_by_first_name_last": [
+  "src/app/dashboard/[shop]/customers/page.tsx:77"
+ ],
+ "dash.customers.buyers_appear_here_after_their": [
+  "src/app/dashboard/[shop]/customers/page.tsx:77"
+ ],
+ "dash.customers.next_page": [
+  "src/app/dashboard/[shop]/customers/page.tsx:81"
+ ],
+ "dash.customers.saved": [
+  "src/components/dashboard/customer-controls.tsx:19"
+ ],
+ "dash.customers.private_notes": [
+  "src/components/dashboard/customer-controls.tsx:28"
+ ],
+ "dash.customers.prefers_evening_delivery": [
+  "src/components/dashboard/customer-controls.tsx:29"
+ ],
+ "dash.customers.save_notes": [
+  "src/components/dashboard/customer-controls.tsx:30"
+ ],
+ "dash.customers.block_buyer": [
+  "src/components/dashboard/customer-controls.tsx:35"
+ ],
+ "dash.customers.they_won_apos_t_able": [
+  "src/components/dashboard/customer-controls.tsx:36"
+ ],
+ "dash.customers.customer_not_found": [
+  "src/server/domain/customers.ts:51"
+ ],
+ "dash.inbox.inbox": [
+  "src/app/dashboard/[shop]/inbox/[id]/page.tsx:12",
+  "src/app/dashboard/[shop]/inbox/page.tsx:11",
+  "src/app/dashboard/[shop]/inbox/page.tsx:22"
+ ],
+ "dash.inbox.conversation": [
+  "src/app/dashboard/[shop]/inbox/[id]/page.tsx:12",
+  "src/app/inbox/[id]/page.tsx:8"
+ ],
+ "dash.inbox.buyer_questions_about_products_can": [
+  "src/app/dashboard/[shop]/inbox/page.tsx:22"
+ ],
+ "dash.inbox.all": [
+  "src/app/dashboard/[shop]/inbox/page.tsx:23"
+ ],
+ "dash.inbox.unread": [
+  "src/app/dashboard/[shop]/inbox/page.tsx:23"
+ ],
+ "dash.inbox.general_question": [
+  "src/app/dashboard/[shop]/inbox/page.tsx:35"
+ ],
+ "dash.inbox.no_unread_messages": [
+  "src/app/dashboard/[shop]/inbox/page.tsx:47"
+ ],
+ "dash.inbox.no_messages_yet": [
+  "src/app/dashboard/[shop]/inbox/page.tsx:47"
+ ],
+ "dash.inbox.when_buyers_tap_ask_seller": [
+  "src/app/dashboard/[shop]/inbox/page.tsx:47"
+ ],
+ "dash.inbox.messages": [
+  "src/app/inbox/[id]/page.tsx:16",
+  "src/app/inbox/page.tsx:8",
+  "src/app/inbox/page.tsx:17"
+ ],
+ "dash.inbox.my_orders": [
+  "src/app/inbox/page.tsx:18"
+ ],
+ "dash.inbox.no_messages_yet_tap_ask": [
+  "src/app/inbox/page.tsx:39"
+ ],
+ "dash.inbox.could_not_load_chat": [
+  "src/components/chat/chat-thread.tsx:54"
+ ],
+ "dash.inbox.message_not_sent": [
+  "src/components/chat/chat-thread.tsx:79"
+ ],
+ "dash.inbox.buyer": [
+  "src/components/chat/chat-thread.tsx:113"
+ ],
+ "dash.inbox.seller": [
+  "src/components/chat/chat-thread.tsx:113"
+ ],
+ "dash.inbox.ask_price": [
+  "src/components/chat/chat-thread.tsx:115"
+ ],
+ "dash.inbox.photo": [
+  "src/components/chat/chat-thread.tsx:131"
+ ],
+ "dash.inbox.say_hello": [
+  "src/components/chat/chat-thread.tsx:138"
+ ],
+ "dash.inbox.send_photo": [
+  "src/components/chat/chat-thread.tsx:142"
+ ],
+ "dash.inbox.write_message": [
+  "src/components/chat/chat-thread.tsx:150"
+ ],
+ "dash.inbox.send": [
+  "src/components/chat/chat-thread.tsx:153"
+ ],
+ "dash.analytics.what_buyers_look_at_ask": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:28"
+ ],
+ "dash.analytics.period": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:30"
+ ],
+ "dash.analytics.sales": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:42"
+ ],
+ "dash.analytics.product_views": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:44",
+  "src/app/dashboard/[shop]/analytics/page.tsx:60"
+ ],
+ "dash.analytics.questions": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:45"
+ ],
+ "dash.analytics.views_order": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:46"
+ ],
+ "dash.analytics.sales_orders": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:56"
+ ],
+ "dash.analytics.sales_over_days": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:57"
+ ],
+ "dash.analytics.top_products": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:68"
+ ],
+ "dash.analytics.no_activity_period": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:69"
+ ],
+ "dash.analytics.top_telegram_posts": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:73"
+ ],
+ "dash.analytics.orders_came_straight_from_post": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:74"
+ ],
+ "dash.analytics.buyers_who_arrive_through_posts": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:75"
+ ],
+ "dash.analytics.name": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:95"
+ ],
+ "dash.analytics.views": [
+  "src/app/dashboard/[shop]/analytics/page.tsx:96"
+ ],
+ "dash.analytics.views_summary": [],
+ "dash.analytics.from_posts": [],
+ "dash.telegram.channels_groups_health_order_buttons": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:23"
+ ],
+ "dash.telegram.connect_chat": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:24"
+ ],
+ "dash.telegram.no_telegram_chats_connected": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:42"
+ ],
+ "dash.telegram.open_bot_tap_connect_channel": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:42"
+ ],
+ "dash.telegram.open_bot": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:43"
+ ],
+ "dash.telegram.how_order_button_works": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:46"
+ ],
+ "dash.telegram.button_added_own_post_bot": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:48"
+ ],
+ "dash.telegram.telegram_doesn_apos_t_allow": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:49"
+ ],
+ "dash.telegram.prices_sold_status_stock_changes": [
+  "src/app/dashboard/[shop]/telegram/page.tsx:50"
+ ],
+ "dash.telegram.failed": [
+  "src/components/dashboard/channel-card.tsx:29"
+ ],
+ "dash.telegram.untitled_chat": [
+  "src/components/dashboard/channel-card.tsx:40"
+ ],
+ "dash.telegram.channel": [
+  "src/components/dashboard/channel-card.tsx:41"
+ ],
+ "dash.telegram.group": [
+  "src/components/dashboard/channel-card.tsx:41"
+ ],
+ "dash.telegram.connected": [
+  "src/components/dashboard/channel-card.tsx:42"
+ ],
+ "dash.telegram.disconnected": [
+  "src/components/dashboard/channel-card.tsx:42"
+ ],
+ "dash.telegram.last_post": [
+  "src/components/dashboard/channel-card.tsx:44"
+ ],
+ "dash.telegram.no_posts_yet": [
+  "src/components/dashboard/channel-card.tsx:44"
+ ],
+ "dash.telegram.check_rights": [
+  "src/components/dashboard/channel-card.tsx:48"
+ ],
+ "dash.telegram.repair_all_buttons": [
+  "src/components/dashboard/channel-card.tsx:51"
+ ],
+ "dash.telegram.disconnect": [
+  "src/components/dashboard/channel-card.tsx:55"
+ ],
+ "dash.telegram.bot_can_add_order_buttons": [
+  "src/components/dashboard/channel-card.tsx:65"
+ ],
+ "dash.telegram.bot_admin_sees_admin_posts": [
+  "src/components/dashboard/channel-card.tsx:65"
+ ],
+ "dash.telegram.bot_can_t_edit_posts": [
+  "src/components/dashboard/channel-card.tsx:66"
+ ],
+ "dash.telegram.make_bot_admin_so_new": [
+  "src/components/dashboard/channel-card.tsx:66"
+ ],
+ "dash.telegram.fix_telegram": [
+  "src/components/dashboard/channel-card.tsx:68"
+ ],
+ "dash.telegram.buttons_post": [
+  "src/components/dashboard/channel-card.tsx:72"
+ ],
+ "dash.telegram.card_under_post": [
+  "src/components/dashboard/channel-card.tsx:73"
+ ],
+ "dash.telegram.updating": [
+  "src/components/dashboard/channel-card.tsx:74"
+ ],
+ "dash.telegram.failing": [
+  "src/components/dashboard/channel-card.tsx:75"
+ ],
+ "dash.telegram.deleted_posts": [
+  "src/components/dashboard/channel-card.tsx:76"
+ ],
+ "dash.telegram.last_button_update": [
+  "src/components/dashboard/channel-card.tsx:78"
+ ],
+ "dash.store.online_store": [
+  "src/app/dashboard/[shop]/store/page.tsx:10",
+  "src/app/dashboard/[shop]/store/page.tsx:21"
+ ],
+ "dash.store.storefront_s_look_collections_address": [
+  "src/app/dashboard/[shop]/store/page.tsx:21"
+ ],
+ "dash.store.banner_tagline": [
+  "src/components/dashboard/store-editor.tsx:17"
+ ],
+ "dash.store.featured_collection": [
+  "src/components/dashboard/store-editor.tsx:18",
+  "src/components/dashboard/store-editor.tsx:153"
+ ],
+ "dash.store.all_products": [
+  "src/components/dashboard/store-editor.tsx:19"
+ ],
+ "dash.store.about": [
+  "src/components/dashboard/store-editor.tsx:20"
+ ],
+ "dash.store.contact": [
+  "src/components/dashboard/store-editor.tsx:21"
+ ],
+ "dash.store.storefront_updated": [
+  "src/components/dashboard/store-editor.tsx:52"
+ ],
+ "dash.store.logo_updated": [
+  "src/components/dashboard/store-editor.tsx:64"
+ ],
+ "dash.store.banner_updated": [
+  "src/components/dashboard/store-editor.tsx:64"
+ ],
+ "dash.store.could_not_create": [
+  "src/components/dashboard/store-editor.tsx:78"
+ ],
+ "dash.store.could_not_delete": [
+  "src/components/dashboard/store-editor.tsx:84"
+ ],
+ "dash.store.shop_address": [
+  "src/components/dashboard/store-editor.tsx:92"
+ ],
+ "dash.store.address_copied": [
+  "src/components/dashboard/store-editor.tsx:95"
+ ],
+ "dash.store.copy": [
+  "src/components/dashboard/store-editor.tsx:95"
+ ],
+ "dash.store.open": [
+  "src/components/dashboard/store-editor.tsx:96"
+ ],
+ "dash.store.look": [
+  "src/components/dashboard/store-editor.tsx:100"
+ ],
+ "dash.store.change_logo": [
+  "src/components/dashboard/store-editor.tsx:103"
+ ],
+ "dash.store.default_banner": [
+  "src/components/dashboard/store-editor.tsx:115"
+ ],
+ "dash.store.change_banner": [
+  "src/components/dashboard/store-editor.tsx:119"
+ ],
+ "dash.store.brand_colour": [
+  "src/components/dashboard/store-editor.tsx:122"
+ ],
+ "dash.store.used_buttons_highlights_shop": [
+  "src/components/dashboard/store-editor.tsx:122"
+ ],
+ "dash.store.tagline": [
+  "src/components/dashboard/store-editor.tsx:140"
+ ],
+ "dash.store.original_phones_warranty_delivered_addis": [
+  "src/components/dashboard/store-editor.tsx:140"
+ ],
+ "dash.store.sections": [
+  "src/components/dashboard/store-editor.tsx:142"
+ ],
+ "dash.store.choose": [
+  "src/components/dashboard/store-editor.tsx:155"
+ ],
+ "dash.store.save_look": [
+  "src/components/dashboard/store-editor.tsx:160"
+ ],
+ "dash.store.collections": [
+  "src/components/dashboard/store-editor.tsx:164"
+ ],
+ "dash.store.group_products_storefront_add_products": [
+  "src/components/dashboard/store-editor.tsx:165"
+ ],
+ "dash.store.delete_collection": [
+  "src/components/dashboard/store-editor.tsx:170"
+ ],
+ "dash.store.no_collections_yet": [
+  "src/components/dashboard/store-editor.tsx:173"
+ ],
+ "dash.store.new_arrivals": [
+  "src/components/dashboard/store-editor.tsx:176"
+ ],
+ "dash.store.add": [
+  "src/components/dashboard/store-editor.tsx:177"
+ ],
+ "dash.store.custom_domain": [
+  "src/components/dashboard/store-editor.tsx:183"
+ ],
+ "dash.store.use_own_address_like_yourshop": [
+  "src/components/dashboard/store-editor.tsx:184"
+ ],
+ "dash.store.coming_soon": [
+  "src/components/dashboard/store-editor.tsx:186"
+ ],
+ "dash.settings.settings": [
+  "src/app/dashboard/[shop]/settings/page.tsx:11",
+  "src/app/dashboard/[shop]/settings/page.tsx:19"
+ ],
+ "dash.settings.ask_shop_owner_change_shop": [
+  "src/app/dashboard/[shop]/settings/page.tsx:22"
+ ],
+ "dash.settings.enter_valid_delivery_fee": [
+  "src/components/dashboard/settings-form.tsx:56"
+ ],
+ "dash.settings.settings_saved": [
+  "src/components/dashboard/settings-form.tsx:69"
+ ],
+ "dash.settings.shop": [
+  "src/components/dashboard/settings-form.tsx:80"
+ ],
+ "dash.settings.how_buyers_see_shop": [
+  "src/components/dashboard/settings-form.tsx:80"
+ ],
+ "dash.settings.shop_name": [
+  "src/components/dashboard/settings-form.tsx:81"
+ ],
+ "dash.settings.about_shop": [
+  "src/components/dashboard/settings-form.tsx:82"
+ ],
+ "dash.settings.storefront_language": [
+  "src/components/dashboard/settings-form.tsx:84"
+ ],
+ "dash.settings.english": [
+  "src/components/dashboard/settings-form.tsx:85"
+ ],
+ "dash.settings.text": [
+  "src/components/dashboard/settings-form.tsx:85"
+ ],
+ "dash.settings.visibility": [
+  "src/components/dashboard/settings-form.tsx:87"
+ ],
+ "dash.settings.open_buyers": [
+  "src/components/dashboard/settings-form.tsx:88"
+ ],
+ "dash.settings.hidden_while_i_set_up": [
+  "src/components/dashboard/settings-form.tsx:88"
+ ],
+ "dash.settings.telegram_listings": [
+  "src/components/dashboard/settings-form.tsx:93"
+ ],
+ "dash.settings.what_happens_when_post_channel": [
+  "src/components/dashboard/settings-form.tsx:93"
+ ],
+ "dash.settings.new_posts": [
+  "src/components/dashboard/settings-form.tsx:94"
+ ],
+ "dash.settings.publish_automatically_when_details_clear": [
+  "src/components/dashboard/settings-form.tsx:96"
+ ],
+ "dash.settings.always_save_as_draft_me": [
+  "src/components/dashboard/settings-form.tsx:97"
+ ],
+ "dash.settings.pause_don_apos_t_create": [
+  "src/components/dashboard/settings-form.tsx:98"
+ ],
+ "dash.settings.publish_automatically_when_confidence_at": [
+  "src/components/dashboard/settings-form.tsx:102"
+ ],
+ "dash.settings.lower_publishes_more_posts_without": [
+  "src/components/dashboard/settings-form.tsx:102"
+ ],
+ "dash.settings.80_recommended": [
+  "src/components/dashboard/settings-form.tsx:104"
+ ],
+ "dash.settings.order_buttons_posts": [
+  "src/components/dashboard/settings-form.tsx:108"
+ ],
+ "dash.settings.adds_order_ask_seller_shop": [
+  "src/components/dashboard/settings-form.tsx:108"
+ ],
+ "dash.settings.button_language": [
+  "src/components/dashboard/settings-form.tsx:109"
+ ],
+ "dash.settings.english_order": [
+  "src/components/dashboard/settings-form.tsx:110"
+ ],
+ "dash.settings.text_2": [
+  "src/components/dashboard/settings-form.tsx:110"
+ ],
+ "dash.settings.archive_listings_automatically_after": [
+  "src/components/dashboard/settings-form.tsx:112"
+ ],
+ "dash.settings.leave_empty_keep_listings_until": [
+  "src/components/dashboard/settings-form.tsx:112"
+ ],
+ "dash.settings.never": [
+  "src/components/dashboard/settings-form.tsx:114"
+ ],
+ "dash.settings.30_days": [
+  "src/components/dashboard/settings-form.tsx:114"
+ ],
+ "dash.settings.60_days": [
+  "src/components/dashboard/settings-form.tsx:114"
+ ],
+ "dash.settings.90_days": [
+  "src/components/dashboard/settings-form.tsx:114"
+ ],
+ "dash.settings.delivery_pickup": [
+  "src/components/dashboard/settings-form.tsx:120"
+ ],
+ "dash.settings.shown_buyers_at_checkout": [
+  "src/components/dashboard/settings-form.tsx:120"
+ ],
+ "dash.settings.delivery": [
+  "src/components/dashboard/settings-form.tsx:121"
+ ],
+ "dash.settings.delivery_fee_etb": [
+  "src/components/dashboard/settings-form.tsx:124"
+ ],
+ "dash.settings.0_free_delivery": [
+  "src/components/dashboard/settings-form.tsx:124"
+ ],
+ "dash.settings.delivery_note": [
+  "src/components/dashboard/settings-form.tsx:125"
+ ],
+ "dash.settings.addis_ababa_only_same_day": [
+  "src/components/dashboard/settings-form.tsx:125"
+ ],
+ "dash.settings.pickup": [
+  "src/components/dashboard/settings-form.tsx:128"
+ ],
+ "dash.settings.pickup_address": [
+  "src/components/dashboard/settings-form.tsx:129"
+ ],
+ "dash.settings.bole_friendship_building_2nd_floor": [
+  "src/components/dashboard/settings-form.tsx:129"
+ ],
+ "dash.settings.payments": [
+  "src/components/dashboard/settings-form.tsx:132"
+ ],
+ "dash.settings.how_buyers_pay": [
+  "src/components/dashboard/settings-form.tsx:132"
+ ],
+ "dash.settings.pay_delivery": [
+  "src/components/dashboard/settings-form.tsx:134"
+ ],
+ "dash.settings.cash_transfer_when_order_arrives": [
+  "src/components/dashboard/settings-form.tsx:134"
+ ],
+ "dash.settings.on": [
+  "src/components/dashboard/settings-form.tsx:135"
+ ],
+ "dash.settings.online_payment": [
+  "src/components/dashboard/settings-form.tsx:138"
+ ],
+ "dash.settings.telebirr_cbe_birr_cards_through": [
+  "src/components/dashboard/settings-form.tsx:138"
+ ],
+ "dash.settings.coming_soon": [
+  "src/components/dashboard/settings-form.tsx:139"
+ ],
+ "dash.settings.contact": [
+  "src/components/dashboard/settings-form.tsx:143"
+ ],
+ "dash.settings.shown_storefront": [
+  "src/components/dashboard/settings-form.tsx:143"
+ ],
+ "dash.settings.phone": [
+  "src/components/dashboard/settings-form.tsx:145"
+ ],
+ "dash.settings.telegram_username": [
+  "src/components/dashboard/settings-form.tsx:146"
+ ],
+ "dash.settings.yourshop": [
+  "src/components/dashboard/settings-form.tsx:146"
+ ],
+ "dash.settings.address": [
+  "src/components/dashboard/settings-form.tsx:148"
+ ],
+ "dash.settings.notifications": [
+  "src/components/dashboard/settings-form.tsx:151"
+ ],
+ "dash.settings.messages_from_goods_bot_telegram": [
+  "src/components/dashboard/settings-form.tsx:151"
+ ],
+ "dash.settings.new_orders": [
+  "src/components/dashboard/settings-form.tsx:152"
+ ],
+ "dash.settings.buyer_messages": [
+  "src/components/dashboard/settings-form.tsx:153"
+ ],
+ "dash.settings.save_settings": [
+  "src/components/dashboard/settings-form.tsx:157"
+ ],
+ "dash.settings.could_not_create_invite": [
+  "src/components/dashboard/staff-panel.tsx:25"
+ ],
+ "dash.settings.could_not_remove": [
+  "src/components/dashboard/staff-panel.tsx:34"
+ ],
+ "dash.settings.staff": [
+  "src/components/dashboard/staff-panel.tsx:41",
+  "src/components/dashboard/staff-panel.tsx:57"
+ ],
+ "dash.settings.admins_can_do_everything_except": [
+  "src/components/dashboard/staff-panel.tsx:42"
+ ],
+ "dash.settings.remove": [
+  "src/components/dashboard/staff-panel.tsx:50"
+ ],
+ "dash.settings.admin": [
+  "src/components/dashboard/staff-panel.tsx:57"
+ ],
+ "dash.settings.create_invite_link": [
+  "src/components/dashboard/staff-panel.tsx:59"
+ ],
+ "dash.settings.link_copied": [
+  "src/components/dashboard/staff-panel.tsx:65"
+ ],
+ "dash.settings.send_one_time_link_opens": [
+  "src/components/dashboard/staff-panel.tsx:68"
+ ],
+ "dash.settings.ai_quota": [],
+ "store.cart": [
+  "src/app/s/[shop]/cart/page.tsx:5"
+ ],
+ "store.checkout": [
+  "src/app/s/[shop]/checkout/page.tsx:7"
+ ],
+ "store.categories": [
+  "src/app/s/[shop]/page.tsx:100"
+ ],
+ "store.decrease_quantity": [
+  "src/components/store/cart-view.tsx:78"
+ ],
+ "store.increase_quantity": [
+  "src/components/store/cart-view.tsx:80"
+ ],
+ "store.09xx_xxx_xxx": [
+  "src/components/store/checkout-form.tsx:114"
+ ],
+ "store.text_4": [
+  "src/components/store/gallery.tsx:36"
+ ],
+ "store.photo": [
+  "src/components/store/gallery.tsx:70"
+ ],
+ "store.nav.cart": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#nav.cart"
+ ],
+ "store.nav.language": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#nav.language"
+ ],
+ "store.shop.all": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.all"
+ ],
+ "store.shop.search": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.search"
+ ],
+ "store.shop.empty": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.empty"
+ ],
+ "store.shop.noResults": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.noResults"
+ ],
+ "store.shop.loadMore": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.loadMore"
+ ],
+ "store.shop.about": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.about"
+ ],
+ "store.shop.contact": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.contact"
+ ],
+ "store.shop.telegram": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.telegram"
+ ],
+ "store.shop.callUs": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.callUs"
+ ],
+ "store.cart.feesAtCheckout": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.feesAtCheckout"
+ ],
+ "store.checkout.summary": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.summary"
+ ],
+ "store.checkout.useTelegramPhone": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.useTelegramPhone"
+ ],
+ "store.checkout.noPaymentNow": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.noPaymentNow"
+ ],
+ "store.footer.poweredBy": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#footer.poweredBy"
+ ],
+ "store.shop.products": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.products"
+ ],
+ "store.shop.share": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.share"
+ ],
+ "store.shop.payOnDelivery": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.payOnDelivery"
+ ],
+ "store.shop.delivery": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#shop.delivery"
+ ],
+ "store.product.askPrice": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.askPrice"
+ ],
+ "store.product.askPriceHint": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.askPriceHint"
+ ],
+ "store.product.payOnDelivery": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.payOnDelivery"
+ ],
+ "store.product.freeDelivery": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.freeDelivery"
+ ],
+ "store.product.deliveryFee": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.deliveryFee"
+ ],
+ "store.product.pickup": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.pickup"
+ ],
+ "store.product.addToCart": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.addToCart"
+ ],
+ "store.product.orderNow": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.orderNow"
+ ],
+ "store.product.askSeller": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.askSeller"
+ ],
+ "store.product.soldOut": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.soldOut"
+ ],
+ "store.product.sold": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.sold"
+ ],
+ "store.product.negotiable": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.negotiable"
+ ],
+ "store.product.inStock": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.inStock"
+ ],
+ "store.product.details": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.details"
+ ],
+ "store.product.viewOnTelegram": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.viewOnTelegram"
+ ],
+ "store.product.related": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.related"
+ ],
+ "store.product.added": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#product.added"
+ ],
+ "store.cart.title": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.title"
+ ],
+ "store.cart.empty": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.empty"
+ ],
+ "store.cart.continue": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.continue"
+ ],
+ "store.cart.subtotal": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.subtotal"
+ ],
+ "store.cart.checkout": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.checkout"
+ ],
+ "store.cart.remove": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.remove"
+ ],
+ "store.cart.unavailable": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.unavailable"
+ ],
+ "store.cart.insufficient": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#cart.insufficient"
+ ],
+ "store.checkout.title": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.title"
+ ],
+ "store.checkout.contact": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.contact"
+ ],
+ "store.checkout.name": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.name"
+ ],
+ "store.checkout.phone": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.phone"
+ ],
+ "store.checkout.phoneHint": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.phoneHint"
+ ],
+ "store.checkout.fulfillment": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.fulfillment"
+ ],
+ "store.checkout.delivery": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.delivery"
+ ],
+ "store.checkout.pickup": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.pickup"
+ ],
+ "store.checkout.address": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.address"
+ ],
+ "store.checkout.addressHint": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.addressHint"
+ ],
+ "store.checkout.pickupAt": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.pickupAt"
+ ],
+ "store.checkout.notes": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.notes"
+ ],
+ "store.checkout.payment": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.payment"
+ ],
+ "store.checkout.payOnDelivery": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.payOnDelivery"
+ ],
+ "store.checkout.payOnDeliveryHint": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.payOnDeliveryHint"
+ ],
+ "store.checkout.payOnline": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.payOnline"
+ ],
+ "store.checkout.payOnlineHint": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.payOnlineHint"
+ ],
+ "store.checkout.comingSoon": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.comingSoon"
+ ],
+ "store.checkout.deliveryFee": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.deliveryFee"
+ ],
+ "store.checkout.total": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.total"
+ ],
+ "store.checkout.place": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.place"
+ ],
+ "store.checkout.placing": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#checkout.placing"
+ ],
+ "store.order.placed": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.placed"
+ ],
+ "store.order.placedBody": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.placedBody"
+ ],
+ "store.order.status.placed": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.status.placed"
+ ],
+ "store.order.status.confirmed": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.status.confirmed"
+ ],
+ "store.order.status.shipped": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.status.shipped"
+ ],
+ "store.order.status.delivered": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.status.delivered"
+ ],
+ "store.order.status.completed": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.status.completed"
+ ],
+ "store.order.status.cancelled": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.status.cancelled"
+ ],
+ "store.order.step.placed": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.step.placed"
+ ],
+ "store.order.step.confirmed": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.step.confirmed"
+ ],
+ "store.order.step.shipped": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.step.shipped"
+ ],
+ "store.order.step.delivered": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.step.delivered"
+ ],
+ "store.order.deliverTo": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.deliverTo"
+ ],
+ "store.order.pickupFrom": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.pickupFrom"
+ ],
+ "store.order.toPay": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.toPay"
+ ],
+ "store.order.paid": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.paid"
+ ],
+ "store.order.items": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.items"
+ ],
+ "store.order.message": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#order.message"
+ ],
+ "store.login.title": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#login.title"
+ ],
+ "store.login.body": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#login.body"
+ ],
+ "store.login.openBot": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#login.openBot"
+ ],
+ "store.common.back": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#common.back"
+ ],
+ "store.common.error": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#common.error"
+ ],
+ "store.remove_item": [],
+ "store.photo_counter": [],
+ "account.my_orders": [
+  "src/app/account/orders/page.tsx:10",
+  "src/app/account/orders/page.tsx:19"
+ ],
+ "account.messages": [
+  "src/app/account/orders/page.tsx:20"
+ ],
+ "account.no_orders_yet": [
+  "src/app/account/orders/page.tsx:38"
+ ],
+ "account.nav.orders": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#nav.orders"
+ ],
+ "account.nav.messages": [
+  "src/i18n/index.ts",
+  "src/i18n/index.ts#nav.messages"
+ ],
+ "tg.buttons.order": [
+  "src/server/domain/buttons.ts"
+ ],
+ "tg.buttons.ask_seller": [
+  "src/server/domain/buttons.ts"
+ ],
+ "tg.buttons.ask_price": [
+  "src/server/domain/buttons.ts"
+ ],
+ "tg.buttons.shop": [
+  "src/server/domain/buttons.ts"
+ ],
+ "tg.buttons.sold": [
+  "src/server/domain/buttons.ts"
+ ],
+ "tg.buttons.order_price": [
+  "src/server/domain/buttons.ts"
+ ],
+ "tg.buttons.ask_for_price": [
+  "src/server/domain/buttons.ts"
+ ],
+ "tg.bot.connect_channel": [
+  "src/server/bot/index.ts:71"
+ ],
+ "tg.bot.connect_group": [
+  "src/server/bot/index.ts:82"
+ ],
+ "tg.bot.send_just_price_as_number": [
+  "src/server/bot/index.ts:122"
+ ],
+ "tg.bot.tap_below_sign_goods": [
+  "src/server/bot/index.ts:156"
+ ],
+ "tg.bot.invite_link_has_expired_was": [
+  "src/server/bot/index.ts:170"
+ ],
+ "tg.bot.open_conversation": [
+  "src/server/bot/index.ts:180"
+ ],
+ "tg.bot.already_set_up": [
+  "src/server/bot/index.ts:191"
+ ],
+ "tg.bot.run_status_inside_connected_channel": [
+  "src/server/bot/index.ts:204"
+ ],
+ "tg.bot.not_connected_open_tap_connect": [
+  "src/server/bot/index.ts:209"
+ ],
+ "tg.bot.connected": [
+  "src/server/bot/index.ts:213"
+ ],
+ "tg.bot.send_reply_as_next_message": [
+  "src/server/bot/index.ts:322"
+ ],
+ "tg.bot.type_reply": [
+  "src/server/bot/index.ts:323"
+ ],
+ "tg.bot.order_confirmed": [
+  "src/server/bot/index.ts:331"
+ ],
+ "tg.bot.confirmed": [
+  "src/server/bot/index.ts:332"
+ ],
+ "tg.bot.removed": [
+  "src/server/bot/index.ts:341"
+ ],
+ "tg.bot.removed_2": [
+  "src/server/bot/index.ts:342"
+ ],
+ "tg.bot.what_s_price_send_number": [
+  "src/server/bot/index.ts:350"
+ ],
+ "tg.bot.action_isn_t_available_any": [
+  "src/server/bot/index.ts:369"
+ ],
+ "tg.bot.connect_channel_tap_connect_channel": [
+  "src/server/bot/index.ts:413"
+ ],
+ "tg.bot.reply_notification_answer_open_dashboard": [
+  "src/server/bot/index.ts:418"
+ ],
+ "tg.bot.sent": [
+  "src/server/bot/index.ts:430"
+ ],
+ "tg.bot.couldn_t_send_reply_open": [
+  "src/server/bot/index.ts:433"
+ ],
+ "tg.bot.goods_turns_telegram_channel_group": [
+  "src/server/bot/index.ts:98"
+ ],
+ "tg.bot.1_tap_connect_channel_connect": [
+  "src/server/bot/index.ts:100"
+ ],
+ "tg.bot.2_keep_posting_products_as": [
+  "src/server/bot/index.ts:101"
+ ],
+ "tg.bot.3_each_post_becomes_product": [
+  "src/server/bot/index.ts:102"
+ ],
+ "tg.bot.open_dashboard": [
+  "src/server/bot/index.ts:167",
+  "src/server/bot/index.ts:250",
+  "src/server/bot/index.ts:300",
+  "src/server/bot/index.ts:419"
+ ],
+ "tg.bot.chat_already_connected_another_goods": [
+  "src/server/bot/index.ts:257"
+ ],
+ "tg.bot.only_admins_chat_can_connect": [
+  "src/server/bot/index.ts:259"
+ ],
+ "tg.bot.chat_type_isn_t_supported": [
+  "src/server/bot/index.ts:260"
+ ],
+ "tg.bot.published": [
+  "src/server/bot/index.ts:357"
+ ],
+ "tg.bot.edit": [
+  "src/server/bot/index.ts:361"
+ ],
+ "tg.bot.price_set": [],
+ "tg.bot.joined_admin": [],
+ "tg.bot.joined_staff": [],
+ "tg.bot.connected_channel": [],
+ "tg.bot.connected_group": [],
+ "tg.bot.connected_short": [],
+ "tg.notify.hide": [
+  "src/server/domain/notify.ts:117"
+ ],
+ "tg.notify.not_product": [
+  "src/server/domain/notify.ts:121",
+  "src/server/domain/notify.ts:125",
+  "src/server/domain/notify.ts:133"
+ ],
+ "tg.notify.yes_list": [
+  "src/server/domain/notify.ts:125"
+ ],
+ "tg.notify.publish": [
+  "src/server/domain/notify.ts:129",
+  "src/server/domain/notify.ts:133"
+ ],
+ "tg.notify.restore_rights": [
+  "src/server/domain/notify.ts:163"
+ ],
+ "tg.notify.post_was_deleted_telegram_so": [
+  "src/server/domain/notify.ts:178"
+ ],
+ "tg.notify.confirm": [
+  "src/server/domain/notify.ts:217",
+  "src/server/domain/notify.ts:265"
+ ],
+ "tg.notify.order_placed_at_total_pay": [
+  "src/server/domain/notify.ts:230"
+ ],
+ "tg.notify.order_at": [
+  "src/server/domain/notify.ts:253"
+ ],
+ "tg.notify.order_from_waiting_confirmation_unconfirmed": [
+  "src/server/domain/notify.ts:263"
+ ],
+ "tg.notify.about_reply_message_answer": [
+  "src/server/domain/notify.ts:292"
+ ],
+ "tg.notify.reply": [
+  "src/server/domain/notify.ts:294"
+ ],
+ "tg.notify.replied_about_reply_message_answer": [
+  "src/server/domain/notify.ts:304"
+ ],
+ "tg.notify.edit": [
+  "src/server/domain/notify.ts:110"
+ ],
+ "tg.notify.listed_s_live_order_button": [
+  "src/server/domain/notify.ts:116"
+ ],
+ "tg.notify.saved_as_draft_what_s": [
+  "src/server/domain/notify.ts:120"
+ ],
+ "tg.notify.sale": [
+  "src/server/domain/notify.ts:124"
+ ],
+ "tg.notify.saved_as_draft_today_s": [
+  "src/server/domain/notify.ts:128"
+ ],
+ "tg.notify.draft_ready_check_details_publish": [
+  "src/server/domain/notify.ts:132"
+ ],
+ "tg.notify.goods_can_t_add_order": [
+  "src/server/domain/notify.ts:161"
+ ],
+ "tg.notify.goods_lost_admin_rights_make": [
+  "src/server/domain/notify.ts:162"
+ ],
+ "tg.notify.open_listing": [
+  "src/server/domain/notify.ts:179"
+ ],
+ "tg.notify.pickup": [
+  "src/server/domain/notify.ts:211"
+ ],
+ "tg.notify.view_order": [
+  "src/server/domain/notify.ts:232",
+  "src/server/domain/notify.ts:255"
+ ],
+ "tg.notify.reason": [
+  "src/server/domain/notify.ts:252"
+ ],
+ "tg.notify.photo": [
+  "src/server/domain/notify.ts:283"
+ ],
+ "tg.notify.buyer": [
+  "src/server/domain/notify.ts:291"
+ ],
+ "tg.notify.buyer_line": [],
+ "tg.notify.new_order_one": [],
+ "tg.notify.new_order_other": [],
+ "errors.item_not_found": [
+  "src/server/domain/cart.ts:127"
+ ],
+ "errors.item_no_longer_available": [
+  "src/server/domain/cart.ts:128"
+ ],
+ "errors.ask_seller_price_item": [
+  "src/server/domain/cart.ts:129"
+ ],
+ "errors.item_sold_out": [
+  "src/server/domain/cart.ts:131"
+ ],
+ "errors.cart_full": [
+  "src/server/domain/cart.ts:141"
+ ],
+ "errors.own_shop": [
+  "src/server/domain/chat.ts:33"
+ ],
+ "errors.product_not_found": [
+  "src/server/domain/chat.ts:39",
+  "src/server/domain/products.ts:301",
+  "src/server/domain/products.ts:346",
+  "src/server/domain/products.ts:538",
+  "src/server/domain/publish.ts:34"
+ ],
+ "errors.could_not_start_conversation": [
+  "src/server/domain/chat.ts:54"
+ ],
+ "errors.conversation_not_found": [
+  "src/server/domain/chat.ts:71"
+ ],
+ "errors.message_empty": [
+  "src/server/domain/chat.ts:94"
+ ],
+ "errors.invalid_attachment": [
+  "src/server/domain/chat.ts:96"
+ ],
+ "errors.re_sending_messages_too_fast": [
+  "src/server/domain/chat.ts:110"
+ ],
+ "errors.collection_not_found": [
+  "src/server/domain/collections.ts:56",
+  "src/server/domain/collections.ts:68"
+ ],
+ "errors.too_many_products_at_once": [
+  "src/server/domain/collections.ts:70"
+ ],
+ "errors.invite_link_has_expired_was": [
+  "src/server/domain/members.ts:48"
+ ],
+ "errors.member_not_found": [
+  "src/server/domain/members.ts:60"
+ ],
+ "errors.owner_can_t_removed": [
+  "src/server/domain/members.ts:61"
+ ],
+ "errors.can_t_remove_yourself": [
+  "src/server/domain/members.ts:62"
+ ],
+ "errors.shop_isn_t_taking_orders": [
+  "src/server/domain/orders.ts:50"
+ ],
+ "errors.online_payment_coming_soon_please": [
+  "src/server/domain/orders.ts:52"
+ ],
+ "errors.enter_valid_phone_number_example": [
+  "src/server/domain/orders.ts:55"
+ ],
+ "errors.shop_offers_pickup_only": [
+  "src/server/domain/orders.ts:58"
+ ],
+ "errors.shop_offers_delivery_only": [
+  "src/server/domain/orders.ts:61"
+ ],
+ "errors.enter_delivery_address": [
+  "src/server/domain/orders.ts:64"
+ ],
+ "errors.cart_empty": [
+  "src/server/domain/orders.ts:71",
+  "src/server/domain/orders.ts:79"
+ ],
+ "errors.shop_can_t_take_orders": [
+  "src/server/domain/orders.ts:87"
+ ],
+ "errors.too_many_orders_short_time": [
+  "src/server/domain/orders.ts:103"
+ ],
+ "errors.no_longer_available": [
+  "src/server/domain/orders.ts:109"
+ ],
+ "errors.has_no_price_yet": [
+  "src/server/domain/orders.ts:110"
+ ],
+ "errors.just_sold_out": [
+  "src/server/domain/orders.ts:121"
+ ],
+ "errors.order_not_found": [
+  "src/server/domain/orders.ts:290"
+ ],
+ "errors.order_changed_refresh_try_again": [
+  "src/server/domain/orders.ts:312",
+  "src/server/domain/orders.ts:349"
+ ],
+ "errors.not_confirmed_by_seller_within": [
+  "src/server/domain/orders.ts:559"
+ ],
+ "errors.enter_valid_amount": [
+  "src/server/domain/products.ts:255"
+ ],
+ "errors.select_at_most_200_products": [
+  "src/server/domain/products.ts:355"
+ ],
+ "errors.invalid_image_upload": [
+  "src/server/domain/products.ts:500",
+  "src/server/domain/products.ts:533"
+ ],
+ "errors.product_can_have_at_most": [
+  "src/server/domain/products.ts:539"
+ ],
+ "errors.channel_not_connected": [
+  "src/server/domain/publish.ts:29"
+ ],
+ "errors.give_bot_post_messages_right": [
+  "src/server/domain/publish.ts:31"
+ ],
+ "errors.publish_product_before_posting": [
+  "src/server/domain/publish.ts:35"
+ ],
+ "errors.telegram_refused_post": [
+  "src/server/domain/publish.ts:61"
+ ],
+ "errors.could_not_allocate_shop_address": [
+  "src/server/domain/shops.ts:83"
+ ],
+ "errors.shop_name_too_short": [
+  "src/server/domain/shops.ts:94"
+ ],
+ "errors.shop_address_taken": [
+  "src/server/domain/shops.ts:99"
+ ],
+ "errors.enable_delivery_pickup_both": [
+  "src/server/domain/shops.ts:217"
+ ],
+ "errors.shop_not_found": [
+  "src/server/auth/authorize.ts:87"
+ ],
+ "errors.my_shop": [
+  "src/server/domain/channels.ts:132"
+ ],
+ "errors.enter_name": [
+  "src/server/domain/orders.ts:32"
+ ],
+ "errors.enter_phone_number": [
+  "src/server/domain/orders.ts:33"
+ ],
+ "errors.photo": [
+  "src/server/domain/chat.ts:133"
+ ],
+ "errors.cannot_change_order": []
+}
