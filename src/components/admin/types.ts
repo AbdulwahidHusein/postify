@@ -70,6 +70,7 @@ export type AdminChannel = {
   shopId: string;
   title: string | null;
   username: string | null;
+  chatType?: string | null;
   status: string;
   lastPostAt: string | null;
 };

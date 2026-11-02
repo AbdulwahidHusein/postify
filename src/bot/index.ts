@@ -15,8 +15,15 @@ import {
 import { enqueueIngestChannelPost } from "@/lib/ingest-channel-post";
 import { pickBestPhotoFileId } from "@/lib/products";
 import { syncShopLogoFromTelegramChat } from "@/lib/shop-logo";
+import {
+  extractListingPhotos,
+  isAuthorizedGroupPoster,
+  isGroupChatType,
+  isLinkableChatType,
+  listingCaptionFromMessage,
+} from "@/lib/telegram-source";
 import { db } from "@/db";
-import { channels, shops } from "@/db/schema";
+import { channels, shops, type Channel } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import {
   handleChatStartPayload,
@@ -26,7 +33,7 @@ import {
 export type BotContext = Context;
 
 const globalForBot = globalThis as unknown as {
-  postifyBotV13?: Bot;
+  postifyBotV14?: Bot;
 };
 
 function appUrl() {
@@ -40,7 +47,7 @@ function botUsername() {
 async function applyLinkResult(
   ctx: Context,
   result: Awaited<ReturnType<typeof linkChannelForTelegramUser>>,
-  opts?: { channelReply?: boolean },
+  opts?: { channelReply?: boolean; chatType?: string },
 ) {
   const openDash = {
     inline_keyboard: [
@@ -60,7 +67,7 @@ async function applyLinkResult(
     return;
   }
   if (result.status === "conflict") {
-    await ctx.reply("This channel is already linked.");
+    await ctx.reply("This chat is already linked to another shop.");
     return;
   }
 
@@ -79,8 +86,11 @@ async function applyLinkResult(
     return;
   }
 
+  const isGroup = isGroupChatType(opts?.chatType ?? result.channel.chatType);
   const msg = opts?.channelReply
-    ? `Connected · ${result.shop.name}\nPost a photo with a price.`
+    ? isGroup
+      ? `Connected · ${result.shop.name}\nOnly admin posts become products.`
+      : `Connected · ${result.shop.name}\nPost a photo with a price.`
     : `Connected · ${result.shop.name}`;
   await ctx.reply(msg, {
     reply_markup: {
@@ -95,6 +105,27 @@ async function applyLinkResult(
         ],
       ],
     },
+  });
+}
+
+async function enqueueListingPost(input: {
+  channel: Channel;
+  chatId: bigint;
+  messageId: number;
+  mediaGroupId: string | null;
+  caption: string;
+  photos: { fileId: string }[];
+  isEdit?: boolean;
+}) {
+  await touchChannelPost(input.channel.id, input.messageId);
+  await enqueueIngestChannelPost({
+    channelId: input.channel.id,
+    chatId: input.chatId,
+    messageId: input.messageId,
+    mediaGroupId: input.mediaGroupId,
+    caption: input.caption,
+    photos: input.photos,
+    isEdit: input.isEdit,
   });
 }
 
@@ -177,7 +208,13 @@ function buildBot() {
     }
 
     await ctx.reply(
-      `I turn your channel into an ecommerce platform.\n\nAdd @${botUsername()} as a subscriber to your channel, then post products.`,
+      [
+        "I turn your Telegram channel or group into a shop.",
+        "",
+        `Add @${botUsername()} to your channel (subscriber) or group (as admin).`,
+        "In groups, only admin posts become products.",
+        "Then post a photo with a price.",
+      ].join("\n"),
       {
         reply_markup: {
           inline_keyboard: [
@@ -193,27 +230,43 @@ function buildBot() {
     );
   });
 
-  // Connect by forwarding a channel post to the bot (private chat).
+  // Connect by forwarding a channel/group post to the bot (private chat).
   bot.on("message", async (ctx, next) => {
     const msg = ctx.message;
     const from = ctx.from;
     if (!msg || !from || ctx.chat?.type !== "private") return next();
 
     const raw = msg as {
-      forward_from_chat?: { type?: string; id: number; title?: string; username?: string };
+      forward_from_chat?: {
+        type?: string;
+        id: number;
+        title?: string;
+        username?: string;
+      };
       forward_origin?: {
         type?: string;
-        chat?: { type?: string; id: number; title?: string; username?: string };
+        chat?: {
+          type?: string;
+          id: number;
+          title?: string;
+          username?: string;
+        };
       };
     };
     const fwdChat =
-      raw.forward_from_chat?.type === "channel"
+      raw.forward_from_chat && isLinkableChatType(raw.forward_from_chat.type)
         ? raw.forward_from_chat
-        : raw.forward_origin?.type === "channel" && raw.forward_origin.chat
+        : raw.forward_origin?.type === "channel" &&
+            raw.forward_origin.chat &&
+            isLinkableChatType(raw.forward_origin.chat.type)
           ? raw.forward_origin.chat
-          : null;
+          : raw.forward_origin?.type === "chat" &&
+              raw.forward_origin.chat &&
+              isLinkableChatType(raw.forward_origin.chat.type)
+            ? raw.forward_origin.chat
+            : null;
 
-    if (!fwdChat) return next();
+    if (!fwdChat || !isLinkableChatType(fwdChat.type)) return next();
 
     try {
       const result = await linkChannelForTelegramUser({
@@ -221,8 +274,9 @@ function buildBot() {
         telegramChatId: BigInt(fwdChat.id),
         title: fwdChat.title,
         username: fwdChat.username,
+        chatType: fwdChat.type,
       });
-      await applyLinkResult(ctx, result);
+      await applyLinkResult(ctx, result, { chatType: fwdChat.type });
     } catch (error) {
       console.error("[bot] forward link failed", error);
       await ctx.reply("Could not link. Try again.");
@@ -231,15 +285,87 @@ function buildBot() {
 
   registerChatBotHandlers(bot);
 
+  // Group/supergroup listing posts (admin-only).
+  bot.on("message", async (ctx, next) => {
+    const msg = ctx.message;
+    const chat = ctx.chat;
+    if (!msg || !chat || !isGroupChatType(chat.type)) return next();
+
+    const chatId = BigInt(chat.id);
+    const channel = await getChannelByTelegramChatId(chatId);
+    if (!channel || channel.status !== "connected") return next();
+
+    const me = await ctx.api.getMe();
+    if (msg.from?.id === me.id || msg.from?.is_bot) {
+      await touchChannelPost(channel.id, msg.message_id);
+      return;
+    }
+
+    const allowed = await isAuthorizedGroupPoster(ctx.api, chatId, msg);
+    if (!allowed) return;
+
+    const caption = listingCaptionFromMessage(msg);
+    const photos = extractListingPhotos(msg, pickBestPhotoFileId);
+    // Ignore empty chatter (no caption and no photo)
+    if (!caption && photos.length === 0) return;
+
+    try {
+      await enqueueListingPost({
+        channel,
+        chatId,
+        messageId: msg.message_id,
+        mediaGroupId: msg.media_group_id ?? null,
+        caption,
+        photos,
+      });
+    } catch (error) {
+      console.error("[bot] group ingest enqueue failed", error);
+    }
+  });
+
+  bot.on("edited_message", async (ctx) => {
+    const msg = ctx.editedMessage;
+    const chat = ctx.chat;
+    if (!msg || !chat || !isGroupChatType(chat.type)) return;
+
+    const chatId = BigInt(chat.id);
+    const channel = await getChannelByTelegramChatId(chatId);
+    if (!channel || channel.status !== "connected") return;
+
+    const me = await ctx.api.getMe();
+    if (msg.from?.id === me.id || msg.from?.is_bot) return;
+
+    const allowed = await isAuthorizedGroupPoster(ctx.api, chatId, msg);
+    if (!allowed) return;
+
+    const caption = listingCaptionFromMessage(msg);
+    const photos = extractListingPhotos(msg, pickBestPhotoFileId);
+
+    try {
+      await enqueueListingPost({
+        channel,
+        chatId,
+        messageId: msg.message_id,
+        mediaGroupId: msg.media_group_id ?? null,
+        caption,
+        photos,
+        isEdit: true,
+      });
+    } catch (error) {
+      console.error("[bot] group edit ingest enqueue failed", error);
+    }
+  });
+
   bot.command("help", async (ctx) => {
     await ctx.reply(
       [
-        "Add the bot as a subscriber to your channel.",
-        "Or forward a channel post here.",
+        "Add the bot to your channel (subscriber) or group (admin).",
+        "Or forward a channel/group post here.",
+        "In groups, only admin posts become products.",
         "Then post a photo with a price.",
         "",
         "/start — open Goods",
-        "/status — check this channel",
+        "/status — check this chat",
       ].join("\n"),
     );
   });
@@ -248,14 +374,18 @@ function buildBot() {
     const chat = ctx.chat;
     if (!chat) return;
 
-    if (chat.type !== "channel") {
-      await ctx.reply("Run /status inside your channel.");
+    if (!isLinkableChatType(chat.type)) {
+      await ctx.reply("Run /status inside your connected channel or group.");
       return;
     }
 
     const channel = await getChannelByTelegramChatId(BigInt(chat.id));
     if (!channel) {
-      await ctx.reply("Not connected yet. Add the bot as admin.");
+      await ctx.reply(
+        isGroupChatType(chat.type)
+          ? "Not connected yet. Add the bot as a group admin."
+          : "Not connected yet. Add the bot as a channel subscriber.",
+      );
       return;
     }
 
@@ -263,7 +393,12 @@ function buildBot() {
       where: eq(shops.id, channel.shopId),
     });
 
-    await ctx.reply(`Connected · ${shop?.name ?? "shop"}`);
+    const kind = isGroupChatType(channel.chatType) ? "group" : "channel";
+    await ctx.reply(
+      `Connected · ${shop?.name ?? "shop"} (${kind})${
+        kind === "group" ? "\nOnly admin posts become products." : ""
+      }`,
+    );
   });
 
   bot.on("my_chat_member", async (ctx) => {
@@ -278,19 +413,18 @@ function buildBot() {
       status,
     });
 
-    if (chat.type !== "channel") return;
+    if (!isLinkableChatType(chat.type)) return;
 
-    // Bot removed/kicked/left the channel — mark it disconnected so we stop
-    // trying to ingest posts for a channel we can no longer read.
     if (status === "kicked" || status === "left" || status === "restricted") {
       try {
         await db
           .update(channels)
           .set({ status: "disconnected", updatedAt: new Date() })
           .where(eq(channels.telegramChatId, BigInt(chat.id)));
-        console.info("[bot] channel disconnected", {
+        console.info("[bot] source disconnected", {
           chat: chatFingerprint(chat.id),
           status,
+          type: chat.type,
         });
       } catch (error) {
         console.error("[bot] disconnect update failed", error);
@@ -298,7 +432,12 @@ function buildBot() {
       return;
     }
 
-    if (status !== "administrator" && status !== "member") return;
+    // Channels: member or admin is enough. Groups: must be admin to see posts.
+    if (isGroupChatType(chat.type)) {
+      if (status !== "administrator") return;
+    } else if (status !== "administrator" && status !== "member") {
+      return;
+    }
     if (!from || from.is_bot) return;
 
     try {
@@ -307,11 +446,16 @@ function buildBot() {
         telegramChatId: BigInt(chat.id),
         title: "title" in chat ? chat.title : null,
         username: "username" in chat ? chat.username : null,
+        chatType: chat.type,
       });
-      await applyLinkResult(ctx, result, { channelReply: true });
-      console.info("[bot] channel link", {
+      await applyLinkResult(ctx, result, {
+        channelReply: true,
+        chatType: chat.type,
+      });
+      console.info("[bot] source link", {
         status: result.status,
         chat: chatFingerprint(chat.id),
+        type: chat.type,
       });
     } catch (error) {
       console.error("[bot] my_chat_member link failed", error);
@@ -324,9 +468,7 @@ function buildBot() {
 
     const chatId = BigInt(post.chat.id);
     const channel = await getChannelByTelegramChatId(chatId);
-    if (!channel) {
-      return;
-    }
+    if (!channel) return;
 
     const me = await ctx.api.getMe();
     if (post.from?.id === me.id || post.from?.is_bot) {
@@ -334,23 +476,15 @@ function buildBot() {
       return;
     }
 
-    await touchChannelPost(channel.id, post.message_id);
-
-    // Enqueue the ingest (LLM + product creation + "Open in shop" reply) for
-    // off-request processing. The webhook must ACK immediately — running the
-    // LLM here risks Telegram timeouts, retries, and half-finished products.
-    // See ARCHITECTURE.md ("Webhook must ACK quickly").
-    const caption = (post.text ?? post.caption ?? "").trim();
-    const mediaGroupId = post.media_group_id ?? null;
-    const fileId = post.photo ? pickBestPhotoFileId(post.photo) : null;
-    const photos = fileId ? [{ fileId }] : [];
+    const caption = listingCaptionFromMessage(post);
+    const photos = extractListingPhotos(post, pickBestPhotoFileId);
 
     try {
-      await enqueueIngestChannelPost({
-        channelId: channel.id,
+      await enqueueListingPost({
+        channel,
         chatId,
         messageId: post.message_id,
-        mediaGroupId,
+        mediaGroupId: post.media_group_id ?? null,
         caption,
         photos,
       });
@@ -370,22 +504,15 @@ function buildBot() {
     const me = await ctx.api.getMe();
     if (post.from?.id === me.id || post.from?.is_bot) return;
 
-    await touchChannelPost(channel.id, post.message_id);
-
-    // Seller edited the caption (price drop, fix title, etc.). Enqueue a re-
-    // extract that updates the existing product off-request. No reply — the
-    // original post already got its "Open in shop" button.
-    const caption = (post.text ?? post.caption ?? "").trim();
-    const mediaGroupId = post.media_group_id ?? null;
-    const fileId = post.photo ? pickBestPhotoFileId(post.photo) : null;
-    const photos = fileId ? [{ fileId }] : [];
+    const caption = listingCaptionFromMessage(post);
+    const photos = extractListingPhotos(post, pickBestPhotoFileId);
 
     try {
-      await enqueueIngestChannelPost({
-        channelId: channel.id,
+      await enqueueListingPost({
+        channel,
         chatId,
         messageId: post.message_id,
-        mediaGroupId,
+        mediaGroupId: post.media_group_id ?? null,
         caption,
         photos,
         isEdit: true,
@@ -403,8 +530,8 @@ export function getBot(): Bot {
     throw new Error("TELEGRAM_BOT_TOKEN is not configured");
   }
 
-  if (!globalForBot.postifyBotV13) {
-    globalForBot.postifyBotV13 = buildBot();
+  if (!globalForBot.postifyBotV14) {
+    globalForBot.postifyBotV14 = buildBot();
   }
-  return globalForBot.postifyBotV13;
+  return globalForBot.postifyBotV14;
 }

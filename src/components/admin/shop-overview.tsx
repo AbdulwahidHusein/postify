@@ -156,9 +156,15 @@ export function ShopOverview() {
         {showCelebrate ? (
           <section className="admin-banner admin-banner-success">
             <div>
-              <strong>Channel connected</strong>
+              <strong>
+                {channel.chatType === "group" || channel.chatType === "supergroup"
+                  ? "Group connected"
+                  : "Channel connected"}
+              </strong>
               <p className="admin-muted" style={{ margin: "0.25rem 0 0" }}>
-                Post a photo with a price in Telegram.
+                {channel.chatType === "group" || channel.chatType === "supergroup"
+                  ? "Post a photo with a price as a group admin."
+                  : "Post a photo with a price in Telegram."}
               </p>
             </div>
             <button

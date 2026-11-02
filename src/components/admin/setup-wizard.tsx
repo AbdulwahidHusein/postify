@@ -4,6 +4,10 @@ import { useEffect, useRef } from "react";
 import { useShopAdmin } from "@/components/admin/shop-admin-context";
 import { telegramBotUsername } from "@/lib/env";
 
+function isGroupSource(chatType: string | null | undefined) {
+  return chatType === "group" || chatType === "supergroup";
+}
+
 export function SetupWizard({ onConnected }: { onConnected?: () => void }) {
   const { shop, channels, reload } = useShopAdmin();
   const linked = channels[0];
@@ -30,14 +34,18 @@ export function SetupWizard({ onConnected }: { onConnected?: () => void }) {
   if (!shop) return null;
 
   if (linked) {
+    const group = isGroupSource(linked.chatType);
     return (
       <section className="setup-wizard">
         <h1 className="setup-wizard-title">Connected</h1>
         <p className="setup-wizard-lead">
-          {linked.title ?? linked.username ?? "Your channel"} · {shop.name}
+          {linked.title ?? linked.username ?? (group ? "Your group" : "Your channel")}{" "}
+          · {shop.name}
         </p>
         <p className="setup-wizard-step">
-          Post a photo with a price in the channel.
+          {group
+            ? "Post a photo with a price as a group admin."
+            : "Post a photo with a price in the channel."}
         </p>
       </section>
     );
@@ -45,18 +53,18 @@ export function SetupWizard({ onConnected }: { onConnected?: () => void }) {
 
   return (
     <section className="setup-wizard">
-      <h1 className="setup-wizard-title">Connect your channel</h1>
-      <p className="setup-wizard-lead">One step. About a minute.</p>
+      <h1 className="setup-wizard-title">Connect Telegram</h1>
+      <p className="setup-wizard-lead">Channel or group. About a minute.</p>
 
       <ol className="setup-wizard-steps">
         <li>
-          Open your Telegram channel
+          Channel: Subscribers → Add subscriber → {bot}
         </li>
         <li>
-          Subscribers → Add subscriber → {bot}
+          Group: add {bot} as an admin (only admin posts become products)
         </li>
         <li>
-          The bot will start syncing posts automatically
+          Posts sync automatically
         </li>
       </ol>
 
@@ -65,7 +73,7 @@ export function SetupWizard({ onConnected }: { onConnected?: () => void }) {
       </p>
 
       <p className="setup-wizard-alt">
-        Or open {bot} and forward any post from your channel.
+        Or open {bot} and forward any post from your channel or group.
       </p>
     </section>
   );

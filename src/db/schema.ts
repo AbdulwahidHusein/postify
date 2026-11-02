@@ -116,6 +116,8 @@ export const channels = pgTable(
       .unique(),
     title: text("title"),
     username: text("username"),
+    /** Telegram chat.type: channel | group | supergroup */
+    chatType: text("chat_type").notNull().default("channel"),
     status: channelStatusEnum("status").notNull().default("connected"),
     lastPostAt: timestamp("last_post_at", { withTimezone: true }),
     lastPostMessageId: integer("last_post_message_id"),

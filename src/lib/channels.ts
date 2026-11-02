@@ -75,7 +75,9 @@ export async function connectChannelToShop(input: {
   telegramChatId: bigint;
   title?: string;
   username?: string;
+  chatType?: string;
 }): Promise<Channel> {
+  const chatType = input.chatType?.trim() || "channel";
   const existingByChat = await db.query.channels.findFirst({
     where: eq(channels.telegramChatId, input.telegramChatId),
   });
@@ -90,6 +92,7 @@ export async function connectChannelToShop(input: {
       .set({
         title: input.title ?? existingByChat.title,
         username: input.username ?? existingByChat.username,
+        chatType: input.chatType ?? existingByChat.chatType ?? "channel",
         status: "connected",
         connectedAt: existingByChat.connectedAt ?? new Date(),
         updatedAt: new Date(),
@@ -114,6 +117,7 @@ export async function connectChannelToShop(input: {
       telegramChatId: input.telegramChatId,
       title: input.title ?? null,
       username: input.username ?? null,
+      chatType,
       status: "connected",
     })
     .returning();
@@ -146,6 +150,7 @@ export async function linkChannelForTelegramUser(input: {
   telegramChatId: bigint;
   title?: string | null;
   username?: string | null;
+  chatType?: string | null;
 }): Promise<LinkChannelResult> {
   const user = await db.query.users.findFirst({
     where: eq(users.telegramId, input.telegramUserId),
@@ -164,6 +169,7 @@ export async function linkChannelForTelegramUser(input: {
         telegramChatId: input.telegramChatId,
         title: input.title ?? undefined,
         username: input.username ?? undefined,
+        chatType: input.chatType ?? undefined,
       });
       return {
         status: "already_connected",
@@ -198,6 +204,7 @@ export async function linkChannelForTelegramUser(input: {
     telegramChatId: input.telegramChatId,
     title: input.title ?? undefined,
     username: input.username ?? undefined,
+    chatType: input.chatType ?? undefined,
   });
 
   const freshShop =
@@ -290,6 +297,7 @@ export function serializeChannel(
     telegramChatId: channel.telegramChatId.toString(),
     title: channel.title,
     username: channel.username,
+    chatType: channel.chatType ?? "channel",
     status: channel.status,
     lastPostAt: channel.lastPostAt?.toISOString() ?? null,
     lastPostMessageId: channel.lastPostMessageId,

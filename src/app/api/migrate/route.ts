@@ -36,6 +36,7 @@ export async function POST(request: Request) {
     sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS is_negotiable boolean NOT NULL DEFAULT false`,
     sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS shipping_info text`,
     sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS return_policy text`,
+    sql`ALTER TABLE channels ADD COLUMN IF NOT EXISTS chat_type text NOT NULL DEFAULT 'channel'`,
     // Catalog filter / facet indexes for storefront equality filters.
     sql`CREATE INDEX IF NOT EXISTS products_shop_status_category_idx ON products (shop_id, status, category)`,
     sql`CREATE INDEX IF NOT EXISTS products_shop_status_brand_idx ON products (shop_id, status, brand)`,
