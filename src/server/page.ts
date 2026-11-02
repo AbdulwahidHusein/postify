@@ -2,6 +2,7 @@ import "server-only";
 
 import { headers, cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
+import { cache } from "react";
 import { authorize, type Action, type ShopAccess } from "@/server/auth/authorize";
 import { AuthError } from "@/server/auth/session";
 import { AppError } from "@/server/http";
@@ -32,3 +33,19 @@ export async function getStorefront(param: string): Promise<Storefront> {
   const locale = asLocale(jar.get("goods_lang")?.value ?? shop.locale);
   return { shop, base, locale };
 }
+
+export const PREVIEW_COOKIE = "goods_store_preview";
+
+/**
+ * The design a storefront request should render: the seller's draft inside
+ * the customizer's preview frame (?goods_preview, flagged by the proxy, plus the
+ * signed preview cookie), otherwise the published design. Cached per request
+ * so layout and page agree.
+ */
+export const storeDesign = cache(async (shop: Shop) => {
+  const { draftDesign, previewAllowed, publishedDesign } = await import("@/server/domain/store-design");
+  const [jar, h] = await Promise.all([cookies(), headers()]);
+  const asked = h.get("x-goods-preview") === "1";
+  const preview = asked && (await previewAllowed(shop.id, jar.get(PREVIEW_COOKIE)?.value));
+  return { design: preview ? draftDesign(shop).design : publishedDesign(shop), preview };
+});

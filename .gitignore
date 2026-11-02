@@ -40,8 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local product uploads
-uploads/
+# local product uploads (root only: src/app/api/**/uploads routes must stay tracked)
+/uploads/
 
 # local data (dev uploads)
 /.data

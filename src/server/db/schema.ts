@@ -85,6 +85,10 @@ export type ShopSettings = {
   };
   theme: ShopTheme;
   sellCategories: string[];
+  /** Storefront design (see src/lib/store-design.ts): published, draft, and when it went live. */
+  design?: unknown;
+  designDraft?: unknown;
+  designPublishedAt?: string | null;
 };
 
 export const shopStatusEnum = pgEnum("shop_status", ["active", "hidden"]);

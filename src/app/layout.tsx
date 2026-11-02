@@ -10,6 +10,8 @@ import "./globals.css";
 // stacks; it only downloads on pages that contain Ethiopic characters.
 const uiSans = localFont({ src: "./fonts/nunito-sans-latin.woff2", variable: "--font-ui", weight: "200 1000", display: "swap" });
 const display = localFont({ src: "./fonts/rubik-latin.woff2", variable: "--font-rubik", weight: "300 900", display: "swap" });
+const geist = localFont({ src: "./fonts/geist-latin.woff2", variable: "--font-geist", weight: "100 900", display: "swap", preload: false });
+const fraunces = localFont({ src: "./fonts/fraunces-latin.woff2", variable: "--font-fraunces", weight: "100 900", display: "swap", preload: false });
 const ethiopic = localFont({
   src: "./fonts/noto-sans-ethiopic.woff2",
   variable: "--font-ethiopic",
@@ -40,7 +42,7 @@ try{tg.setHeaderColor&&tg.setHeaderColor("#ffffff");tg.setBackgroundColor&&tg.se
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${uiSans.variable} ${display.variable} ${ethiopic.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${uiSans.variable} ${display.variable} ${ethiopic.variable} ${geist.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
         <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
         <Script id="telegram-boot" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: telegramBoot }} />

@@ -66,7 +66,7 @@ export function BuyBox({
       disabled={busy !== null}
       aria-label={t(locale, "product.askSeller")}
       className={cn(
-        "flex h-14 shrink-0 items-center justify-center gap-2 rounded-full border-2 border-ink bg-surface font-display font-bold text-ink transition-[transform,background-color] duration-150 hover:bg-canvas active:scale-[0.97] disabled:opacity-60",
+        "flex h-14 shrink-0 items-center justify-center gap-2 rounded-[var(--store-btn,999px)] border-2 border-ink bg-surface font-display font-bold text-ink transition-[transform,background-color] duration-150 hover:bg-canvas active:scale-[0.97] disabled:opacity-60",
         compact ? "w-14" : "w-full",
       )}
     >
@@ -87,10 +87,10 @@ export function BuyBox({
       <div className="mt-6 hidden space-y-3 md:block">
         {canBuy ? (
           <div className="flex gap-3">
-            <button onClick={() => add(true)} disabled={busy !== null} className="h-14 flex-1 rounded-full bg-accent font-display text-base font-bold text-accent-fg shadow-[0_4px_0_var(--ink)] transition-[transform,box-shadow,background-color] duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_var(--ink)] active:translate-y-1 active:shadow-none disabled:opacity-60">
+            <button onClick={() => add(true)} disabled={busy !== null} className="h-14 flex-1 rounded-[var(--store-btn,999px)] bg-accent font-display text-base font-bold text-accent-fg shadow-[var(--store-btn-shadow,0_4px_0_var(--ink))] transition-[transform,box-shadow,background-color] duration-150 hover:-translate-y-px hover:bg-accent-hover active:translate-y-1 active:shadow-none disabled:opacity-60">
               {busy === "order" ? "…" : t(locale, "product.orderNow")}
             </button>
-            <button onClick={() => add(false)} disabled={busy !== null} className="h-14 flex-1 rounded-full border-2 border-ink bg-surface font-display text-base font-bold transition-[transform,background-color] duration-150 hover:bg-canvas active:scale-[0.98] disabled:opacity-60">
+            <button onClick={() => add(false)} disabled={busy !== null} className="h-14 flex-1 rounded-[var(--store-btn,999px)] border-2 border-ink bg-surface font-display text-base font-bold transition-[transform,background-color] duration-150 hover:bg-canvas active:scale-[0.98] disabled:opacity-60">
               {busy === "cart" ? "…" : t(locale, "product.addToCart")}
             </button>
           </div>
@@ -106,10 +106,10 @@ export function BuyBox({
           {askButton(true)}
           {canBuy ? (
             <>
-              <button onClick={() => add(false)} disabled={busy !== null} aria-label={t(locale, "product.addToCart")} className="grid h-14 w-14 shrink-0 place-items-center rounded-full border-2 border-ink bg-surface transition-transform active:scale-[0.97] disabled:opacity-60">
+              <button onClick={() => add(false)} disabled={busy !== null} aria-label={t(locale, "product.addToCart")} className="grid h-14 w-14 shrink-0 place-items-center rounded-[var(--store-btn,999px)] border-2 border-ink bg-surface transition-transform active:scale-[0.97] disabled:opacity-60">
                 <ShoppingBag size={20} strokeWidth={2.2} />
               </button>
-              <button onClick={() => add(true)} disabled={busy !== null} className="h-14 flex-1 rounded-full bg-accent font-display text-base font-bold text-accent-fg shadow-[0_4px_0_var(--ink)] transition-[transform,box-shadow,background-color] duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_var(--ink)] active:translate-y-1 active:shadow-none disabled:opacity-60">
+              <button onClick={() => add(true)} disabled={busy !== null} className="h-14 flex-1 rounded-[var(--store-btn,999px)] bg-accent font-display text-base font-bold text-accent-fg shadow-[var(--store-btn-shadow,0_4px_0_var(--ink))] transition-[transform,box-shadow,background-color] duration-150 hover:-translate-y-px hover:bg-accent-hover active:translate-y-1 active:shadow-none disabled:opacity-60">
                 {busy === "order" ? "…" : t(locale, "product.orderNow")}
               </button>
             </>
@@ -124,7 +124,7 @@ export function BuyBox({
 
 function Unavailable({ sold, available, locale }: { sold: boolean; available: boolean; locale: Locale }) {
   return (
-    <p className="flex h-14 items-center justify-center rounded-full bg-sunken px-5 text-center font-display text-[15px] font-bold text-ink-soft">
+    <p className="flex h-14 items-center justify-center rounded-[var(--store-btn,999px)] bg-sunken px-5 text-center font-display text-[15px] font-bold text-ink-soft">
       {sold ? t(locale, "product.sold") : !available ? t(locale, "product.soldOut") : t(locale, "product.askPriceHint")}
     </p>
   );

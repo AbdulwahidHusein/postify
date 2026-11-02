@@ -13,6 +13,11 @@ export function proxy(request: NextRequest) {
   const raw = request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? "";
   const host = raw.toLowerCase().split(",")[0].trim().split(":")[0];
   const { pathname } = request.nextUrl;
+  // The store customizer's preview frame loads pages with ?goods_preview; the
+  // storefront then renders the draft (if the signed preview cookie matches).
+  const headers = new Headers(request.headers);
+  headers.delete("x-goods-preview");
+  if (request.nextUrl.searchParams.has("goods_preview")) headers.set("x-goods-preview", "1");
 
   if (
     !host ||
@@ -24,7 +29,7 @@ export function proxy(request: NextRequest) {
     host.endsWith(".vercel.app") ||
     PASSTHROUGH.test(pathname)
   ) {
-    return NextResponse.next();
+    return NextResponse.next({ request: { headers } });
   }
 
   let shopParam: string | null = null;
@@ -34,11 +39,10 @@ export function proxy(request: NextRequest) {
   } else {
     shopParam = `__host__${host}`;
   }
-  if (!shopParam) return NextResponse.next();
+  if (!shopParam) return NextResponse.next({ request: { headers } });
 
   const url = request.nextUrl.clone();
   url.pathname = `/s/${encodeURIComponent(shopParam)}${pathname === "/" ? "" : pathname}`;
-  const headers = new Headers(request.headers);
   headers.set("x-goods-base", "");
   return NextResponse.rewrite(url, { request: { headers } });
 }

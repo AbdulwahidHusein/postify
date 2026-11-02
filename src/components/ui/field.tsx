@@ -16,6 +16,19 @@ export function Field({
   className?: string;
   htmlFor?: string;
 }) {
+  const note = error ? <p role="alert" className="mt-1.5 text-[13px] font-bold text-danger">{error}</p> : hint ? <p className="field-hint">{hint}</p> : null;
+  // Without an id to point at, wrap the control so the label still names it.
+  if (label && !htmlFor) {
+    return (
+      <div className={cn("min-w-0", className)}>
+        <label className="block">
+          <span className="field-label">{label}</span>
+          {children}
+        </label>
+        {note}
+      </div>
+    );
+  }
   return (
     <div className={cn("min-w-0", className)}>
       {label ? (
@@ -24,7 +37,7 @@ export function Field({
         </label>
       ) : null}
       {children}
-      {error ? <p role="alert" className="mt-1.5 text-[13px] font-bold text-danger">{error}</p> : hint ? <p className="field-hint">{hint}</p> : null}
+      {note}
     </div>
   );
 }
@@ -78,7 +91,7 @@ export function StatStrip({ items, className }: { items: { label: string; value:
         const inner = (
           <>
             <p className="text-[13px] font-bold text-mist">{it.label}</p>
-            <p className="num mt-1 font-display text-[26px] font-extrabold leading-tight tracking-[-0.03em] sm:text-[30px]">{it.value}</p>
+            <p className="num mt-1 font-display text-[22px] font-extrabold leading-tight tracking-[-0.03em] sm:text-[30px]">{it.value}</p>
             {it.hint ? <p className="mt-0.5 text-xs text-mist">{it.hint}</p> : null}
           </>
         );

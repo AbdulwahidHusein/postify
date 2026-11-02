@@ -23,8 +23,8 @@ export function ProductCard({ p, base, locale, priority }: { p: P; base: string;
       ? Math.round((1 - Number(p.priceMinor) / Number(p.compareAtMinor)) * 100)
       : 0;
   return (
-    <Link href={`${base}/p/${p.slug}`} className="group block rounded-[24px] bg-surface p-2 outline-offset-4 transition-transform duration-200 hover:-translate-y-0.5">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[18px] bg-sunken" style={{ background: img?.color ?? undefined }}>
+    <Link href={`${base}/p/${p.slug}`} className="group block rounded-[var(--store-panel,24px)] bg-surface p-2 outline-offset-4 transition-transform duration-200 hover:-translate-y-0.5">
+      <div className="relative aspect-[var(--store-photo,4/5)] overflow-hidden rounded-[var(--store-card,18px)] bg-sunken" style={{ background: img?.color ?? undefined }}>
         {img?.src ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img

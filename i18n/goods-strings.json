@@ -4242,6 +4242,132 @@
           "en": "{n} / {total}",
           "context": "photo counter on the product gallery, e.g. \"2 / 5\" (probably unchanged)",
           "am": "{n} / {total}"
+        },
+        "store.nav.menu": {
+          "en": "Menu",
+          "context": "Button that opens the shop's menu on phones",
+          "limit": "keep about as short as the English",
+          "am_draft": "ማውጫ"
+        },
+        "store.section.categories": {
+          "en": "Shop by category",
+          "context": "Heading above category tiles on the shop home page",
+          "limit": "keep about as short as the English",
+          "am_draft": "በምድብ ይግዙ"
+        },
+        "store.section.viewAll": {
+          "en": "View all",
+          "context": "Link next to a row of featured products",
+          "limit": "keep about as short as the English",
+          "am_draft": "ሁሉንም ይመልከቱ"
+        },
+        "store.section.endsIn": {
+          "en": "Ends in",
+          "context": "Label for a deal countdown",
+          "limit": "keep about as short as the English",
+          "am_draft": "የሚያበቃው በ"
+        },
+        "store.section.days": {
+          "en": "days",
+          "context": "Countdown unit",
+          "limit": "keep about as short as the English",
+          "am_draft": "ቀን"
+        },
+        "store.section.hours": {
+          "en": "hours",
+          "context": "Countdown unit",
+          "limit": "keep about as short as the English",
+          "am_draft": "ሰዓት"
+        },
+        "store.section.mins": {
+          "en": "mins",
+          "context": "Countdown unit, short for minutes",
+          "limit": "keep about as short as the English",
+          "am_draft": "ደቂቃ"
+        },
+        "store.section.telegramTitle": {
+          "en": "Get new arrivals first",
+          "context": "Heading of the 'join our Telegram channel' block",
+          "limit": "keep about as short as the English",
+          "am_draft": "አዳዲስ ዕቃዎችን ቀድመው ያግኙ"
+        },
+        "store.section.telegramBody": {
+          "en": "Join {name} on Telegram for new stock and deals.",
+          "context": "Text in the Telegram block; {name} is the channel or shop name",
+          "limit": "keep about as short as the English",
+          "am_draft": "ለአዳዲስ ዕቃዎች እና ቅናሾች {name}ን በቴሌግራም ይቀላቀሉ።"
+        },
+        "store.section.telegramJoin": {
+          "en": "Join channel",
+          "context": "Button that opens the shop's Telegram channel",
+          "limit": "keep about as short as the English",
+          "am_draft": "ቻናሉን ይቀላቀሉ"
+        },
+        "store.section.faq": {
+          "en": "Questions",
+          "context": "Heading of the FAQ section",
+          "limit": "keep about as short as the English",
+          "am_draft": "ጥያቄዎች"
+        },
+        "store.section.contact": {
+          "en": "Visit or contact us",
+          "context": "Heading of the contact section",
+          "limit": "keep about as short as the English",
+          "am_draft": "ይጎብኙን ወይም ያግኙን"
+        },
+        "store.section.call": {
+          "en": "Call",
+          "context": "Button that calls the shop",
+          "limit": "keep about as short as the English",
+          "am_draft": "ይደውሉ"
+        },
+        "store.section.message": {
+          "en": "Message on Telegram",
+          "context": "Button that opens a Telegram chat with the seller",
+          "limit": "keep about as short as the English",
+          "am_draft": "በቴሌግራም መልዕክት ይላኩ"
+        },
+        "store.section.directions": {
+          "en": "Get directions",
+          "context": "Button that opens the shop address in maps",
+          "limit": "keep about as short as the English",
+          "am_draft": "አቅጣጫ ያግኙ"
+        },
+        "store.trust.cod": {
+          "en": "Pay on delivery",
+          "context": "Shop promise",
+          "limit": "keep about as short as the English",
+          "am_draft": "ሲደርስ ይክፈሉ"
+        },
+        "store.trust.telebirr": {
+          "en": "Telebirr accepted",
+          "context": "Shop promise",
+          "limit": "keep about as short as the English",
+          "am_draft": "በቴሌብር መክፈል ይቻላል"
+        },
+        "store.trust.delivery": {
+          "en": "Fast delivery",
+          "context": "Shop promise",
+          "limit": "keep about as short as the English",
+          "am_draft": "ፈጣን ማድረስ"
+        },
+        "store.trust.pickup": {
+          "en": "Pickup available",
+          "context": "Shop promise",
+          "limit": "keep about as short as the English",
+          "am_draft": "መጥተው መውሰድ ይቻላል"
+        },
+        "store.trust.original": {
+          "en": "100% original",
+          "context": "Shop promise",
+          "limit": "keep about as short as the English",
+          "am_draft": "100% ኦሪጅናል"
+        },
+        "store.trust.returns": {
+          "en": "Easy returns",
+          "context": "Shop promise",
+          "limit": "keep about as short as the English",
+          "am_draft": "በቀላሉ መመለስ ይቻላል"
         }
       }
     },

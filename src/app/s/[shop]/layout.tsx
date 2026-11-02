@@ -1,7 +1,13 @@
 import type { CSSProperties } from "react";
-import { getStorefront } from "@/server/page";
+import { and, eq } from "drizzle-orm";
+import { getStorefront, storeDesign } from "@/server/page";
 import { normalizeSettings, shopLogoUrl } from "@/server/domain/shops";
+import { db } from "@/server/db";
+import { channels } from "@/server/db/schema";
+import { FONT_CLASS, storeHref, themeVars } from "@/lib/store-design";
+import { cn } from "@/lib/utils";
 import { StoreHeader } from "@/components/store/header";
+import { PreviewBridge } from "@/components/store/preview-bridge";
 import { GoodsMark } from "@/components/brand";
 import { t } from "@/i18n";
 import { appUrl } from "@/server/env";
@@ -18,45 +24,41 @@ export async function generateMetadata({ params }: { params: Promise<{ shop: str
   };
 }
 
-/** Pick white or ink text for a button filled with the shop's accent: whichever contrasts more. */
-function readableOn(hex: string) {
-  const m = /^#?([0-9a-f]{6})$/i.exec(hex);
-  if (!m) return "#ffffff";
-  const n = parseInt(m[1], 16);
-  const lin = (c: number) => {
-    const v = c / 255;
-    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
-  };
-  const L = 0.2126 * lin((n >> 16) & 255) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255);
-  const onWhite = 1.05 / (L + 0.05);
-  const onInk = (L + 0.05) / 0.0556;
-  return onInk > onWhite ? "#111111" : "#ffffff";
-}
-
 export default async function StoreLayout({ children, params }: { children: React.ReactNode; params: Promise<{ shop: string }> }) {
   const { shop, base, locale } = await getStorefront((await params).shop);
-  const s = normalizeSettings(shop.settings);
-  const accent = /^#[0-9a-f]{6}$/i.test(s.theme.accent) ? s.theme.accent : "#ff5a36";
-  const vars = {
-    "--shop-accent": accent,
-    "--accent": accent,
-    "--accent-hover": `color-mix(in oklab, ${accent} 86%, black)`,
-    "--accent-soft": `color-mix(in oklab, ${accent} 10%, white)`,
-    "--accent-fg": readableOn(accent),
-    "--accent-ink": readableOn(accent) === "#ffffff" ? accent : `color-mix(in oklab, ${accent} 62%, black)`,
-  } as CSSProperties;
+  const { design, preview } = await storeDesign(shop);
+  const chan = await db.query.channels.findFirst({
+    where: and(eq(channels.shopId, shop.id), eq(channels.status, "connected"), eq(channels.chatType, "channel")),
+    columns: { username: true },
+  });
+  const ctx = { base, channelUrl: chan?.username ? `https://t.me/${chan.username}` : null };
+  const menu = design.menu.map((m) => ({ label: m.label, href: storeHref(m.link, ctx) })).filter((m): m is { label: string; href: string } => Boolean(m.href));
+  const ann = design.announcement;
+  const annHref = ann.enabled ? storeHref(ann.link, ctx) : null;
+
   return (
-    <div lang={locale} style={vars} className={s.theme.font === "serif" ? "[&_h1]:font-serif [&_h2]:font-serif" : ""}>
-      <StoreHeader shop={shop} base={base} locale={locale} logoUrl={shopLogoUrl(shop)} apiShop={shop.handle} />
+    <div lang={locale} style={themeVars(design.theme) as CSSProperties} className={cn("min-h-dvh bg-canvas text-ink", FONT_CLASS[design.theme.font], design.theme.background === "dark" && "[color-scheme:dark]")}>
+      {ann.enabled && ann.text ? (
+        <div className="bg-ink px-4 py-2 text-center font-display text-[13px] font-semibold text-canvas">
+          {annHref ? <a href={annHref} className="underline-offset-4 hover:underline">{ann.text}</a> : ann.text}
+        </div>
+      ) : null}
+      <StoreHeader shop={shop} base={base} locale={locale} logoUrl={shopLogoUrl(shop)} apiShop={shop.handle} menu={menu} />
       <main className="mx-auto min-h-[70dvh] max-w-6xl px-4 pb-20 pt-4 sm:pt-6">{children}</main>
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-[13px] text-mist">
-          <span>{shop.name}</span>
+          <span className="font-display font-semibold">{shop.name}</span>
+          {menu.length ? (
+            <nav aria-label={shop.name} className="flex flex-wrap gap-x-4 gap-y-1">
+              {menu.map((m) => <a key={m.label + m.href} href={m.href} className="font-semibold hover:text-ink">{m.label}</a>)}
+            </nav>
+          ) : null}
           <a href={appUrl()} className="inline-flex items-center gap-1.5 hover:text-ink">
             <GoodsMark size={16} /> {t(locale, "footer.poweredBy")}
           </a>
         </div>
       </footer>
+      {preview ? <PreviewBridge /> : null}
     </div>
   );
 }

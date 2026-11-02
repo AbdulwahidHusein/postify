@@ -143,6 +143,26 @@ h1, h2, h3, .font-display {
   font-family: var(--font-display);
 }
 
+/* Storefront font pairings (chosen in the store customizer). */
+.store-font-clean,
+.store-font-clean :is(h1, h2, h3, .font-display) {
+  font-family: var(--font-geist), var(--font-ethiopic), system-ui, sans-serif;
+}
+.store-font-elegant {
+  font-family: var(--font-geist), var(--font-ethiopic), system-ui, sans-serif;
+}
+.store-font-elegant :is(h1, h2, h3) {
+  font-family: var(--font-fraunces), var(--font-ethiopic), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.store-font-amharic {
+  font-family: var(--font-ethiopic), var(--font-ui), system-ui, sans-serif;
+}
+.store-font-amharic :is(h1, h2, h3, .font-display) {
+  font-family: var(--font-ethiopic), var(--font-rubik), system-ui, sans-serif;
+}
+
 /* Prices, counts, order numbers. */
 .num {
   font-variant-numeric: tabular-nums;
