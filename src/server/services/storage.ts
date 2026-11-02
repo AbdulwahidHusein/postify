@@ -90,7 +90,7 @@ async function putViaWorker(key: string, body: Buffer, contentType: string) {
       Authorization: `Bearer ${serverEnv.MEDIA_UPLOAD_SECRET}`,
       "Content-Type": contentType,
     },
-    body,
+    body: new Uint8Array(body),
   });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
