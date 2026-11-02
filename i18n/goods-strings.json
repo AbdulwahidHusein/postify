@@ -17,137 +17,137 @@
     {
       "en": "shop",
       "note": "The seller's business on Goods (also its website).",
-      "am": ""
+      "am": "ሱቅ"
     },
     {
       "en": "storefront / online store",
       "note": "The buyer-facing website of a shop.",
-      "am": ""
+      "am": "የሱቅ ገጽ / የኦንላይን ሱቅ"
     },
     {
       "en": "product",
       "note": "An item for sale.",
-      "am": ""
+      "am": "ምርት / እቃ"
     },
     {
       "en": "listing",
       "note": "A product created from a Telegram post.",
-      "am": ""
+      "am": "የሽያጭ ልጥፍ (ከቴሌግራም የገባ ምርት)"
     },
     {
       "en": "order (noun)",
       "note": "A buyer's purchase.",
-      "am": ""
+      "am": "ትዕዛዝ"
     },
     {
       "en": "Order (button)",
       "note": "The button buyers tap to buy. Must be one short word.",
-      "am": ""
+      "am": "ይዘዙ"
     },
     {
       "en": "to confirm (an order)",
       "note": "The seller accepts the order after calling the buyer.",
-      "am": ""
+      "am": "ትዕዛዝ ማረጋገጥ (ደውሎ መቀበል)"
     },
     {
       "en": "pay on delivery",
       "note": "The buyer pays cash or by transfer when the item arrives. The ONLY payment method today.",
-      "am": ""
+      "am": "እቃው ሲደርስ ክፍያ (በጥሬ ገንዘብ ወይም በባንክ/ቴሌብር ዝውውር)"
     },
     {
       "en": "pay online",
       "note": "Coming soon: telebirr, CBE Birr, cards.",
-      "am": ""
+      "am": "በኦንላይን መክፈል (በቴሌብር፣ በሲቢኢ ብር ወይም በካርድ)"
     },
     {
       "en": "delivery / pickup",
       "note": "Seller brings it to the buyer / buyer collects it from the shop.",
-      "am": ""
+      "am": "ያሉበት ድረስ ማድረስ / ከሱቅ መጥቶ መውሰድ"
     },
     {
       "en": "cart",
       "note": "Basket of products before checkout.",
-      "am": ""
+      "am": "ቅርጫት (ጋሪ)"
     },
     {
       "en": "checkout",
       "note": "The page where the buyer enters details and places the order.",
-      "am": ""
+      "am": "ትዕዛዝ ማጠናቀቂያ ገጽ"
     },
     {
       "en": "channel / group",
       "note": "Telegram channel / Telegram group.",
-      "am": ""
+      "am": "የቴሌግራም ቻናል / ግሩፕ"
     },
     {
       "en": "post",
       "note": "A message in a Telegram channel or group.",
-      "am": ""
+      "am": "ልጥፍ (ፖስት)"
     },
     {
       "en": "dashboard",
       "note": "The seller's admin area.",
-      "am": ""
+      "am": "የሱቅ መቆጣጠሪያ (ዳሽቦርድ)"
     },
     {
       "en": "inbox / message / conversation",
       "note": "Chats between buyers and the shop.",
-      "am": ""
+      "am": "የመልዕክት ሳጥን / መልዕክት / ውይይት"
     },
     {
       "en": "draft",
       "note": "A product saved but not visible to buyers.",
-      "am": ""
+      "am": "በዝግጅት ላይ / ረቂቅ (ለገዢዎች ገና ያልወጣ ምርት)"
     },
     {
       "en": "archive / archived",
       "note": "Hidden everywhere but kept.",
-      "am": ""
+      "am": "መዝገብ ውስጥ ማስቀመጥ / ከእይታ የተደበቀ"
     },
     {
       "en": "sold / sold out",
       "note": "One-off item sold / no stock left.",
-      "am": ""
+      "am": "ተሽጧል / አልቋል"
     },
     {
       "en": "stock / in stock",
       "note": "Quantity available.",
-      "am": ""
+      "am": "ብዛት / በሱቅ ውስጥ ያለ (ቀሪ ብዛት)"
     },
     {
       "en": "customer / buyer",
       "note": "Person who orders.",
-      "am": ""
+      "am": "ደንበኛ / ገዢ"
     },
     {
       "en": "staff / admin / owner",
       "note": "Roles in a shop's team.",
-      "am": ""
+      "am": "ሰራተኛ / አስተዳዳሪ (አድሚን) / የሱቅ ባለቤት"
     },
     {
       "en": "collection",
       "note": "A group of products shown together in the shop.",
-      "am": ""
+      "am": "የምርት ስብስብ (ምድብ)"
     },
     {
       "en": "analytics / views / conversion",
       "note": "Statistics about the shop.",
-      "am": ""
+      "am": "የሽያጭ መረጃ / እይታዎች / አይተው ያዘዙ (ወደ ትዕዛዝ የተቀየሩ)"
     },
     {
       "en": "bot",
       "note": "The Goods Telegram bot (@Goods bot).",
-      "am": ""
+      "am": "የGoods ቦት (@Goods bot)"
     },
     {
       "en": "admin rights",
       "note": "Telegram permissions the bot needs in a channel.",
-      "am": ""
+      "am": "የአድሚን ፈቃድ (በቴሌግራም ቻናል ውስጥ ለቦቱ የሚሰጥ ፈቃድ)"
     },
     {
       "en": "ETB",
       "note": "Ethiopian birr. Decide: 'ETB 1,500' or '1,500 ብር' on Amharic screens.",
-      "am": ""
+      "am": "ብር (በአማርኛ ገጾች ላይ 'ETB 1,500' ከሚለው ይልቅ '1,500 ብር' ተብሎ ቢጻፍ ለሁሉም ሰው ግልጽና ተፈጥሯዊ ነው)"
     }
   ],
   "sections": [
@@ -162,99 +162,99 @@
           "en": "Analytics",
           "context": "shared word used on many pages (heading or title; also heading or tooltip)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሽያጭ መረጃ"
         },
         "common.orders": {
           "en": "Orders",
           "context": "shared word used on many pages (label (button, tab, menu item or field); also visible text)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትዕዛዞች"
         },
         "common.cancelled": {
           "en": "Cancelled",
           "context": "shared word used on many pages (label (field, button or menu item))",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የተሰረዘ"
         },
         "common.customer": {
           "en": "Customer",
           "context": "shared word used on many pages (visible text)",
-          "am": ""
+          "am": "ደንበኛ"
         },
         "common.order": {
           "en": "Order",
           "context": "shared word used on many pages (heading or title)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትዕዛዝ"
         },
         "common.delivered": {
           "en": "Delivered",
           "context": "shared word used on many pages (label (button, tab, menu item or field))",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የደረሰ"
         },
         "common.status": {
           "en": "Status",
           "context": "shared word used on many pages (visible text)",
-          "am": ""
+          "am": "ሁኔታ"
         },
         "common.add_product": {
           "en": "Add product",
           "context": "shared word used on many pages (screen-reader label (not visible; read aloud for blind users); also visible text)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ምርት ይጨምሩ"
         },
         "common.telegram": {
           "en": "Telegram",
           "context": "shared word used on many pages (visible text)",
-          "am": ""
+          "am": "ቴሌግራም"
         },
         "common.products": {
           "en": "Products",
           "context": "shared word used on many pages (heading or title; also heading or tooltip)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ምርቶች"
         },
         "common.active": {
           "en": "Active",
           "context": "shared word used on many pages (label (button, tab, menu item or field))",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሽያጭ ላይ"
         },
         "common.sold": {
           "en": "Sold",
           "context": "shared word used on many pages (label (button, tab, menu item or field))",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የተሸጠ"
         },
         "common.archived": {
           "en": "Archived",
           "context": "shared word used on many pages (label (button, tab, menu item or field))",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የተደበቀ"
         },
         "common.sign": {
           "en": "Sign in",
           "context": "shared word used on many pages (heading or title)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ይግቡ"
         },
         "common.upload_failed": {
           "en": "Upload failed",
           "context": "shared word used on many pages (toast (short pop-up confirmation or error))",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መጫን አልተቻለም"
         },
         "common.could_not_save": {
           "en": "Could not save",
           "context": "shared word used on many pages (toast (short pop-up confirmation or error))",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ማስቀመጥ አልተቻለም"
         },
         "common.saving": {
           "en": "Saving…",
           "context": "shared word used on many pages (visible text)",
-          "am": ""
+          "am": "በማስቀመጥ ላይ…"
         }
       }
     },
@@ -268,140 +268,140 @@
         "landing.online_shops_telegram_sellers_ethiopia": {
           "en": "Online shops for Telegram sellers in Ethiopia. Post in your channel; we handle the store, orders and buyers.",
           "context": "description",
-          "am": ""
+          "am": "በኢትዮጵያ ለቴሌግራም ነጋዴዎች የተዘጋጀ የኦንላይን ሱቅ። እርስዎ በቻናልዎ ላይ ይለጥፉ፤ እኛ ሱቁን፣ ትዕዛዞችንና የደንበኞችን ግንኙነት እናስተካክላለን።"
         },
         "landing.order_etb_1_500": {
           "en": "Order · ETB 1,500",
           "context": "visible text",
-          "am": ""
+          "am": "ይዘዙ · 1,500 ብር"
         },
         "landing.ask_seller": {
           "en": "Ask seller",
           "context": "visible text",
-          "am": ""
+          "am": "ሻጩን ይጠይቁ"
         },
         "landing.shop": {
           "en": "Shop",
           "context": "visible text",
-          "am": ""
+          "am": "ሱቅ"
         },
         "landing.goods_bot": {
           "en": "Goods bot",
           "context": "visible text",
-          "am": ""
+          "am": "Goods ቦት"
         },
         "landing.new_order_1042": {
           "en": "<b>New order #1042</b>, Hana T., Bole. Jebena set, ETB 1,650 with delivery.",
           "context": "example Telegram notification shown in the hero illustration (sample order message from the Goods bot). Keep <b>…</b>.",
-          "am": ""
+          "am": "<b>አዲስ ትዕዛዝ #1042</b>፣ ሀና ተ.፣ ቦሌ። የጀበና ሙሉ እቃ፣ ከማድረሻ ጋር 1,650 ብር።"
         },
         "landing.confirm": {
           "en": "Confirm",
           "context": "visible text",
-          "am": ""
+          "am": "ያረጋግጡ"
         },
         "landing.call_buyer": {
           "en": "Call buyer",
           "context": "visible text",
-          "am": ""
+          "am": "ለገዢው ይደውሉ"
         },
         "landing.connect_channel": {
           "en": "Connect your channel",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቻናልዎን ያገናኙ"
         },
         "landing.open_goods_bot_tap_connect": {
           "en": "Open the Goods bot, tap Connect, pick your channel. Your shop exists from that moment.",
           "context": "body text",
-          "am": ""
+          "am": "የGoods ቦትን ይክፈቱ፣ «ቻናል ያገናኙ» የሚለውን ይጫኑና ቻናልዎን ይምረጡ። ከዚያች ቅጽበት ጀምሮ ሱቅዎ ዝግጁ ነው።"
         },
         "landing.post_like_always_do": {
           "en": "Post like you always do",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እንደተለመደው ይለጥፉ"
         },
         "landing.photo_price_amharic_english_goods": {
           "en": "A photo and a price in Amharic or English. Goods reads it and adds Order, Ask and Shop buttons to the post.",
           "context": "body text",
-          "am": ""
+          "am": "ፎቶ እና ዋጋ በአማርኛ ወይም በእንግሊዝኛ ይለጥፉ። Goods ልጥፉን አንብቦ «ይዘዙ»፣ «ሻጩን ይጠይቁ» እና «ሱቅ» የሚሉ መጫኛዎችን ከስሩ ይጨምርበታል።"
         },
         "landing.confirm_deliver": {
           "en": "Confirm and deliver",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ያረጋግጡና ያድርሱ"
         },
         "landing.orders_arrive_bot_confirm_one": {
           "en": "Orders arrive in the bot. Confirm with one tap, deliver, collect cash on delivery.",
           "context": "body text",
-          "am": ""
+          "am": "ትዕዛዞች በቦቱ በኩል ይደርሱዎታል። በአንድ ንኪኪ ያረጋግጡ፣ እቃውን ያድርሱ፣ ሲደርስም ክፍያዎን ይቀበሉ።"
         },
         "landing.telegram_channel_now_real_shop": {
           "en": "Your Telegram channel, now a real shop.",
           "context": "visible text",
-          "am": ""
+          "am": "የቴሌግራም ቻናልዎ አሁን ሙሉ የኦንላይን ሱቅ ሆኗል።"
         },
         "landing.keep_posting_where_buyers_already": {
           "en": "Keep posting where your buyers already are. Goods puts an Order button on every post, takes orders with pay on delivery, and gives you an online shop and a dashboard. Free for sellers.",
           "context": "visible text",
-          "am": ""
+          "am": "ደንበኞችዎ ባሉበት በቴሌግራም መለጠፍዎን ይቀጥሉ። Goods በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ ያስገባል፣ እቃው ሲደርስ የሚከፈል ትዕዛዝ ይቀበላል፣ እንዲሁም የራስዎ የኦንላይን ሱቅና መቆጣጠሪያ ይሰጥዎታል። ለሻጮች በነፃ።"
         },
         "landing.start_telegram": {
           "en": "Start in Telegram",
           "context": "visible text",
-          "am": ""
+          "am": "በቴሌግራም ይጀምሩ"
         },
         "landing.takes_about_minute_no_website": {
           "en": "Takes about a minute. No website, no forms.",
           "context": "visible text",
-          "am": ""
+          "am": "አንድ ደቂቃ ብቻ ይወስዳል። ድረ-ገጽ መስራትም ሆነ ረጅም ቅጽ መሙላት አያስፈልግም።"
         },
         "landing.three_steps_all_inside_telegram": {
           "en": "Three steps, all inside Telegram",
           "context": "visible text",
-          "am": ""
+          "am": "በሶስት ቀላል ደረጃዎች፣ ሁሉም በቴሌግራም ውስጥ"
         },
         "landing.back_office_fits_pocket": {
           "en": "A back office that fits in your pocket",
           "context": "visible text",
-          "am": ""
+          "am": "በኪስዎ የሚያዙት የሱቅ መቆጣጠሪያ"
         },
         "landing.everything_shopify_gives_big_store": {
           "en": "Everything Shopify gives a big store, cut down to what a Telegram seller uses every day. It works in the Telegram app and on a laptop.",
           "context": "visible text",
-          "am": ""
+          "am": "ትልልቅ ሱቆች የሚጠቀሙበትን ዘመናዊ አሰራር፣ ለቴሌግራም ነጋዴዎች በሚመችና ቀላል በሆነ መልኩ የቀረበ። በቴሌግራም መተግበሪያም ሆነ በኮምፒውተር ይሰራል።"
         },
         "landing.open_shop_today": {
           "en": "Open your shop today",
           "context": "visible text",
-          "am": ""
+          "am": "ሱቅዎን ዛሬውኑ ይክፈቱ"
         },
         "landing.free_while_we_grow_online": {
           "en": "Free while we grow. Online payments are coming.",
           "context": "visible text",
-          "am": ""
+          "am": "አብረን እያደግን ስለሆነ አገልግሎቱ ነፃ ነው። የኦንላይን ክፍያ በቅርቡ ይጀመራል።"
         },
         "landing.made_addis_ababa": {
           "en": "Made in Addis Ababa",
           "context": "visible text",
-          "am": ""
+          "am": "በአዲስ አበባ የተሰራ"
         },
         "landing.example_channel_subscribers": {
           "en": "{count} subscribers",
           "context": "Telegram channel subscriber count in the hero illustration",
-          "am": ""
+          "am": "{count} ተከታዮች"
         },
         "landing.example_post_caption": {
           "en": "Handmade jebena set with 6 cups. Delivered in Addis Ababa today. Price: 1,500 birr",
           "context": "Example Telegram post caption in the hero illustration (currently written directly in Amharic; give the Amharic version a seller would actually post)",
-          "am": ""
+          "am": "በእጅ የተሰራ የጀበና ሙሉ እቃ ከ6 ስኒ ጋር። አዲስ አበባ ውስጥ ዛሬውኑ እናደርሳለን። ዋጋ፦ 1,500 ብር"
         },
         "landing.tagline_am": {
           "en": "Post on Telegram. Sell like a shop.",
           "context": "Amharic subtitle under the main headline (currently: \"ቴሌግራም ላይ ይለጥፉ፣ እንደ ሱቅ ይሽጡ።\"). Short and catchy.",
-          "am": ""
+          "am": "ቴሌግራም ላይ ይለጥፉ፣ እንደ ሱቅ ይሽጡ።"
         }
       }
     },
@@ -415,37 +415,37 @@
         "signin.signing_telegram": {
           "en": "Signing you in with Telegram…",
           "context": "visible text",
-          "am": ""
+          "am": "በቴሌግራም ወደ ገጽዎ በማስገባት ላይ…"
         },
         "signin.sign_goods": {
           "en": "Sign in to Goods",
           "context": "visible text",
-          "am": ""
+          "am": "ወደ Goods ይግቡ"
         },
         "signin.goods_uses_telegram_account_no": {
           "en": "Goods uses your Telegram account. No passwords.",
           "context": "visible text",
-          "am": ""
+          "am": "Goods የቴሌግራም አካውንትዎን ይጠቀማል። የይለፍ ቃል (ፓስወርድ) አያስፈልግም።"
         },
         "signin.sign_link_expired_try_again": {
           "en": "That sign-in link expired. Try again.",
           "context": "visible text",
-          "am": ""
+          "am": "የመግቢያ ሊንኩ ጊዜው አልፎበታል። እባክዎ እንደገና ይሞክሩ።"
         },
         "signin.sign_failed_try_again": {
           "en": "Sign-in failed. Try again.",
           "context": "visible text",
-          "am": ""
+          "am": "መግባት አልተቻለም። እባክዎ እንደገና ይሞክሩ።"
         },
         "signin.sign_telegram_app": {
           "en": "Sign in with the Telegram app",
           "context": "visible text",
-          "am": ""
+          "am": "በቴሌግራም መተግበሪያ ይግቡ"
         },
         "signin.opens_goods_bot_which_sends": {
           "en": "Opens the Goods bot, which sends you a one-time sign-in button.",
           "context": "visible text",
-          "am": ""
+          "am": "የGoods ቦትን ይከፍታል፤ ቦቱም ወዲያውኑ የሚገቡበትን የአንድ ጊዜ መጫኛ ይልክልዎታል።"
         }
       }
     },
@@ -459,32 +459,32 @@
         "system.something_went_wrong": {
           "en": "Something went wrong",
           "context": "visible text",
-          "am": ""
+          "am": "ችግር አጋጥሟል"
         },
         "system.please_try_again_if_keeps": {
           "en": "Please try again. If it keeps happening, contact support.",
           "context": "visible text",
-          "am": ""
+          "am": "እባክዎ እንደገና ይሞክሩ። ችግሩ ከቀጠለ የድጋፍ ክፍላችንን ያነጋግሩ።"
         },
         "system.try_again": {
           "en": "Try again",
           "context": "visible text",
-          "am": ""
+          "am": "እንደገና ይሞክሩ"
         },
         "system.page_isn_apos_t_here": {
           "en": "This page isn't here",
           "context": "visible text",
-          "am": ""
+          "am": "ይህ ገጽ አልተገኘም"
         },
         "system.shop_product_may_have_moved": {
           "en": "The shop or product may have moved, sold, or been removed.",
           "context": "visible text",
-          "am": ""
+          "am": "ሱቁ ወይም እቃው አድራሻው ተቀይሮ፣ ተሽጦ ወይም ተነስቶ ሊሆን ይችላል።"
         },
         "system.go_goods": {
           "en": "Go to Goods",
           "context": "visible text",
-          "am": ""
+          "am": "ወደ Goods ይሂዱ"
         }
       }
     },
@@ -499,117 +499,117 @@
           "en": "Create shop",
           "context": "heading or title; also visible text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሱቅ ይክፈቱ"
         },
         "onboarding.create_shop_2": {
           "en": "Create a shop",
           "context": "visible text",
-          "am": ""
+          "am": "አዲስ ሱቅ ይክፈቱ"
         },
         "onboarding.can_connect_telegram_channel_later": {
           "en": "You can connect a Telegram channel later from the Telegram page.",
           "context": "visible text",
-          "am": ""
+          "am": "የቴሌግራም ቻናልዎን በኋላ ላይ ከቴሌግራም ገጽ ማገናኘት ይችላሉ።"
         },
         "onboarding.dashboard": {
           "en": "Dashboard",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መቆጣጠሪያ"
         },
         "onboarding.let_apos_s_set_up": {
           "en": "Let's set up your shop",
           "context": "visible text",
-          "am": ""
+          "am": "ሱቅዎን እናዘጋጅ"
         },
         "onboarding.connect_telegram_channel_group_every": {
           "en": "Connect your Telegram channel or group. Every post with a photo and a price becomes a product with an Order button.",
           "context": "visible text",
-          "am": ""
+          "am": "የቴሌግራም ቻናልዎን ወይም ግሩፕዎን ያገናኙ። ፎቶ እና ዋጋ ያለው እያንዳንዱ ልጥፍ «ይዘዙ» የሚል መጫኛ ያለው ምርት ይሆናል።"
         },
         "onboarding.connect_channel": {
           "en": "Connect channel",
           "context": "visible text",
-          "am": ""
+          "am": "ቻናል ያገናኙ"
         },
         "onboarding.connect_group": {
           "en": "Connect group",
           "context": "visible text",
-          "am": ""
+          "am": "ግሩፕ ያገናኙ"
         },
         "onboarding.pick_chat_from_list_we": {
           "en": "Pick your chat from the list. We create your shop automatically.",
           "context": "visible text",
-          "am": ""
+          "am": "ከዝርዝሩ ውስጥ የእርስዎን ቻናል ወይም ግሩፕ ይምረጡ። ሱቅዎን ወዲያውኑ እናዘጋጅልዎታለን።"
         },
         "onboarding.post_as_usual_orders_messages": {
           "en": "Post as usual. Orders and messages arrive in the bot and here.",
           "context": "visible text",
-          "am": ""
+          "am": "እንደተለመደው ይለጥፉ። ትዕዛዞችና መልዕክቶች በቦቱም እዚህም ይደርሱዎታል።"
         },
         "onboarding.connect_telegram": {
           "en": "Connect in Telegram",
           "context": "visible text",
-          "am": ""
+          "am": "በቴሌግራም ያገናኙ"
         },
         "onboarding.create_shop_without_channel": {
           "en": "Or create a shop without a channel",
           "context": "visible text",
-          "am": ""
+          "am": "ወይም ያለ ቴሌግራም ቻናል ሱቅ ይክፈቱ"
         },
         "onboarding.shop_name": {
           "en": "Shop name",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ስም"
         },
         "onboarding.abel_phones": {
           "en": "Abel Phones",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "አቤል ሞባይል"
         },
         "onboarding.shop_address": {
           "en": "Shop address",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ሊንክ (አድራሻ)"
         },
         "onboarding.optional_letters_numbers_hyphens_e": {
           "en": "Optional. Letters, numbers and hyphens, e.g. abel-phones.",
           "context": "help text under a field",
-          "am": ""
+          "am": "አማራጭ። የእንግሊዝኛ ፊደላት፣ ቁጥሮችና ሰረዝ ብቻ (ለምሳሌ፦ abel-phones)።"
         },
         "onboarding.storefront_language": {
           "en": "Storefront language",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ገጽ ቋንቋ"
         },
         "onboarding.english": {
           "en": "English",
           "context": "visible text",
-          "am": ""
+          "am": "English (እንግሊዝኛ)"
         },
         "onboarding.amharic": {
           "en": "አማርኛ (Amharic)",
           "context": "visible text",
-          "am": ""
+          "am": "አማርኛ (Amharic)"
         },
         "onboarding.creating": {
           "en": "Creating…",
           "context": "visible text",
-          "am": ""
+          "am": "በመክፈት ላይ…"
         },
         "onboarding.welcome": {
           "en": "Welcome, {name}",
           "context": "greeting heading; {name} is the seller's first name",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እንኳን ደህና መጡ፣ {name}"
         },
         "onboarding.open_goods_bot_tap": {
           "en": "Open the Goods bot and tap <b>Connect channel</b>.",
           "context": "step 1 of setup; keep <b>…</b>",
-          "am": ""
+          "am": "የGoods ቦትን ይክፈቱና <b>ቻናል ያገናኙ</b> የሚለውን ይጫኑ።"
         }
       }
     },
@@ -624,106 +624,106 @@
           "en": "Copied",
           "context": "visible text",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ተቀድቷል"
         },
         "dash.shell.home": {
           "en": "Home",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ዋና ገጽ"
         },
         "dash.shell.customers": {
           "en": "Customers",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ደንበኞች"
         },
         "dash.shell.inbox": {
           "en": "Inbox",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "መልዕክቶች"
         },
         "dash.shell.online_store": {
           "en": "Online store",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "የሱቅ ገጽ"
         },
         "dash.shell.settings": {
           "en": "Settings",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ቅንብሮች"
         },
         "dash.shell.sales_channels": {
           "en": "Sales channels",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "የሽያጭ መንገዶች"
         },
         "dash.shell.search": {
           "en": "Search",
           "context": "visible text; also screen-reader label (not visible; read aloud for blind users); also heading or tooltip",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ይፈልጉ"
         },
         "dash.shell.dashboard": {
           "en": "Dashboard",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "መቆጣጠሪያ"
         },
         "dash.shell.view_store": {
           "en": "View your store",
           "context": "visible text; also screen-reader label (not visible; read aloud for blind users); also label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሱቅዎን ይመልከቱ"
         },
         "dash.shell.account": {
           "en": "Your account",
           "context": "visible text; also label (button, tab, menu item or field)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "አካውንትዎ"
         },
         "dash.shell.free_plan": {
           "en": "Free plan",
           "context": "visible text",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ነፃ አገልግሎት"
         },
         "dash.shell.more": {
           "en": "More",
           "context": "visible text",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ተጨማሪ"
         },
         "dash.shell.shops": {
           "en": "Your shops",
           "context": "visible text",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ሱቆችዎ"
         },
         "dash.shell.create_another_shop": {
           "en": "Create another shop",
           "context": "visible text",
-          "am": ""
+          "am": "ሌላ ሱቅ ይክፈቱ"
         },
         "dash.shell.order_number_product_customer_name": {
           "en": "Order number, product, customer name or phone",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "የትዕዛዝ ቁጥር፣ ምርት፣ የደንበኛ ስም ወይም ስልክ"
         },
         "dash.shell.nothing_matches": {
           "en": "Nothing matches “",
           "context": "visible text",
-          "am": ""
+          "am": "ምንም አልተገኘም፦ “"
         },
         "dash.shell.close": {
           "en": "Close",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "max 12 characters (fits a phone tab bar)",
-          "am": ""
+          "am": "ይዝጉ"
         }
       }
     },
@@ -738,49 +738,49 @@
           "en": "To confirm",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "ማረጋገጫ የሚጠብቅ"
         },
         "dash.status.confirmed": {
           "en": "Confirmed",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "ተረጋግጧል"
         },
         "dash.status.way": {
           "en": "On the way",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "መንገድ ላይ"
         },
         "dash.status.completed": {
           "en": "Completed",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "ተጠናቋል"
         },
         "dash.status.paid": {
           "en": "Paid",
           "context": "visible text",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "ተከፍሏል"
         },
         "dash.status.voided": {
           "en": "Voided",
           "context": "visible text",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "ተሽሯል"
         },
         "dash.status.unpaid": {
           "en": "Unpaid",
           "context": "visible text",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "አልተከፈለም"
         },
         "dash.status.draft": {
           "en": "Draft",
           "context": "label (button, tab, menu item or field)",
           "limit": "max 14 characters",
-          "am": ""
+          "am": "በዝግጅት ላይ"
         }
       }
     },
@@ -795,254 +795,254 @@
           "en": "Home",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ዋና ገጽ"
         },
         "dash.home.telegram_posts_lost_their_order": {
           "en": "Telegram posts lost their Order button",
           "context": "label (button, tab, menu item or field)",
-          "am": ""
+          "am": "የቴሌግራም ልጥፎች «ይዘዙ» የሚለው መጫኛ ጠፍቷል"
         },
         "dash.home.connect_telegram_channel": {
           "en": "Connect your Telegram channel",
           "context": "heading or title",
-          "am": ""
+          "am": "የቴሌግራም ቻናልዎን ያገናኙ"
         },
         "dash.home.pick_channel_bot_goods_adds": {
           "en": "Pick the channel in the bot. Goods adds an Order button to every post.",
           "context": "body text",
-          "am": ""
+          "am": "በቦቱ ውስጥ ቻናልዎን ይምረጡ። Goods በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ ይጨምራል።"
         },
         "dash.home.open_bot": {
           "en": "Open the bot",
           "context": "button",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቦቱን ይክፈቱ"
         },
         "dash.home.post_first_product": {
           "en": "Post your first product",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የመጀመሪያ ምርትዎን ይለጥፉ"
         },
         "dash.home.photo_price_channel_enough_add": {
           "en": "A photo and a price in your channel is enough. Or add one here.",
           "context": "body text",
-          "am": ""
+          "am": "በቻናልዎ ላይ ፎቶ እና ዋጋ መለጠፍ ብቻ በቂ ነው። ወይም እዚህ መጨመር ይችላሉ።"
         },
         "dash.home.add_product": {
           "en": "Add a product",
           "context": "button",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ምርት ይጨምሩ"
         },
         "dash.home.share_shop_link": {
           "en": "Share your shop link",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅዎን ሊንክ ያጋሩ"
         },
         "dash.home.put_channel_description_so_buyers": {
           "en": "Put it in your channel description so buyers can browse everything.",
           "context": "body text",
-          "am": ""
+          "am": "ደንበኞች ሁሉንም እቃዎችዎን በአንድ ቦታ እንዲያዩ በቻናልዎ መግለጫ (Bio) ላይ ያስቀምጡት።"
         },
         "dash.home.open_shop": {
           "en": "Open your shop",
           "context": "button",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሱቅዎን ይክፈቱ"
         },
         "dash.home.needs": {
           "en": "Needs you",
           "context": "visible text",
-          "am": ""
+          "am": "የእርስዎን ትኩረት የሚሹ"
         },
         "dash.home.nothing_waiting_new_orders_messages": {
           "en": "Nothing waiting on you. New orders and messages show up here first.",
           "context": "visible text",
-          "am": ""
+          "am": "አሁን የሚጠብቅዎት ስራ የለም። አዲስ ትዕዛዞችና መልዕክቶች ሲመጡ መጀመሪያ እዚህ ይታያሉ።"
         },
         "dash.home.last_7_days": {
           "en": "Last 7 days",
           "context": "visible text",
-          "am": ""
+          "am": "ባለፉት 7 ቀናት"
         },
         "dash.home.sales": {
           "en": "Sales",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሽያጭ"
         },
         "dash.home.product_views": {
           "en": "Product views",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የምርት እይታዎች"
         },
         "dash.home.questions": {
           "en": "Questions",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ጥያቄዎች"
         },
         "dash.home.sales_over_last_7_days": {
           "en": "Sales over the last 7 days: {revenueMinor} from {orders} orders.",
           "context": "chart summary for screen readers",
-          "am": ""
+          "am": "ባለፉት 7 ቀናት የተገኘ ሽያጭ፦ ከ{orders} ትዕዛዞች {revenueMinor}።"
         },
         "dash.home.recent_orders": {
           "en": "Recent orders",
           "context": "visible text",
-          "am": ""
+          "am": "የቅርብ ጊዜ ትዕዛዞች"
         },
         "dash.home.all_orders": {
           "en": "All orders",
           "context": "visible text",
-          "am": ""
+          "am": "ሁሉም ትዕዛዞች"
         },
         "dash.home.orders_appear_here_moment_buyer": {
           "en": "Orders appear here the moment a buyer taps Order on one of your posts.",
           "context": "visible text",
-          "am": ""
+          "am": "ገዢዎች በልጥፍዎ ስር ያለውን «ይዘዙ» መጫኛ ሲነኩ ትዕዛዙ ወዲያውኑ እዚህ ይታያል።"
         },
         "dash.home.manage": {
           "en": "Manage",
           "context": "visible text",
-          "am": ""
+          "am": "ያስተዳድሩ"
         },
         "dash.home.last_post": {
           "en": "Last post {lastPostAt}",
           "context": "visible text",
-          "am": ""
+          "am": "የመጨረሻ ልጥፍ {lastPostAt}"
         },
         "dash.home.listening_posts": {
           "en": "Listening for posts",
           "context": "visible text",
-          "am": ""
+          "am": "አዲስ ልጥፎችን በመከታተል ላይ"
         },
         "dash.home.needs_admin_rights": {
           "en": "Needs admin rights",
           "context": "visible text",
-          "am": ""
+          "am": "የአድሚን ፈቃድ ያስፈልገዋል"
         },
         "dash.home.open": {
           "en": "Open",
           "context": "visible text",
-          "am": ""
+          "am": "ይክፈቱ"
         },
         "dash.home.connect_channel_group_every_post": {
           "en": "Connect a channel or group and every post with a photo and a price becomes a product.",
           "context": "visible text",
-          "am": ""
+          "am": "ቻናል ወይም ግሩፕ ያገናኙ፤ ፎቶና ዋጋ ያለው እያንዳንዱ ልጥፍ ወዲያውኑ የሚሸጥ ምርት ይሆናል።"
         },
         "dash.home.connect_telegram": {
           "en": "Connect in Telegram",
           "context": "visible text",
-          "am": ""
+          "am": "በቴሌግራም ያገናኙ"
         },
         "dash.home.shop_link": {
           "en": "Your shop link",
           "context": "visible text",
-          "am": ""
+          "am": "የሱቅዎ ሊንክ"
         },
         "dash.home.pin_channel_so_buyers_can": {
           "en": "Pin it in your channel so buyers can see everything you sell.",
           "context": "visible text",
-          "am": ""
+          "am": "ደንበኞች የሚሸጡትን ሁሉ እንዲያዩ በቻናልዎ ላይ ይሰኩት (Pin ያድርጉት)።"
         },
         "dash.home.share_telegram": {
           "en": "Share in Telegram",
           "context": "visible text",
-          "am": ""
+          "am": "በቴሌግራም ያጋሩ"
         },
         "dash.home.todo_to_confirm_one": {
           "en": "{n} order waiting for you to confirm",
           "context": "\"Needs you\" to-do row, singular ({n} = 1). The number is shown bold.",
-          "am": ""
+          "am": "{n} ትዕዛዝ ማረጋገጫዎን ይጠብቃል"
         },
         "dash.home.todo_to_confirm_other": {
           "en": "{n} orders waiting for you to confirm",
           "context": "\"Needs you\" to-do row, plural ({n} > 1). The number is shown bold.",
-          "am": ""
+          "am": "{n} ትዕዛዞች ማረጋገጫዎን ይጠብቃሉ"
         },
         "dash.home.todo_unread_one": {
           "en": "{n} unread message from a buyer",
           "context": "\"Needs you\" to-do row, singular ({n} = 1). The number is shown bold.",
-          "am": ""
+          "am": "ከገዢ የተላከ {n} ያልተነበበ መልዕክት"
         },
         "dash.home.todo_unread_other": {
           "en": "{n} unread messages from buyers",
           "context": "\"Needs you\" to-do row, plural ({n} > 1). The number is shown bold.",
-          "am": ""
+          "am": "ከገዢዎች የተላኩ {n} ያልተነበቡ መልዕክቶች"
         },
         "dash.home.todo_broken_buttons_one": {
           "en": "{n} Telegram post lost its Order button",
           "context": "\"Needs you\" to-do row, singular ({n} = 1). The number is shown bold.",
-          "am": ""
+          "am": "ከ{n} የቴሌግራም ልጥፍ ላይ «ይዘዙ» የሚለው መጫኛ ጠፍቷል"
         },
         "dash.home.todo_broken_buttons_other": {
           "en": "{n} Telegram posts lost their Order button",
           "context": "\"Needs you\" to-do row, plural ({n} > 1). The number is shown bold.",
-          "am": ""
+          "am": "ከ{n} የቴሌግራም ልጥፎች ላይ «ይዘዙ» የሚለው መጫኛ ጠፍቷል"
         },
         "dash.home.todo_to_deliver_one": {
           "en": "{n} order to deliver",
           "context": "\"Needs you\" to-do row, singular ({n} = 1). The number is shown bold.",
-          "am": ""
+          "am": "{n} የሚደርስ ትዕዛዝ አለ"
         },
         "dash.home.todo_to_deliver_other": {
           "en": "{n} orders to deliver",
           "context": "\"Needs you\" to-do row, plural ({n} > 1). The number is shown bold.",
-          "am": ""
+          "am": "{n} የሚደርሱ ትዕዛዞች አሉ"
         },
         "dash.home.todo_needs_price_one": {
           "en": "{n} post needs a price before it goes live",
           "context": "\"Needs you\" to-do row, singular ({n} = 1). The number is shown bold.",
-          "am": ""
+          "am": "{n} ልጥፍ ለሽያጭ ከመውጣቱ በፊት ዋጋ ያስፈልገዋል"
         },
         "dash.home.todo_needs_price_other": {
           "en": "{n} posts need a price before they go live",
           "context": "\"Needs you\" to-do row, plural ({n} > 1). The number is shown bold.",
-          "am": ""
+          "am": "{n} ልጥፎች ለሽያጭ ከመውጣታቸው በፊት ዋጋ ያስፈልጋቸዋል"
         },
         "dash.home.todo_drafts_one": {
           "en": "{n} draft to review",
           "context": "\"Needs you\" to-do row, singular ({n} = 1). The number is shown bold.",
-          "am": ""
+          "am": "እርስዎ የሚያዩት {n} ያልወጣ ምርት (ረቂቅ)"
         },
         "dash.home.todo_drafts_other": {
           "en": "{n} drafts to review",
           "context": "\"Needs you\" to-do row, plural ({n} > 1). The number is shown bold.",
-          "am": ""
+          "am": "እርስዎ የሚያዩአቸው {n} ያልወጡ ምርቶች (ረቂቆች)"
         },
         "dash.home.greeting_morning": {
           "en": "Good morning, {name}",
           "context": "page heading before 12:00 Addis time; {name} = seller first name",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እንደምን አደሩ፣ {name}"
         },
         "dash.home.greeting_afternoon": {
           "en": "Good afternoon, {name}",
           "context": "page heading 12:00–18:00",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እንደምን ዋሉ፣ {name}"
         },
         "dash.home.greeting_evening": {
           "en": "Good evening, {name}",
           "context": "page heading after 18:00",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እንደምን አመሹ፣ {name}"
         },
         "dash.home.setup_title": {
           "en": "Get {shop} selling",
           "context": "heading of the 3-step setup checklist; {shop} = shop name",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "{shop}ን ለሽያጭ ያዘጋጁ"
         },
         "dash.home.setup_progress": {
           "en": "{done} of {total} done",
           "context": "checklist progress, e.g. \"1 of 3 done\"",
-          "am": ""
+          "am": "ከ{total} ውስጥ {done} ተጠናቋል"
         }
       }
     },
@@ -1057,79 +1057,79 @@
           "en": "To confirm",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ማረጋገጫ የሚጠብቁ"
         },
         "dash.orders.deliver": {
           "en": "To deliver",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሚደርሱ"
         },
         "dash.orders.all_orders": {
           "en": "All orders",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሁሉም ትዕዛዞች"
         },
         "dash.orders.confirm_deliver_record_payment_buyers": {
           "en": "Confirm, deliver and record payment. Buyers get each update in Telegram.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "ትዕዛዝ ያረጋግጡ፣ ያድርሱ እንዲሁም ክፍያ ይመዝግቡ። ደንበኞች እያንዳንዱን ለውጥ በቴሌግራም ያገኛሉ።"
         },
         "dash.orders.order_number_name_phone": {
           "en": "Order number, name or phone",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "የትዕዛዝ ቁጥር፣ ስም ወይም ስልክ"
         },
         "dash.orders.items": {
           "en": "Items",
           "context": "visible text",
-          "am": ""
+          "am": "እቃዎች"
         },
         "dash.orders.total": {
           "en": "Total",
           "context": "visible text",
-          "am": ""
+          "am": "ጠቅላላ ዋጋ"
         },
         "dash.orders.payment": {
           "en": "Payment",
           "context": "visible text",
-          "am": ""
+          "am": "ክፍያ"
         },
         "dash.orders.pickup": {
           "en": "Pickup",
           "context": "visible text",
-          "am": ""
+          "am": "ከሱቅ የሚወሰድ"
         },
         "dash.orders.items_2": {
           "en": "{n} items",
           "context": "number of items in an order (plural)",
-          "am": ""
+          "am": "{n} እቃዎች"
         },
         "dash.orders.no_orders_match": {
           "en": "No orders match “{q}”",
           "context": "visible text",
-          "am": ""
+          "am": "ከ“{q}” ጋር የሚመሳሰል ትዕዛዝ የለም"
         },
         "dash.orders.nothing_here": {
           "en": "Nothing here",
           "context": "visible text",
-          "am": ""
+          "am": "እዚህ ምንም የለም"
         },
         "dash.orders.try_order_number_without_buyer": {
           "en": "Try the order number without #, or the buyer's phone number.",
           "context": "visible text",
-          "am": ""
+          "am": "የትዕዛዝ ቁጥሩን ያለ # ምልክት ወይም በገዢው ስልክ ቁጥር ይፈልጉ።"
         },
         "dash.orders.newest": {
           "en": "Newest",
           "context": "visible text",
-          "am": ""
+          "am": "አዲስ የገቡ"
         },
         "dash.orders.older": {
           "en": "Older",
           "context": "visible text",
-          "am": ""
+          "am": "ቆየት ያሉ"
         }
       }
     },
@@ -1143,310 +1143,310 @@
         "dash.order.order": {
           "en": "Order #{number}",
           "context": "heading with the order number, e.g. \"Order #1042\"",
-          "am": ""
+          "am": "ትዕዛዝ #{number}"
         },
         "dash.order.items": {
           "en": "Items",
           "context": "visible text",
-          "am": ""
+          "am": "እቃዎች"
         },
         "dash.order.subtotal": {
           "en": "Subtotal",
           "context": "visible text",
-          "am": ""
+          "am": "የእቃዎች ዋጋ"
         },
         "dash.order.delivery": {
           "en": "Delivery",
           "context": "visible text",
-          "am": ""
+          "am": "ማድረሻ"
         },
         "dash.order.free": {
           "en": "Free",
           "context": "visible text",
-          "am": ""
+          "am": "ነፃ"
         },
         "dash.order.paid": {
           "en": "Paid",
           "context": "visible text; also label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተከፍሏል"
         },
         "dash.order.collect": {
           "en": "To collect",
           "context": "visible text",
-          "am": ""
+          "am": "የሚቀበሉት ክፍያ"
         },
         "dash.order.note_from_buyer": {
           "en": "Note from the buyer",
           "context": "visible text",
-          "am": ""
+          "am": "ከገዢው የተጻፈ ማስታወሻ"
         },
         "dash.order.cancelled": {
           "en": "Cancelled:",
           "context": "visible text",
-          "am": ""
+          "am": "ተሰርዟል፦"
         },
         "dash.order.profile": {
           "en": "Profile",
           "context": "visible text",
-          "am": ""
+          "am": "የደንበኛ መረጃ"
         },
         "dash.order.first_order": {
           "en": "First order",
           "context": "shown when this is the customer's first order",
-          "am": ""
+          "am": "የመጀመሪያ ትዕዛዝ"
         },
         "dash.order.orders": {
           "en": "{n} orders",
           "context": "customer's total number of orders",
-          "am": ""
+          "am": "{n} ትዕዛዞች"
         },
         "dash.order.picks_up_from_shop": {
           "en": "Picks up from your shop",
           "context": "visible text",
-          "am": ""
+          "am": "ከሱቅዎ መጥተው ይወስዳሉ"
         },
         "dash.order.buyer_often_cancels_confirm_by": {
           "en": "This buyer often cancels. Confirm by phone before sending anything out.",
           "context": "visible text",
-          "am": ""
+          "am": "ይህ ገዢ ብዙ ጊዜ ትዕዛዝ ይሰርዛል። እቃ ከመላክዎ በፊት በስልክ ደውለው ያረጋግጡ።"
         },
         "dash.order.call_confirm": {
           "en": "Call {split} to confirm",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ለማረጋገጥ ለ{split} ይደውሉ"
         },
         "dash.order.check_item_available_agree_delivery": {
           "en": "Check the item is available and agree on a delivery time, then confirm. The buyer gets a Telegram message.",
           "context": "body text",
-          "am": ""
+          "am": "እቃው መኖሩን ያረጋግጡና በማድረሻ ሰዓት ላይ ከተስማሙ በኋላ «ትዕዛዝ ያረጋግጡ» የሚለውን ይጫኑ። ለገዢው በቴሌግራም መልዕክት ይደርሰዋል።"
         },
         "dash.order.confirm_order": {
           "en": "Confirm order",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትዕዛዝ ያረጋግጡ"
         },
         "dash.order.order_confirmed": {
           "en": "Order confirmed",
           "context": "confirmation toast after the action",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትዕዛዙ ተረጋግጧል"
         },
         "dash.order.already_delivered": {
           "en": "Already delivered",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቀድሞ ደርሷል"
         },
         "dash.order.marked_as_delivered": {
           "en": "Marked as delivered",
           "context": "confirmation toast after the action",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እንደደረሰ ተመዝግቧል"
         },
         "dash.order.wait_pickup": {
           "en": "Wait for pickup",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እስኪወስዱት ይጠብቁ"
         },
         "dash.order.send_out": {
           "en": "Send it out",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እቃውን ይላኩ"
         },
         "dash.order.mark_delivered_when_buyer_collects": {
           "en": "Mark it delivered when the buyer collects it.",
           "context": "body text",
-          "am": ""
+          "am": "ገዢው መጥቶ እቃውን ሲረከብ «እንደደረሰ ይመዝግቡ» የሚለውን ይጫኑ።"
         },
         "dash.order.copy_delivery_slip_rider_then": {
           "en": "Copy the delivery slip for your rider, then mark it on the way.",
           "context": "body text",
-          "am": ""
+          "am": "የማድረሻ መረጃውን ቀድተው ለአድራሹ (ለራይደሩ) ይላኩለት፤ ከዚያ «መንገድ ላይ ነው» የሚለውን ይጫኑ።"
         },
         "dash.order.picked_up": {
           "en": "Picked up",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተወስዷል"
         },
         "dash.order.mark_way": {
           "en": "Mark on the way",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መንገድ ላይ ነው ይበሉ"
         },
         "dash.order.marked_way": {
           "en": "Marked on the way",
           "context": "confirmation toast after the action",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መንገድ ላይ እንደሆነ ተመዝግቧል"
         },
         "dash.order.mark_delivered": {
           "en": "Mark delivered",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እንደደረሰ ይመዝግቡ"
         },
         "dash.order.way": {
           "en": "On the way",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መንገድ ላይ ነው"
         },
         "dash.order.mark_delivered_when_arrives_rider": {
           "en": "Mark it delivered when it arrives. Your rider collects {collect}.",
           "context": "body text",
-          "am": ""
+          "am": "እቃው ሲደርስ «እንደደረሰ ይመዝግቡ» የሚለውን ይጫኑ። አድራሹ {collect} ይቀበላል።"
         },
         "dash.order.collect_2": {
           "en": "Collect {collect}",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "{collect} ይቀበሉ"
         },
         "dash.order.record_payment_once_have_cash": {
           "en": "Record the payment once you have the cash or the transfer. That completes the order.",
           "context": "body text",
-          "am": ""
+          "am": "ገንዘቡን በጥሬው ወይም በባንክ/ቴሌብር ዝውውር ሲቀበሉ ክፍያውን ይመዝግቡ። በዚህ ትዕዛዙ ይጠናቀቃል።"
         },
         "dash.order.payment_received": {
           "en": "Payment received",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ክፍያ ተቀብያለሁ"
         },
         "dash.order.payment_recorded": {
           "en": "Payment recorded",
           "context": "confirmation toast after the action",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ክፍያው ተመዝግቧል"
         },
         "dash.order.delivered_paid": {
           "en": "Delivered and paid",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ደርሷል፣ ክፍያም ተፈጽሟል"
         },
         "dash.order.nothing_left_do": {
           "en": "Nothing left to do.",
           "context": "body text",
-          "am": ""
+          "am": "የቀረ ስራ የለም።"
         },
         "dash.order.completed": {
           "en": "Completed",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተጠናቋል"
         },
         "dash.order.delivered_paid_nothing_left_do": {
           "en": "Delivered and paid. Nothing left to do.",
           "context": "body text",
-          "am": ""
+          "am": "እቃው ደርሷል፣ ክፍያም ተፈጽሟል። የቀረ ነገር የለም።"
         },
         "dash.order.items_went_back_into_stock": {
           "en": "Items went back into stock.",
           "context": "body text",
-          "am": ""
+          "am": "እቃዎቹ ተመልሰው ወደ ሱቅ ብዛት (ስቶክ) ገብተዋል።"
         },
         "dash.order.placed": {
           "en": "Placed",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ታዟል"
         },
         "dash.order.confirmed": {
           "en": "Confirmed",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተረጋግጧል"
         },
         "dash.order.sent": {
           "en": "Sent",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተልኳል"
         },
         "dash.order.order_progress": {
           "en": "Order progress",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የትዕዛዝ ሂደት"
         },
         "dash.order.couldn_t_update_order_try": {
           "en": "Couldn't update the order. Try again.",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "ትዕዛዙን ማዘመን አልተቻለም። እንደገና ይሞክሩ።"
         },
         "dash.order.call": {
           "en": "Call",
           "context": "visible text",
-          "am": ""
+          "am": "ይደውሉ"
         },
         "dash.order.delivery_slip_copied_paste_rider": {
           "en": "Delivery slip copied. Paste it to your rider.",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "የማድረሻ መረጃው ተቀድቷል። ለአድራሹ (ለራይደሩ) ይላኩለት።"
         },
         "dash.order.copy_slip": {
           "en": "Copy slip",
           "context": "visible text",
-          "am": ""
+          "am": "የማድረሻ መረጃ ይቅዱ"
         },
         "dash.order.cancel_order": {
           "en": "Cancel order",
           "context": "visible text",
-          "am": ""
+          "am": "ትዕዛዝ ይሰርዙ"
         },
         "dash.order.cancel_order_2": {
           "en": "Cancel order #{number}?",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትዕዛዝ #{number} ይሰረዝ?"
         },
         "dash.order.items_go_back_into_stock": {
           "en": "Items go back into stock and the buyer gets a Telegram message with your reason.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "እቃዎቹ ወደ ሱቅዎ ይመለሳሉ፤ ለገዢውም የተሰረዘበትን ምክንያት የሚገልጽ መልዕክት በቴሌግራም ይደርሰዋል።"
         },
         "dash.order.keep_order": {
           "en": "Keep order",
           "context": "visible text",
-          "am": ""
+          "am": "ትዕዛዙ ይቆይ"
         },
         "dash.order.cancelling": {
           "en": "Cancelling…",
           "context": "visible text",
-          "am": ""
+          "am": "በመሰረዝ ላይ…"
         },
         "dash.order.reason": {
           "en": "Reason",
           "context": "visible text",
-          "am": ""
+          "am": "ምክንያት"
         },
         "dash.order.example_sold_out_couldn_t": {
           "en": "For example: sold out, or couldn't reach you by phone",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ለምሳሌ፦ እቃው አልቋል፣ ወይም በስልክ ልናገኝዎት አልቻልንም"
         },
         "dash.order.orders_cancelled": {
           "en": "{n} orders, {cancelled} cancelled",
           "context": "customer's order history summary",
-          "am": ""
+          "am": "{n} ትዕዛዞች፣ {cancelled} የተሰረዙ"
         },
         "dash.order.placed_delivery": {
           "en": "Placed {date}, delivery, pay on delivery",
           "context": "line under the order number; {date} like \"2 Nov, 15:43\"",
-          "am": ""
+          "am": "በ{date} የታዘዘ፣ ያሉበት የሚደርስ፣ ሲደርስ የሚከፈል"
         },
         "dash.order.placed_pickup": {
           "en": "Placed {date}, pickup, pay on delivery",
           "context": "same, for pickup orders",
-          "am": ""
+          "am": "በ{date} የታዘዘ፣ ከሱቅ የሚወሰድ፣ ሲረከቡ የሚከፈል"
         }
       }
     },
@@ -1461,251 +1461,251 @@
           "en": "All products",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሁሉም ምርቶች"
         },
         "dash.products.needs_attention": {
           "en": "Needs attention",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትኩረት የሚሹ"
         },
         "dash.products.drafts": {
           "en": "Drafts",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ያልወጡ (ረቂቅ)"
         },
         "dash.products.posts_from_channels_land_here": {
           "en": "Posts from your channels land here automatically. Edit details, prices and stock in one place.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "በቻናልዎ የሚለጥፏቸው እቃዎች በራሳቸው እዚህ ይገባሉ። ዝርዝር መረጃ፣ ዋጋ እና ብዛት በአንድ ቦታ ያስተካክሉ።"
         },
         "dash.products.no_products_match": {
           "en": "No products match “{q}”",
           "context": "empty-state heading",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ከ“{q}” ጋር የሚመሳሰል ምርት የለም"
         },
         "dash.products.nothing_needs_attention": {
           "en": "Nothing needs attention",
           "context": "empty-state heading",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትኩረት የሚሻ ምርት የለም"
         },
         "dash.products.no_products_here": {
           "en": "No products here",
           "context": "empty-state heading",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እዚህ ምንም ምርት የለም"
         },
         "dash.products.try_shorter_search_look_another": {
           "en": "Try a shorter search, or look in another tab.",
           "context": "empty-state help text",
-          "am": ""
+          "am": "በአጭር ቃል ይፈልጉ፣ ወይም ሌላኛውን ክፍል ይመልከቱ።"
         },
         "dash.products.posts_missing_price_details_land": {
           "en": "Posts missing a price or details land here first.",
           "context": "empty-state help text",
-          "am": ""
+          "am": "ዋጋ ወይም ዝርዝር መረጃ የጎደላቸው ልጥፎች መጀመሪያ እዚህ ይገባሉ።"
         },
         "dash.products.post_photo_price_telegram_channel": {
           "en": "Post a photo with a price in your Telegram channel, or add a product here.",
           "context": "empty-state help text",
-          "am": ""
+          "am": "በቴሌግራም ቻናልዎ ላይ ፎቶ ከዋጋ ጋር ይለጥፉ፣ ወይም እዚህ አዲስ ምርት ይጨምሩ።"
         },
         "dash.products.search_products": {
           "en": "Search products",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ምርቶችን ይፈልጉ"
         },
         "dash.products.from": {
           "en": "From",
           "context": "visible text",
-          "am": ""
+          "am": "ምንጭ፦"
         },
         "dash.products.anywhere": {
           "en": "Anywhere",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ከሁሉም ቦታ"
         },
         "dash.products.first_page": {
           "en": "First page",
           "context": "visible text",
-          "am": ""
+          "am": "የመጀመሪያ ገጽ"
         },
         "dash.products.next_page": {
           "en": "Next page",
           "context": "visible text",
-          "am": ""
+          "am": "ቀጣይ ገጽ"
         },
         "dash.products.couldn_t_update_those_products": {
           "en": "Couldn't update those products. Try again.",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "ምርቶቹን ማዘመን አልተቻለም። እባክዎ እንደገና ይሞክሩ።"
         },
         "dash.products.select_all_products_page": {
           "en": "Select all products on this page",
           "context": "screen-reader label (not visible; read aloud for blind users)",
-          "am": ""
+          "am": "በዚህ ገጽ ላይ ያሉትን ሁሉንም ምርቶች ይምረጡ"
         },
         "dash.products.product": {
           "en": "Product",
           "context": "visible text",
-          "am": ""
+          "am": "ምርት"
         },
         "dash.products.price": {
           "en": "Price",
           "context": "visible text",
-          "am": ""
+          "am": "ዋጋ"
         },
         "dash.products.stock": {
           "en": "Stock",
           "context": "visible text",
-          "am": ""
+          "am": "ብዛት"
         },
         "dash.products.select": {
           "en": "Select {title}",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "{title}ን ይምረጡ"
         },
         "dash.products.no_price_yet": {
           "en": "No price yet",
           "context": "visible text",
-          "am": ""
+          "am": "ዋጋ አልተሞላም"
         },
         "dash.products.bulk_actions": {
           "en": "Bulk actions",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የጅምላ ማስተካከያ"
         },
         "dash.products.publish": {
           "en": "Publish",
           "context": "visible text",
-          "am": ""
+          "am": "ሽያጭ ላይ ያውጡ"
         },
         "dash.products.unpublish": {
           "en": "Unpublish",
           "context": "visible text",
-          "am": ""
+          "am": "ከሽያጭ ያንሱ"
         },
         "dash.products.mark_sold": {
           "en": "Mark sold",
           "context": "visible text",
-          "am": ""
+          "am": "ተሽጧል ይበሉ"
         },
         "dash.products.archive": {
           "en": "Archive",
           "context": "visible text",
-          "am": ""
+          "am": "ይደብቁ"
         },
         "dash.products.add_collection": {
           "en": "Add to collection",
           "context": "screen-reader label (not visible; read aloud for blind users); also visible text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ወደ ስብስብ ይጨምሩ"
         },
         "dash.products.delete": {
           "en": "Delete",
           "context": "visible text",
-          "am": ""
+          "am": "ይሰርዙ"
         },
         "dash.products.clear_selection": {
           "en": "Clear selection",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የተመረጠውን ያጽዱ"
         },
         "dash.products.delete_product": {
           "en": "Delete {size} product{size}?",
           "context": "heading or tooltip",
-          "am": ""
+          "am": "{size} ምርቶች ይሰረዙ?"
         },
         "dash.products.products_still_posted_telegram_archived": {
           "en": "Products still posted in Telegram are archived instead, so their posts keep working.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "በቴሌግራም ላይ ተለጥፈው ያሉ ምርቶች ልጥፋቸው እንዳይበላሽ ከመሰረዝ ይልቅ ይደበቃሉ።"
         },
         "dash.products.keep_them": {
           "en": "Keep them",
           "context": "visible text",
-          "am": ""
+          "am": "ይቆዩ"
         },
         "dash.products.deleting": {
           "en": "Deleting…",
           "context": "visible text",
-          "am": ""
+          "am": "በመሰረዝ ላይ…"
         },
         "dash.products.can_apos_t_undone": {
           "en": "This can't be undone.",
           "context": "visible text",
-          "am": ""
+          "am": "ይህን እርምጃ ወደ ኋላ መመለስ አይቻልም።"
         },
         "dash.products.from_telegram": {
           "en": "From Telegram",
           "context": "visible text",
-          "am": ""
+          "am": "ከቴሌግራም"
         },
         "dash.products.needs_price": {
           "en": "Needs a price",
           "context": "visible text",
-          "am": ""
+          "am": "ዋጋ ያስፈልገዋል"
         },
         "dash.products.check_details": {
           "en": "Check details",
           "context": "visible text",
-          "am": ""
+          "am": "ዝርዝሩን ያረጋግጡ"
         },
         "dash.products.not_tracked": {
           "en": "Not tracked",
           "context": "visible text",
-          "am": ""
+          "am": "ብዛት አይቆጠርም"
         },
         "dash.products.out_stock": {
           "en": "Out of stock",
           "context": "visible text",
-          "am": ""
+          "am": "አልቋል"
         },
         "dash.products.enter_valid_price": {
           "en": "Enter a valid price",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትክክለኛ ዋጋ ያስገቡ"
         },
         "dash.products.price_updated_telegram_buttons_update": {
           "en": "Price updated. Telegram buttons update too.",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "ዋጋው ተስተካክሏል። የቴሌግራም መጫኛዎቹም አብረው ይቀየራሉ።"
         },
         "dash.products.add_price": {
           "en": "Add a price",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ዋጋ ያስገቡ"
         },
         "dash.products.price_2": {
           "en": "Price of {title}",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የ{title} ዋጋ"
         },
         "dash.products.updated_one": {
           "en": "{n} product updated",
           "context": "toast after a bulk action, singular",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "{n} ምርት ተስተካክሏል"
         },
         "dash.products.updated_other": {
           "en": "{n} products updated",
           "context": "toast after a bulk action, plural",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "{n} ምርቶች ተስተካክለዋል"
         },
         "dash.products.in_stock": {
           "en": "{n} in stock",
           "context": "stock count under a product on phones",
-          "am": ""
+          "am": "{n} በሱቅ አለ"
         }
       }
     },
@@ -1720,432 +1720,432 @@
           "en": "Add a title",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የምርት ስም ያስገቡ"
         },
         "dash.product.saved_telegram_buttons_update_few": {
           "en": "Saved. Telegram buttons update in a few seconds.",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "ተቀምጧል። የቴሌግራም መጫኛዎቹ በጥቂት ሰከንዶች ውስጥ ይቀየራሉ።"
         },
         "dash.product.product_created": {
           "en": "Product created",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ምርቱ ተፈጥሯል"
         },
         "dash.product.could_not_remove_image": {
           "en": "Could not remove the image",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "ፎቶውን ማንሳት አልተቻለም"
         },
         "dash.product.could_not_reorder": {
           "en": "Could not reorder",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቅደም ተከተሉን መቀየር አልተቻለም"
         },
         "dash.product.posted_telegram": {
           "en": "Posted to Telegram",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "በቴሌግራም ተለጥፏል"
         },
         "dash.product.could_not_post": {
           "en": "Could not post",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መለጠፍ አልተቻለም"
         },
         "dash.product.product_deleted": {
           "en": "Product deleted",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ምርቱ ተሰርዟል"
         },
         "dash.product.couldn_t_delete_product_try": {
           "en": "Couldn't delete the product. Try again.",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "ምርቱን መሰረዝ አልተቻለም። እንደገና ይሞክሩ።"
         },
         "dash.product.visible_shop_order_button_posts": {
           "en": "Visible in your shop, Order button on posts",
           "context": "help text",
-          "am": ""
+          "am": "በሱቅዎ ውስጥ ይታያል፣ በቴሌግራም ልጥፎች ላይም «ይዘዙ» የሚል መጫኛ ይኖረዋል"
         },
         "dash.product.draft": {
           "en": "Draft",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "በዝግጅት ላይ"
         },
         "dash.product.hidden_from_buyers": {
           "en": "Hidden from buyers",
           "context": "help text",
-          "am": ""
+          "am": "ለገዢዎች አይታይም"
         },
         "dash.product.shown_as_sold_can_t": {
           "en": "Shown as sold, can't be ordered",
           "context": "help text",
-          "am": ""
+          "am": "እንደተሸጠ ይታያል፣ መታዘዝ አይችልም"
         },
         "dash.product.hidden_everywhere": {
           "en": "Hidden everywhere",
           "context": "help text",
-          "am": ""
+          "am": "ከሁሉም ቦታ የተደበቀ"
         },
         "dash.product.unsaved_changes": {
           "en": "Unsaved changes",
           "context": "visible text",
-          "am": ""
+          "am": "ያልተቀመጠ ለውጥ አለ"
         },
         "dash.product.new_product": {
           "en": "New product",
           "context": "visible text",
-          "am": ""
+          "am": "አዲስ ምርት"
         },
         "dash.product.discard": {
           "en": "Discard",
           "context": "visible text",
-          "am": ""
+          "am": "ይቅር"
         },
         "dash.product.uploading": {
           "en": "Uploading…",
           "context": "visible text",
-          "am": ""
+          "am": "በመጫን ላይ…"
         },
         "dash.product.save": {
           "en": "Save",
           "context": "visible text",
-          "am": ""
+          "am": "ያስቀምጡ"
         },
         "dash.product.create_product": {
           "en": "Create product",
           "context": "visible text",
-          "am": ""
+          "am": "ምርት ይፍጠሩ"
         },
         "dash.product.untitled_product": {
           "en": "Untitled product",
           "context": "visible text",
-          "am": ""
+          "am": "ስም ያልተሰጠው ምርት"
         },
         "dash.product.view_shop": {
           "en": "View in shop",
           "context": "visible text",
-          "am": ""
+          "am": "በሱቅ ውስጥ ይመልከቱ"
         },
         "dash.product.read_automatically_from_telegram_post": {
           "en": "Read automatically from your Telegram post.",
           "context": "visible text",
-          "am": ""
+          "am": "ከቴሌግራም ልጥፍዎ በራሱ የተወሰደ መረጃ።"
         },
         "dash.product.check_title_price_category_then": {
           "en": "Check the title, price and category, then set it Active.",
           "context": "visible text",
-          "am": ""
+          "am": "ስሙን፣ ዋጋውንና ምድቡን ያረጋግጡና «ሽያጭ ላይ» ያድርጉት።"
         },
         "dash.product.title": {
           "en": "Title",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የምርት ስም"
         },
         "dash.product.iphone_13_pro_128gb": {
           "en": "iPhone 13 Pro 128GB",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "አይፎን 13 ፕሮ 128GB (iPhone 13 Pro 128GB)"
         },
         "dash.product.description": {
           "en": "Description",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ዝርዝር መግለጫ"
         },
         "dash.product.condition_what_s_included_delivery": {
           "en": "Condition, what's included, delivery details",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "የእቃው ሁኔታ (አዲስ/ያገለገለ)፣ አብሮት ያለው ነገር፣ የማድረሻ ሁኔታ"
         },
         "dash.product.original_telegram_caption": {
           "en": "Original Telegram caption",
           "context": "visible text",
-          "am": ""
+          "am": "የመጀመሪያው የቴሌግራም ጽሑፍ"
         },
         "dash.product.photos": {
           "en": "Photos",
           "context": "visible text",
-          "am": ""
+          "am": "ፎቶዎች"
         },
         "dash.product.couldn_t_process": {
           "en": "Couldn't process",
           "context": "visible text",
-          "am": ""
+          "am": "ማዘጋጀት አልተቻለም"
         },
         "dash.product.processing": {
           "en": "Processing…",
           "context": "visible text",
-          "am": ""
+          "am": "በማዘጋጀት ላይ…"
         },
         "dash.product.move_earlier": {
           "en": "Move earlier",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ወደ ፊት ያምጡ"
         },
         "dash.product.remove_photo": {
           "en": "Remove photo",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ፎቶ ያንሱ"
         },
         "dash.product.move_later": {
           "en": "Move later",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ወደ ኋላ ይውሰዱ"
         },
         "dash.product.cover": {
           "en": "Cover",
           "context": "visible text",
-          "am": ""
+          "am": "ዋና ፎቶ"
         },
         "dash.product.add_photos": {
           "en": "Add photos",
           "context": "visible text",
-          "am": ""
+          "am": "ፎቶዎችን ይጨምሩ"
         },
         "dash.product.add": {
           "en": "Add",
           "context": "visible text",
-          "am": ""
+          "am": "ይጨምሩ"
         },
         "dash.product.jpg_png_webp_up_10": {
           "en": "JPG, PNG or WebP, up to 10",
           "context": "visible text",
-          "am": ""
+          "am": "JPG፣ PNG ወይም WebP፣ እስከ 10 ፎቶ"
         },
         "dash.product.price_stock": {
           "en": "Price and stock",
           "context": "visible text",
-          "am": ""
+          "am": "ዋጋ እና ብዛት"
         },
         "dash.product.price": {
           "en": "Price",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ዋጋ"
         },
         "dash.product.leave_empty_show_ask_price": {
           "en": "Leave empty to show “Ask for price”.",
           "context": "help text under a field",
-          "am": ""
+          "am": "«ዋጋ ይጠይቁ» እንዲል ባዶ ይተዉት።"
         },
         "dash.product.was": {
           "en": "Was",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የቀድሞ ዋጋ"
         },
         "dash.product.optional_old_price_shown_crossed": {
           "en": "Optional old price, shown crossed out.",
           "context": "help text under a field",
-          "am": ""
+          "am": "አማራጭ የቀድሞ ዋጋ (ተሰርዞ ይታያል)።"
         },
         "dash.product.price_negotiable": {
           "en": "Price is negotiable",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ዋጋው ድርድር አለው"
         },
         "dash.product.buyers_see_negotiable_nudged_ask": {
           "en": "Buyers see “Negotiable” and are nudged to ask.",
           "context": "help text under a field",
-          "am": ""
+          "am": "ገዢዎች «ዋጋው ይደራደራል» የሚል ያያሉ፤ እንዲጠይቁም ይበረታታሉ።"
         },
         "dash.product.track_stock": {
           "en": "Track stock",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የእቃ ብዛት ይቆጠር"
         },
         "dash.product.sells_out_automatically_at_zero": {
           "en": "Sells out automatically at zero and updates the Telegram button.",
           "context": "help text under a field",
-          "am": ""
+          "am": "ብዛቱ ዜሮ ሲደርስ በራሱ «አልቋል» ይላል፤ የቴሌግራም መጫኛውንም ይቀይራል።"
         },
         "dash.product.stock": {
           "en": "In stock",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "በሱቅ ያለ ብዛት"
         },
         "dash.product.sku": {
           "en": "SKU",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መለያ ኮድ (SKU)"
         },
         "dash.product.optional": {
           "en": "Optional",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "አማራጭ"
         },
         "dash.product.details": {
           "en": "Details",
           "context": "visible text",
-          "am": ""
+          "am": "ተጨማሪ ዝርዝር"
         },
         "dash.product.helps_buyers_filter_search": {
           "en": "Helps buyers filter and search",
           "context": "visible text",
-          "am": ""
+          "am": "ገዢዎች እቃውን በቀላሉ ለይተው እንዲፈልጉ ይረዳል"
         },
         "dash.product.category": {
           "en": "Category",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ምድብ"
         },
         "dash.product.mobile_phones": {
           "en": "Mobile Phones",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ሞባይል ስልኮች"
         },
         "dash.product.condition": {
           "en": "Condition",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የእቃው ሁኔታ"
         },
         "dash.product.brand_new": {
           "en": "Brand New",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "አዲስ (ያልተፈታ)"
         },
         "dash.product.brand": {
           "en": "Brand",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ብራንድ (አምራች)"
         },
         "dash.product.model": {
           "en": "Model",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሞዴል"
         },
         "dash.product.location": {
           "en": "Location",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አካባቢ"
         },
         "dash.product.addis_ababa": {
           "en": "Addis Ababa",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "አዲስ አበባ"
         },
         "dash.product.tags": {
           "en": "Tags",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መለያ ቃላት (Tags)"
         },
         "dash.product.separate_commas": {
           "en": "Separate with commas",
           "context": "help text under a field",
-          "am": ""
+          "am": "በኮማ (,) ይለዩዋቸው"
         },
         "dash.product.unlocked_dual_sim": {
           "en": "unlocked, dual sim",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ሁለት ሲም የሚቀበል፣ ኦሪጅናል"
         },
         "dash.product.product_status": {
           "en": "Product status",
           "context": "visible text",
-          "am": ""
+          "am": "የምርቱ ሁኔታ"
         },
         "dash.product.telegram_chat": {
           "en": "Telegram chat",
           "context": "visible text",
-          "am": ""
+          "am": "የቴሌግራም ቻናል/ግሩፕ"
         },
         "dash.product.open_post": {
           "en": "Open post",
           "context": "visible text",
-          "am": ""
+          "am": "ልጥፉን ይክፈቱ"
         },
         "dash.product.post_was_deleted": {
           "en": "Post was deleted",
           "context": "visible text",
-          "am": ""
+          "am": "ልጥፉ ተሰርዟል"
         },
         "dash.product.button_problem": {
           "en": "Button problem: {unknown}",
           "context": "visible text",
-          "am": ""
+          "am": "የመጫኛ ችግር፦ {unknown}"
         },
         "dash.product.order_button_card_under_post": {
           "en": "Order button in a card under the post",
           "context": "visible text",
-          "am": ""
+          "am": "«ይዘዙ» የሚለው መጫኛ ከልጥፉ ስር በካርድ ወጥቷል"
         },
         "dash.product.no_button_while_hidden": {
           "en": "No button while hidden",
           "context": "visible text",
-          "am": ""
+          "am": "ምርቱ ተደብቆ ሳለ መጫኛ አይኖረውም"
         },
         "dash.product.order_button_post": {
           "en": "Order button on the post",
           "context": "visible text",
-          "am": ""
+          "am": "«ይዘዙ» የሚለው መጫኛ በልጥፉ ላይ አለ"
         },
         "dash.product.not_any_telegram_post_yet": {
           "en": "Not in any Telegram post yet.",
           "context": "visible text",
-          "am": ""
+          "am": "ገና በቴሌግራም ላይ አልተለጠፈም።"
         },
         "dash.product.post_channel": {
           "en": "Post it to a channel",
           "context": "visible text",
-          "am": ""
+          "am": "ወደ ቻናል ይለጥፉት"
         },
         "dash.product.channel": {
           "en": "Channel",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቻናል"
         },
         "dash.product.post": {
           "en": "Post",
           "context": "visible text",
-          "am": ""
+          "am": "ይለጥፉ"
         },
         "dash.product.delete_product": {
           "en": "Delete product",
           "context": "visible text",
-          "am": ""
+          "am": "ምርቱን ይሰርዙ"
         },
         "dash.product.delete_product_2": {
           "en": "Delete this product?",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ይህ ምርት ይሰረዝ?"
         },
         "dash.product.if_s_posted_telegram_s": {
           "en": "If it's posted in Telegram, it's archived instead and its Order button is removed.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "በቴሌግራም ላይ ተለጥፎ ከነበረ፣ ከመሰረዝ ይልቅ ይደበቃል፤ «ይዘዙ» የሚለው መጫኛውም ይነሳል።"
         },
         "dash.product.keep": {
           "en": "Keep it",
           "context": "visible text",
-          "am": ""
+          "am": "ይቆይ"
         },
         "dash.product.photo_count": {
           "en": "{n} of 10",
           "context": "photo counter, e.g. \"3 of 10\"",
-          "am": ""
+          "am": "ከ10 ውስጥ {n}"
         }
       }
     },
@@ -2160,104 +2160,104 @@
           "en": "Customers",
           "context": "label (button, tab, menu item or field); also heading or title; also heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ደንበኞች"
         },
         "dash.customers.spent": {
           "en": "Spent",
           "context": "label (field, button or menu item); also visible text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ጠቅላላ የገዙበት"
         },
         "dash.customers.everyone_who_has_ordered_from": {
           "en": "Everyone who has ordered from you. Call them, see their orders, or block a buyer.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "ከእርስዎ ያዘዙ ደንበኞች ሁሉ። ይደውሉላቸው፣ የቀድሞ ትዕዛዞቻቸውን ይመልከቱ፣ ወይም አስቸጋሪ ገዢን ያግዱ።"
         },
         "dash.customers.name_phone_number": {
           "en": "Name or phone number",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ስም ወይም ስልክ ቁጥር"
         },
         "dash.customers.phone": {
           "en": "Phone",
           "context": "visible text",
-          "am": ""
+          "am": "ስልክ"
         },
         "dash.customers.last_order": {
           "en": "Last order",
           "context": "visible text",
-          "am": ""
+          "am": "የመጨረሻ ትዕዛዝ"
         },
         "dash.customers.blocked": {
           "en": "Blocked",
           "context": "visible text",
-          "am": ""
+          "am": "ታግዷል"
         },
         "dash.customers.cancels_often": {
           "en": "Cancels often",
           "context": "visible text",
-          "am": ""
+          "am": "ብዙ ጊዜ የሚሰርዝ"
         },
         "dash.customers.no_customers_match": {
           "en": "No customers match “{q}”",
           "context": "visible text",
-          "am": ""
+          "am": "ከ“{q}” ጋር የሚመሳሰል ደንበኛ የለም"
         },
         "dash.customers.no_customers_yet": {
           "en": "No customers yet",
           "context": "visible text",
-          "am": ""
+          "am": "እስካሁን ደንበኛ የለም"
         },
         "dash.customers.search_by_first_name_last": {
           "en": "Search by first name or the last digits of their phone.",
           "context": "visible text",
-          "am": ""
+          "am": "በስም ወይም በስልክ ቁጥራቸው የመጨረሻ አሃዞች ይፈልጉ።"
         },
         "dash.customers.buyers_appear_here_after_their": {
           "en": "Buyers appear here after their first order.",
           "context": "visible text",
-          "am": ""
+          "am": "ገዢዎች የመጀመሪያ ትዕዛዛቸውን ካስገቡ በኋላ እዚህ ይታያሉ።"
         },
         "dash.customers.next_page": {
           "en": "Next page",
           "context": "visible text",
-          "am": ""
+          "am": "ቀጣይ ገጽ"
         },
         "dash.customers.saved": {
           "en": "Saved",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተቀምጧል"
         },
         "dash.customers.private_notes": {
           "en": "Private notes",
           "context": "visible text",
-          "am": ""
+          "am": "የግል ማስታወሻ (ለእርስዎ ብቻ የሚታይ)"
         },
         "dash.customers.prefers_evening_delivery": {
           "en": "Prefers evening delivery…",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ማታ ላይ እንዲደርስለት ይመርጣል…"
         },
         "dash.customers.save_notes": {
           "en": "Save notes",
           "context": "visible text",
-          "am": ""
+          "am": "ማስታወሻ ያስቀምጡ"
         },
         "dash.customers.block_buyer": {
           "en": "Block this buyer",
           "context": "visible text",
-          "am": ""
+          "am": "ይህን ገዢ ያግዱ"
         },
         "dash.customers.they_won_apos_t_able": {
           "en": "They won't be able to place new orders.",
           "context": "visible text",
-          "am": ""
+          "am": "አዲስ ትዕዛዝ ማስገባት አይችሉም።"
         },
         "dash.customers.customer_not_found": {
           "en": "Customer not found",
           "context": "error message",
-          "am": ""
+          "am": "ደንበኛው አልተገኘም"
         }
       }
     },
@@ -2272,122 +2272,122 @@
           "en": "Inbox",
           "context": "label (button, tab, menu item or field); also heading or title; also heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መልዕክቶች"
         },
         "dash.inbox.conversation": {
           "en": "Conversation",
           "context": "heading or tooltip; also heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ውይይት"
         },
         "dash.inbox.buyer_questions_about_products_can": {
           "en": "Buyer questions about your products. You can also reply straight from the Telegram bot.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "ገዢዎች ስለ ምርቶችዎ የሚጠይቋቸው ጥያቄዎች። በቀጥታ ከቴሌግራም ቦቱም መመለስ ይችላሉ።"
         },
         "dash.inbox.all": {
           "en": "All",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሁሉም"
         },
         "dash.inbox.unread": {
           "en": "Unread",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ያልተነበቡ"
         },
         "dash.inbox.general_question": {
           "en": "General question",
           "context": "visible text",
-          "am": ""
+          "am": "አጠቃላይ ጥያቄ"
         },
         "dash.inbox.no_unread_messages": {
           "en": "No unread messages",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ያልተነበበ መልዕክት የለም"
         },
         "dash.inbox.no_messages_yet": {
           "en": "No messages yet",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "እስካሁን መልዕክት የለም"
         },
         "dash.inbox.when_buyers_tap_ask_seller": {
           "en": "When buyers tap “Ask seller” on a post, their messages land here and in Telegram.",
           "context": "body text",
-          "am": ""
+          "am": "ገዢዎች በልጥፍዎ ስር «ሻጩን ይጠይቁ» የሚለውን ሲጫኑ መልዕክታቸው እዚህና በቴሌግራም ይደርስዎታል።"
         },
         "dash.inbox.messages": {
           "en": "Messages",
           "context": "visible text; also heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መልዕክቶች"
         },
         "dash.inbox.my_orders": {
           "en": "My orders",
           "context": "visible text",
-          "am": ""
+          "am": "ትዕዛዞቼ"
         },
         "dash.inbox.no_messages_yet_tap_ask": {
           "en": "No messages yet. Tap “Ask seller” on any product.",
           "context": "visible text",
-          "am": ""
+          "am": "እስካሁን መልዕክት የለም። በማንኛውም ምርት ላይ «ሻጩን ይጠይቁ» የሚለውን ይጫኑ።"
         },
         "dash.inbox.could_not_load_chat": {
           "en": "Could not load the chat",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ውይይቱን መክፈት አልተቻለም"
         },
         "dash.inbox.message_not_sent": {
           "en": "Message not sent",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መልዕክቱ አልተላከም"
         },
         "dash.inbox.buyer": {
           "en": "Buyer",
           "context": "visible text",
-          "am": ""
+          "am": "ገዢ"
         },
         "dash.inbox.seller": {
           "en": "Seller",
           "context": "visible text",
-          "am": ""
+          "am": "ሻጭ"
         },
         "dash.inbox.ask_price": {
           "en": "Ask for price",
           "context": "visible text",
-          "am": ""
+          "am": "ዋጋ ይጠይቁ"
         },
         "dash.inbox.photo": {
           "en": "Photo…",
           "context": "visible text",
-          "am": ""
+          "am": "ፎቶ…"
         },
         "dash.inbox.say_hello": {
           "en": "Say hello 👋",
           "context": "visible text",
-          "am": ""
+          "am": "ሰላም ይበሉ 👋"
         },
         "dash.inbox.send_photo": {
           "en": "Send a photo",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ፎቶ ይላኩ"
         },
         "dash.inbox.write_message": {
           "en": "Write a message…",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "መልዕክት ይጻፉ…"
         },
         "dash.inbox.send": {
           "en": "Send",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ይላኩ"
         }
       }
     },
@@ -2401,94 +2401,94 @@
         "dash.analytics.what_buyers_look_at_ask": {
           "en": "What buyers look at, ask about and order, and which Telegram posts bring sales.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "ገዢዎች ምን እንደሚያዩ፣ ምን እንደሚጠይቁና እንደሚያዙ፣ እንዲሁም የትኞቹ የቴሌግራም ልጥፎች ሽያጭ እንደሚያመጡ ይመልከቱ።"
         },
         "dash.analytics.period": {
           "en": "Period",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ጊዜ"
         },
         "dash.analytics.sales": {
           "en": "Sales",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሽያጭ"
         },
         "dash.analytics.product_views": {
           "en": "Product views",
           "context": "label (button, tab, menu item or field); also visible text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የምርት እይታዎች"
         },
         "dash.analytics.questions": {
           "en": "Questions",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ጥያቄዎች"
         },
         "dash.analytics.views_order": {
           "en": "Views that order",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አይተው ያዘዙ"
         },
         "dash.analytics.sales_orders": {
           "en": "Sales and orders",
           "context": "visible text",
-          "am": ""
+          "am": "ሽያጭ እና ትዕዛዞች"
         },
         "dash.analytics.sales_over_days": {
           "en": "Sales over {days} days: {revenueMinor}.",
           "context": "chart summary for screen readers",
-          "am": ""
+          "am": "ባለፉት {days} ቀናት የተገኘ ሽያጭ፦ {revenueMinor}።"
         },
         "dash.analytics.top_products": {
           "en": "Top products",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "በብዛት የተሸጡ ምርቶች"
         },
         "dash.analytics.no_activity_period": {
           "en": "No activity in this period.",
           "context": "text",
-          "am": ""
+          "am": "በዚህ ጊዜ ውስጥ ምንም እንቅስቃሴ የለም።"
         },
         "dash.analytics.top_telegram_posts": {
           "en": "Top Telegram posts",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ውጤታማ የቴሌግራም ልጥፎች"
         },
         "dash.analytics.orders_came_straight_from_post": {
           "en": "{fromPosts} orders came straight from post buttons",
           "context": "text",
-          "am": ""
+          "am": "{fromPosts} ትዕዛዞች በቀጥታ ከልጥፍ ስር ካሉ መጫኛዎች የመጡ ናቸው"
         },
         "dash.analytics.buyers_who_arrive_through_posts": {
           "en": "Buyers who arrive through your posts' Order buttons are counted here.",
           "context": "text",
-          "am": ""
+          "am": "በልጥፎችዎ ስር ያለውን «ይዘዙ» መጫኛ ተጭነው የሚመጡ ገዢዎች እዚህ ይቆጠራሉ።"
         },
         "dash.analytics.name": {
           "en": "Name",
           "context": "visible text",
-          "am": ""
+          "am": "ስም"
         },
         "dash.analytics.views": {
           "en": "Views",
           "context": "visible text",
-          "am": ""
+          "am": "እይታዎች"
         },
         "dash.analytics.views_summary": {
           "en": "{views} product views over {days} days.",
           "context": "chart summary for screen readers",
-          "am": ""
+          "am": "ባለፉት {days} ቀናት {views} የምርት እይታዎች።"
         },
         "dash.analytics.from_posts": {
           "en": "{n} orders came straight from post buttons",
           "context": "note above the top Telegram posts table",
-          "am": ""
+          "am": "{n} ትዕዛዞች በቀጥታ ከልጥፍ መጫኛዎች የመጡ ናቸው"
         }
       }
     },
@@ -2502,158 +2502,158 @@
         "dash.telegram.channels_groups_health_order_buttons": {
           "en": "Your channels and groups, and the health of the Order buttons on your posts.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "የተገናኙ ቻናሎችና ግሩፖች፣ እንዲሁም በልጥፎችዎ ስር ያሉት «ይዘዙ» መጫኛዎች ሁኔታ።"
         },
         "dash.telegram.connect_chat": {
           "en": "Connect a chat",
           "context": "visible text",
-          "am": ""
+          "am": "ቻናል ወይም ግሩፕ ያገናኙ"
         },
         "dash.telegram.no_telegram_chats_connected": {
           "en": "No Telegram chats connected",
           "context": "heading or tooltip",
-          "am": ""
+          "am": "ምንም የተገናኘ የቴሌግራም ቻናል ወይም ግሩፕ የለም"
         },
         "dash.telegram.open_bot_tap_connect_channel": {
           "en": "Open the bot, tap Connect channel or Connect group, and pick your chat. Only chats you administer are shown.",
           "context": "body text",
-          "am": ""
+          "am": "ቦቱን ይክፈቱ፣ «ቻናል ያገናኙ» ወይም «ግሩፕ ያገናኙ» የሚለውን ይጫኑና የእርስዎን ይምረጡ። እርስዎ አድሚን የሆኑባቸው ብቻ ይታያሉ።"
         },
         "dash.telegram.open_bot": {
           "en": "Open the bot",
           "context": "visible text",
-          "am": ""
+          "am": "ቦቱን ይክፈቱ"
         },
         "dash.telegram.how_order_button_works": {
           "en": "How the Order button works",
           "context": "visible text",
-          "am": ""
+          "am": "«ይዘዙ» የሚለው መጫኛ እንዴት እንደሚሰራ"
         },
         "dash.telegram.button_added_own_post_bot": {
           "en": "<b>Channels:</b> the button is added to your own post. The bot needs the “Edit messages of others” right.",
           "context": "explanation list item; keep <b>…</b>; “Edit messages of others” is the exact Telegram admin-right name, use the name Telegram shows in its Amharic interface if it has one",
-          "am": ""
+          "am": "<b>በቻናሎች፦</b> መጫኛው በቀጥታ በእርስዎ ልጥፍ ስር ይጨመራል። ለዚህም ቦቱ «የሌሎችን መልዕክት ማስተካከል (Edit messages of others)» የሚለው የአድሚን ፈቃድ ያስፈልገዋል።"
         },
         "dash.telegram.telegram_doesn_apos_t_allow": {
           "en": "<b>Albums and groups:</b> Telegram doesn't allow buttons there, so a small silent card with the button is posted right under the post.",
           "context": "explanation list item; keep <b>…</b>",
-          "am": ""
+          "am": "<b>በአልበም (ብዙ ፎቶ) እና በግሩፖች፦</b> ቴሌግራም እዚያ ላይ መጫኛ ስለማይፈቅድ፣ መጫኛው ያለበት ትንሽ ካርድ ያለ ድምጽ ልክ ከልጥፉ ስር ይወጣል።"
         },
         "dash.telegram.prices_sold_status_stock_changes": {
           "en": "Prices, sold status and stock changes update the buttons automatically. Deleted posts hide their listing.",
           "context": "visible text",
-          "am": ""
+          "am": "ዋጋ፣ የሽያጭ ሁኔታ እና የብዛት ለውጦች መጫኛዎቹን በራሳቸው ያዘምናሉ። በቴሌግራም የተሰረዙ ልጥፎች ከሱቅም ይደበቃሉ።"
         },
         "dash.telegram.failed": {
           "en": "Failed",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አልተሳካም"
         },
         "dash.telegram.untitled_chat": {
           "en": "Untitled chat",
           "context": "visible text",
-          "am": ""
+          "am": "ስም የሌለው ቻናል/ግሩፕ"
         },
         "dash.telegram.channel": {
           "en": "Channel",
           "context": "visible text",
-          "am": ""
+          "am": "ቻናል"
         },
         "dash.telegram.group": {
           "en": "Group",
           "context": "visible text",
-          "am": ""
+          "am": "ግሩፕ"
         },
         "dash.telegram.connected": {
           "en": "Connected",
           "context": "visible text",
-          "am": ""
+          "am": "ተገናኝቷል"
         },
         "dash.telegram.disconnected": {
           "en": "Disconnected",
           "context": "visible text",
-          "am": ""
+          "am": "ግንኙነቱ ተቋርጧል"
         },
         "dash.telegram.last_post": {
           "en": "Last post {time}",
           "context": "{time} is relative time like \"3 h ago\"",
-          "am": ""
+          "am": "የመጨረሻ ልጥፍ {time}"
         },
         "dash.telegram.no_posts_yet": {
           "en": "no posts yet",
           "context": "visible text",
-          "am": ""
+          "am": "እስካሁን ልጥፍ የለም"
         },
         "dash.telegram.check_rights": {
           "en": "Check rights",
           "context": "visible text",
-          "am": ""
+          "am": "ፈቃዶችን ያረጋግጡ"
         },
         "dash.telegram.repair_all_buttons": {
           "en": "Repair all buttons",
           "context": "visible text",
-          "am": ""
+          "am": "ሁሉንም መጫኛዎች ያስተካክሉ"
         },
         "dash.telegram.disconnect": {
           "en": "Disconnect",
           "context": "visible text",
-          "am": ""
+          "am": "ግንኙነት ያቋርጡ"
         },
         "dash.telegram.bot_can_add_order_buttons": {
           "en": "The bot can add Order buttons to your posts.",
           "context": "visible text",
-          "am": ""
+          "am": "ቦቱ በልጥፎችዎ ላይ «ይዘዙ» የሚል መጫኛ መጨመር ይችላል።"
         },
         "dash.telegram.bot_admin_sees_admin_posts": {
           "en": "The bot is an admin and sees admin posts.",
           "context": "visible text",
-          "am": ""
+          "am": "ቦቱ አድሚን ነው፤ የአድሚኖችን ልጥፎችም ያያል።"
         },
         "dash.telegram.bot_can_t_edit_posts": {
           "en": "The bot can't edit your posts, so buttons appear in a card under each post.",
           "context": "visible text",
-          "am": ""
+          "am": "ቦቱ ልጥፎችዎን ማስተካከል ስለማይችል መጫኛዎቹ ከእያንዳንዱ ልጥፍ ስር በካርድ ይወጣሉ።"
         },
         "dash.telegram.make_bot_admin_so_new": {
           "en": "Make the bot an admin so new posts become products.",
           "context": "visible text",
-          "am": ""
+          "am": "አዲስ ልጥፎች ወደ ምርት እንዲቀየሩ ቦቱን አድሚን ያድርጉት።"
         },
         "dash.telegram.fix_telegram": {
           "en": "Fix in Telegram",
           "context": "visible text",
-          "am": ""
+          "am": "በቴሌግራም ያስተካክሉ"
         },
         "dash.telegram.buttons_post": {
           "en": "Buttons on post",
           "context": "visible text",
-          "am": ""
+          "am": "በልጥፉ ላይ ያሉ መጫኛዎች"
         },
         "dash.telegram.card_under_post": {
           "en": "Card under post",
           "context": "visible text",
-          "am": ""
+          "am": "ከልጥፉ ስር በካርድ የወጡ"
         },
         "dash.telegram.updating": {
           "en": "Updating",
           "context": "visible text",
-          "am": ""
+          "am": "በመታደስ ላይ"
         },
         "dash.telegram.failing": {
           "en": "Failing",
           "context": "visible text",
-          "am": ""
+          "am": "ችግር ያጋጠማቸው"
         },
         "dash.telegram.deleted_posts": {
           "en": "Deleted posts",
           "context": "visible text",
-          "am": ""
+          "am": "የተሰረዙ ልጥፎች"
         },
         "dash.telegram.last_button_update": {
           "en": "Last button update",
           "context": "visible text",
-          "am": ""
+          "am": "መጫኛ ለመጨረሻ ጊዜ የታደሰው"
         }
       }
     },
@@ -2668,196 +2668,196 @@
           "en": "Online store",
           "context": "heading or title; also heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ገጽ"
         },
         "dash.store.storefront_s_look_collections_address": {
           "en": "Your storefront's look, collections and address.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "የሱቅ ገጽዎ መልክ፣ የምርት ስብስቦች እና የሱቅ ሊንክ።"
         },
         "dash.store.banner_tagline": {
           "en": "Banner and tagline",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የራስጌ ምስል እና መሪ ቃል"
         },
         "dash.store.featured_collection": {
           "en": "Featured collection",
           "context": "label (button, tab, menu item or field); also label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተመራጭ ስብስብ"
         },
         "dash.store.all_products": {
           "en": "All products",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሁሉም ምርቶች"
         },
         "dash.store.about": {
           "en": "About",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ስለ ሱቁ"
         },
         "dash.store.contact": {
           "en": "Contact",
           "context": "label (button, tab, menu item or field)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አድራሻና ስልክ"
         },
         "dash.store.storefront_updated": {
           "en": "Storefront updated",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ገጹ ታድሷል"
         },
         "dash.store.logo_updated": {
           "en": "Logo updated",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አርማው (ሎጎው) ተቀይሯል"
         },
         "dash.store.banner_updated": {
           "en": "Banner updated",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የራስጌ ምስሉ ተቀይሯል"
         },
         "dash.store.could_not_create": {
           "en": "Could not create",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መፍጠር አልተቻለም"
         },
         "dash.store.could_not_delete": {
           "en": "Could not delete",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "መሰረዝ አልተቻለም"
         },
         "dash.store.shop_address": {
           "en": "Your shop address",
           "context": "visible text",
-          "am": ""
+          "am": "የሱቅዎ ሊንክ (አድራሻ)"
         },
         "dash.store.address_copied": {
           "en": "Address copied",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሊንኩ ተቀድቷል"
         },
         "dash.store.copy": {
           "en": "Copy",
           "context": "visible text",
-          "am": ""
+          "am": "ይቅዱ"
         },
         "dash.store.open": {
           "en": "Open",
           "context": "visible text",
-          "am": ""
+          "am": "ይክፈቱ"
         },
         "dash.store.look": {
           "en": "Look",
           "context": "visible text",
-          "am": ""
+          "am": "የሱቅ ገጽታ"
         },
         "dash.store.change_logo": {
           "en": "Change logo",
           "context": "visible text",
-          "am": ""
+          "am": "አርማ (ሎጎ) ይቀይሩ"
         },
         "dash.store.default_banner": {
           "en": "Default banner",
           "context": "visible text",
-          "am": ""
+          "am": "ነባሪ የራስጌ ምስል"
         },
         "dash.store.change_banner": {
           "en": "Change banner",
           "context": "visible text",
-          "am": ""
+          "am": "የራስጌ ምስል ይቀይሩ"
         },
         "dash.store.brand_colour": {
           "en": "Brand colour",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ዋና ቀለም"
         },
         "dash.store.used_buttons_highlights_shop": {
           "en": "Used for buttons and highlights in your shop.",
           "context": "help text under a field",
-          "am": ""
+          "am": "በሱቅዎ ውስጥ ላሉ መጫኛዎችና ማድመቂያዎች ጥቅም ላይ ይውላል።"
         },
         "dash.store.tagline": {
           "en": "Tagline",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አጭር መግለጫ (መሪ ቃል)"
         },
         "dash.store.original_phones_warranty_delivered_addis": {
           "en": "Original phones with warranty, delivered in Addis",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ኦሪጅናል ስልኮች ከዋስትና ጋር፣ አዲስ አበባ ውስጥ ያሉበት እናደርሳለን"
         },
         "dash.store.sections": {
           "en": "Sections",
           "context": "visible text",
-          "am": ""
+          "am": "የገጽ ክፍሎች"
         },
         "dash.store.choose": {
           "en": "Choose…",
           "context": "visible text",
-          "am": ""
+          "am": "ይምረጡ…"
         },
         "dash.store.save_look": {
           "en": "Save look",
           "context": "visible text",
-          "am": ""
+          "am": "ገጽታውን ያስቀምጡ"
         },
         "dash.store.collections": {
           "en": "Collections",
           "context": "visible text",
-          "am": ""
+          "am": "የምርት ስብስቦች"
         },
         "dash.store.group_products_storefront_add_products": {
           "en": "Group products for your storefront. Add products from the Products page with the bulk “Add to collection” action.",
           "context": "visible text",
-          "am": ""
+          "am": "ተመሳሳይ ምርቶችን በሱቅ ገጽዎ ላይ በአንድ ላይ ያሰባስቡ። ከምርቶች ገጽ ላይ «ወደ ስብስብ ይጨምሩ» በሚለው ምርቶችን ማስገባት ይችላሉ።"
         },
         "dash.store.delete_collection": {
           "en": "Delete collection",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ስብስቡን ይሰርዙ"
         },
         "dash.store.no_collections_yet": {
           "en": "No collections yet.",
           "context": "visible text",
-          "am": ""
+          "am": "እስካሁን የተፈጠረ ስብስብ የለም።"
         },
         "dash.store.new_arrivals": {
           "en": "New arrivals",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "አዲስ የገቡ እቃዎች"
         },
         "dash.store.add": {
           "en": "Add",
           "context": "visible text",
-          "am": ""
+          "am": "ይጨምሩ"
         },
         "dash.store.custom_domain": {
           "en": "Custom domain",
           "context": "visible text",
-          "am": ""
+          "am": "የራስዎ ድረ-ገጽ ስም (Domain)"
         },
         "dash.store.use_own_address_like_yourshop": {
           "en": "Use your own address, like yourshop.et.",
           "context": "visible text",
-          "am": ""
+          "am": "እንደ yourshop.et ያለ የራስዎን የድረ-ገጽ አድራሻ ይጠቀሙ።"
         },
         "dash.store.coming_soon": {
           "en": "Coming soon",
           "context": "visible text",
-          "am": ""
+          "am": "በቅርቡ"
         }
       }
     },
@@ -2872,394 +2872,394 @@
           "en": "Settings",
           "context": "heading or title; also heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቅንብሮች"
         },
         "dash.settings.ask_shop_owner_change_shop": {
           "en": "Ask the shop owner to change shop settings.",
           "context": "visible text",
-          "am": ""
+          "am": "የሱቁን ቅንብሮች ለመቀየር የሱቁን ባለቤት ይጠይቁ።"
         },
         "dash.settings.enter_valid_delivery_fee": {
           "en": "Enter a valid delivery fee",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "ትክክለኛ የማድረሻ ዋጋ ያስገቡ"
         },
         "dash.settings.settings_saved": {
           "en": "Settings saved",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቅንብሮቹ ተቀምጠዋል"
         },
         "dash.settings.shop": {
           "en": "Shop",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሱቅ"
         },
         "dash.settings.how_buyers_see_shop": {
           "en": "How buyers see your shop.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "ገዢዎች ሱቅዎን እንዴት እንደሚያዩት።"
         },
         "dash.settings.shop_name": {
           "en": "Shop name",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ስም"
         },
         "dash.settings.about_shop": {
           "en": "About your shop",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ስለ ሱቅዎ"
         },
         "dash.settings.storefront_language": {
           "en": "Storefront language",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ ገጽ ቋንቋ"
         },
         "dash.settings.english": {
           "en": "English",
           "context": "visible text",
-          "am": ""
+          "am": "English (እንግሊዝኛ)"
         },
         "dash.settings.text": {
           "en": "አማርኛ",
           "context": "visible text",
-          "am": ""
+          "am": "አማርኛ"
         },
         "dash.settings.visibility": {
           "en": "Visibility",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ እይታ"
         },
         "dash.settings.open_buyers": {
           "en": "Open to buyers",
           "context": "visible text",
-          "am": ""
+          "am": "ለገዢዎች ክፍት"
         },
         "dash.settings.hidden_while_i_set_up": {
           "en": "Hidden while I set up",
           "context": "visible text",
-          "am": ""
+          "am": "አዘጋጅቼ እስክጨርስ ይደበቅ"
         },
         "dash.settings.telegram_listings": {
           "en": "Telegram listings",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የቴሌግራም ልጥፎች"
         },
         "dash.settings.what_happens_when_post_channel": {
           "en": "What happens when you post in your channel or group.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "በቻናልዎ ወይም በግሩፕዎ ላይ ሲለጥፉ ምን ይደረግ።"
         },
         "dash.settings.new_posts": {
           "en": "New posts",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አዲስ ልጥፎች"
         },
         "dash.settings.publish_automatically_when_details_clear": {
           "en": "Publish automatically when the details are clear",
           "context": "visible text",
-          "am": ""
+          "am": "መረጃው ግልጽ ሲሆን በራሱ ወዲያውኑ ለሽያጭ ይውጣ"
         },
         "dash.settings.always_save_as_draft_me": {
           "en": "Always save as a draft for me to review",
           "context": "visible text",
-          "am": ""
+          "am": "ሁልጊዜ እኔ አይቼ እስካወጣው ድረስ በዝግጅት ላይ (ረቂቅ) ይቀመጥ"
         },
         "dash.settings.pause_don_apos_t_create": {
           "en": "Pause: don't create products from posts",
           "context": "visible text",
-          "am": ""
+          "am": "ለጊዜው ይቁም፦ ከልጥፎች ምርት አይፈጠር"
         },
         "dash.settings.publish_automatically_when_confidence_at": {
           "en": "Publish automatically when confidence is at least",
           "context": "label (field, button or menu item)",
-          "am": ""
+          "am": "በራሱ ለሽያጭ የሚወጣበት የእርግጠኝነት መጠን ቢያንስ"
         },
         "dash.settings.lower_publishes_more_posts_without": {
           "en": "Lower publishes more posts without review; higher sends more to drafts.",
           "context": "help text under a field",
-          "am": ""
+          "am": "ዝቅ ሲል ብዙ ልጥፎች ያለ እርስዎ እይታ ይወጣሉ፤ ከፍ ሲል ደግሞ እርስዎ እንዲያዩዋቸው ወደ ረቂቅ ይገባሉ።"
         },
         "dash.settings.80_recommended": {
           "en": "80% (recommended)",
           "context": "visible text",
-          "am": ""
+          "am": "80% (የሚመከር)"
         },
         "dash.settings.order_buttons_posts": {
           "en": "Order buttons on posts",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "በልጥፎች ስር «ይዘዙ» መጫኛ"
         },
         "dash.settings.adds_order_ask_seller_shop": {
           "en": "Adds Order, Ask seller and Shop buttons to every listing.",
           "context": "help text under a field",
-          "am": ""
+          "am": "በእያንዳንዱ የሽያጭ ልጥፍ ስር «ይዘዙ»፣ «ሻጩን ይጠይቁ» እና «ሱቅ» የሚሉ መጫኛዎችን ይጨምራል።"
         },
         "dash.settings.button_language": {
           "en": "Button language",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የመጫኛ ቋንቋ"
         },
         "dash.settings.english_order": {
           "en": "English (🛒 Order)",
           "context": "visible text",
-          "am": ""
+          "am": "English (🛒 Order)"
         },
         "dash.settings.text_2": {
           "en": "አማርኛ (🛒 ይዘዙ)",
           "context": "visible text",
-          "am": ""
+          "am": "አማርኛ (🛒 ይዘዙ)"
         },
         "dash.settings.archive_listings_automatically_after": {
           "en": "Archive listings automatically after",
           "context": "label (field, button or menu item)",
-          "am": ""
+          "am": "ምርቶች ከዚህ ጊዜ በኋላ በራሳቸው ይደበቁ"
         },
         "dash.settings.leave_empty_keep_listings_until": {
           "en": "Leave empty to keep listings until you change them.",
           "context": "help text under a field",
-          "am": ""
+          "am": "እርስዎ እስኪቀይሯቸው ድረስ እንዲቆዩ ባዶ ይተዉት።"
         },
         "dash.settings.never": {
           "en": "Never",
           "context": "visible text",
-          "am": ""
+          "am": "በፍጹም አይደበቁ"
         },
         "dash.settings.30_days": {
           "en": "30 days",
           "context": "visible text",
-          "am": ""
+          "am": "ከ30 ቀናት በኋላ"
         },
         "dash.settings.60_days": {
           "en": "60 days",
           "context": "visible text",
-          "am": ""
+          "am": "ከ60 ቀናት በኋላ"
         },
         "dash.settings.90_days": {
           "en": "90 days",
           "context": "visible text",
-          "am": ""
+          "am": "ከ90 ቀናት በኋላ"
         },
         "dash.settings.delivery_pickup": {
           "en": "Delivery & pickup",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ማድረሻ እና ከሱቅ መውሰጃ"
         },
         "dash.settings.shown_buyers_at_checkout": {
           "en": "Shown to buyers at checkout.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "ገዢዎች ሲያዙ የሚታያቸው መረጃ።"
         },
         "dash.settings.delivery": {
           "en": "Delivery",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ያሉበት ማድረስ (Delivery)"
         },
         "dash.settings.delivery_fee_etb": {
           "en": "Delivery fee (ETB)",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የማድረሻ ዋጋ (በብር)"
         },
         "dash.settings.0_free_delivery": {
           "en": "0 for free delivery.",
           "context": "help text under a field",
-          "am": ""
+          "am": "ማድረሻው ነፃ ከሆነ 0 ያስገቡ።"
         },
         "dash.settings.delivery_note": {
           "en": "Delivery note",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የማድረሻ ማስታወሻ"
         },
         "dash.settings.addis_ababa_only_same_day": {
           "en": "Addis Ababa only, same day",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "አዲስ አበባ ብቻ፣ በዕለቱ ይደርሳል"
         },
         "dash.settings.pickup": {
           "en": "Pickup",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ከሱቅ መጥቶ መውሰድ"
         },
         "dash.settings.pickup_address": {
           "en": "Pickup address",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሱቅ መውሰጃ አድራሻ"
         },
         "dash.settings.bole_friendship_building_2nd_floor": {
           "en": "Bole, Friendship building, 2nd floor",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "ቦሌ፣ ፍሬንድሺፕ ህንፃ 2ኛ ፎቅ"
         },
         "dash.settings.payments": {
           "en": "Payments",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ክፍያ"
         },
         "dash.settings.how_buyers_pay": {
           "en": "How buyers pay you.",
           "context": "short description under a heading",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ገዢዎች እንዴት እንደሚከፍሉዎት።"
         },
         "dash.settings.pay_delivery": {
           "en": "Pay on delivery",
           "context": "visible text",
-          "am": ""
+          "am": "እቃው ሲደርስ ክፍያ"
         },
         "dash.settings.cash_transfer_when_order_arrives": {
           "en": "Cash or transfer when the order arrives.",
           "context": "visible text",
-          "am": ""
+          "am": "ትዕዛዙ ሲደርስ በጥሬ ገንዘብ ወይም በባንክ/ቴሌብር ዝውውር።"
         },
         "dash.settings.on": {
           "en": "On",
           "context": "visible text",
-          "am": ""
+          "am": "በርቷል"
         },
         "dash.settings.online_payment": {
           "en": "Online payment",
           "context": "visible text",
-          "am": ""
+          "am": "የኦንላይን ክፍያ"
         },
         "dash.settings.telebirr_cbe_birr_cards_through": {
           "en": "telebirr, CBE Birr and cards through Chapa.",
           "context": "visible text",
-          "am": ""
+          "am": "በChapa በኩል በtelebirr፣ በCBE Birr እና በካርድ።"
         },
         "dash.settings.coming_soon": {
           "en": "Coming soon",
           "context": "visible text",
-          "am": ""
+          "am": "በቅርቡ"
         },
         "dash.settings.contact": {
           "en": "Contact",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የመገናኛ አድራሻ"
         },
         "dash.settings.shown_storefront": {
           "en": "Shown on your storefront.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "በሱቅ ገጽዎ ላይ ለደንበኞች ይታያል።"
         },
         "dash.settings.phone": {
           "en": "Phone",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ስልክ ቁጥር"
         },
         "dash.settings.telegram_username": {
           "en": "Telegram username",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የቴሌግራም መለያ (@username)"
         },
         "dash.settings.yourshop": {
           "en": "@yourshop",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "@yourshop"
         },
         "dash.settings.address": {
           "en": "Address",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አድራሻ"
         },
         "dash.settings.notifications": {
           "en": "Notifications",
           "context": "heading or tooltip",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ማሳወቂያዎች"
         },
         "dash.settings.messages_from_goods_bot_telegram": {
           "en": "Messages from the Goods bot in Telegram.",
           "context": "short description under a heading",
-          "am": ""
+          "am": "ከGoods ቦት በቴሌግራም የሚላኩ መልዕክቶች።"
         },
         "dash.settings.new_orders": {
           "en": "New orders",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አዲስ ትዕዛዞች"
         },
         "dash.settings.buyer_messages": {
           "en": "Buyer messages",
           "context": "label (field, button or menu item)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የገዢ መልዕክቶች"
         },
         "dash.settings.save_settings": {
           "en": "Save settings",
           "context": "visible text",
-          "am": ""
+          "am": "ቅንብሮችን ያስቀምጡ"
         },
         "dash.settings.could_not_create_invite": {
           "en": "Could not create the invite",
           "context": "toast (short pop-up confirmation or error)",
-          "am": ""
+          "am": "የግብዣ ሊንኩን መፍጠር አልተቻለም"
         },
         "dash.settings.could_not_remove": {
           "en": "Could not remove",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ማንሳት አልተቻለም"
         },
         "dash.settings.staff": {
           "en": "Staff",
           "context": "visible text",
-          "am": ""
+          "am": "የሱቅ ሰራተኞች"
         },
         "dash.settings.admins_can_do_everything_except": {
           "en": "Admins can do everything except manage staff. Staff handle products, orders and messages.",
           "context": "visible text",
-          "am": ""
+          "am": "አስተዳዳሪዎች (አድሚኖች) ሰራተኛ ከማስተዳደር ውጭ ሁሉንም ነገር ማድረግ ይችላሉ። ሰራተኞች ደግሞ ምርቶችን፣ ትዕዛዞችንና መልዕክቶችን ያስተናግዳሉ።"
         },
         "dash.settings.remove": {
           "en": "Remove",
           "context": "visible text",
-          "am": ""
+          "am": "ያንሱ"
         },
         "dash.settings.admin": {
           "en": "Admin",
           "context": "visible text",
-          "am": ""
+          "am": "አድሚን"
         },
         "dash.settings.create_invite_link": {
           "en": "Create invite link",
           "context": "visible text",
-          "am": ""
+          "am": "የግብዣ ሊንክ ይፍጠሩ"
         },
         "dash.settings.link_copied": {
           "en": "Link copied",
           "context": "toast (short pop-up confirmation or error)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ሊንኩ ተቀድቷል"
         },
         "dash.settings.send_one_time_link_opens": {
           "en": "Send this one-time link. It opens the Goods bot and adds them to your shop. Valid for 7 days.",
           "context": "visible text",
-          "am": ""
+          "am": "ይህን የአንድ ጊዜ ሊንክ ይላኩላቸው። የGoods ቦትን ከፍቶ ወደ ሱቅዎ ያስገባቸዋል። ለ7 ቀናት ያገለግላል።"
         },
         "dash.settings.ai_quota": {
           "en": "Automatic reading today: {used} of {limit} posts. After that, posts are saved as drafts for you to check.",
           "context": "daily limit of posts read automatically by AI",
-          "am": ""
+          "am": "የዛሬ የራስ-ሰር ንባብ፦ ከ{limit} ልጥፎች {used} ተነቧል። ከዚያ በኋላ የሚለጠፉት እርስዎ አይተው እንዲያወጧቸው በረቂቅ ይቀመጣሉ።"
         }
       }
     },
@@ -3274,599 +3274,599 @@
           "en": "Cart",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ቅርጫት"
         },
         "store.checkout": {
           "en": "Checkout",
           "context": "heading or title",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ማዘዣ"
         },
         "store.categories": {
           "en": "Categories",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ምድቦች"
         },
         "store.decrease_quantity": {
           "en": "Decrease quantity",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ብዛት ይቀንሱ"
         },
         "store.increase_quantity": {
           "en": "Increase quantity",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ብዛት ይጨምሩ"
         },
         "store.09xx_xxx_xxx": {
           "en": "09XX XXX XXX",
           "context": "input placeholder (example or hint inside an empty field)",
-          "am": ""
+          "am": "09XX XXX XXX"
         },
         "store.text_4": {
           "en": "{idx} / {images}",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "{idx} / {images}"
         },
         "store.photo": {
           "en": "Photo {idx}",
           "context": "screen-reader label (not visible; read aloud for blind users)",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ፎቶ {idx}"
         },
         "store.nav.cart": {
           "en": "Cart",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ጋሪ",
-          "am": ""
+          "am": "ቅርጫት"
         },
         "store.nav.language": {
           "en": "አማርኛ",
           "context": "buyer-facing text (storefront)",
           "am_draft": "English",
-          "am": ""
+          "am": "English"
         },
         "store.shop.all": {
           "en": "All products",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሁሉም ምርቶች",
-          "am": ""
+          "am": "ሁሉም ምርቶች"
         },
         "store.shop.search": {
           "en": "Search this shop",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በዚህ ሱቅ ውስጥ ይፈልጉ",
-          "am": ""
+          "am": "በዚህ ሱቅ ውስጥ ይፈልጉ"
         },
         "store.shop.empty": {
           "en": "No products yet. Check back soon.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "እስካሁን ምርት የለም። በቅርቡ ይመለሱ።",
-          "am": ""
+          "am": "እስካሁን ምርት አልገባም። በቅርቡ ተመልሰው ይመልከቱ።"
         },
         "store.shop.noResults": {
           "en": "Nothing matches your search.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ከፍለጋዎ ጋር የሚዛመድ ነገር የለም።",
-          "am": ""
+          "am": "ከፈለጉት ጋር የሚመሳሰል እቃ አልተገኘም።"
         },
         "store.shop.loadMore": {
           "en": "Load more",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ተጨማሪ ይጫኑ",
-          "am": ""
+          "am": "ተጨማሪ ይመልከቱ"
         },
         "store.shop.about": {
           "en": "About",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ስለ እኛ",
-          "am": ""
+          "am": "ስለ ሱቁ"
         },
         "store.shop.contact": {
           "en": "Contact",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ያግኙን",
-          "am": ""
+          "am": "አድራሻና ስልክ"
         },
         "store.shop.telegram": {
           "en": "Telegram channel",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የቴሌግራም ቻናል",
-          "am": ""
+          "am": "የቴሌግራም ቻናል"
         },
         "store.shop.callUs": {
           "en": "Call",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ይደውሉ",
-          "am": ""
+          "am": "ይደውሉ"
         },
         "store.cart.feesAtCheckout": {
           "en": "Delivery is added at checkout. You pay when it arrives.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የማድረሻ ክፍያ በክፍያ ገጹ ላይ ይጨመራል። ሲደርስ ይከፍላሉ።",
-          "am": ""
+          "am": "የማድረሻ ዋጋ በሚቀጥለው ገጽ ላይ ይታያል። ክፍያው እቃው ሲደርስዎት ነው።"
         },
         "store.checkout.summary": {
           "en": "Your order",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዝዎ",
-          "am": ""
+          "am": "ትዕዛዝዎ"
         },
         "store.checkout.useTelegramPhone": {
           "en": "Use my Telegram number",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የቴሌግራም ስልክ ቁጥሬን ተጠቀም",
-          "am": ""
+          "am": "የቴሌግራም ስልክ ቁጥሬን ይጠቀሙ"
         },
         "store.checkout.noPaymentNow": {
           "en": "Nothing to pay now. The seller calls you to confirm.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "አሁን ምንም አይከፍሉም። ሻጩ ለማረጋገጥ ይደውልልዎታል።",
-          "am": ""
+          "am": "አሁን ምንም ክፍያ አይጠየቁም። ሻጩ ደውለው ትዕዛዝዎን ያረጋግጣሉ።"
         },
         "store.footer.poweredBy": {
           "en": "Made with Goods",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በGoods የተሰራ",
-          "am": ""
+          "am": "በGoods የተሰራ"
         },
         "store.shop.products": {
           "en": "{n} products",
           "context": "buyer-facing text (storefront)",
           "am_draft": "{n} ምርቶች",
-          "am": ""
+          "am": "{n} ምርቶች"
         },
         "store.shop.share": {
           "en": "Share",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ያጋሩ",
-          "am": ""
+          "am": "ያጋሩ"
         },
         "store.shop.payOnDelivery": {
           "en": "Pay on delivery",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሲደርስ ይክፈሉ",
-          "am": ""
+          "am": "እቃው ሲደርስ ይክፈሉ"
         },
         "store.shop.delivery": {
           "en": "Delivery in Addis",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በአዲስ አበባ ማድረስ",
-          "am": ""
+          "am": "አዲስ አበባ ውስጥ እናደርሳለን"
         },
         "store.product.askPrice": {
           "en": "Ask for price",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ዋጋ ይጠይቁ",
-          "am": ""
+          "am": "ዋጋ ይጠይቁ"
         },
         "store.product.askPriceHint": {
           "en": "Ask the seller for the price",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ዋጋውን ሻጩን ይጠይቁ",
-          "am": ""
+          "am": "ዋጋውን ለማወቅ ሻጩን ይጠይቁ"
         },
         "store.product.payOnDelivery": {
           "en": "Pay when it arrives, in cash or by transfer",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሲደርስ በጥሬ ገንዘብ ወይም በዝውውር ይክፈሉ",
-          "am": ""
+          "am": "እቃው ሲደርስዎት በጥሬ ገንዘብ ወይም በባንክ/ቴሌብር ዝውውር ይክፈሉ"
         },
         "store.product.freeDelivery": {
           "en": "Free delivery",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ነፃ ማድረስ",
-          "am": ""
+          "am": "ነፃ ማድረሻ"
         },
         "store.product.deliveryFee": {
           "en": "Delivery {fee}",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ማድረሻ {fee}",
-          "am": ""
+          "am": "ማድረሻ {fee}"
         },
         "store.product.pickup": {
           "en": "Pickup available",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ከሱቁ መውሰድ ይቻላል",
-          "am": ""
+          "am": "ከሱቅ መጥቶ መውሰድ ይቻላል"
         },
         "store.product.addToCart": {
           "en": "Add to cart",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ወደ ጋሪ ያክሉ",
-          "am": ""
+          "am": "ወደ ቅርጫት ይጨምሩ"
         },
         "store.product.orderNow": {
           "en": "Order now",
           "context": "buyer-facing text (storefront)",
           "am_draft": "አሁን ይዘዙ",
-          "am": ""
+          "am": "አሁን ይዘዙ"
         },
         "store.product.askSeller": {
           "en": "Ask the seller",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሻጩን ይጠይቁ",
-          "am": ""
+          "am": "ሻጩን ይጠይቁ"
         },
         "store.product.soldOut": {
           "en": "Sold out",
           "context": "buyer-facing text (storefront)",
           "am_draft": "አልቋል",
-          "am": ""
+          "am": "አልቋል"
         },
         "store.product.sold": {
           "en": "Sold",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ተሽጧል",
-          "am": ""
+          "am": "ተሽጧል"
         },
         "store.product.negotiable": {
           "en": "Negotiable",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ዋጋ ይደረጋል",
-          "am": ""
+          "am": "ዋጋው ይደራደራል"
         },
         "store.product.inStock": {
           "en": "{n} in stock",
           "context": "buyer-facing text (storefront)",
           "am_draft": "{n} ቀርቷል",
-          "am": ""
+          "am": "{n} በሱቅ አለ"
         },
         "store.product.details": {
           "en": "Details",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ዝርዝር",
-          "am": ""
+          "am": "ዝርዝር መረጃ"
         },
         "store.product.viewOnTelegram": {
           "en": "View on Telegram",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በቴሌግራም ይመልከቱ",
-          "am": ""
+          "am": "በቴሌግራም ይመልከቱ"
         },
         "store.product.related": {
           "en": "More from this shop",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ከዚህ ሱቅ ተጨማሪ",
-          "am": ""
+          "am": "ከዚህ ሱቅ ተጨማሪ እቃዎች"
         },
         "store.product.added": {
           "en": "Added to cart",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ወደ ጋሪ ተጨምሯል",
-          "am": ""
+          "am": "ወደ ቅርጫት ተጨምሯል"
         },
         "store.cart.title": {
           "en": "Your cart",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የእርስዎ ጋሪ",
-          "am": ""
+          "am": "የእርስዎ ቅርጫት"
         },
         "store.cart.empty": {
           "en": "Your cart is empty.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ጋሪዎ ባዶ ነው።",
-          "am": ""
+          "am": "ቅርጫትዎ ባዶ ነው።"
         },
         "store.cart.continue": {
           "en": "Continue shopping",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ግዢ ይቀጥሉ",
-          "am": ""
+          "am": "እቃ መምረጥ ይቀጥሉ"
         },
         "store.cart.subtotal": {
           "en": "Subtotal",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ንዑስ ድምር",
-          "am": ""
+          "am": "የእቃዎች ዋጋ"
         },
         "store.cart.checkout": {
           "en": "Checkout",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ወደ ክፍያ",
-          "am": ""
+          "am": "ወደ ማዘዣ ይቀጥሉ"
         },
         "store.cart.remove": {
           "en": "Remove",
           "context": "buyer-facing text (storefront)",
           "am_draft": "አስወግድ",
-          "am": ""
+          "am": "ያውጡ"
         },
         "store.cart.unavailable": {
           "en": "No longer available",
           "context": "buyer-facing text (storefront)",
           "am_draft": "አሁን አይገኝም",
-          "am": ""
+          "am": "አሁን አይገኝም"
         },
         "store.cart.insufficient": {
           "en": "Only {n} left",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የቀረው {n} ብቻ ነው",
-          "am": ""
+          "am": "{n} ብቻ ነው የቀረው"
         },
         "store.checkout.title": {
           "en": "Checkout",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዝ ማጠናቀቂያ",
-          "am": ""
+          "am": "ትዕዛዝ ማጠናቀቂያ"
         },
         "store.checkout.contact": {
           "en": "Your details",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የእርስዎ መረጃ",
-          "am": ""
+          "am": "የእርስዎ መረጃ"
         },
         "store.checkout.name": {
           "en": "Full name",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሙሉ ስም",
-          "am": ""
+          "am": "ሙሉ ስም"
         },
         "store.checkout.phone": {
           "en": "Phone number",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ስልክ ቁጥር",
-          "am": ""
+          "am": "ስልክ ቁጥር"
         },
         "store.checkout.phoneHint": {
           "en": "The seller will call this number to arrange delivery.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሻጩ ለማድረስ በዚህ ቁጥር ይደውላል።",
-          "am": ""
+          "am": "ሻጩ እቃውን ለማድረስ በዚህ ስልክ ይደውሉልዎታል።"
         },
         "store.checkout.fulfillment": {
           "en": "Delivery",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ማድረስ",
-          "am": ""
+          "am": "እቃውን የሚረከቡበት መንገድ"
         },
         "store.checkout.delivery": {
           "en": "Delivery",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ማድረስ",
-          "am": ""
+          "am": "ያሉበት ይድረስ"
         },
         "store.checkout.pickup": {
           "en": "Pickup",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ከሱቅ መውሰድ",
-          "am": ""
+          "am": "ከሱቅ ልውሰድ"
         },
         "store.checkout.address": {
           "en": "Delivery address",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የማድረሻ አድራሻ",
-          "am": ""
+          "am": "የማድረሻ አድራሻ"
         },
         "store.checkout.addressHint": {
           "en": "Area, street and a landmark the rider can find.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሰፈር፣ መንገድ እና ምልክት የሚሆን ቦታ።",
-          "am": ""
+          "am": "ሰፈር፣ መንገድ እና ለአድራሹ በቀላሉ የሚታወቅ ምልክት (ለምሳሌ፦ ቦሌ ኤድና ሞል አጠገብ)።"
         },
         "store.checkout.pickupAt": {
           "en": "Pick up at: {address}",
           "context": "buyer-facing text (storefront)",
           "am_draft": "መውሰጃ ቦታ፦ {address}",
-          "am": ""
+          "am": "መውሰጃ አድራሻ፦ {address}"
         },
         "store.checkout.notes": {
           "en": "Note for the seller (optional)",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ለሻጩ ማስታወሻ (አማራጭ)",
-          "am": ""
+          "am": "ለሻጩ ተጨማሪ መልዕክት (ካለዎት)"
         },
         "store.checkout.payment": {
           "en": "Payment",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ክፍያ",
-          "am": ""
+          "am": "የክፍያ አማራጭ"
         },
         "store.checkout.payOnDelivery": {
           "en": "Pay on delivery",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሲደርስ ይክፈሉ",
-          "am": ""
+          "am": "እቃው ሲደርስ ይክፈሉ"
         },
         "store.checkout.payOnDeliveryHint": {
           "en": "Pay the seller in cash or by transfer when your order arrives.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዝዎ ሲደርስ በጥሬ ገንዘብ ወይም በዝውውር ይክፈሉ።",
-          "am": ""
+          "am": "ትዕዛዝዎ ሲደርስ ለሻጩ በጥሬ ገንዘብ ወይም በባንክ/ቴሌብር ዝውውር ይክፈሉ።"
         },
         "store.checkout.payOnline": {
           "en": "Pay online",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በመስመር ላይ ይክፈሉ",
-          "am": ""
+          "am": "በኦንላይን ይክፈሉ"
         },
         "store.checkout.payOnlineHint": {
           "en": "telebirr, CBE Birr and cards.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ቴሌብር፣ ሲቢኢ ብር እና ካርዶች።",
-          "am": ""
+          "am": "በtelebirr፣ በCBE Birr እና በካርድ።"
         },
         "store.checkout.comingSoon": {
           "en": "Coming soon",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በቅርቡ",
-          "am": ""
+          "am": "በቅርቡ"
         },
         "store.checkout.deliveryFee": {
           "en": "Delivery fee",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የማድረሻ ክፍያ",
-          "am": ""
+          "am": "የማድረሻ ዋጋ"
         },
         "store.checkout.total": {
           "en": "Total",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ጠቅላላ",
-          "am": ""
+          "am": "ጠቅላላ ድምር"
         },
         "store.checkout.place": {
           "en": "Place order · {total}",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዝ ያስገቡ · {total}",
-          "am": ""
+          "am": "ትዕዛዝ ያስገቡ · {total}"
         },
         "store.checkout.placing": {
           "en": "Placing order…",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዝ በመላክ ላይ…",
-          "am": ""
+          "am": "ትዕዛዝዎ በመላክ ላይ…"
         },
         "store.order.placed": {
           "en": "Order #{n} placed",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዝ #{n} ገብቷል",
-          "am": ""
+          "am": "ትዕዛዝ #{n} ገብቷል"
         },
         "store.order.placedBody": {
           "en": "The seller will confirm shortly. You'll get updates in Telegram.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሻጩ በቅርቡ ያረጋግጣል። መረጃዎችን በቴሌግራም ያገኛሉ።",
-          "am": ""
+          "am": "ሻጩ በቅርቡ ደውለው ያረጋግጣሉ። የትዕዛዝዎን ሂደት በቴሌግራም ይከታተሉ።"
         },
         "store.order.status.placed": {
           "en": "Waiting for the seller to confirm",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሻጩ እስኪያረጋግጥ በመጠበቅ ላይ",
-          "am": ""
+          "am": "ሻጩ እስኪያረጋግጡት በመጠበቅ ላይ"
         },
         "store.order.status.confirmed": {
           "en": "Confirmed by the seller",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በሻጩ ተረጋግጧል",
-          "am": ""
+          "am": "በሻጩ ተረጋግጧል"
         },
         "store.order.status.shipped": {
           "en": "On the way",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በመንገድ ላይ ነው",
-          "am": ""
+          "am": "መንገድ ላይ ነው"
         },
         "store.order.status.delivered": {
           "en": "Delivered",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ደርሷል",
-          "am": ""
+          "am": "ደርሷል"
         },
         "store.order.status.completed": {
           "en": "Completed",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ተጠናቋል",
-          "am": ""
+          "am": "ተጠናቋል"
         },
         "store.order.status.cancelled": {
           "en": "Cancelled",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ተሰርዟል",
-          "am": ""
+          "am": "ተሰርዟል"
         },
         "store.order.step.placed": {
           "en": "Order placed",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዝ ገብቷል",
-          "am": ""
+          "am": "ትዕዛዝ ገብቷል"
         },
         "store.order.step.confirmed": {
           "en": "Seller confirmed",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሻጩ አረጋግጧል",
-          "am": ""
+          "am": "ሻጩ አረጋግጠዋል"
         },
         "store.order.step.shipped": {
           "en": "On the way",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በመንገድ ላይ",
-          "am": ""
+          "am": "መንገድ ላይ ነው"
         },
         "store.order.step.delivered": {
           "en": "Delivered",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ደርሷል",
-          "am": ""
+          "am": "ደርሷል"
         },
         "store.order.deliverTo": {
           "en": "Delivering to",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የሚደርስበት",
-          "am": ""
+          "am": "የሚደርስበት አድራሻ"
         },
         "store.order.pickupFrom": {
           "en": "Pick up from",
           "context": "buyer-facing text (storefront)",
           "am_draft": "የሚወሰድበት",
-          "am": ""
+          "am": "የሚወሰድበት ሱቅ"
         },
         "store.order.toPay": {
           "en": "To pay on delivery",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ሲደርስ የሚከፈል",
-          "am": ""
+          "am": "ሲደርስ የሚከፈል"
         },
         "store.order.paid": {
           "en": "Paid",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ተከፍሏል",
-          "am": ""
+          "am": "ተከፍሏል"
         },
         "store.order.items": {
           "en": "Items",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ዕቃዎች",
-          "am": ""
+          "am": "የታዘዙ እቃዎች"
         },
         "store.order.message": {
           "en": "Message the seller",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ለሻጩ መልዕክት ይላኩ",
-          "am": ""
+          "am": "ለሻጩ መልዕክት ይጻፉ"
         },
         "store.login.title": {
           "en": "Sign in with Telegram",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በቴሌግራም ይግቡ",
-          "am": ""
+          "am": "በቴሌግራም ይግቡ"
         },
         "store.login.body": {
           "en": "Goods uses your Telegram account. No passwords.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "Goods የቴሌግራም መለያዎን ይጠቀማል። የይለፍ ቃል አያስፈልግም።",
-          "am": ""
+          "am": "Goods የቴሌግራም አካውንትዎን ይጠቀማል። የይለፍ ቃል (ፓስወርድ) አያስፈልግም።"
         },
         "store.login.openBot": {
           "en": "Sign in with the Telegram app",
           "context": "buyer-facing text (storefront)",
           "am_draft": "በቴሌግራም መተግበሪያ ይግቡ",
-          "am": ""
+          "am": "በቴሌግራም መተግበሪያ ይግቡ"
         },
         "store.common.back": {
           "en": "Back",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ተመለስ",
-          "am": ""
+          "am": "ይመለሱ"
         },
         "store.common.error": {
           "en": "Something went wrong. Please try again.",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ።",
-          "am": ""
+          "am": "ችግር አጋጥሟል። እባክዎ እንደገና ይሞክሩ።"
         },
         "store.remove_item": {
           "en": "Remove {title}",
           "context": "screen-reader label of the delete button on a cart line; {title} = product name",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "{title}ን ያውጡ"
         },
         "store.photo_counter": {
           "en": "{n} / {total}",
           "context": "photo counter on the product gallery, e.g. \"2 / 5\" (probably unchanged)",
-          "am": ""
+          "am": "{n} / {total}"
         }
       }
     },
@@ -3881,29 +3881,29 @@
           "en": "My orders",
           "context": "heading or title; also visible text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትዕዛዞቼ"
         },
         "account.messages": {
           "en": "Messages",
           "context": "visible text",
-          "am": ""
+          "am": "መልዕክቶች"
         },
         "account.no_orders_yet": {
           "en": "No orders yet.",
           "context": "visible text",
-          "am": ""
+          "am": "እስካሁን ምንም ትዕዛዝ የለዎትም።"
         },
         "account.nav.orders": {
           "en": "My orders",
           "context": "buyer-facing text (storefront)",
           "am_draft": "ትዕዛዞቼ",
-          "am": ""
+          "am": "ትዕዛዞቼ"
         },
         "account.nav.messages": {
           "en": "Messages",
           "context": "buyer-facing text (storefront)",
           "am_draft": "መልዕክቶች",
-          "am": ""
+          "am": "መልዕክቶች"
         }
       }
     },
@@ -3919,48 +3919,48 @@
           "context": "Main button: opens the product with ordering ready. Max ~18 characters.",
           "limit": "max 18 characters",
           "am_draft": "🛒 ይዘዙ",
-          "am": ""
+          "am": "🛒 ይዘዙ"
         },
         "tg.buttons.ask_seller": {
           "en": "💬 Ask seller",
           "context": "Opens a chat with the seller about this product. Max ~18 characters.",
           "limit": "max 18 characters",
           "am_draft": "💬 ሻጩን ይጠይቁ",
-          "am": ""
+          "am": "💬 ሻጩን ይጠይቁ"
         },
         "tg.buttons.ask_price": {
           "en": "💬 Ask price",
           "context": "Shown instead of Order when the post has no price. Max ~18 characters.",
           "limit": "max 18 characters",
           "am_draft": "💬 ዋጋ ይጠይቁ",
-          "am": ""
+          "am": "💬 ዋጋ ይጠይቁ"
         },
         "tg.buttons.shop": {
           "en": "🏪 Shop",
           "context": "Opens the whole shop. Max ~18 characters.",
           "limit": "max 18 characters",
           "am_draft": "🏪 ሱቅ",
-          "am": ""
+          "am": "🏪 ሱቅ ይመልከቱ"
         },
         "tg.buttons.sold": {
           "en": "Sold · see similar",
           "context": "Shown when the item is sold; opens similar products. Max ~18 characters.",
           "limit": "max 18 characters",
           "am_draft": "ተሽጧል · ተመሳሳይ ይመልከቱ",
-          "am": ""
+          "am": "ተሽጧል · ሌላ ይዩ"
         },
         "tg.buttons.order_price": {
           "en": "{order} · {price}",
           "context": "Order button with price, e.g. '🛒 Order · ETB 4,500'. Keep {order} and {price}.",
           "limit": "max 18 characters",
-          "am": ""
+          "am": "{order} · {price}"
         },
         "tg.buttons.ask_for_price": {
           "en": "Ask for price",
           "context": "Card text when there is no price. Max ~18 characters.",
           "limit": "max 18 characters",
           "am_draft": "ዋጋ ይጠይቁ",
-          "am": ""
+          "am": "ዋጋ ይጠይቁ"
         }
       }
     },
@@ -3975,196 +3975,196 @@
           "en": "➕ Connect channel",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "➕ ቻናል ያገናኙ"
         },
         "tg.bot.connect_group": {
           "en": "➕ Connect group",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "➕ ግሩፕ ያገናኙ"
         },
         "tg.bot.send_just_price_as_number": {
           "en": "Send just the price as a number, for example 4500.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ዋጋውን በቁጥር ብቻ ይላኩ (ለምሳሌ፦ 4500)።"
         },
         "tg.bot.tap_below_sign_goods": {
           "en": "Tap below to sign in to Goods.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ወደ Goods ለመግባት ከታች ያለውን መጫኛ ይንኩ።"
         },
         "tg.bot.invite_link_has_expired_was": {
           "en": "This invite link has expired or was already used. Ask the shop owner for a new one.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ይህ የግብዣ ሊንክ ጊዜው አልፎበታል ወይም ቀድሞ ጥቅም ላይ ውሏል። የሱቁን ባለቤት አዲስ ሊንክ ይጠይቁ።"
         },
         "tg.bot.open_conversation": {
           "en": "Open the conversation:",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ውይይቱን ይክፈቱ፦"
         },
         "tg.bot.already_set_up": {
           "en": "Already set up?",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ቀድሞውኑ አዘጋጅተውታል?"
         },
         "tg.bot.run_status_inside_connected_channel": {
           "en": "Run /status inside your connected channel or group.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ባገናኙት ቻናል ወይም ግሩፕ ውስጥ /status ብለው ይላኩ።"
         },
         "tg.bot.not_connected_open_tap_connect": {
           "en": "Not connected. Open @{botUsername} and tap Connect.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "አልተገናኘም። @{botUsername}ን ይክፈቱና «ቻናል ያገናኙ» የሚለውን ይጫኑ።"
         },
         "tg.bot.connected": {
           "en": "Connected to {Goods}.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ከ{Goods} ጋር ተገናኝቷል።"
         },
         "tg.bot.send_reply_as_next_message": {
           "en": "Send your reply as the next message",
           "context": "button or message text",
-          "am": ""
+          "am": "መልስዎን በሚቀጥለው መልዕክት ይጻፉ"
         },
         "tg.bot.type_reply": {
           "en": "✍️ Type your reply:",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "✍️ መልስዎን ይጻፉ፦"
         },
         "tg.bot.order_confirmed": {
           "en": "Order confirmed",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ትዕዛዙ ተረጋግጧል"
         },
         "tg.bot.confirmed": {
           "en": "✅ Confirmed",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "✅ ተረጋግጧል"
         },
         "tg.bot.removed": {
           "en": "Removed",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ተነስቷል"
         },
         "tg.bot.removed_2": {
           "en": "🗑 Removed: {title}",
           "context": "Telegram bot message (edited)",
-          "am": ""
+          "am": "🗑 ተነስቷል፦ {title}"
         },
         "tg.bot.what_s_price_send_number": {
           "en": "What's the price of <b>{title}</b>? Send a number, for example 4500.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "የ<b>{title}</b> ዋጋ ስንት ነው? በቁጥር ብቻ ይላኩ (ለምሳሌ፦ 4500)።"
         },
         "tg.bot.action_isn_t_available_any": {
           "en": "That action isn't available any more.",
           "context": "button or message text",
-          "am": ""
+          "am": "ይህ አማራጭ አሁን አይሰራም።"
         },
         "tg.bot.connect_channel_tap_connect_channel": {
           "en": "To connect a channel, tap “Connect channel” below and pick it from the list.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "ቻናል ለማገናኘት ከታች «ቻናል ያገናኙ» የሚለውን ተጭነው ከዝርዝሩ ውስጥ ይምረጡ።"
         },
         "tg.bot.reply_notification_answer_open_dashboard": {
           "en": "Reply to a notification to answer it, or open your dashboard.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "መልስ ለመስጠት ለመልዕክቱ ቀጥታ ይመልሱ (Reply ያድርጉ)፣ ወይም የሱቅ መቆጣጠሪያዎን ይክፈቱ።"
         },
         "tg.bot.sent": {
           "en": "✓ Sent",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "✓ ተልኳል"
         },
         "tg.bot.couldn_t_send_reply_open": {
           "en": "Couldn't send that reply. Open the chat in Goods instead.",
           "context": "Telegram bot message",
-          "am": ""
+          "am": "መልሱን መላክ አልተቻለም። እባክዎ በGoods ውስጥ ውይይቱን ከፍተው ይመልሱ።"
         },
         "tg.bot.goods_turns_telegram_channel_group": {
           "en": "<b>Goods turns your Telegram channel or group into an online shop.</b>",
           "context": "text",
-          "am": ""
+          "am": "<b>Goods የቴሌግራም ቻናልዎን ወይም ግሩፕዎን ወደ ኦንላይን ሱቅ ይቀይረዋል።</b>"
         },
         "tg.bot.1_tap_connect_channel_connect": {
           "en": "1. Tap <b>Connect channel</b> (or <b>Connect group</b>) below and pick your chat.",
           "context": "text",
-          "am": ""
+          "am": "1. ከታች <b>ቻናል ያገናኙ</b> (ወይም <b>ግሩፕ ያገናኙ</b>) የሚለውን ይጫኑና የእርስዎን ይምረጡ።"
         },
         "tg.bot.2_keep_posting_products_as": {
           "en": "2. Keep posting products as usual: a photo and a price.",
           "context": "text",
-          "am": ""
+          "am": "2. እንደተለመደው እቃዎችዎን ፎቶ ከዋጋ ጋር መለጠፍዎን ይቀጥሉ።"
         },
         "tg.bot.3_each_post_becomes_product": {
           "en": "3. Each post becomes a product with an <b>Order</b> button, and orders arrive here.",
           "context": "text",
-          "am": ""
+          "am": "3. እያንዳንዱ ልጥፍ <b>ይዘዙ</b> የሚል መጫኛ ያለው ምርት ይሆናል፤ ትዕዛዞችም እዚህ ይደርሱዎታል።"
         },
         "tg.bot.open_dashboard": {
           "en": "Open dashboard",
           "context": "text",
-          "am": ""
+          "am": "የሱቅ መቆጣጠሪያ ይክፈቱ"
         },
         "tg.bot.chat_already_connected_another_goods": {
           "en": "That chat is already connected to another Goods shop.",
           "context": "text",
-          "am": ""
+          "am": "ይህ ቻናል/ግሩፕ ቀድሞውኑ ከሌላ የGoods ሱቅ ጋር ተገናኝቷል።"
         },
         "tg.bot.only_admins_chat_can_connect": {
           "en": "Only admins of that chat can connect it.",
           "context": "text",
-          "am": ""
+          "am": "ማገናኘት የሚችሉት የቻናሉ ወይም የግሩፑ አድሚኖች ብቻ ናቸው።"
         },
         "tg.bot.chat_type_isn_t_supported": {
           "en": "That chat type isn't supported.",
           "context": "text",
-          "am": ""
+          "am": "ይህ የውይይት አይነት አይደገፍም።"
         },
         "tg.bot.published": {
           "en": "✅ Published",
           "context": "text",
-          "am": ""
+          "am": "✅ ለሽያጭ ወጥቷል"
         },
         "tg.bot.edit": {
           "en": "✏️ Edit",
           "context": "text",
-          "am": ""
+          "am": "✏️ ያስተካክሉ"
         },
         "tg.bot.price_set": {
           "en": "✅ Price set: {price}. <b>{title}</b> is live.",
           "context": "bot reply after the seller sends a price; {price} like \"ETB 4,500\"",
-          "am": ""
+          "am": "✅ ዋጋው {price} ተብሎ ተሞልቷል። <b>{title}</b> ለሽያጭ ወጥቷል።"
         },
         "tg.bot.joined_admin": {
           "en": "✅ You joined <b>{shop}</b> as an admin.",
           "context": "after accepting a staff invite",
-          "am": ""
+          "am": "✅ ወደ <b>{shop}</b> በአድሚንነት ተቀላቅለዋል።"
         },
         "tg.bot.joined_staff": {
           "en": "✅ You joined <b>{shop}</b> as staff.",
           "context": "after accepting a staff invite",
-          "am": ""
+          "am": "✅ ወደ <b>{shop}</b> በሰራተኝነት ተቀላቅለዋል።"
         },
         "tg.bot.connected_channel": {
           "en": "✅ <b>{chat}</b> is connected to <b>{shop}</b>. Post a photo with a price in your channel and it becomes a product with an Order button.",
           "context": "after connecting a channel",
-          "am": ""
+          "am": "✅ <b>{chat}</b> ከ<b>{shop}</b> ጋር ተገናኝቷል። በቻናልዎ ላይ ፎቶ ከዋጋ ጋር ይለጥፉ፤ ወዲያውኑ «ይዘዙ» የሚል መጫኛ ያለው ምርት ይሆናል።"
         },
         "tg.bot.connected_group": {
           "en": "✅ <b>{chat}</b> is connected to <b>{shop}</b>. Post a photo with a price in your group and it becomes a product with an Order button. Only admins' posts become products.",
           "context": "after connecting a group",
-          "am": ""
+          "am": "✅ <b>{chat}</b> ከ<b>{shop}</b> ጋር ተገናኝቷል። በግሩፕዎ ላይ ፎቶ ከዋጋ ጋር ይለጥፉ፤ ወዲያውኑ «ይዘዙ» የሚል መጫኛ ያለው ምርት ይሆናል። ወደ ምርት የሚቀየሩት የአድሚኖች ልጥፎች ብቻ ናቸው።"
         },
         "tg.bot.connected_short": {
           "en": "✅ <b>{chat}</b> is connected to <b>{shop}</b>.",
           "context": "short confirmation",
-          "am": ""
+          "am": "✅ <b>{chat}</b> ከ<b>{shop}</b> ጋር ተገናኝቷል።"
         }
       }
     },
@@ -4179,158 +4179,158 @@
           "en": "🙈 Hide",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "🙈 ይደብቁ"
         },
         "tg.notify.not_product": {
           "en": "Not a product",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "የሚሸጥ እቃ አይደለም"
         },
         "tg.notify.yes_list": {
           "en": "Yes, list it",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "አዎ፣ ለሽያጭ ይውጣ"
         },
         "tg.notify.publish": {
           "en": "✅ Publish",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "✅ ሽያጭ ላይ ያውጡ"
         },
         "tg.notify.restore_rights": {
           "en": "Restore rights",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "ፈቃድ ይመልሱ"
         },
         "tg.notify.post_was_deleted_telegram_so": {
           "en": "🗑 The post for <b>{title}</b> was deleted in Telegram, so the listing is now hidden.",
           "context": "message text",
-          "am": ""
+          "am": "🗑 የ<b>{title}</b> ልጥፍ ከቴሌግራም ላይ ስለተሰረዘ፣ እቃው ከሱቅም ተደብቋል።"
         },
         "tg.notify.confirm": {
           "en": "✅ Confirm",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "✅ ያረጋግጡ"
         },
         "tg.notify.order_placed_at_total_pay": {
           "en": "🧾 <b>Order #{number} placed</b> at {name} {orderLinesText} Total {total} · Pay on delivery The seller will confirm shortly. You'll get updates here.",
           "context": "message text",
-          "am": ""
+          "am": "🧾 <b>ትዕዛዝ #{number} ገብቷል</b> — {name} {orderLinesText} ጠቅላላ {total} · እቃው ሲደርስ የሚከፈል ሻጩ በቅርቡ ያረጋግጣሉ። የትዕዛዝዎን ሂደት እዚህ ይከታተሉ።"
         },
         "tg.notify.order_at": {
           "en": "Order #{number} at {name} is {status}.{reason}",
           "context": "message text",
-          "am": ""
+          "am": "በ{name} ያዘዙት ትዕዛዝ #{number} {status}።{reason}"
         },
         "tg.notify.order_from_waiting_confirmation_unconfirmed": {
           "en": "⏰ Order #{number} from {contactName} is waiting for your confirmation. Unconfirmed orders are cancelled after 72 hours.",
           "context": "message text",
-          "am": ""
+          "am": "⏰ ከ{contactName} የመጣው ትዕዛዝ #{number} የእርስዎን ማረጋገጫ እየጠበቀ ነው። በ72 ሰዓታት ውስጥ ያልተረጋገጡ ትዕዛዞች በራሳቸው ይሰረዛሉ።"
         },
         "tg.notify.about_reply_message_answer": {
           "en": "💬 {who} about {about} “{quote}” <i>Reply to this message to answer.</i>",
           "context": "message text",
-          "am": ""
+          "am": "💬 {who} ስለ {about}፦ “{quote}” <i>መልስ ለመስጠት ለዚህ መልዕክት ቀጥታ ይመልሱ (Reply ያድርጉ)።</i>"
         },
         "tg.notify.reply": {
           "en": "↩️ Reply",
           "context": "button or message text",
           "limit": "keep about as short as the English",
-          "am": ""
+          "am": "↩️ ይመልሱ"
         },
         "tg.notify.replied_about_reply_message_answer": {
           "en": "💬 {name} replied about {about} “{quote}” <i>Reply to this message to answer.</i>",
           "context": "message text",
-          "am": ""
+          "am": "💬 {name} ስለ {about} መልሰዋል፦ “{quote}” <i>መልስ ለመስጠት ለዚህ መልዕክት ቀጥታ ይመልሱ (Reply ያድርጉ)።</i>"
         },
         "tg.notify.edit": {
           "en": "✏️ Edit",
           "context": "text",
-          "am": ""
+          "am": "✏️ ያስተካክሉ"
         },
         "tg.notify.listed_s_live_order_button": {
           "en": "✅ Listed: {title} · {price} It's live with an Order button on your post.",
           "context": "text",
-          "am": ""
+          "am": "✅ ለሽያጭ ወጥቷል፦ {title} · {price} በልጥፍዎ ስር «ይዘዙ» የሚል መጫኛ ተጨምሮበታል።"
         },
         "tg.notify.saved_as_draft_what_s": {
           "en": "📝 Saved as a draft: {title} What's the price? <b>Reply to this message</b> with a number, for example 4500.",
           "context": "text",
-          "am": ""
+          "am": "📝 በረቂቅ ተቀምጧል፦ {title} ዋጋው ስንት ነው? <b>ለዚህ መልዕክት በመመለስ (Reply)</b> ዋጋውን በቁጥር ይላኩ (ለምሳሌ፦ 4500)።"
         },
         "tg.notify.sale": {
           "en": "❓ Is this for sale? {title}",
           "context": "text",
-          "am": ""
+          "am": "❓ ይህ ለሽያጭ የቀረበ እቃ ነው? {title}"
         },
         "tg.notify.saved_as_draft_today_s": {
           "en": "📝 Saved as a draft: {title} · {price} Today's automatic reading limit was reached, so please check the details and publish.",
           "context": "text",
-          "am": ""
+          "am": "📝 በረቂቅ ተቀምጧል፦ {title} · {price} የዛሬው የራስ-ሰር ንባብ ገደብ ስለሞላ፣ እባክዎ ዝርዝሩን አይተው ለሽያጭ ያውጡት።"
         },
         "tg.notify.draft_ready_check_details_publish": {
           "en": "📝 Draft ready: {title} · {price} Check the details and publish.",
           "context": "text",
-          "am": ""
+          "am": "📝 ረቂቁ ተዘጋጅቷል፦ {title} · {price} ዝርዝሩን አይተው ለሽያጭ ያውጡት።"
         },
         "tg.notify.goods_can_t_add_order": {
           "en": "⚠️ Goods can't add Order buttons to posts in <b>{name}</b> because it no longer has the \"Edit messages of others\" right. Listings still get a small card under each post. Tap below to restore the right in one step.",
           "context": "text",
-          "am": ""
+          "am": "⚠️ Goods በ<b>{name}</b> ውስጥ «የሌሎችን መልዕክት ማስተካከል (Edit messages of others)» የሚለው ፈቃድ ስለተነሳበት በልጥፎች ላይ «ይዘዙ» መጫኛ መጨመር አልቻለም። ለጊዜው ከልጥፉ ስር በትንሽ ካርድ ይወጣል። ፈቃዱን በአንድ ንኪኪ ለመመለስ ከታች ያለውን ይጫኑ።"
         },
         "tg.notify.goods_lost_admin_rights_make": {
           "en": "⚠️ Goods lost admin rights in <b>{name}</b>. Make the bot an admin again so new posts become products.",
           "context": "text",
-          "am": ""
+          "am": "⚠️ Goods በ<b>{name}</b> ውስጥ የአድሚንነት ፈቃዱ ተነስቷል። አዲስ ልጥፎች ወደ ምርት እንዲቀየሩ ቦቱን እንደገና አድሚን ያድርጉት።"
         },
         "tg.notify.open_listing": {
           "en": "Open listing",
           "context": "text",
-          "am": ""
+          "am": "ምርቱን ይክፈቱ"
         },
         "tg.notify.pickup": {
           "en": "🏬 Pickup",
           "context": "text",
-          "am": ""
+          "am": "🏬 ከሱቅ የሚወሰድ"
         },
         "tg.notify.view_order": {
           "en": "View order",
           "context": "text",
-          "am": ""
+          "am": "ትዕዛዙን ይመልከቱ"
         },
         "tg.notify.reason": {
           "en": "Reason: {cancelReason}",
           "context": "text",
-          "am": ""
+          "am": "ምክንያት፦ {cancelReason}"
         },
         "tg.notify.photo": {
           "en": "📷 Photo",
           "context": "text",
-          "am": ""
+          "am": "📷 ፎቶ"
         },
         "tg.notify.buyer": {
           "en": "A buyer",
           "context": "text",
-          "am": ""
+          "am": "አንድ ገዢ"
         },
         "tg.notify.buyer_line": {
           "en": "{name}, {phone}",
           "context": "line in the new-order message (buyer name and phone); probably unchanged",
-          "am": ""
+          "am": "{name}፣ {phone}"
         },
         "tg.notify.new_order_one": {
           "en": "🛒 <b>New order #{number}</b> · 1 item · {total} · Pay on delivery",
           "context": "seller notification heading, one item",
-          "am": ""
+          "am": "🛒 <b>አዲስ ትዕዛዝ #{number}</b> · 1 እቃ · {total} · ሲደርስ የሚከፈል"
         },
         "tg.notify.new_order_other": {
           "en": "🛒 <b>New order #{number}</b> · {items} items · {total} · Pay on delivery",
           "context": "seller notification heading, several items",
-          "am": ""
+          "am": "🛒 <b>አዲስ ትዕዛዝ #{number}</b> · {items} እቃዎች · {total} · ሲደርስ የሚከፈል"
         }
       }
     },
@@ -4344,257 +4344,257 @@
         "errors.item_not_found": {
           "en": "Item not found",
           "context": "error message",
-          "am": ""
+          "am": "እቃው አልተገኘም"
         },
         "errors.item_no_longer_available": {
           "en": "This item is no longer available",
           "context": "error message",
-          "am": ""
+          "am": "ይህ እቃ አሁን አይገኝም"
         },
         "errors.ask_seller_price_item": {
           "en": "Ask the seller for the price of this item",
           "context": "error message",
-          "am": ""
+          "am": "የዚህን እቃ ዋጋ ሻጩን ይጠይቁ"
         },
         "errors.item_sold_out": {
           "en": "This item is sold out",
           "context": "error message",
-          "am": ""
+          "am": "ይህ እቃ አልቋል"
         },
         "errors.cart_full": {
           "en": "Your cart is full",
           "context": "error message",
-          "am": ""
+          "am": "ቅርጫትዎ ሞልቷል"
         },
         "errors.own_shop": {
           "en": "This is your own shop",
           "context": "error message",
-          "am": ""
+          "am": "ይህ የራስዎ ሱቅ ነው"
         },
         "errors.product_not_found": {
           "en": "Product not found",
           "context": "error message",
-          "am": ""
+          "am": "ምርቱ አልተገኘም"
         },
         "errors.could_not_start_conversation": {
           "en": "Could not start the conversation",
           "context": "error message",
-          "am": ""
+          "am": "ውይይቱን መጀመር አልተቻለም"
         },
         "errors.conversation_not_found": {
           "en": "Conversation not found",
           "context": "error message",
-          "am": ""
+          "am": "ውይይቱ አልተገኘም"
         },
         "errors.message_empty": {
           "en": "Message is empty",
           "context": "error message",
-          "am": ""
+          "am": "መልዕክቱ ባዶ ነው"
         },
         "errors.invalid_attachment": {
           "en": "Invalid attachment",
           "context": "error message",
-          "am": ""
+          "am": "የተያያዘው ፋይል ትክክል አይደለም"
         },
         "errors.re_sending_messages_too_fast": {
           "en": "You're sending messages too fast. Try again in a bit.",
           "context": "error message",
-          "am": ""
+          "am": "መልዕክቶችን በጣም በፍጥነት እየላኩ ነው። እባክዎ ትንሽ ቆይተው ይሞክሩ።"
         },
         "errors.collection_not_found": {
           "en": "Collection not found",
           "context": "error message",
-          "am": ""
+          "am": "ስብስቡ አልተገኘም"
         },
         "errors.too_many_products_at_once": {
           "en": "Too many products at once",
           "context": "error message",
-          "am": ""
+          "am": "በአንድ ጊዜ በጣም ብዙ ምርቶች ተመርጠዋል"
         },
         "errors.invite_link_has_expired_was": {
           "en": "This invite link has expired or was already used",
           "context": "error message",
-          "am": ""
+          "am": "ይህ የግብዣ ሊንክ ጊዜው አልፎበታል ወይም ቀድሞ ጥቅም ላይ ውሏል"
         },
         "errors.member_not_found": {
           "en": "Member not found",
           "context": "error message",
-          "am": ""
+          "am": "አባሉ አልተገኘም"
         },
         "errors.owner_can_t_removed": {
           "en": "The owner can't be removed",
           "context": "error message",
-          "am": ""
+          "am": "የሱቁን ባለቤት ማንሳት አይቻልም"
         },
         "errors.can_t_remove_yourself": {
           "en": "You can't remove yourself",
           "context": "error message",
-          "am": ""
+          "am": "ራስዎን ማንሳት አይችሉም"
         },
         "errors.shop_isn_t_taking_orders": {
           "en": "This shop isn't taking orders right now",
           "context": "error message",
-          "am": ""
+          "am": "ይህ ሱቅ ለጊዜው ትዕዛዝ እየተቀበለ አይደለም"
         },
         "errors.online_payment_coming_soon_please": {
           "en": "Online payment is coming soon. Please choose Pay on delivery.",
           "context": "error message",
-          "am": ""
+          "am": "የኦንላይን ክፍያ በቅርቡ ይጀመራል። እባክዎ «እቃው ሲደርስ ይክፈሉ» የሚለውን ይምረጡ።"
         },
         "errors.enter_valid_phone_number_example": {
           "en": "Enter a valid phone number, for example 0911 234 567",
           "context": "error message",
-          "am": ""
+          "am": "ትክክለኛ ስልክ ቁጥር ያስገቡ (ለምሳሌ፦ 0911 234 567)"
         },
         "errors.shop_offers_pickup_only": {
           "en": "This shop offers pickup only",
           "context": "error message",
-          "am": ""
+          "am": "ይህ ሱቅ የሚሰጠው ከሱቅ መጥቶ የመውሰድ አገልግሎት ብቻ ነው"
         },
         "errors.shop_offers_delivery_only": {
           "en": "This shop offers delivery only",
           "context": "error message",
-          "am": ""
+          "am": "ይህ ሱቅ የሚሰጠው ያሉበት ድረስ የማድረስ አገልግሎት ብቻ ነው"
         },
         "errors.enter_delivery_address": {
           "en": "Enter a delivery address",
           "context": "error message",
-          "am": ""
+          "am": "እባክዎ የማድረሻ አድራሻዎን ያስገቡ"
         },
         "errors.cart_empty": {
           "en": "Your cart is empty",
           "context": "error message",
-          "am": ""
+          "am": "ቅርጫትዎ ባዶ ነው"
         },
         "errors.shop_can_t_take_orders": {
           "en": "This shop can't take orders from this number. Please contact the seller.",
           "context": "error message",
-          "am": ""
+          "am": "ይህ ሱቅ ከዚህ ስልክ ቁጥር ትዕዛዝ መቀበል አይችልም። እባክዎ ሻጩን ያነጋግሩ።"
         },
         "errors.too_many_orders_short_time": {
           "en": "Too many orders in a short time. Please try again later.",
           "context": "error message",
-          "am": ""
+          "am": "በአጭር ጊዜ ውስጥ ብዙ ትዕዛዞች ተልከዋል። እባክዎ ትንሽ ቆይተው እንደገና ይሞክሩ።"
         },
         "errors.no_longer_available": {
           "en": "\"{title}\" is no longer available",
           "context": "error message",
-          "am": ""
+          "am": "“{title}” አሁን አይገኝም"
         },
         "errors.has_no_price_yet": {
           "en": "\"{title}\" has no price yet",
           "context": "error message",
-          "am": ""
+          "am": "ለ“{title}” ገና ዋጋ አልተሞላለትም"
         },
         "errors.just_sold_out": {
           "en": "\"{title}\" just sold out",
           "context": "error message",
-          "am": ""
+          "am": "“{title}” አሁን አልቋል"
         },
         "errors.order_not_found": {
           "en": "Order not found",
           "context": "error message",
-          "am": ""
+          "am": "ትዕዛዙ አልተገኘም"
         },
         "errors.order_changed_refresh_try_again": {
           "en": "Order changed, refresh and try again",
           "context": "error message",
-          "am": ""
+          "am": "የትዕዛዙ መረጃ ተቀይሯል፤ ገጹን አድሰው (Refresh) እንደገና ይሞክሩ"
         },
         "errors.not_confirmed_by_seller_within": {
           "en": "Not confirmed by the seller within 72 hours",
           "context": "reason text",
-          "am": ""
+          "am": "በ72 ሰዓታት ውስጥ በሻጩ ስላልተረጋገጠ"
         },
         "errors.enter_valid_amount": {
           "en": "Enter a valid amount",
           "context": "message",
-          "am": ""
+          "am": "ትክክለኛ መጠን ያስገቡ"
         },
         "errors.select_at_most_200_products": {
           "en": "Select at most 200 products at a time",
           "context": "error message",
-          "am": ""
+          "am": "በአንድ ጊዜ ቢበዛ እስከ 200 ምርቶች ብቻ ይምረጡ"
         },
         "errors.invalid_image_upload": {
           "en": "Invalid image upload",
           "context": "error message",
-          "am": ""
+          "am": "የተጫነው ፎቶ ትክክል አይደለም"
         },
         "errors.product_can_have_at_most": {
           "en": "A product can have at most 10 images",
           "context": "error message",
-          "am": ""
+          "am": "አንድ ምርት ቢበዛ እስከ 10 ፎቶዎች ብቻ ሊኖሩት ይችላል"
         },
         "errors.channel_not_connected": {
           "en": "Channel not connected",
           "context": "error message",
-          "am": ""
+          "am": "ቻናሉ አልተገናኘም"
         },
         "errors.give_bot_post_messages_right": {
           "en": "Give the bot the “Post messages” right in this channel first",
           "context": "error message",
-          "am": ""
+          "am": "መጀመሪያ በዚህ ቻናል ውስጥ ለቦቱ «መልዕክት የመለጠፍ (Post messages)» ፈቃድ ይስጡት"
         },
         "errors.publish_product_before_posting": {
           "en": "Publish the product before posting it",
           "context": "error message",
-          "am": ""
+          "am": "ምርቱን ወደ ቴሌግራም ከመለጠፍዎ በፊት «ሽያጭ ላይ» ያድርጉት"
         },
         "errors.telegram_refused_post": {
           "en": "Telegram refused the post: {description}",
           "context": "error message",
-          "am": ""
+          "am": "ቴሌግራም ልጥፉን አልተቀበለውም፦ {description}"
         },
         "errors.could_not_allocate_shop_address": {
           "en": "Could not allocate a shop address, try another name",
           "context": "error message",
-          "am": ""
+          "am": "የሱቅ ሊንክ መፍጠር አልተቻለም፤ እባክዎ ሌላ ስም ይሞክሩ"
         },
         "errors.shop_name_too_short": {
           "en": "Shop name is too short",
           "context": "error message",
-          "am": ""
+          "am": "የሱቁ ስም በጣም አጭር ነው"
         },
         "errors.shop_address_taken": {
           "en": "That shop address is taken",
           "context": "error message",
-          "am": ""
+          "am": "ይህ የሱቅ ሊንክ በሌላ ሰው ተይዟል"
         },
         "errors.enable_delivery_pickup_both": {
           "en": "Enable delivery, pickup, or both",
           "context": "error message",
-          "am": ""
+          "am": "ያሉበት ማድረስን፣ ከሱቅ መውሰድን፣ ወይም ሁለቱንም ያብሩ"
         },
         "errors.shop_not_found": {
           "en": "Shop not found",
           "context": "error message",
-          "am": ""
+          "am": "ሱቁ አልተገኘም"
         },
         "errors.my_shop": {
           "en": "My shop",
           "context": "error or system message",
-          "am": ""
+          "am": "የእኔ ሱቅ"
         },
         "errors.enter_name": {
           "en": "Enter your name",
           "context": "error or system message",
-          "am": ""
+          "am": "እባክዎ ስምዎን ያስገቡ"
         },
         "errors.enter_phone_number": {
           "en": "Enter your phone number",
           "context": "error or system message",
-          "am": ""
+          "am": "እባክዎ ስልክ ቁጥርዎን ያስገቡ"
         },
         "errors.photo": {
           "en": "📷 Photo",
           "context": "error or system message",
-          "am": ""
+          "am": "📷 ፎቶ"
         },
         "errors.cannot_change_order": {
           "en": "This order is {status}, so it can't be changed that way. Refresh the page.",
           "context": "error when a seller taps an action that no longer applies",
-          "am": ""
+          "am": "ይህ ትዕዛዝ «{status}» ላይ ስለሆነ በዚህ መልኩ መቀየር አይቻልም። ገጹን ያድሱት (Refresh)።"
         }
       }
     }

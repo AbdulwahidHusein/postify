@@ -28,9 +28,24 @@ import { parsePriceReply } from "@/server/domain/ingest-rules";
 import { setBotContext } from "@/server/domain/notify";
 import { acceptInvite } from "@/server/domain/members";
 import { formatMoney, toMinor } from "@/lib/money";
+import { localeFromTelegram, tc, type Locale } from "@/i18n/catalog";
 
 const REQUEST_CHANNEL = 1;
 const REQUEST_GROUP = 2;
+
+function lang(ctx: Context): Locale {
+  return localeFromTelegram(ctx.from?.language_code);
+}
+
+function welcomeText(locale: Locale) {
+  return [
+    tc(locale, "tg.bot.goods_turns_telegram_channel_group"),
+    "",
+    tc(locale, "tg.bot.1_tap_connect_channel_connect"),
+    tc(locale, "tg.bot.2_keep_posting_products_as"),
+    tc(locale, "tg.bot.3_each_post_becomes_product"),
+  ].join("\n");
+}
 
 function identityFrom(from: NonNullable<Context["from"]>): TelegramIdentity {
   return {
@@ -50,7 +65,7 @@ function open(text: string, path: string): InlineKeyboardButton {
 }
 
 /** Reply keyboard with Telegram's chat picker: only chats the user administers. */
-function connectKeyboard(): KeyboardButton[][] {
+function connectKeyboard(locale: Locale): KeyboardButton[][] {
   const rights = {
     is_anonymous: false,
     can_manage_chat: false,
@@ -68,7 +83,7 @@ function connectKeyboard(): KeyboardButton[][] {
   return [
     [
       {
-        text: "➕ Connect channel",
+        text: tc(locale, "tg.bot.connect_channel"),
         request_chat: {
           request_id: REQUEST_CHANNEL,
           chat_is_channel: true,
@@ -79,7 +94,7 @@ function connectKeyboard(): KeyboardButton[][] {
         },
       },
       {
-        text: "➕ Connect group",
+        text: tc(locale, "tg.bot.connect_group"),
         request_chat: {
           request_id: REQUEST_GROUP,
           chat_is_channel: false,
@@ -93,14 +108,6 @@ function connectKeyboard(): KeyboardButton[][] {
     ],
   ];
 }
-
-const WELCOME = [
-  "<b>Goods turns your Telegram channel or group into an online shop.</b>",
-  "",
-  "1. Tap <b>Connect channel</b> (or <b>Connect group</b>) below and pick your chat.",
-  "2. Keep posting products as usual: a photo and a price.",
-  "3. Each post becomes a product with an <b>Order</b> button, and orders arrive here.",
-].join("\n");
 
 async function requireUser(ctx: Context) {
   if (!ctx.from) return null;
@@ -117,9 +124,10 @@ async function productAccess(userId: string, productId: string) {
 }
 
 async function setPriceFromTelegram(ctx: Context, userId: string, productId: string, text: string) {
+  const locale = lang(ctx);
   const price = parsePriceReply(text);
   if (price === null) {
-    await ctx.reply("Send just the price as a number, for example 4500.");
+    await ctx.reply(tc(locale, "tg.bot.send_just_price_as_number"));
     return true;
   }
   const access = await productAccess(userId, productId);
@@ -132,7 +140,10 @@ async function setPriceFromTelegram(ctx: Context, userId: string, productId: str
   await scheduleButtonSyncForProducts(access.shop.id, [productId]);
   await db.delete(botContexts).where(eq(botContexts.telegramUserId, BigInt(ctx.from!.id)));
   await ctx.reply(
-    `✅ Price set: ${escapeHtml(formatMoney(minor, updated.variants[0]?.currency ?? "ETB") ?? "")}. <b>${escapeHtml(updated.title)}</b> is live.`,
+    tc(locale, "tg.bot.price_set", {
+      price: escapeHtml(formatMoney(minor, updated.variants[0]?.currency ?? "ETB") ?? ""),
+      title: escapeHtml(updated.title),
+    }),
     { parse_mode: "HTML" },
   );
   return true;
@@ -146,6 +157,7 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
   // ── /start ──────────────────────────────────────────────────────────────
   bot.command("start", async (ctx) => {
     if (ctx.chat.type !== "private" || !ctx.from) return;
+    const locale = lang(ctx);
     const user = await requireUser(ctx);
     const payload = String(ctx.match ?? "").trim();
 
@@ -153,8 +165,12 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
       const { token } = await createLoginTokenForIdentity(identityFrom(ctx.from), {
         redirectPath: redirectPathFromStartPayload(payload),
       });
-      await ctx.reply("Tap below to sign in to Goods.", {
-        reply_markup: { inline_keyboard: [[{ text: "Sign in", url: `${appUrl()}/auth/telegram?token=${token}` }]] },
+      await ctx.reply(tc(locale, "tg.bot.tap_below_sign_goods"), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: tc(locale, "store.login.openBot"), url: `${appUrl()}/auth/telegram?token=${token}` }],
+          ],
+        },
       });
       return;
     }
@@ -162,12 +178,20 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
       try {
         const invite = await acceptInvite(payload.slice(5), user.id);
         const shop = await getShopById(invite.shopId);
-        await ctx.reply(`✅ You joined <b>${escapeHtml(shop?.name ?? "the shop")}</b> as ${invite.role}.`, {
-          parse_mode: "HTML",
-          reply_markup: { inline_keyboard: [[open("Open dashboard", `/dashboard/${shop?.handle ?? ""}`)]] },
-        });
+        const joinKey = invite.role === "admin" ? "tg.bot.joined_admin" : "tg.bot.joined_staff";
+        await ctx.reply(
+          tc(locale, joinKey, { shop: escapeHtml(shop?.name ?? "Goods") }),
+          {
+            parse_mode: "HTML",
+            reply_markup: {
+              inline_keyboard: [
+                [open(tc(locale, "tg.bot.open_dashboard"), `/dashboard/${shop?.handle ?? ""}`)],
+              ],
+            },
+          },
+        );
       } catch {
-        await ctx.reply("This invite link has expired or was already used. Ask the shop owner for a new one.");
+        await ctx.reply(tc(locale, "tg.bot.invite_link_has_expired_was"));
       }
       return;
     }
@@ -177,45 +201,60 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
         const { role, conv } = await conversationAccess(conversationId, user.id);
         const shop = await getShopById(conv.shopId);
         const path = role === "seller" && shop ? `/dashboard/${shop.handle}/inbox/${conv.id}` : `/inbox/${conv.id}`;
-        await ctx.reply("Open the conversation:", { reply_markup: { inline_keyboard: [[open("Open chat", path)]] } });
+        await ctx.reply(tc(locale, "tg.bot.open_conversation"), {
+          reply_markup: {
+            inline_keyboard: [
+              [open(locale === "am" ? "ውይይት ይክፈቱ" : "Open chat", path)],
+            ],
+          },
+        });
         return;
       } catch {
         // fall through to the welcome message
       }
     }
 
-    await ctx.reply(WELCOME, {
+    await ctx.reply(welcomeText(locale), {
       parse_mode: "HTML",
-      reply_markup: { keyboard: connectKeyboard(), resize_keyboard: true, is_persistent: false },
+      reply_markup: { keyboard: connectKeyboard(locale), resize_keyboard: true, is_persistent: false },
     });
-    await ctx.reply("Already set up?", { reply_markup: { inline_keyboard: [[open("Open dashboard", "/dashboard")]] } });
+    await ctx.reply(tc(locale, "tg.bot.already_set_up"), {
+      reply_markup: {
+        inline_keyboard: [[open(tc(locale, "tg.bot.open_dashboard"), "/dashboard")]],
+      },
+    });
   });
 
   bot.command("help", async (ctx) => {
     if (ctx.chat.type !== "private") return;
-    await ctx.reply(WELCOME, {
+    const locale = lang(ctx);
+    await ctx.reply(welcomeText(locale), {
       parse_mode: "HTML",
-      reply_markup: { keyboard: connectKeyboard(), resize_keyboard: true },
+      reply_markup: { keyboard: connectKeyboard(locale), resize_keyboard: true },
     });
   });
 
   bot.command("status", async (ctx) => {
+    const locale = lang(ctx);
     if (!isLinkableType(ctx.chat.type)) {
-      await ctx.reply("Run /status inside your connected channel or group.");
+      await ctx.reply(tc(locale, "tg.bot.run_status_inside_connected_channel"));
       return;
     }
     const channel = await getChannelByChatId(BigInt(ctx.chat.id));
     if (!channel || channel.status !== "connected") {
-      await ctx.reply(`Not connected. Open @${botUsername()} and tap Connect.`);
+      await ctx.reply(
+        tc(locale, "tg.bot.not_connected_open_tap_connect", { botUsername: botUsername() }),
+      );
       return;
     }
     const shop = await getShopById(channel.shopId);
-    await ctx.reply(`Connected to ${shop?.name ?? "a Goods shop"}.`);
+    await ctx.reply(tc(locale, "tg.bot.connected", { Goods: shop?.name ?? "Goods" }));
   });
 
   // ── chat picker result ──────────────────────────────────────────────────
   bot.on("message:chat_shared", async (ctx) => {
     const shared = ctx.message.chat_shared;
+    const locale = lang(ctx);
     const user = await requireUser(ctx);
     if (!user || !ctx.from) return;
     const isChannel = shared.request_id === REQUEST_CHANNEL;
@@ -242,22 +281,27 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
         /* keep the guessed type */
       }
       const shop = result.shop;
-      const what = isChannel ? "Post a photo with a price in your channel" : "Admins can now post a photo with a price in the group";
+      const connectKey = isChannel ? "tg.bot.connected_channel" : "tg.bot.connected_group";
       await ctx.reply(
-        `✅ <b>${escapeHtml(shared.title ?? "Your chat")}</b> is connected to <b>${escapeHtml(shop.name)}</b>.\n${what} and it becomes a product with an Order button.`,
+        tc(locale, connectKey, {
+          chat: escapeHtml(shared.title ?? "Telegram"),
+          shop: escapeHtml(shop.name),
+        }),
         {
           parse_mode: "HTML",
-          reply_markup: { inline_keyboard: [[open("Open dashboard", `/dashboard/${shop.handle}`)]] },
+          reply_markup: {
+            inline_keyboard: [[open(tc(locale, "tg.bot.open_dashboard"), `/dashboard/${shop.handle}`)]],
+          },
         },
       );
       return;
     }
     const msg =
       result.status === "conflict"
-        ? "That chat is already connected to another Goods shop."
+        ? tc(locale, "tg.bot.chat_already_connected_another_goods")
         : result.status === "not_admin"
-          ? "Only admins of that chat can connect it."
-          : "That chat type isn't supported.";
+          ? tc(locale, "tg.bot.only_admins_chat_can_connect")
+          : tc(locale, "tg.bot.chat_type_isn_t_supported");
     await ctx.reply(msg);
   });
 
@@ -293,11 +337,22 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
       chat: { id: chat.id, type: chat.type, title: "title" in chat ? chat.title : null, username: "username" in chat ? (chat.username ?? null) : null },
     });
     if (result.status === "linked" || result.status === "already_linked") {
+      const locale = localeFromTelegram(from.language_code);
       try {
         await ctx.api.sendMessage(
           from.id,
-          `✅ <b>${escapeHtml(result.channel.title ?? "Your chat")}</b> is connected to <b>${escapeHtml(result.shop.name)}</b>.`,
-          { parse_mode: "HTML", reply_markup: { inline_keyboard: [[open("Open dashboard", `/dashboard/${result.shop.handle}`)]] } },
+          tc(locale, "tg.bot.connected_short", {
+            chat: escapeHtml(result.channel.title ?? "Telegram"),
+            shop: escapeHtml(result.shop.name),
+          }),
+          {
+            parse_mode: "HTML",
+            reply_markup: {
+              inline_keyboard: [
+                [open(tc(locale, "tg.bot.open_dashboard"), `/dashboard/${result.shop.handle}`)],
+              ],
+            },
+          },
         );
       } catch {
         // The user never started the bot; they'll see it in the dashboard.
@@ -309,6 +364,7 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
   bot.on("callback_query:data", async (ctx) => {
     const data = ctx.callbackQuery.data;
     const [action, id] = data.split(":");
+    const locale = lang(ctx);
     const user = await requireUser(ctx);
     if (!user || !id) {
       await ctx.answerCallbackQuery();
@@ -319,8 +375,8 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
         const { role } = await conversationAccess(id, user.id);
         if (role !== "seller") throw new Error("not seller");
         await setBotContext(BigInt(ctx.from.id), "chat_reply", id, 30);
-        await ctx.answerCallbackQuery({ text: "Send your reply as the next message" });
-        await ctx.reply("✍️ Type your reply:");
+        await ctx.answerCallbackQuery({ text: tc(locale, "tg.bot.send_reply_as_next_message") });
+        await ctx.reply(tc(locale, "tg.bot.type_reply"));
         return;
       }
       if (action === "oc") {
@@ -328,8 +384,14 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
         const role = order ? await memberRole(order.shopId, user.id) : null;
         if (!order || !role || !can(role, "orders.manage")) throw new Error("no access");
         await applyOrderAction({ shopId: order.shopId, orderId: id, action: "confirm", actorUserId: user.id });
-        await ctx.answerCallbackQuery({ text: "Order confirmed" });
-        await ctx.editMessageReplyMarkup({ reply_markup: { inline_keyboard: [[{ text: "✅ Confirmed", callback_data: "noop:x" }]] } }).catch(() => undefined);
+        await ctx.answerCallbackQuery({ text: tc(locale, "tg.bot.order_confirmed") });
+        await ctx
+          .editMessageReplyMarkup({
+            reply_markup: {
+              inline_keyboard: [[{ text: tc(locale, "tg.bot.confirmed"), callback_data: "noop:x" }]],
+            },
+          })
+          .catch(() => undefined);
         return;
       }
       if (["lp", "ln", "lh", "ls"].includes(action)) {
@@ -338,8 +400,12 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
         const { shop, product } = access;
         if (action === "ln") {
           await db.delete(products).where(and(eq(products.id, id), eq(products.shopId, shop.id)));
-          await ctx.answerCallbackQuery({ text: "Removed" });
-          await ctx.editMessageText(`🗑 Removed: ${escapeHtml(product.title)}`, { parse_mode: "HTML" }).catch(() => undefined);
+          await ctx.answerCallbackQuery({ text: tc(locale, "tg.bot.removed") });
+          await ctx
+            .editMessageText(tc(locale, "tg.bot.removed_2", { title: escapeHtml(product.title) }), {
+              parse_mode: "HTML",
+            })
+            .catch(() => undefined);
           return;
         }
         if (action === "lp") {
@@ -347,18 +413,35 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
           if (bundle?.variants[0]?.priceMinor == null) {
             await setBotContext(BigInt(ctx.from.id), "price", id, 24 * 60);
             await ctx.answerCallbackQuery();
-            await ctx.reply(`What's the price of <b>${escapeHtml(product.title)}</b>? Send a number, for example 4500.`, { parse_mode: "HTML" });
+            await ctx.reply(
+              tc(locale, "tg.bot.what_s_price_send_number", {
+                title: escapeHtml(product.title),
+              }),
+              { parse_mode: "HTML" },
+            );
             return;
           }
         }
         const status = action === "lp" ? "published" : action === "lh" ? "archived" : "sold";
         await updateProduct(shop, id, { status });
         await scheduleButtonSyncForProducts(shop.id, [id]);
-        const label = status === "published" ? "✅ Published" : status === "archived" ? "🙈 Hidden" : "Marked sold";
+        const label =
+          status === "published"
+            ? tc(locale, "tg.bot.published")
+            : status === "archived"
+              ? tc(locale, "tg.notify.hide")
+              : tc(locale, "store.product.sold");
         await ctx.answerCallbackQuery({ text: label });
         await ctx
           .editMessageReplyMarkup({
-            reply_markup: { inline_keyboard: [[{ text: label, callback_data: "noop:x" }, open("✏️ Edit", `/dashboard/${shop.handle}/products/${id}`)]] },
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  { text: label, callback_data: "noop:x" },
+                  open(tc(locale, "tg.bot.edit"), `/dashboard/${shop.handle}/products/${id}`),
+                ],
+              ],
+            },
           })
           .catch(() => undefined);
         return;
@@ -366,7 +449,12 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
       await ctx.answerCallbackQuery();
     } catch (err) {
       log.warn("callback failed", { action, err });
-      await ctx.answerCallbackQuery({ text: "That action isn't available any more.", show_alert: false }).catch(() => undefined);
+      await ctx
+        .answerCallbackQuery({
+          text: tc(locale, "tg.bot.action_isn_t_available_any"),
+          show_alert: false,
+        })
+        .catch(() => undefined);
     }
   });
 
@@ -409,14 +497,17 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
       }
     }
 
+    const locale = lang(ctx);
     if (ctx.message.forward_origin) {
-      await ctx.reply("To connect a channel, tap “Connect channel” below and pick it from the list.", {
-        reply_markup: { keyboard: connectKeyboard(), resize_keyboard: true },
+      await ctx.reply(tc(locale, "tg.bot.connect_channel_tap_connect_channel"), {
+        reply_markup: { keyboard: connectKeyboard(locale), resize_keyboard: true },
       });
       return;
     }
-    await ctx.reply("Reply to a notification to answer it, or open your dashboard.", {
-      reply_markup: { inline_keyboard: [[open("Open dashboard", "/dashboard")]] },
+    await ctx.reply(tc(locale, "tg.bot.reply_notification_answer_open_dashboard"), {
+      reply_markup: {
+        inline_keyboard: [[open(tc(locale, "tg.bot.open_dashboard"), "/dashboard")]],
+      },
     });
   });
 
@@ -424,13 +515,16 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
 }
 
 async function replyInConversation(ctx: Context, userId: string, conversationId: string, text: string) {
+  const locale = lang(ctx);
   try {
     const { role } = await conversationAccess(conversationId, userId);
     await sendMessage({ conversationId, userId, role, body: text, via: "telegram" });
-    await ctx.reply("✓ Sent", { reply_parameters: { message_id: ctx.message!.message_id } });
+    await ctx.reply(tc(locale, "tg.bot.sent"), {
+      reply_parameters: { message_id: ctx.message!.message_id },
+    });
   } catch (err) {
     log.warn("telegram chat reply failed", { err });
-    await ctx.reply("Couldn't send that reply. Open the chat in Goods instead.");
+    await ctx.reply(tc(locale, "tg.bot.couldn_t_send_reply_open"));
   }
 }
 

@@ -23,6 +23,7 @@ import {
 import { normalizeSettings } from "@/server/domain/shops";
 import { getProductBundle, type ProductBundle } from "@/server/domain/products";
 import { formatMoney } from "@/lib/money";
+import { tc, type Locale } from "@/i18n/catalog";
 
 /**
  * The post-button engine. Every listing in a connected channel or group keeps
@@ -34,22 +35,16 @@ import { formatMoney } from "@/lib/money";
 export type UrlButton = { text: string; url: string };
 export type Keyboard = UrlButton[][];
 
-const LABELS = {
-  en: {
-    order: "🛒 Order",
-    ask: "💬 Ask seller",
-    askPrice: "💬 Ask price",
-    shop: "🏪 Shop",
-    sold: "Sold · see similar",
-  },
-  am: {
-    order: "🛒 ይዘዙ",
-    ask: "💬 ሻጩን ይጠይቁ",
-    askPrice: "💬 ዋጋ ይጠይቁ",
-    shop: "🏪 ሱቅ",
-    sold: "ተሽጧል · ተመሳሳይ ይመልከቱ",
-  },
-} as const;
+function buttonLabels(lang: Locale) {
+  return {
+    order: tc(lang, "tg.buttons.order"),
+    ask: tc(lang, "tg.buttons.ask_seller"),
+    askPrice: tc(lang, "tg.buttons.ask_price"),
+    shop: tc(lang, "tg.buttons.shop"),
+    sold: tc(lang, "tg.buttons.sold"),
+    askForPrice: tc(lang, "tg.buttons.ask_for_price"),
+  };
+}
 
 export type ButtonProduct = {
   code: string;
@@ -88,7 +83,7 @@ export function renderKeyboard(input: {
   lang: "en" | "am";
 }): Keyboard | null {
   const { product, sourceCode, shopHandle } = input;
-  const l = LABELS[input.lang];
+  const l = buttonLabels(input.lang);
   if (product.status === "draft" || product.status === "archived") return null;
 
   const order = startParam.order(product.code, sourceCode);
@@ -113,9 +108,7 @@ export function renderCardText(product: ButtonProduct, lang: "en" | "am"): strin
   const price =
     product.priceMinor !== null
       ? formatMoney(product.priceMinor, product.currency)
-      : lang === "am"
-        ? "ዋጋ ይጠይቁ"
-        : "Ask for price";
+      : buttonLabels(lang).askForPrice;
   return `${product.title}\n${price}`;
 }
 
