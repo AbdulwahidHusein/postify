@@ -8,6 +8,13 @@
       "when": 1793609042639,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793625097627,
+      "tag": "0001_vercel_jobs_and_telegram_sizes",
+      "breakpoints": true
     }
   ]
 }

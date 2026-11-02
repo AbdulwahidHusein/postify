@@ -51,3 +51,6 @@ uploads/
 # production env for Cloud Run (non-secret, but per-deployment)
 /infra/env.prod.yaml
 /dist
+
+# production env for Vercel
+.env.production

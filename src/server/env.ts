@@ -40,8 +40,19 @@ const schema = z.object({
   AI_PRICE_INPUT_PER_M: z.coerce.number().min(0).default(0.3),
   AI_PRICE_OUTPUT_PER_M: z.coerce.number().min(0).default(2.5),
 
-  /** Background jobs: "cloud" = Cloud Tasks, "inline" = in-process (dev/tests). */
-  TASKS_MODE: z.enum(["cloud", "inline"]).default("inline"),
+  /**
+   * Background jobs: "db" = Postgres queue drained after each response and by
+   * the cron sweep (Vercel), "cloud" = Cloud Tasks (Cloud Run), "inline" =
+   * in-process timers (local dev and tests only).
+   */
+  TASKS_MODE: z.enum(["db", "cloud", "inline"]).default("inline"),
+  /** Shared secret for /internal/cron/* (Vercel Cron and the GitHub schedule send it as a Bearer token). */
+  CRON_SECRET: z.string().default(""),
+  /** Serve shops on <handle>.ROOT_DOMAIN (needs a wildcard domain). Off: /s/<handle>. */
+  SHOP_SUBDOMAINS: z
+    .enum(["true", "false", "1", "0", ""])
+    .default("")
+    .transform((v) => v === "true" || v === "1"),
   TASKS_PROJECT: z.string().default(""),
   TASKS_LOCATION: z.string().default("europe-west1"),
   /** Base URL Cloud Tasks calls, e.g. the private jobs service URL. */

@@ -2,6 +2,8 @@
 
 ## Shape
 
+> **Hosting modes.** On Vercel (current beta), web and jobs are one app: jobs live in a Postgres `jobs` table and run via Next.js `after()` plus a 5-minute sweep (`TASKS_MODE=db`, see `src/server/services/job-queue.ts`). The diagram below is the Cloud Run layout (`TASKS_MODE=cloud`), which uses the same job handlers.
+
 ```
 Telegram ──webhook──▶ ┌───────────────────────────┐      ┌──────────────┐
 Buyers/sellers ─edge─▶│ goods (Cloud Run, public) │─SQL─▶│ Neon Postgres │

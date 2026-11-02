@@ -6,7 +6,7 @@ import { runJob } from "@/server/jobs";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 const queues = z.enum(["ingest", "media", "buttons", "notify"]);
 

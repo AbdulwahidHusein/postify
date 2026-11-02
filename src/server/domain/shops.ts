@@ -256,7 +256,7 @@ export type SerializedShop = ReturnType<typeof serializeShop>;
 /** Public storefront address: the shop subdomain in production, /s/<handle> locally. */
 export function storefrontUrl(handle: string) {
   const root = serverEnv.ROOT_DOMAIN.toLowerCase();
-  if (!root || root.startsWith("localhost") || root.startsWith("127.")) return `${appUrl()}/s/${handle}`;
+  if (!serverEnv.SHOP_SUBDOMAINS || !root || root.startsWith("localhost") || root.startsWith("127.")) return `${appUrl()}/s/${handle}`;
   return `https://${handle}.${root}`;
 }
 

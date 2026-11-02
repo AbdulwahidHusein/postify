@@ -14,6 +14,7 @@ import {
   type Channel,
   type Shop,
   type TelegramUpdateRow,
+  type TelegramPhotoSize,
 } from "@/server/db/schema";
 import { sha256, shortCode } from "@/server/ids";
 import { log } from "@/server/log";
@@ -43,6 +44,18 @@ function bestPhotoFileId(msg: ListingMessage): string | null {
   if (!sizes?.length) return null;
   const best = [...sizes].sort((a, b) => (b.file_size ?? b.width) - (a.file_size ?? a.width))[0];
   return best?.file_id ?? null;
+}
+
+/** All sizes Telegram generated for the message's photo, smallest first. */
+function photoSizes(msg: ListingMessage): TelegramPhotoSize[] {
+  return [...(msg.photo ?? [])]
+    .sort((a, b) => a.width - b.width)
+    .map((p) => ({ fileId: p.file_id, width: p.width, height: p.height, ...(p.file_size ? { fileSize: p.file_size } : {}) }));
+}
+
+function photoOf(msg: ListingMessage): { telegramFileId: string; telegramSizes: TelegramPhotoSize[] } | null {
+  const id = bestPhotoFileId(msg);
+  return id ? { telegramFileId: id, telegramSizes: photoSizes(msg) } : null;
 }
 
 function captionOf(msg: ListingMessage): string {
@@ -214,16 +227,17 @@ async function appendPhotos(
   });
   const known = new Set(existing.map((i) => i.telegramFileId).filter(Boolean));
   const fresh = messages
-    .map((m) => bestPhotoFileId(m))
-    .filter((f): f is string => Boolean(f) && !known.has(f));
+    .map((m) => photoOf(m))
+    .filter((f): f is NonNullable<ReturnType<typeof photoOf>> => Boolean(f) && !known.has(f!.telegramFileId));
   if (fresh.length) {
     const inserted = await db
       .insert(productImages)
       .values(
-        fresh.map((fileId, i) => ({
+        fresh.map((photo, i) => ({
           productId: source.productId,
           shopId: source.shopId,
-          telegramFileId: fileId,
+          telegramFileId: photo.telegramFileId,
+          telegramSizes: photo.telegramSizes,
           position: existing.length + i,
         })),
       )
@@ -334,7 +348,7 @@ async function createOrAppend(
           trackInventory: true,
           inventoryQty: 1,
         },
-        images: photoIds.map((telegramFileId) => ({ telegramFileId })),
+        images: messages.map(photoOf).filter((p): p is NonNullable<ReturnType<typeof photoOf>> => Boolean(p)),
       });
       const [source] = await tx
         .insert(productSources)

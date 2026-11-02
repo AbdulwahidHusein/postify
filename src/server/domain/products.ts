@@ -14,6 +14,7 @@ import {
   type ProductSource,
   type ProductStatus,
   type ProductVariant,
+  type TelegramPhotoSize,
   type Shop,
 } from "@/server/db/schema";
 import { AppError, notFound } from "@/server/http";
@@ -58,7 +59,7 @@ export type NewProductInput = {
     trackInventory?: boolean;
     inventoryQty?: number;
   };
-  images?: { telegramFileId?: string | null; originalKey?: string | null }[];
+  images?: { telegramFileId?: string | null; telegramSizes?: TelegramPhotoSize[] | null; originalKey?: string | null }[];
 };
 
 function slugCandidate(title: string, hint?: string | null) {
@@ -114,6 +115,7 @@ export async function insertProduct(tx: DbOrTx, input: NewProductInput): Promise
             productId: product.id,
             shopId: input.shopId,
             telegramFileId: img.telegramFileId ?? null,
+            telegramSizes: img.telegramSizes ?? null,
             originalKey: img.originalKey ?? null,
             position: i,
           })),

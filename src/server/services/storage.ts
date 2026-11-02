@@ -128,7 +128,11 @@ export function publicUrl(key: string): string {
   return `/api/media/file/${key}`;
 }
 
+/** Marks a storage key whose renditions are JPEGs copied from Telegram. */
+export const JPEG_KEY_SUFFIX = "@jpg";
+
 export function renditionKey(storageKey: string, width: ImageWidth) {
+  if (storageKey.endsWith(JPEG_KEY_SUFFIX)) return `${storageKey.slice(0, -JPEG_KEY_SUFFIX.length)}-${width}.jpg`;
   return `${storageKey}-${width}.webp`;
 }
 
