@@ -269,82 +269,82 @@
           "en": "How it works",
           "context": "top navigation link",
           "limit": "short",
-          "am": ""
+          "am": "እንዴት እንደሚሰራ"
         },
         "landing.nav_features": {
           "en": "Features",
           "context": "top navigation link",
           "limit": "short",
-          "am": ""
+          "am": "ጥቅሞቹ"
         },
         "landing.nav_pricing": {
           "en": "Pricing",
           "context": "top navigation link",
           "limit": "short",
-          "am": ""
+          "am": "ክፍያ"
         },
         "landing.nav_faq": {
           "en": "FAQ",
           "context": "top navigation link (Frequently asked questions)",
           "limit": "short",
-          "am": ""
+          "am": "ተደጋጋሚ ጥያቄዎች"
         },
         "landing.cta_start": {
           "en": "Start free",
           "context": "primary button in the top navigation",
           "limit": "short",
-          "am": ""
+          "am": "በነፃ ይጀምሩ"
         },
         "landing.hero_badge": {
           "en": "Free during beta",
           "context": "small pill above the main headline",
           "limit": "short",
-          "am": ""
+          "am": "በሙከራ ጊዜ ነፃ"
         },
         "landing.hero_title": {
           "en": "Turn your Telegram channel into an online store",
           "context": "main headline (H1). Short, bold, clear.",
-          "am": ""
+          "am": "የቴሌግራም ቻናልዎን ወደ ኦንላይን ሱቅ ይቀይሩት"
         },
         "landing.hero_sub": {
           "en": "Keep posting products the way you do today. Goods adds an Order button to every post, takes orders with pay on delivery, and gives you one dashboard to run your shop.",
           "context": "paragraph under the headline",
-          "am": ""
+          "am": "እቃዎችዎን እንደተለመደው መለጠፍዎን ይቀጥሉ። Goods በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ ይጨምራል፣ እቃው ሲደርስ የሚከፈል ትዕዛዝ ይቀበላል፣ እንዲሁም ሱቅዎን የሚያስተዳድሩበት አንድ መቆጣጠሪያ ይሰጥዎታል።"
         },
         "landing.cta_primary": {
           "en": "Start free with Telegram",
           "context": "main call-to-action button: opens the Goods Telegram bot",
           "limit": "short",
-          "am": ""
+          "am": "በቴሌግራም በነፃ ይጀምሩ"
         },
         "landing.cta_secondary": {
           "en": "See how it works",
           "context": "secondary button: scrolls to the how-it-works section",
           "limit": "short",
-          "am": ""
+          "am": "እንዴት እንደሚሰራ ይመልከቱ"
         },
         "landing.trust_setup": {
           "en": "Set up in 2 minutes",
           "context": "reassurance line under the buttons (with a check mark)",
           "limit": "short",
-          "am": ""
+          "am": "በ2 ደቂቃ ውስጥ ይዘጋጃል"
         },
         "landing.trust_website": {
           "en": "No website to build",
           "context": "reassurance line under the buttons",
           "limit": "short",
-          "am": ""
+          "am": "ድረ-ገጽ ማሰራት አያስፈልግም"
         },
         "landing.trust_languages": {
           "en": "Amharic and English",
           "context": "reassurance line under the buttons",
           "limit": "short",
-          "am": ""
+          "am": "በአማርኛ እና በእንግሊዝኛ ይሰራል"
         },
         "landing.mock_channel": {
           "en": "Addis Tech Store",
           "context": "example Telegram channel name in the product picture (shop name; may stay as is)",
-          "am": ""
+          "am": "አዲስ ቴክ ሱቅ"
         },
         "landing.mock_subscribers": {
           "en": "{count} subscribers",
@@ -354,12 +354,12 @@
         "landing.mock_caption": {
           "en": "iPhone 15 Pro, 256GB, natural titanium. Like new, with box and charger. Delivery in Addis today.",
           "context": "example product post caption a phone seller would write in Telegram",
-          "am": ""
+          "am": "አይፎን 15 ፕሮ፣ 256GB፣ ናቹራል ታይታኒየም። ልክ እንደ አዲስ፣ ከነካርቶኑ እና ቻርጀሩ። አዲስ አበባ ውስጥ ዛሬውኑ እናደርሳለን።"
         },
         "landing.mock_price": {
           "en": "Price: 92,000 birr",
           "context": "example price line in the post caption",
-          "am": ""
+          "am": "ዋጋ፦ 92,000 ብር"
         },
         "landing.mock_new_order": {
           "en": "New order",
@@ -369,7 +369,7 @@
         "landing.mock_order_line": {
           "en": "Hana T., Bole, ETB 92,150 with delivery",
           "context": "example order details in the notification",
-          "am": ""
+          "am": "ሀና ተ.፣ ቦሌ፣ ከማድረሻ ጋር 92,150 ብር"
         },
         "landing.mock_confirm": {
           "en": "Confirm",
@@ -381,98 +381,98 @@
           "en": "Sales today",
           "context": "label in the example dashboard",
           "limit": "short",
-          "am": ""
+          "am": "የዛሬ ሽያጭ"
         },
         "landing.mock_orders": {
           "en": "Orders",
           "context": "label in the example dashboard",
           "limit": "short",
-          "am": ""
+          "am": "ትዕዛዞች"
         },
         "landing.mock_to_confirm": {
           "en": "To confirm",
           "context": "order status in the example dashboard",
           "limit": "short",
-          "am": ""
+          "am": "ማረጋገጫ የሚጠብቅ"
         },
         "landing.mock_on_the_way": {
           "en": "On the way",
           "context": "order status in the example dashboard",
           "limit": "short",
-          "am": ""
+          "am": "መንገድ ላይ"
         },
         "landing.mock_delivered": {
           "en": "Delivered",
           "context": "order status in the example dashboard",
           "limit": "short",
-          "am": ""
+          "am": "የደረሰ"
         },
         "landing.pain_title": {
           "en": "Selling in Telegram DMs doesn’t scale",
           "context": "section heading",
-          "am": ""
+          "am": "በቴሌግራም በውስጥ መስመር (Inbox) ብቻ መሸጥ አድካሚ ነው"
         },
         "landing.pain_sub": {
           "en": "Your channel brings buyers. Then everything happens in private messages, phone calls and notebooks.",
           "context": "section intro",
-          "am": ""
+          "am": "ቻናልዎ ገዢዎችን ያመጣል። ከዚያ በኋላ ግን ሁሉም ነገር የሚካሄደው በውስጥ መልዕክት፣ በስልክ ጥሪ እና በደብተር ላይ ነው።"
         },
         "landing.pain_before": {
           "en": "Without Goods",
           "context": "column heading (the old way)",
           "limit": "short",
-          "am": ""
+          "am": "ያለ Goods"
         },
         "landing.pain_after": {
           "en": "With Goods",
           "context": "column heading (the new way)",
           "limit": "short",
-          "am": ""
+          "am": "ከGoods ጋር"
         },
         "landing.pain_1": {
           "en": "Every post gets the same “how much?” messages",
           "context": "old-way bullet",
-          "am": ""
+          "am": "በእያንዳንዱ ልጥፍ ስር «ዋጋው ስንት ነው?» የሚሉ ተደጋጋሚ መልዕክቶች ይበዛሉ"
         },
         "landing.pain_2": {
           "en": "Orders get lost between chats and calls",
           "context": "old-way bullet",
-          "am": ""
+          "am": "ትዕዛዞች በብዙ መልዕክቶችና የስልክ ጥሪዎች መካከል ይጠፋሉ"
         },
         "landing.pain_3": {
           "en": "No catalog or link buyers can browse",
           "context": "old-way bullet",
-          "am": ""
+          "am": "ገዢዎች እቃዎችዎን ሁሉ በአንድ ቦታ የሚያዩበት ዝርዝር (ካታሎግ) ወይም ሊንክ የለም"
         },
         "landing.pain_4": {
           "en": "You count stock and money by hand",
           "context": "old-way bullet",
-          "am": ""
+          "am": "የቀረ እቃ ብዛትንና ገንዘብን በእጅዎ ይቆጥራሉ"
         },
         "landing.gain_1": {
           "en": "Price and Order button right on the post",
           "context": "new-way bullet",
-          "am": ""
+          "am": "ዋጋው እና «ይዘዙ» የሚለው መጫኛ በቀጥታ በልጥፉ ስር ይቀመጣል"
         },
         "landing.gain_2": {
           "en": "Every order in one list with its status",
           "context": "new-way bullet",
-          "am": ""
+          "am": "ሁሉም ትዕዛዞች ከነደረጃቸው በአንድ ዝርዝር ውስጥ ይገኛሉ"
         },
         "landing.gain_3": {
           "en": "A store link with search and categories",
           "context": "new-way bullet",
-          "am": ""
+          "am": "መፈለጊያ እና የምርት ምድቦች ያሉት የሱቅ ሊንክ ይኖርዎታል"
         },
         "landing.gain_4": {
           "en": "Stock and sales update automatically",
           "context": "new-way bullet",
-          "am": ""
+          "am": "የእቃ ብዛት እና የሽያጭ ሂሳብ በራሱ ይስተካከላል"
         },
         "landing.how_title": {
           "en": "Up and running in three steps",
           "context": "section heading; the three steps all happen inside Telegram",
-          "am": ""
+          "am": "በሶስት ቀላል ደረጃዎች ስራ ይጀምሩ"
         },
         "landing.how_1_title": {
           "en": "Connect your channel",
@@ -482,7 +482,7 @@
         "landing.how_1_body": {
           "en": "Open the Goods bot, tap Connect channel and pick your channel. Your store is created instantly.",
           "context": "step 1 text",
-          "am": ""
+          "am": "የGoods ቦትን ይክፈቱ፣ «ቻናል ያገናኙ» የሚለውን ይጫኑና ቻናልዎን ይምረጡ። ሱቅዎ ወዲያውኑ ይከፈታል።"
         },
         "landing.how_2_title": {
           "en": "Post like you always do",
@@ -507,220 +507,220 @@
         "landing.feat_title": {
           "en": "Everything you need to sell on Telegram",
           "context": "section heading",
-          "am": ""
+          "am": "በቴሌግራም ለመሸጥ የሚያስፈልግዎት ሁሉ"
         },
         "landing.feat_sub": {
           "en": "Built around how Ethiopian shops already sell: channels, groups, phone calls and cash on delivery.",
           "context": "section intro",
-          "am": ""
+          "am": "የኢትዮጵያ ነጋዴዎች አሁን የሚሸጡበትን መንገድ መሰረት አድርጎ የተሰራ፦ በቻናል፣ በግሩፕ፣ በስልክ ጥሪ እና እቃው ሲደርስ በሚፈጸም ክፍያ።"
         },
         "landing.feat_order_title": {
           "en": "An Order button on every post",
           "context": "feature title",
-          "am": ""
+          "am": "በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ"
         },
         "landing.feat_order_body": {
           "en": "Buyers order in two taps without leaving Telegram. Price, stock and sold-out update on the post by themselves.",
           "context": "feature text",
-          "am": ""
+          "am": "ገዢዎች ከቴሌግራም ሳይወጡ በሁለት ንኪኪ ብቻ ያዛሉ። ዋጋ፣ የቀረ ብዛት እና «አልቋል» የሚለው መረጃ በልጥፉ ላይ በራሱ ይቀየራል።"
         },
         "landing.feat_ai_title": {
           "en": "Reads Amharic and English",
           "context": "feature title",
-          "am": ""
+          "am": "አማርኛ እና እንግሊዝኛ ያነባል"
         },
         "landing.feat_ai_body": {
           "en": "Captions like “ዋጋ 4500 ብር” become a product with a title, price and category. Unclear posts wait for your review.",
           "context": "feature text (keep the Amharic example as it is)",
-          "am": ""
+          "am": "እንደ «ዋጋ 4500 ብር» ያሉ ጽሑፎችን አንብቦ ስም፣ ዋጋ እና ምድብ ያለው ምርት ያደርጋቸዋል። ግልጽ ያልሆኑ ልጥፎች ደግሞ እርስዎ አይተው እንዲያስተካክሏቸው ይጠብቃሉ።"
         },
         "landing.feat_orders_title": {
           "en": "Orders without the chaos",
           "context": "feature title",
-          "am": ""
+          "am": "ያለ ምንም ውጥንቅጥ ትዕዛዝ ይቀበሉ"
         },
         "landing.feat_orders_body": {
           "en": "Every order in one list. Confirm in one tap, copy a delivery slip for your rider, record the cash when it arrives.",
           "context": "feature text",
-          "am": ""
+          "am": "እያንዳንዱ ትዕዛዝ በአንድ ዝርዝር ውስጥ ይቀመጣል። በአንድ ንኪኪ ያረጋግጡ፣ የማድረሻ መረጃውን ቀድተው ለአድራሹ (ለራይደሩ) ይላኩ፣ ገንዘቡ ሲደርስዎትም ክፍያውን ይመዝግቡ።"
         },
         "landing.feat_store_title": {
           "en": "Your own online store",
           "context": "feature title",
-          "am": ""
+          "am": "የራስዎ የኦንላይን ሱቅ"
         },
         "landing.feat_store_body": {
           "en": "A fast store with search, categories and a link you can share. It also opens inside Telegram as a Mini App.",
           "context": "feature text",
-          "am": ""
+          "am": "መፈለጊያ፣ የምርት ምድቦች እና ለደንበኞች የሚያጋሩት ሊንክ ያለው ፈጣን ሱቅ። በቴሌግራም ውስጥም በቀጥታ ይከፈታል።"
         },
         "landing.feat_inbox_title": {
           "en": "Every question in one inbox",
           "context": "feature title",
-          "am": ""
+          "am": "ሁሉም ጥያቄዎች በአንድ የመልዕክት ሳጥን"
         },
         "landing.feat_inbox_body": {
           "en": "Buyer questions from all your posts land in one place. Reply from the dashboard or straight from Telegram.",
           "context": "feature text",
-          "am": ""
+          "am": "ከሁሉም ልጥፎችዎ ስር ገዢዎች የሚጠይቋቸው ጥያቄዎች በአንድ ቦታ ይሰበሰባሉ። ከሱቅ መቆጣጠሪያው ወይም በቀጥታ ከቴሌግራም ይመልሱላቸው።"
         },
         "landing.feat_stats_title": {
           "en": "Know what sells",
           "context": "feature title",
-          "am": ""
+          "am": "ምን በብዛት እንደሚሸጥ ይወቁ"
         },
         "landing.feat_stats_body": {
           "en": "Views, orders and the posts that bring sales, so you know what to post next.",
           "context": "feature text",
-          "am": ""
+          "am": "የእቃ እይታዎችን፣ ትዕዛዞችን እና ብዙ ሽያጭ ያመጡ ልጥፎችን ስለሚያሳይዎት በቀጣይ ምን መለጠፍ እንዳለብዎት በቀላሉ ያውቃሉ።"
         },
         "landing.show_title": {
           "en": "Run your whole shop from your phone",
           "context": "section heading",
-          "am": ""
+          "am": "ሙሉ ሱቅዎን በስልክዎ ያስተዳድሩ"
         },
         "landing.show_sub": {
           "en": "A dashboard made for Telegram sellers. It works inside the Telegram app and in any browser.",
           "context": "section intro",
-          "am": ""
+          "am": "ለቴሌግራም ነጋዴዎች ተብሎ የተዘጋጀ የሱቅ መቆጣጠሪያ። በቴሌግራም መተግበሪያ ውስጥም ሆነ በማንኛውም ማሰሻ (Browser) ይሰራል።"
         },
         "landing.show_1": {
           "en": "Orders, products, customers and messages in one place",
           "context": "checklist item",
-          "am": ""
+          "am": "ትዕዛዞች፣ ምርቶች፣ ደንበኞች እና መልዕክቶች በአንድ ቦታ"
         },
         "landing.show_2": {
           "en": "Stock that never oversells, even with many buyers at once",
           "context": "checklist item",
-          "am": ""
+          "am": "ብዙ ገዢዎች በአንድ ጊዜ ቢያዙም እንኳ ከሱቅ ብዛት በላይ እንዳይሸጥ የሚቆጣጠር"
         },
         "landing.show_3": {
           "en": "Add staff with their own access",
           "context": "checklist item",
-          "am": ""
+          "am": "የራሳቸው መግቢያ ያላቸው የሱቅ ሰራተኞችን መጨመር የሚያስችል"
         },
         "landing.price_title": {
           "en": "Free while we’re in beta",
           "context": "pricing section heading",
-          "am": ""
+          "am": "በሙከራ ጊዜያችን አገልግሎቱ ነፃ ነው"
         },
         "landing.price_sub": {
           "en": "No setup fee, no monthly fee, no commission on your sales.",
           "context": "pricing intro",
-          "am": ""
+          "am": "የመክፈቻ ክፍያ የለም፣ ወርሃዊ ክፍያ የለም፣ ከሽያጭዎ ላይ የሚቆረጥ ኮሚሽን የለም።"
         },
         "landing.price_amount": {
           "en": "ETB 0",
           "context": "price shown big (zero birr)",
           "limit": "short",
-          "am": ""
+          "am": "0 ብር"
         },
         "landing.price_period": {
           "en": "per month",
           "context": "after the price",
           "limit": "short",
-          "am": ""
+          "am": "በወር"
         },
         "landing.price_plan": {
           "en": "Beta",
           "context": "plan name",
           "limit": "short",
-          "am": ""
+          "am": "የሙከራ ጊዜ"
         },
         "landing.price_1": {
           "en": "Unlimited products and orders",
           "context": "included feature",
-          "am": ""
+          "am": "ያልተገደበ የምርት እና የትዕዛዝ ብዛት"
         },
         "landing.price_2": {
           "en": "Order buttons on every post",
           "context": "included feature",
-          "am": ""
+          "am": "በእያንዳንዱ ልጥፍ ስር «ይዘዙ» የሚል መጫኛ"
         },
         "landing.price_3": {
           "en": "Online store and Telegram Mini App",
           "context": "included feature",
-          "am": ""
+          "am": "የኦንላይን ሱቅ እና የቴሌግራም ውስጥ መተግበሪያ (Mini App)"
         },
         "landing.price_4": {
           "en": "Dashboard, inbox and analytics",
           "context": "included feature",
-          "am": ""
+          "am": "የሱቅ መቆጣጠሪያ፣ የመልዕክት ሳጥን እና የሽያጭ መረጃ"
         },
         "landing.price_5": {
           "en": "Staff accounts",
           "context": "included feature",
-          "am": ""
+          "am": "የሰራተኞች መግቢያ አካውንት"
         },
         "landing.price_note": {
           "en": "Online payments with telebirr and CBE Birr are coming. We’ll tell you well before anything changes.",
           "context": "small note under the pricing card",
-          "am": ""
+          "am": "በtelebirr እና በCBE Birr የሚደረግ የኦንላይን ክፍያ በቅርቡ ይጀመራል። ማንኛውም ለውጥ ከመደረጉ ከብዙ ጊዜ በፊት አስቀድመን እናሳውቅዎታለን።"
         },
         "landing.faq_title": {
           "en": "Questions sellers ask",
           "context": "FAQ section heading",
-          "am": ""
+          "am": "ነጋዴዎች የሚጠይቋቸው ጥያቄዎች"
         },
         "landing.faq_website_q": {
           "en": "Do I need a website?",
           "context": "FAQ question",
-          "am": ""
+          "am": "ድረ-ገጽ (Website) ማሰራት ያስፈልገኛል?"
         },
         "landing.faq_website_a": {
           "en": "No. Goods creates your online store automatically when you connect your channel.",
           "context": "FAQ answer",
-          "am": ""
+          "am": "አያስፈልግም። የቴሌግራም ቻናልዎን ሲያገናኙ Goods የኦንላይን ሱቅዎን በራሱ ወዲያውኑ ይከፍትልዎታል።"
         },
         "landing.faq_buyers_q": {
           "en": "Do my buyers need to install anything?",
           "context": "FAQ question",
-          "am": ""
+          "am": "ገዢዎቼ ምንም አይነት መተግበሪያ (App) መጫን አለባቸው?"
         },
         "landing.faq_buyers_a": {
           "en": "No. They tap Order on your post and checkout opens inside Telegram. It also works in any browser.",
           "context": "FAQ answer",
-          "am": ""
+          "am": "አይጠበቅባቸውም። በልጥፍዎ ስር «ይዘዙ» የሚለውን ሲነኩ ማዘዣው በቴሌግራም ውስጥ ወዲያውኑ ይከፈታል። በማንኛውም የኢንተርኔት ማሰሻም (Browser) ይሰራል።"
         },
         "landing.faq_paid_q": {
           "en": "How do I get paid?",
           "context": "FAQ question",
-          "am": ""
+          "am": "ክፍያ የምቀበለው እንዴት ነው?"
         },
         "landing.faq_paid_a": {
           "en": "Buyers pay on delivery, in cash or by transfer. Online payments with telebirr and CBE Birr are coming soon.",
           "context": "FAQ answer",
-          "am": ""
+          "am": "ገዢዎች እቃው ሲደርሳቸው በጥሬ ገንዘብ ወይም በባንክ/ቴሌብር ዝውውር ይከፍላሉ። በtelebirr እና በCBE Birr የሚደረግ የኦንላይን ክፍያ በቅርቡ ይጀመራል።"
         },
         "landing.faq_group_q": {
           "en": "Can I use a Telegram group instead of a channel?",
           "context": "FAQ question",
-          "am": ""
+          "am": "በቻናል ፋንታ የቴሌግራም ግሩፕ መጠቀም እችላለሁ?"
         },
         "landing.faq_group_a": {
           "en": "Yes. Connect a channel or a group. In groups, only admins’ posts become products.",
           "context": "FAQ answer",
-          "am": ""
+          "am": "አዎ ይችላሉ። ቻናል ወይም ግሩፕ ማገናኘት ይቻላል። በግሩፕ ውስጥ ወደ ምርትነት የሚቀየሩት የአድሚኖች ልጥፎች ብቻ ናቸው።"
         },
         "landing.faq_edit_q": {
           "en": "What happens if I edit or delete a post?",
           "context": "FAQ question",
-          "am": ""
+          "am": "ልጥፌን ባስተካክለው ወይም ብሰርዘው ምን ይሆናል?"
         },
         "landing.faq_edit_a": {
           "en": "Goods keeps up. Edits update the product, writing “SOLD” marks it sold, and deleting the post hides it from your store.",
           "context": "FAQ answer",
-          "am": ""
+          "am": "Goods አብሮ ያስተካክለዋል። ልጥፉን ሲቀይሩት ምርቱም አብሮ ይቀየራል፣ “SOLD” ወይም “ተሽጧል” ብለው ሲጽፉ እንደተሸጠ ይመዘገባል፣ ልጥፉን ሲሰርዙት ደግሞ ከሱቅዎ ላይ ይደበቃል።"
         },
         "landing.faq_free_q": {
           "en": "Is it really free?",
           "context": "FAQ question",
-          "am": ""
+          "am": "በእውነት ነፃ ነው?"
         },
         "landing.faq_free_a": {
           "en": "Yes. There are no fees during the beta, and we’ll give you plenty of notice before any paid plan.",
           "context": "FAQ answer",
-          "am": ""
+          "am": "አዎ። በሙከራ ጊዜው ምንም አይነት ክፍያ የለውም፤ ወደፊት የሚከፈልበት አሰራር ከመጀመሩ በፊትም በቂ ጊዜ ሰጥተን አስቀድመን እናሳውቅዎታለን።"
         },
         "landing.final_title": {
           "en": "Open your store today",
@@ -730,7 +730,7 @@
         "landing.final_sub": {
           "en": "It takes about two minutes. All you need is your Telegram channel.",
           "context": "closing call-to-action text",
-          "am": ""
+          "am": "ሁለት ደቂቃ ብቻ ይወስዳል። የሚያስፈልግዎት የቴሌግራም ቻናልዎ ብቻ ነው።"
         },
         "landing.footer_made": {
           "en": "Made in Addis Ababa",
@@ -740,23 +740,43 @@
         "landing.footer_rights": {
           "en": "© {year} Goods",
           "context": "footer copyright",
-          "am": ""
+          "am": "© {year} Goods"
         },
         "landing.meta_title": {
           "en": "Goods: turn your Telegram channel into an online store",
           "context": "browser tab / search result title",
-          "am": ""
+          "am": "Goods፦ የቴሌግራም ቻናልዎን ወደ ኦንላይን ሱቅ ይቀይሩት"
         },
         "landing.meta_description": {
           "en": "Post products in your Telegram channel. Goods adds an Order button to every post, takes orders with pay on delivery and gives you a store and a dashboard. Free during beta.",
           "context": "search result description",
-          "am": ""
+          "am": "በቴሌግራም ቻናልዎ ላይ እቃ ይለጥፉ። Goods በእያንዳንዱ ልጥፍ ስር «ይዘዙ» መጫኛ ይጨምራል፣ እቃው ሲደርስ የሚከፈል ትዕዛዝ ይቀበላል፣ ሱቅና መቆጣጠሪያም ይሰጥዎታል። በሙከራ ጊዜ ነፃ።"
         },
         "landing.mock_now": {
           "en": "now",
           "context": "time label on the example notification (\"just now\")",
           "limit": "short",
-          "am": ""
+          "am": "አሁን"
+        },
+        "landing.mock_product_iphone": {
+          "en": "iPhone 15 Pro 256GB",
+          "am": "አይፎን 15 ፕሮ 256GB",
+          "context": "mock product name on landing dashboard"
+        },
+        "landing.mock_product_headphones": {
+          "en": "Wireless headphones",
+          "am": "ገመድ አልባ ሄድፎን",
+          "context": "mock product name on landing dashboard"
+        },
+        "landing.mock_product_perfume": {
+          "en": "Oud perfume 100ml",
+          "am": "ዑድ ሽቶ 100ml",
+          "context": "mock product name on landing dashboard"
+        },
+        "landing.mock_product_watch": {
+          "en": "Classic leather watch",
+          "am": "የቆዳ ሰዓት",
+          "context": "mock product name on landing dashboard"
         }
       }
     },

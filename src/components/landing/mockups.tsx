@@ -11,10 +11,10 @@ type L = (key: string, vars?: Record<string, string | number>) => string;
 export const landingT = (locale: Locale): L => (key, vars) => tc(locale, `landing.${key}`, vars);
 
 const ORDERS = [
-  { img: "/landing/phone.webp", name: "iPhone 15 Pro 256GB", who: "Hana T.", total: "ETB 92,150", status: "to_confirm" },
-  { img: "/landing/headphones.webp", name: "Wireless headphones", who: "Dawit B.", total: "ETB 6,450", status: "on_the_way" },
-  { img: "/landing/perfume.webp", name: "Oud perfume 100ml", who: "Selam G.", total: "ETB 3,950", status: "delivered" },
-  { img: "/landing/watch.webp", name: "Classic leather watch", who: "Yonas A.", total: "ETB 7,200", status: "delivered" },
+  { img: "/landing/phone.webp", nameKey: "mock_product_iphone", whoEn: "Hana T.", whoAm: "ሀና ተ.", totalEn: "ETB 92,150", totalAm: "92,150 ብር", status: "to_confirm" },
+  { img: "/landing/headphones.webp", nameKey: "mock_product_headphones", whoEn: "Dawit B.", whoAm: "ዳዊት በ.", totalEn: "ETB 6,450", totalAm: "6,450 ብር", status: "on_the_way" },
+  { img: "/landing/perfume.webp", nameKey: "mock_product_perfume", whoEn: "Selam G.", whoAm: "ሰላም ግ.", totalEn: "ETB 3,950", totalAm: "3,950 ብር", status: "delivered" },
+  { img: "/landing/watch.webp", nameKey: "mock_product_watch", whoEn: "Yonas A.", whoAm: "ዮናስ አ.", totalEn: "ETB 7,200", totalAm: "7,200 ብር", status: "delivered" },
 ] as const;
 
 const STATUS_STYLE: Record<string, string> = {
@@ -61,7 +61,10 @@ export function TelegramPhone({ locale, className }: { locale: Locale; className
           </div>
           <div className="mt-[3px] grid grid-cols-2 gap-[3px]">
             <span className="col-span-2 grid h-9 place-items-center rounded-[10px] bg-[#4f6b42]/70 text-[12.5px] font-semibold text-white backdrop-blur">
-              {tc(locale, "tg.buttons.order_price", { order: tc(locale, "tg.buttons.order"), price: "ETB 92,000" })}
+              {tc(locale, "tg.buttons.order_price", {
+                order: tc(locale, "tg.buttons.order"),
+                price: locale === "am" ? "92,000 ብር" : "ETB 92,000",
+              })}
             </span>
             <span className="grid h-9 place-items-center rounded-[10px] bg-[#4f6b42]/70 text-[12px] font-semibold text-white backdrop-blur">{tc(locale, "tg.buttons.ask_seller")}</span>
             <span className="grid h-9 place-items-center rounded-[10px] bg-[#4f6b42]/70 text-[12px] font-semibold text-white backdrop-blur">{tc(locale, "tg.buttons.shop")}</span>
@@ -136,7 +139,9 @@ export function DashboardWindow({ locale, className, rows = 4 }: { locale: Local
             </div>
             <div className="rounded-xl border border-line p-3">
               <p className="text-[10px] text-mist">{t("mock_sales")}</p>
-              <p className="num mt-0.5 font-display text-[17px] font-bold text-ink">ETB 184,300</p>
+              <p className="num mt-0.5 font-display text-[17px] font-bold text-ink">
+                {locale === "am" ? "184,300 ብር" : "ETB 184,300"}
+              </p>
             </div>
             <div className="rounded-xl border border-line px-3 pt-2">
               <Sparkline />
@@ -144,14 +149,16 @@ export function DashboardWindow({ locale, className, rows = 4 }: { locale: Local
           </div>
           <div className="mt-3 overflow-hidden rounded-xl border border-line">
             {ORDERS.slice(0, rows).map((o, i) => (
-              <div key={o.name} className={cn("flex items-center gap-2.5 px-3 py-2", i && "border-t border-line", i === 0 && "bg-adey-soft/40")}>
+              <div key={o.nameKey} className={cn("flex items-center gap-2.5 px-3 py-2", i && "border-t border-line", i === 0 && "bg-adey-soft/40")}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={o.img} alt="" width={28} height={28} className="h-7 w-7 rounded-md object-cover" />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[11px] font-semibold text-ink">{o.name}</span>
-                  <span className="block text-[10px] text-mist">#{1042 - i} · {o.who}</span>
+                  <span className="block truncate text-[11px] font-semibold text-ink">{t(o.nameKey)}</span>
+                  <span className="block text-[10px] text-mist">#{1042 - i} · {locale === "am" ? o.whoAm : o.whoEn}</span>
                 </span>
-                <span className="num text-[11px] font-semibold text-ink">{o.total}</span>
+                <span className="num text-[11px] font-semibold text-ink">
+                  {locale === "am" ? o.totalAm : o.totalEn}
+                </span>
                 <StatusPill status={o.status} t={t} />
               </div>
             ))}

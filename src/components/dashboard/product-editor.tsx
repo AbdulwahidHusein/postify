@@ -195,9 +195,10 @@ export function ProductEditor({
     }
   }
 
-  const dirty = !product || JSON.stringify(f) !== initial;
+  const dirty = Boolean(product) && JSON.stringify(f) !== initial;
   const lowConfidence = product?.aiConfidence !== null && product?.aiConfidence !== undefined && product.aiConfidence < 0.8;
   const photoCount = images.length + pendingKeys.length;
+  const busy = saving || uploading > 0;
   const STATUS = [
     { v: "published", label: "Active", hint: "Visible in your shop, Order button on posts" },
     { v: "draft", label: "Draft", hint: "Hidden from buyers" },
@@ -206,20 +207,18 @@ export function ProductEditor({
   ];
 
   return (
-    <form onSubmit={save} className="pb-24 lg:pb-8">
-      {/* Unsaved-changes bar */}
+    <form onSubmit={save} className={cn(dirty ? "pb-24 lg:pb-8" : "pb-8")}>
+      {/* Sticky save bar — only when editing an existing product with unsaved changes */}
       {dirty ? (
         <div className="fixed inset-x-0 bottom-[60px] z-40 border-t border-white/10 bg-ink px-4 py-2.5 text-white pb-[max(0.625rem,env(safe-area-inset-bottom))] lg:bottom-auto lg:left-[248px] lg:top-0 lg:border-t-0 lg:pb-2.5">
           <div className="mx-auto flex max-w-[1120px] items-center gap-3 lg:px-6">
-            <p className="text-sm font-semibold">{product ? "Unsaved changes" : "New product"}</p>
+            <p className="text-sm font-semibold">Unsaved changes</p>
             <div className="ml-auto flex gap-2">
-              {product ? (
-                <button type="button" onClick={() => setF(JSON.parse(initial))} className="h-9 rounded-[10px] px-3 text-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white">
-                  Discard
-                </button>
-              ) : null}
-              <button type="submit" disabled={saving || uploading > 0} className="h-9 rounded-[10px] bg-adey px-4 text-sm font-bold text-ink hover:bg-[#ffc81f] disabled:opacity-60">
-                {saving ? "Saving…" : uploading ? "Uploading…" : product ? "Save" : "Create product"}
+              <button type="button" onClick={() => setF(JSON.parse(initial))} className="h-9 rounded-[10px] px-3 text-sm font-semibold text-white/80 hover:bg-white/10 hover:text-white">
+                Discard
+              </button>
+              <button type="submit" disabled={busy} className="h-9 rounded-[10px] bg-adey px-4 text-sm font-bold text-ink hover:bg-[#ffc81f] disabled:opacity-60">
+                {saving ? "Saving…" : uploading ? "Uploading…" : "Save"}
               </button>
             </div>
           </div>
@@ -235,11 +234,18 @@ export function ProductEditor({
             <h1 className="page-title min-w-0 truncate">{product ? f.title || "Untitled product" : "Add product"}</h1>
             {product ? <ProductStatus status={product.status} /> : null}
           </div>
-          {product && product.status !== "draft" ? (
-            <a href={`/s/${handle}/p/${product.slug}`} target="_blank" rel="noreferrer" className={buttonVariants({ variant: "secondary", size: "sm" })}>
-              View in shop <ArrowUpRight size={14} />
-            </a>
-          ) : null}
+          <div className="flex flex-wrap items-center gap-2">
+            {product && product.status !== "draft" ? (
+              <a href={`/s/${handle}/p/${product.slug}`} target="_blank" rel="noreferrer" className={buttonVariants({ variant: "secondary", size: "sm" })}>
+                View in shop <ArrowUpRight size={14} />
+              </a>
+            ) : null}
+            {!product ? (
+              <Button type="submit" disabled={busy} size="sm">
+                {saving ? "Saving…" : uploading ? "Uploading…" : "Create product"}
+              </Button>
+            ) : null}
+          </div>
         </div>
       </div>
 
