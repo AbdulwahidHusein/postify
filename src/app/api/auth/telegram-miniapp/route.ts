@@ -1,43 +1,20 @@
 import { z } from "zod";
-import { NextResponse } from "next/server";
-import { jsonError, jsonOk } from "@/lib/api";
-import { setSessionCookie } from "@/lib/auth/session";
-import { verifyMiniAppInitData } from "@/lib/auth/telegram";
-import { serializeUser, upsertTelegramUser } from "@/lib/auth/users";
-import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { json, readJson, route, AppError } from "@/server/http";
+import { setSessionCookie } from "@/server/auth/session";
+import { verifyMiniAppInitData } from "@/server/auth/telegram";
+import { serializeUser, upsertTelegramUser } from "@/server/auth/users";
 
-const bodySchema = z.object({
-  initData: z.string().min(1),
-});
+const body = z.object({ initData: z.string().min(1).max(8192) });
 
-export async function POST(request: Request) {
+export const POST = route(async (request) => {
+  const { initData } = await readJson(request, body.parse);
+  let identity;
   try {
-    const rl = rateLimit({
-      key: `auth:miniapp:${clientIp(request)}`,
-      limit: 20,
-      windowMs: 60_000,
-    });
-    if (!rl.ok) {
-      return NextResponse.json(
-        { error: "Too many requests. Try again shortly." },
-        {
-          status: 429,
-          headers: {
-            "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)),
-          },
-        },
-      );
-    }
-
-    const body = bodySchema.parse(await request.json());
-    const identity = verifyMiniAppInitData(body.initData);
-    const user = await upsertTelegramUser(identity);
-    await setSessionCookie({
-      userId: user.id,
-      telegramId: user.telegramId.toString(),
-    });
-    return jsonOk({ user: serializeUser(user) });
-  } catch (error) {
-    return jsonError(error);
+    identity = verifyMiniAppInitData(initData);
+  } catch {
+    throw new AppError("Telegram sign-in could not be verified. Reopen the app from Telegram.", 401, "invalid_init_data");
   }
-}
+  const user = await upsertTelegramUser(identity);
+  await setSessionCookie({ userId: user.id, telegramId: user.telegramId.toString() });
+  return json({ user: serializeUser(user) });
+});

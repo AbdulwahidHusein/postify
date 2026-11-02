@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1788878444017,
-      "tag": "0000_pale_pete_wisdom",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1789511921203,
-      "tag": "0001_add_product_commerce_fields",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1789540000000,
-      "tag": "0002_product_catalog_filter_indexes",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1789600000000,
-      "tag": "0003_channels_chat_type",
+      "when": 1793609042639,
+      "tag": "0000_init",
       "breakpoints": true
     }
   ]

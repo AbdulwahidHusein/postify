@@ -42,3 +42,12 @@ next-env.d.ts
 
 # local product uploads
 uploads/
+
+# local data (dev uploads)
+/.data
+
+!.env.example
+
+# production env for Cloud Run (non-secret, but per-deployment)
+/infra/env.prod.yaml
+/dist

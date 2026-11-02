@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server";
-import { appName, appUrl } from "@/lib/env";
+import { sql } from "drizzle-orm";
+import { db } from "@/server/db";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return NextResponse.json({
-    ok: true,
-    service: appName.toLowerCase(),
-    version: "0.1.0",
-    phase: 1,
-    appUrl,
-    time: new Date().toISOString(),
-  });
+  try {
+    await db.execute(sql`select 1`);
+    return Response.json({ ok: true, db: "up", time: new Date().toISOString() });
+  } catch {
+    return Response.json({ ok: false, db: "down" }, { status: 503 });
+  }
 }

@@ -1,11 +1,7 @@
-import { jsonError, jsonOk } from "@/lib/api";
-import { clearSessionCookie } from "@/lib/auth/session";
+import { json, route } from "@/server/http";
+import { clearSessionCookie } from "@/server/auth/session";
 
-export async function POST() {
-  try {
-    await clearSessionCookie();
-    return jsonOk({ ok: true });
-  } catch (error) {
-    return jsonError(error);
-  }
-}
+export const POST = route(async () => {
+  await clearSessionCookie();
+  return json({ ok: true });
+});

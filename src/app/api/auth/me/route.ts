@@ -1,21 +1,16 @@
-import { jsonError, jsonOk } from "@/lib/api";
-import { getSession } from "@/lib/auth/session";
-import { getUserById, serializeUser } from "@/lib/auth/users";
+import { json, route } from "@/server/http";
+import { getViewer } from "@/server/request";
+import { serializeUser } from "@/server/auth/users";
+import { listShopsForUser } from "@/server/domain/shops";
 
-export async function GET() {
-  try {
-    const session = await getSession();
-    if (!session) {
-      return jsonOk({ user: null });
-    }
+export const dynamic = "force-dynamic";
 
-    const user = await getUserById(session.userId);
-    if (!user) {
-      return jsonOk({ user: null });
-    }
-
-    return jsonOk({ user: serializeUser(user) });
-  } catch (error) {
-    return jsonError(error);
-  }
-}
+export const GET = route(async () => {
+  const user = await getViewer();
+  if (!user) return json({ user: null, shops: [] });
+  const shops = await listShopsForUser(user.id);
+  return json({
+    user: serializeUser(user),
+    shops: shops.map((s) => ({ handle: s.shop.handle, name: s.shop.name, role: s.role })),
+  });
+});

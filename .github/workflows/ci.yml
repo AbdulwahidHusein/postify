@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Test (PGlite, no external services)
+        run: npm test
+      - name: Migrations match the schema
+        run: |
+          npx drizzle-kit generate --name ci-check
+          if [ -n "$(git status --porcelain drizzle)" ]; then
+            echo "::error::schema.ts changed without a migration. Run: npm run db:generate"
+            git status --porcelain drizzle
+            exit 1
+          fi
+        env:
+          DATABASE_URL: postgres://ci:ci@localhost:5432/ci
+      - name: Build
+        run: npm run build
+        env:
+          DATABASE_URL: postgres://build:build@localhost:5432/build
+          SESSION_SECRET: build-only-secret-build-only-secret-123

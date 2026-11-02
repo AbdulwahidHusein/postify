@@ -1,0 +1,9 @@
+process.env.DATABASE_URL ??= "postgres://test:test@localhost:5432/test";
+process.env.SESSION_SECRET ??= "test-session-secret-test-session-secret-0123";
+process.env.TELEGRAM_BOT_TOKEN ??= "123456:TEST_TOKEN";
+process.env.TELEGRAM_BOT_USERNAME ??= "goods_test_bot";
+process.env.TELEGRAM_MINI_APP_SHORT_NAME ??= "shop";
+process.env.TELEGRAM_WEBHOOK_SECRET ??= "webhook-secret";
+process.env.NEXT_PUBLIC_APP_URL ??= "https://goods.test";
+process.env.ROOT_DOMAIN ??= "goods.test";
+process.env.TASKS_MODE ??= "inline";

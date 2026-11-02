@@ -1,648 +1,157 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type CSSProperties,
-  type FormEvent,
-} from "react";
-import { useAuth } from "@/components/providers/auth-provider";
-import { ImageLightbox } from "@/components/ui/image-lightbox";
-import { InlineLoader } from "@/components/ui/loader";
-import { subscribeChatBottomInset } from "@/lib/chat/bottom-inset";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ImagePlus, Send } from "lucide-react";
+import { api, uploadImage } from "@/lib/api-client";
+import { formatMoney } from "@/lib/money";
+import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/toast";
 
-export type ChatProduct = {
-  id: string;
-  slug: string;
-  title: string;
-  description?: string | null;
-  price: number | null;
-  currency: string;
+type Msg = { id: string; role: "buyer" | "seller" | "system"; kind: string; body: string; image: string | null; clientId: string | null; createdAt: string; pending?: boolean };
+type Header = {
   status: string;
-  imageSrc: string | null;
+  shop: { handle: string; name: string } | null;
+  buyer: { name: string; username: string | null } | null;
+  product: { id: string; slug: string; title: string; status: string; priceMinor: string | null; currency: string; image: string | null } | null;
 };
 
-export type ChatConversation = {
-  id: string;
-  status: string;
-  unread: number;
-  lastMessageAt: string | null;
-  lastMessagePreview: string | null;
-  product: ChatProduct | null;
-  shop: { id: string; name: string; slug: string } | null;
-  buyer: {
-    id: string;
-    firstName: string;
-    lastName: string | null;
-    username: string | null;
-    photoUrl: string | null;
-  } | null;
-};
+const POLL_MS = 4000;
 
-export type ChatMessage = {
-  id: string;
-  conversationId: string;
-  senderRole: "buyer" | "seller" | "system";
-  senderUserId: string | null;
-  kind?: "text" | "image" | "product";
-  body: string;
-  imageUrl?: string | null;
-  clientId: string | null;
-  createdAt: string;
-};
-
-const PROMPTS = [
-  "Is this still available?",
-  "What's the condition / size?",
-  "Can you hold it for me?",
-];
-
-function formatMoney(p: ChatProduct) {
-  if (p.price == null) return "Ask for price";
-  return `${p.currency} ${p.price.toLocaleString()}`;
-}
-
-function newClientId() {
-  if (typeof crypto !== "undefined" && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-  return `c_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-}
-
-export function ChatThread({
-  conversationId,
-  role,
-  showClose,
-  backHref,
-  backLabel = "Back",
-}: {
-  conversationId: string;
-  role: "buyer" | "seller";
-  showClose?: boolean;
-  backHref: string;
-  backLabel?: string;
-}) {
-  const { user } = useAuth();
-  const [conversation, setConversation] = useState<ChatConversation | null>(
-    null,
-  );
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+/** Chat thread for both sides. Polls every 4 s only while the tab is visible. */
+export function ChatThread({ conversationId, productHref }: { conversationId: string; productHref?: (h: Header) => string | null }) {
+  const toast = useToast();
+  const [header, setHeader] = useState<Header | null>(null);
+  const [role, setRole] = useState<"buyer" | "seller">("buyer");
+  const [messages, setMessages] = useState<Msg[]>([]);
   const [text, setText] = useState("");
-  const [pendingFile, setPendingFile] = useState<File | null>(null);
-  const [pendingPreview, setPendingPreview] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const lastAt = useRef<string | null>(null);
+  const bottom = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const lastIdRef = useRef<string | null>(null);
-  const focusedRef = useRef(true);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [bottomInset, setBottomInset] = useState(34);
-  const [lightbox, setLightbox] = useState<{
-    images: { src: string; alt?: string }[];
-    index: number;
-  } | null>(null);
 
-  const scrollToBottom = useCallback((smooth = true) => {
-    requestAnimationFrame(() => {
-      const el = scrollRef.current;
-      if (!el) return;
-      el.scrollTo({
-        top: el.scrollHeight,
-        behavior: smooth ? "smooth" : "auto",
-      });
+  const merge = useCallback((incoming: Msg[]) => {
+    if (!incoming.length) return;
+    setMessages((cur) => {
+      const byClient = new Map(cur.filter((m) => m.clientId).map((m) => [m.clientId!, m]));
+      const ids = new Set(cur.map((m) => m.id));
+      const next = cur.filter((m) => !(m.pending && incoming.some((i) => i.clientId && i.clientId === m.clientId)));
+      for (const m of incoming) if (!ids.has(m.id) && !(m.clientId && byClient.get(m.clientId) && !byClient.get(m.clientId)!.pending)) next.push(m);
+      return next.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
     });
+    lastAt.current = incoming.at(-1)!.createdAt;
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.add("chat-open");
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    let stop = false;
+    api<{ role: "buyer" | "seller"; conversation: Header; messages: Msg[] }>(`/api/conversations/${conversationId}`)
+      .then((d) => {
+        if (stop) return;
+        setHeader(d.conversation);
+        setRole(d.role);
+        merge(d.messages);
+      })
+      .catch((e) => toast(e instanceof Error ? e.message : "Could not load the chat", "error"));
+    const timer = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+      const after = lastAt.current ? `?after=${encodeURIComponent(lastAt.current)}` : "";
+      api<{ messages: Msg[] }>(`/api/conversations/${conversationId}${after}`).then((d) => !stop && merge(d.messages)).catch(() => undefined);
+    }, POLL_MS);
     return () => {
-      root.classList.remove("chat-open");
-      document.body.style.overflow = prevOverflow;
+      stop = true;
+      clearInterval(timer);
     };
-  }, []);
+  }, [conversationId, merge, toast]);
 
   useEffect(() => {
-    return subscribeChatBottomInset((px) => {
-      setBottomInset(px);
-      document.documentElement.style.setProperty(
-        "--chat-bottom-inset",
-        `${px}px`,
-      );
-    });
-  }, []);
+    bottom.current?.scrollIntoView({ block: "end" });
+  }, [messages.length]);
 
-  useEffect(() => {
-    return () => {
-      document.documentElement.style.removeProperty("--chat-bottom-inset");
-    };
-  }, []);
-
-  const applyPayload = useCallback(
-    (
-      data: {
-        conversation?: ChatConversation;
-        messages?: ChatMessage[];
-      },
-      mode: "replace" | "append",
-    ) => {
-      if (data.conversation) setConversation(data.conversation);
-      if (data.messages) {
-        if (mode === "replace") {
-          setMessages(data.messages);
-          lastIdRef.current =
-            data.messages[data.messages.length - 1]?.id ?? null;
-        } else if (data.messages.length) {
-          setMessages((prev) => {
-            const seen = new Set(prev.map((m) => m.id));
-            const next = [...prev];
-            for (const m of data.messages!) {
-              if (!seen.has(m.id)) next.push(m);
-            }
-            return next;
-          });
-          lastIdRef.current =
-            data.messages[data.messages.length - 1]?.id ?? lastIdRef.current;
-        }
-      }
-    },
-    [],
-  );
-
-  const load = useCallback(
-    async (after?: string | null) => {
-      const qs = after ? `?after=${encodeURIComponent(after)}` : "";
-      const res = await fetch(`/api/conversations/${conversationId}${qs}`, {
-        credentials: "include",
-      });
-      const data = (await res.json()) as {
-        conversation?: ChatConversation;
-        messages?: ChatMessage[];
-        error?: string;
-      };
-      if (!res.ok) throw new Error(data.error ?? "Failed to load chat");
-      applyPayload(data, after ? "append" : "replace");
-    },
-    [applyPayload, conversationId],
-  );
-
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      try {
-        await load(null);
-        if (!cancelled) {
-          setError(null);
-          scrollToBottom(false);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to load");
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [load, scrollToBottom]);
-
-  useEffect(() => {
-    scrollToBottom(true);
-  }, [messages.length, scrollToBottom]);
-
-  useEffect(() => {
-    const onVis = () => {
-      focusedRef.current = document.visibilityState === "visible";
-    };
-    document.addEventListener("visibilitychange", onVis);
-    const timer = window.setInterval(() => {
-      if (!focusedRef.current || !lastIdRef.current) return;
-      void load(lastIdRef.current).catch(() => {});
-    }, 2000);
-    return () => {
-      document.removeEventListener("visibilitychange", onVis);
-      window.clearInterval(timer);
-    };
-  }, [load]);
-
-  useEffect(() => {
-    return () => {
-      if (pendingPreview) URL.revokeObjectURL(pendingPreview);
-    };
-  }, [pendingPreview]);
-
-  function clearPendingImage() {
-    if (pendingPreview) URL.revokeObjectURL(pendingPreview);
-    setPendingFile(null);
-    setPendingPreview(null);
-    if (fileRef.current) fileRef.current.value = "";
-  }
-
-  function onPickImage(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (pendingPreview) URL.revokeObjectURL(pendingPreview);
-    setPendingFile(file);
-    setPendingPreview(URL.createObjectURL(file));
-  }
-
-  function autoSize() {
-    const el = textareaRef.current;
-    if (!el) return;
-    el.style.height = "auto";
-    el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
-  }
-
-  async function onSend(bodyOverride?: string) {
-    const trimmed = (bodyOverride ?? text).trim();
-    if ((!trimmed && !pendingFile) || sending) return;
-    setSending(true);
-    setError(null);
-    const clientId = newClientId();
-    const file = pendingFile;
-    const preview = pendingPreview;
-    const optimistic: ChatMessage = {
-      id: `tmp_${clientId}`,
-      conversationId,
-      senderRole: role,
-      senderUserId: user?.id ?? null,
-      kind: file ? "image" : "text",
-      body: trimmed,
-      imageUrl: preview,
-      clientId,
-      createdAt: new Date().toISOString(),
-    };
-    setMessages((prev) => [...prev, optimistic]);
-    setText("");
-    clearPendingImage();
-    if (textareaRef.current) textareaRef.current.style.height = "auto";
-
+  async function send(body: string, imageKey?: string) {
+    const clientId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const optimistic: Msg = { id: clientId, role, kind: imageKey ? "image" : "text", body, image: null, clientId, createdAt: new Date().toISOString(), pending: true };
+    setMessages((m) => [...m, optimistic]);
     try {
-      let res: Response;
-      if (file) {
-        const form = new FormData();
-        form.set("body", trimmed);
-        form.set("clientId", clientId);
-        form.set("image", file);
-        res = await fetch(`/api/conversations/${conversationId}`, {
-          method: "POST",
-          credentials: "include",
-          body: form,
-        });
-      } else {
-        res = await fetch(`/api/conversations/${conversationId}`, {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ body: trimmed, clientId }),
-        });
-      }
-      const data = (await res.json()) as {
-        message?: ChatMessage;
-        error?: string;
-      };
-      if (!res.ok) throw new Error(data.error ?? "Send failed");
-      if (data.message) {
-        setMessages((prev) => {
-          const withoutTmp = prev.filter((m) => m.id !== optimistic.id);
-          if (withoutTmp.some((m) => m.id === data.message!.id)) {
-            return withoutTmp;
-          }
-          return [...withoutTmp, data.message!];
-        });
-        lastIdRef.current = data.message.id;
-      }
+      const { message } = await api<{ message: Msg }>(`/api/conversations/${conversationId}/messages`, { body: { body, clientId, imageKey } });
+      merge([message]);
     } catch (err) {
-      setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
-      setText(trimmed);
-      setError(err instanceof Error ? err.message : "Send failed");
-    } finally {
-      setSending(false);
+      setMessages((m) => m.filter((x) => x.id !== clientId));
+      toast(err instanceof Error ? err.message : "Message not sent", "error");
     }
   }
 
-  async function onClose() {
-    if (!confirm("Close this conversation?")) return;
-    const res = await fetch(`/api/conversations/${conversationId}`, {
-      method: "PATCH",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "close" }),
-    });
-    if (res.ok) await load(null);
-  }
-
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    void onSend();
+    const body = text.trim();
+    if (!body || sending) return;
+    setText("");
+    setSending(true);
+    await send(body);
+    setSending(false);
   }
 
-  const product = conversation?.product;
-  const shop = conversation?.shop;
-  const buyer = conversation?.buyer;
-  const closed = conversation?.status === "closed";
-  const hasUserMessages = messages.some((m) => m.senderRole !== "system");
-  const peerLabel =
-    role === "seller"
-      ? (buyer?.firstName ?? null)
-      : (shop?.name ?? null);
-  const peerHref =
-    role === "buyer" && shop ? `/s/${shop.slug}` : null;
+  async function onFile(file?: File) {
+    if (!file) return;
+    try {
+      const key = await uploadImage(`/api/conversations/${conversationId}/upload`, file);
+      await send("", key);
+    } catch (err) {
+      toast(err instanceof Error ? err.message : "Upload failed", "error");
+    }
+  }
 
+  const p = header?.product;
+  const href = header && productHref ? productHref(header) : null;
   return (
-    <div
-      className="chat-app chat-app--tg"
-      style={
-        {
-          "--chat-bottom-inset": `${bottomInset}px`,
-        } as CSSProperties
-      }
-    >
-      <div className="chat-frame">
-        <header className="chat-topbar">
-          <Link href={backHref} className="chat-back">
-            ← {backLabel}
-          </Link>
-          {showClose && !closed ? (
-            <button
-              type="button"
-              className="chat-topbar-action"
-              onClick={() => void onClose()}
-            >
-              Close
-            </button>
+    <div className="card flex h-[calc(100dvh-180px)] min-h-[420px] flex-col overflow-hidden lg:h-[calc(100dvh-140px)]">
+      <div className="flex items-center gap-3 border-b border-line px-4 py-3">
+        {p?.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={p.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
+        ) : <div className="h-10 w-10 rounded-lg bg-paper-muted" />}
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold">{role === "seller" ? header?.buyer?.name ?? "Buyer" : header?.shop?.name ?? "Seller"}</p>
+          {p ? (
+            href ? <Link href={href} className="block truncate text-xs text-signal">{p.title} · {p.priceMinor ? formatMoney(p.priceMinor, p.currency) : "Ask for price"}</Link>
+              : <p className="truncate text-xs text-mist">{p.title}</p>
           ) : null}
-        </header>
-
-        {product ? (
-          <div className="chat-listing">
-            <Link href={`/p/${product.slug}`} className="chat-listing-product">
-              <span className="chat-listing-thumb" aria-hidden>
-                {product.imageSrc ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={product.imageSrc} alt="" />
-                ) : null}
-              </span>
-              <span className="chat-listing-meta">
-                <span className="chat-listing-title" title={product.title}>
-                  {product.title}
-                </span>
-                <span className="chat-listing-price">
-                  {formatMoney(product)}
-                  {product.status === "sold" ? " · Sold" : ""}
-                </span>
-                {product.description ? (
-                  <span
-                    className="chat-listing-desc"
-                    title={product.description}
-                  >
-                    {product.description}
-                  </span>
-                ) : null}
-              </span>
-            </Link>
-            {peerLabel ? (
-              peerHref ? (
-                <Link
-                  href={peerHref}
-                  className="chat-listing-peer"
-                  title={peerLabel}
-                >
-                  {peerLabel}
-                </Link>
-              ) : (
-                <span className="chat-listing-peer" title={peerLabel}>
-                  {peerLabel}
-                </span>
-              )
-            ) : null}
-          </div>
-        ) : peerLabel ? (
-          <div className="chat-listing chat-listing--peer-only">
-            {peerHref ? (
-              <Link
-                href={peerHref}
-                className="chat-listing-peer"
-                title={peerLabel}
-              >
-                {peerLabel}
-              </Link>
-            ) : (
-              <span className="chat-listing-peer" title={peerLabel}>
-                {peerLabel}
-              </span>
-            )}
-          </div>
-        ) : null}
-
-        {error ? <p className="chat-error">{error}</p> : null}
-        {closed ? (
-          <p className="chat-banner">Closed — send a message to reopen.</p>
-        ) : null}
-
-        <div
-          ref={scrollRef}
-          className="chat-scroll"
-          role="log"
-          aria-live="polite"
-        >
-          <div className="chat-scroll-inner">
-            {loading ? (
-              <InlineLoader label="Loading messages" className="chat-loader" />
-            ) : (
-              <>
-                {!hasUserMessages && role === "buyer" ? (
-                  <div className="chat-empty">
-                    <p>Ask about this item</p>
-                    <div className="chat-prompts">
-                      {PROMPTS.map((p) => (
-                        <button
-                          key={p}
-                          type="button"
-                          className="chat-prompt"
-                          onClick={() => void onSend(p)}
-                        >
-                          {p}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-
-                {messages.map((m) => {
-                  if (m.kind === "product") return null;
-                  if (m.senderRole === "system") {
-                    return (
-                      <p key={m.id} className="chat-system">
-                        {m.body}
-                      </p>
-                    );
-                  }
-                  const mine =
-                    m.senderRole === role || m.senderUserId === user?.id;
-                  return (
-                    <div
-                      key={m.id}
-                      className={
-                        mine ? "chat-bubble is-mine" : "chat-bubble is-theirs"
-                      }
-                    >
-                      {m.imageUrl ? (
-                        <button
-                          type="button"
-                          className="chat-bubble-img-btn"
-                          onClick={() =>
-                            setLightbox({
-                              images: [{ src: m.imageUrl!, alt: "" }],
-                              index: 0,
-                            })
-                          }
-                          aria-label="View photo fullscreen"
-                        >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={m.imageUrl}
-                            alt=""
-                            className="chat-bubble-img"
-                          />
-                        </button>
-                      ) : null}
-                      {m.body ? <p>{m.body}</p> : null}
-                      <time dateTime={m.createdAt}>
-                        {new Date(m.createdAt).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </time>
-                    </div>
-                  );
-                })}
-              </>
-            )}
-            <div ref={bottomRef} />
-          </div>
         </div>
-
-        <form className="chat-composer" onSubmit={onSubmit}>
-          {pendingPreview ? (
-            <div className="chat-attach-preview">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={pendingPreview} alt="" />
-              <button
-                type="button"
-                className="chat-attach-clear"
-                onClick={clearPendingImage}
-                aria-label="Remove photo"
-              >
-                ×
-              </button>
-            </div>
-          ) : null}
-          <div className="chat-composer-row">
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-              className="sr-only"
-              onChange={onPickImage}
-            />
-            <button
-              type="button"
-              className="chat-icon-btn"
-              aria-label="Add photo"
-              disabled={sending}
-              onClick={() => fileRef.current?.click()}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden
-              >
-                <rect
-                  x="3"
-                  y="5"
-                  width="18"
-                  height="14"
-                  rx="2"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                />
-                <circle
-                  cx="9"
-                  cy="10"
-                  r="1.6"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M3 16l5-4 4 3 3-2 6 4"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-            <textarea
-              ref={textareaRef}
-              className="chat-input"
-              value={text}
-              rows={1}
-              onChange={(e) => {
-                setText(e.target.value);
-                autoSize();
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  void onSend();
-                }
-              }}
-              placeholder="Message…"
-              maxLength={2000}
-              disabled={sending}
-            />
-            <button
-              type="submit"
-              className="chat-send-btn"
-              disabled={sending || (!text.trim() && !pendingFile)}
-              aria-label="Send"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden
-              >
-                <path d="M3.4 20.4l17.45-7.48a1 1 0 000-1.84L3.4 3.6a.99.99 0 00-1.4 1.18l2.3 6.72L14 12l-9.7.5-2.3 6.72a1 1 0 001.4 1.18z" />
-              </svg>
-            </button>
-          </div>
-        </form>
+        {p?.status === "sold" ? <span className="rounded bg-paper-muted px-2 py-0.5 text-xs">Sold</span> : null}
       </div>
-
-      <ImageLightbox
-        open={Boolean(lightbox)}
-        images={lightbox?.images ?? []}
-        index={lightbox?.index ?? 0}
-        onClose={() => setLightbox(null)}
-        onIndexChange={(i) =>
-          setLightbox((prev) => (prev ? { ...prev, index: i } : prev))
-        }
-      />
+      <div className="flex-1 space-y-2 overflow-y-auto bg-paper px-4 py-4">
+        {messages.map((m) => {
+          const mine = m.role === role;
+          if (m.role === "system") return <p key={m.id} className="mx-auto max-w-sm whitespace-pre-wrap rounded-lg bg-paper-muted px-3 py-2 text-center text-xs text-mist">{m.body}</p>;
+          return (
+            <div key={m.id} className={cn("flex", mine ? "justify-end" : "justify-start")}>
+              <div className={cn("max-w-[80%] rounded-2xl px-3.5 py-2 text-sm shadow-sm", mine ? "rounded-br-sm bg-signal text-white" : "rounded-bl-sm bg-surface", m.pending && "opacity-60")}>
+                {m.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={m.image} alt="" className="mb-1 max-h-64 rounded-lg" />
+                ) : m.kind === "image" ? <p className="italic">Photo…</p> : null}
+                {m.body ? <p className="whitespace-pre-wrap break-words">{m.body}</p> : null}
+                <p className={cn("mt-0.5 text-[10px]", mine ? "text-white/70" : "text-mist")}>{new Date(m.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</p>
+              </div>
+            </div>
+          );
+        })}
+        {!messages.length ? <p className="pt-10 text-center text-sm text-mist">Say hello 👋</p> : null}
+        <div ref={bottom} />
+      </div>
+      <form onSubmit={onSubmit} className="flex items-end gap-2 border-t border-line p-2">
+        <button type="button" aria-label="Send a photo" onClick={() => fileRef.current?.click()} className="rounded-lg p-2 text-mist hover:bg-paper-muted"><ImagePlus size={20} /></button>
+        <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(e) => onFile(e.target.files?.[0])} />
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); (e.currentTarget.form as HTMLFormElement).requestSubmit(); } }}
+          rows={1}
+          maxLength={2000}
+          placeholder="Write a message…"
+          className="textarea min-h-10 flex-1 resize-none py-2"
+        />
+        <button type="submit" aria-label="Send" disabled={!text.trim() || sending} className="rounded-lg bg-signal p-2.5 text-white disabled:opacity-40"><Send size={18} /></button>
+      </form>
     </div>
   );
 }
