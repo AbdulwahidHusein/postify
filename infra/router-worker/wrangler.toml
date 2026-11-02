@@ -1,0 +1,15 @@
+name = "goods-router"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+# Set ORIGIN to the Cloud Run web URL printed by infra/deploy.sh.
+[vars]
+ORIGIN = "https://goods-PROJECT_NUMBER.europe-west1.run.app"
+BYPASS_HOSTS = "img.goods.et"
+
+# The platform domain and every shop subdomain. Custom domains are added as
+# Cloudflare for SaaS custom hostnames with this Worker as the fallback origin.
+routes = [
+  { pattern = "goods.et/*", zone_name = "goods.et" },
+  { pattern = "*.goods.et/*", zone_name = "goods.et" },
+]

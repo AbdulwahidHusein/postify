@@ -1,170 +1,95 @@
-# Goods — Architecture
+# Architecture
 
-## High-level system
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     Telegram Ecosystem                        │
-│  Channel posts  →  Bot (grammY)  →  edits/replies w/ link   │
-│  Buyer taps link →  Mini App WebView OR external browser     │
-└────────────────────────────┬────────────────────────────────┘
-                             │ HTTPS
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│              Next.js (App Router) — single app                │
-│  (store) public SEO storefront                                │
-│  (tma)   same pages, Telegram chrome when in Mini App         │
-│  dashboard  seller onboarding, products, orders               │
-│  api/bot    grammY webhook                                    │
-│  api/auth   initData + Login Widget → session                 │
-│  api/*      products, shops, orders, jobs                     │
-└───────────────┬──────────────────────────┬──────────────────┘
-                │                          │
-                ▼                          ▼
-         Postgres (Drizzle)          Object storage (R2/S3)
-         shops, products,            product images from TG
-         channels, orders,
-         parse jobs
-                │
-                ▼
-         Job worker / queue
-         (media group coalesce + LLM structured extract)
-```
-
-## Dual surface: one app, two shells
-
-| Surface | Entry | Auth | UI chrome |
-|---------|-------|------|-----------|
-| **Website** | `https://goods.et/...` | Telegram Login Widget → session | Normal header/nav, SEO |
-| **Mini App** | `https://t.me/<bot>/<app>?startapp=...` | `initData` HMAC → same session | Telegram theme, MainButton, safe areas |
-
-**Rule:** Detect Mini App via presence of validated `initData`. Never trust `initDataUnsafe` for privileged actions.
-
-Shared: product pages, catalog, cart, checkout APIs, seller dashboard data.
-
-## Critical Telegram constraints
-
-### 1. Bots cannot edit human posts
-
-The Bot API only allows editing messages **sent by the bot itself**.
-
-Therefore Goods must **not** depend on "seller posts → bot edits that exact message."
-
-**Supported patterns (in priority order):**
-
-1. **Bot-owned posts (preferred)**  
-   Seller sends product to bot / uses a posting flow; bot publishes to the channel; bot can later edit caption and attach buttons.
-
-2. **Reply / follow-up message**  
-   Human posts in channel; bot detects `channel_post`; creates product; replies or posts a short follow-up with **Open in shop**.
-
-3. **Delete + repost (opt-in, aggressive)**  
-   Only if seller explicitly enables; bot deletes original and republishes as itself.
-
-### 2. Media groups
-
-Multi-photo listings arrive as multiple updates sharing `media_group_id`.  
-Coalesce before LLM parse and product creation (debounce ~1–2s).
-
-### 3. Telegram file URLs expire
-
-Always download media via Bot API (`getFile`) and store in R2/S3. Persist our own URLs.
-
-### 4. Deep links (`startapp`)
-
-Format: `https://t.me/<bot>/<short_name>?startapp=<param>`
-
-- Allowed chars: `A-Z a-z 0-9 _ -`
-- Max length: 512
-- Use short opaque IDs (e.g. `p_x7k2`) mapped in DB — not raw titles
-
-Also expose public web URLs: `https://goods.et/p/<slug>` for sharing outside Telegram.
-
-### 5. Payments
-
-- **Physical goods:** Stripe / local PSP (not forced to Stars)
-- **Digital goods inside Telegram:** Stars (`XTR`) only
-- MVP: order capture (and optionally payment later)
-
-## Bot responsibilities
-
-- Onboarding: `/start`, link shop, add-to-channel instructions
-- Ingest: `channel_post` / `edited_channel_post` (and private “post via bot” flow)
-- Enqueue parse jobs; never block webhook on LLM
-- Attach Mini App / URL buttons when message is bot-owned
-- Seller confirmations for low-confidence parses (inline buttons / Mini App)
-
-## Backend responsibilities (Next.js API)
-
-- Validate Telegram auth (initData + Login Widget)
-- CRUD shops, channels, products, orders
-- Trigger / process parse jobs
-- Serve storefront data (SSR for SEO where useful)
-- Webhook endpoint for grammY (`webhookCallback(bot, 'std/http')`)
-
-## LLM parsing pipeline
-
-**Input:** caption text + optional OCR later + shop locale defaults  
-
-**Output (JSON schema):**
-
-```json
-{
-  "is_product": true,
-  "confidence": 0.0,
-  "title": "",
-  "description": "",
-  "price": null,
-  "currency": null,
-  "category": null,
-  "tags": [],
-  "variants": [],
-  "condition": null
-}
-```
-
-**Rules:**
-
-- Cheap filters first (has media? looks like price? announcement keywords?)
-- LLM only when likely a product
-- Low confidence → draft + seller confirm; high confidence → auto-publish (per shop setting)
-- Never invent prices; omit or flag missing price
-
-## Auth model
+## Shape
 
 ```
-Telegram identity (telegram_user_id)
-        ↓
-Internal user row
-        ↓
-Session / JWT used by web + Mini App APIs
+Telegram ──webhook──▶ ┌───────────────────────────┐      ┌──────────────┐
+Buyers/sellers ─edge─▶│ goods (Cloud Run, public) │─SQL─▶│ Neon Postgres │
+  (CF Worker router)  │ Next.js: pages, API, bot  │      └──────────────┘
+                      └────────────┬──────────────┘             ▲
+                          enqueue  │ Cloud Tasks (OIDC)          │
+                                   ▼                             │
+                      ┌───────────────────────────┐              │
+Cloud Scheduler ─────▶│ goods-jobs (Cloud Run,     │──────────────┘
+  sweep 5 min,nightly │ IAM-only): same image      │──▶ R2 (images) · Gemini · Telegram API
+                      └───────────────────────────┘
 ```
 
-| Entry | Verification |
-|-------|----------------|
-| Mini App | HMAC-SHA256 of raw `initData` with bot token (`WebAppData`); check `auth_date` freshness |
-| Website | Telegram Login Widget hash verification (different algorithm) |
+There is one image and one codebase. `goods` serves people and Telegram. `goods-jobs` runs background work behind IAM, so heavy work (images, AI, Telegram edits) never competes with page loads. Both scale to zero.
 
-Both resolve to the same `users.telegram_id`.
+## Telegram integration (the differentiator)
 
-## Security checklist
+**Connect.** `/start` shows a keyboard with "Connect a channel" and "Connect a group". These use Telegram's native chat picker (`KeyboardButtonRequestChat`). The picker shows only chats where the seller is an admin, and it asks Telegram to add the bot with exactly the rights we need: *post* and *edit* for channels, plus *pin* for groups. The `chat_shared` update links the chat in one step. `my_chat_member` keeps rights in sync, and the seller is warned in DM if rights are removed.
 
-- [ ] Never expose bot token to client
-- [ ] Validate initData / login widget on every privileged API call (or session derived from it)
-- [ ] Webhook secret token (`secret_token` on `setWebhook`)
-- [ ] Expire initData (~24h max age)
-- [ ] Rate-limit parse jobs and auth endpoints
-- [ ] Shop isolation: sellers only access their shop’s products/orders
-- [ ] ToS note: channel content sent to LLM provider
+**Ingest.** The webhook does only cheap work: it verifies the secret, filters to connected chats, and stores the raw update (`telegram_updates`, keyed by `update_id`, so it is idempotent). It then enqueues `ingest`. Album parts share a task name derived from `media_group_id` and a 3 s delay, so a 10-photo album becomes one product. Parts that arrive late are appended.
 
-## Deployment shape
+`processIngest` claims the rows, extracts the listing (AI with guardrails, or the rule-based parser), creates or updates the product, queues the images, and requests a button sync. Edits re-extract, with at most 3 extractions per post per day. A "SOLD" or "ተሽጧል" caption marks the product sold. In groups, only posts by admins are ingested.
 
-| Piece | Recommendation |
-|-------|----------------|
-| Next.js app | Vercel (or similar) |
-| Bot webhook | Same app `/api/bot` — keep handlers thin |
-| Heavy jobs | Queue + worker (Inngest / Trigger.dev / BullMQ) or separate Node process |
-| DB | Managed Postgres |
-| Files | Cloudflare R2 or S3 |
+**Buttons — a desired-state reconciler** (`domain/buttons.ts`):
 
-**Rule:** Webhook must ACK quickly. LLM + media download happen off the request path.
+- Each product source has a `desiredHash` (label language, availability, price state) and an `appliedHash`. `syncButtons` locks the row (`FOR UPDATE`), renders the keyboard and applies it.
+- Telegram errors are classified. *Not modified* counts as success. *Message deleted* archives the product, unless it is also posted elsewhere. *No rights* warns the seller once. *429* reschedules after `retry_after`.
+- **Mode fallback:** a channel post gets the buttons edited directly onto it (`inline`). Albums and posts the bot can't edit get a small reply card under the post (`reply_card`). Products created from the dashboard can be posted by the bot (`bot_post`).
+- Buttons are URL buttons to `t.me/<bot>/<app>?startapp=p_<code>`, because `web_app` buttons only work in private chats. They open the Mini App straight to the product with ordering ready. On the web, `/go/<param>` resolves the same codes.
+- The 5-minute sweep re-drives any sync whose request hasn't landed, so a crash or outage converges on the next run.
+
+## Commerce
+
+- Money is stored as `bigint` santim. IDs are UUIDv7. Product codes are base62.
+- **Checkout** is pay-on-delivery. "Pay online" is shown disabled ("Coming soon") and logs interest. `placeOrder` runs in one transaction:
+  - It validates the phone, address and fulfilment, rate-limits each buyer (5 per hour) and honours blocked buyers.
+  - It reserves stock with a conditional decrement, so two buyers can't buy the last item.
+  - It takes an atomic per-shop order number (from 1001), upserts the customer, writes the lines and the payment, and clears the cart.
+- **Lifecycle** is placed → confirmed → shipped → delivered → completed (or cancelled, which restocks).
+  - "Payment received", or completing a pay-on-delivery order, records the cash.
+  - A delivered one-off item becomes *sold*.
+  - Sellers get reminders about unconfirmed orders at 2 h and 24 h; the order is auto-cancelled at 72 h.
+- **Roles** are owner, admin and staff. Every API route goes through `authorize(handle, action)`. A non-member gets a 404, and a member with too low a role gets a 403.
+
+## AI cost guardrails (`domain/ai-guard.ts`)
+
+These checks run in order:
+
+1. **Cache:** identical captions are never paid for twice.
+2. **Per-shop daily quota:** 100 calls, or 20 for shops younger than 7 days.
+3. **Platform daily budget breaker:** sends an ops alert when tripped.
+4. **The call itself:** Gemini Flash with structured JSON output, thinking disabled, `maxOutputTokens` of 1024, the caption capped at 2,000 characters and a 20 s timeout. It retries once.
+5. **Fallback:** the rule-based parser.
+
+Hitting a limit never blocks a product: it degrades to the parser and flags the product for review.
+
+## Storefront and tenancy
+
+`src/proxy.ts` maps `<handle>.goods.et` and custom domains (`__host__<domain>`) to `/s/<shop>/…`. The edge Worker forwards the original host in `X-Forwarded-Host`.
+
+Pages are server-rendered and locale-aware (English or Amharic, via cookie or shop default). Hashed assets are cached at the edge for a year. Images are WebP renditions at 320, 800 and 1600 px, made by sharp and served from R2 behind `img.goods.et`.
+
+## Background work
+
+| Queue | Job | Notes |
+|---|---|---|
+| ingest | `processIngest(groupKey)` | album-coalesced via task names |
+| media | `processImage(imageId)` | Telegram file → R2 original → renditions |
+| buttons | `syncButtons(sourceId)` | rate-limited queue, rights-aware |
+| notify | seller/buyer DMs | `sendOnce` ledger avoids duplicates |
+
+Locally and in tests, `TASKS_MODE=inline` runs the same handlers in-process. The `/internal/*` endpoints accept only Google-signed OIDC tokens for the invoker service account, and the edge Worker refuses `/internal/*`.
+
+## Data
+
+The full schema is in `src/server/db/schema.ts`. Migrations are generated into `drizzle/`, and CI fails if the two drift. The main groups:
+
+- **Tenancy:** `shops` (settings JSON), `shop_members`, `shop_invites`, `shop_domains`.
+- **Telegram:** `channels`, `telegram_updates`, `product_sources` (button state).
+- **Catalog:** `products`, `product_variants`, `product_images`, `collections`.
+- **Commerce:** `carts`, `orders`, `order_lines`, `payments`, `customers`.
+- **Messaging:** `conversations`, `messages`, `telegram_deliveries`, `bot_contexts`, `notification_log`.
+- **Analytics and AI:** `events`, `shop_daily_stats`, `ai_usage`, `ai_cache`.
+
+## Known limits / next
+
+- Storefront HTML isn't edge-cached yet. Pages read the locale cookie; the next step is a locale-in-path variant that can be cached.
+- The dashboard UI is English-only; buyer-facing pages and bot messages are bilingual. Amharic strings need a native-speaker pass.
+- Custom domains are modelled and routed, but onboarding (Cloudflare for SaaS hostname provisioning) is "coming soon" in the UI.
+- Online payments (Telebirr, Chapa) plug into `payments`; the checkout UI and order state already account for them.
+- Validate against real Telegram before launch: album reply cards and edit behaviour in large channels.

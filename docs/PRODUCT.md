@@ -1,57 +1,27 @@
-# Goods — Product Overview
-
-Goods turns Telegram channels into ecommerce storefronts.
-
-Sellers keep posting products in Telegram. Goods’s bot detects product posts, extracts structured product data (with an LLM), publishes them to a website / Telegram Mini App, and links buyers back from Telegram into a proper shop experience.
-
----
+# Goods — Product
 
 ## Problem
 
-Many shops already sell via Telegram channels:
+Ethiopian online commerce happens in Telegram channels and groups: photos, a caption with the price, "DM to order". That works for discovery but stops there. There's no catalog, no cart, no order tracking and no customer list. Buyers lose posts in the feed. Sellers juggle orders in DMs and notebooks. Shopify-style tools exist, but asking a seller to stop posting on Telegram and learn a CMS doesn't work.
 
-- Photos + captions with price, sizes, “DM to order”
-- No real catalog, cart, search, or shareable product pages
-- Buyers bounce between DMs and payment apps
-- Sellers don’t want to learn Shopify / a new CMS
+## Promise
 
-## Solution
+**Keep posting on Telegram. Goods turns it into a real shop.**
 
-1. Seller adds the Goods bot to their channel (admin).
-2. When a product is posted (or posted via the bot), Goods:
-   - Detects it as a product listing
-   - Parses title, price, currency, category, description, variants
-   - Creates a product page on the storefront
-   - Attaches an **Open in shop** link (Mini App and/or web)
-3. Buyers browse and buy on the **same Next.js app** running as:
-   - A normal website (SEO, share links, desktop)
-   - A Telegram Mini App (in-Telegram WebView)
+1. **Start in a minute:** open the bot, tap *Connect a channel*, and pick the channel. No forms, no website setup. A storefront at `yourshop.goods.et` exists immediately.
+2. **Every post becomes a product.** Photos, albums, Amharic or English captions: the title, price, category and details are extracted. Unclear posts go to *Needs attention* instead of going live wrong.
+3. **Buttons on the post.** **Order** and **Ask** appear under each post. They open the product inside Telegram, where checkout takes a few taps. Edits sync. A "SOLD" caption or a sold-out item updates the buttons. Deleting the post archives the product.
+4. **Orders without the chaos.** Pay on delivery, with the order alert in Telegram and one-tap *Confirm*. Inventory can't oversell. Reminders go out if the seller forgets an order. Buyers can track their order.
+5. **A real back office.** Orders, products, customers, inbox, analytics, store design and staff, in one lean dashboard that works in the Telegram Mini App and on desktop.
 
-## Who it’s for
+## Who
 
-**Primary:** Channel-native merchants (fashion, electronics, local goods, resellers) who already post listings in Telegram.
+- **Sellers:** individuals and small shops selling on Telegram (phones and electronics, fashion, cosmetics, home goods). Often mobile-only, often Amharic-first.
+- **Buyers:** Telegram users who want to see the price, ask a question, and order without haggling in DMs.
 
-**Secondary:** Buyers who discover products in channels and want a cleaner purchase flow.
+## Principles
 
-## Core value props
-
-| For sellers | For buyers |
-|-------------|------------|
-| Keep posting in Telegram | Tap “Open in shop” instead of DMing |
-| Auto catalog from existing workflow | Clear price, photos, product page |
-| One dashboard for stock / orders | Cart + checkout (phased) |
-| Web storefront without rebuilding content | Works inside Telegram or in browser |
-
-## Non-goals (MVP)
-
-- Full Shopify replacement (complex shipping rules, multi-warehouse, etc.)
-- Native iOS/Android apps
-- Automatic editing of *human-authored* channel posts (Bot API limitation — see Architecture)
-- Stars-only payments for physical goods
-
-## Success metrics (early)
-
-- Seller can connect a channel and publish first product in < 10 minutes
-- ≥ 80% of product posts parse with usable title + price (after confirm flow)
-- Buyer can open a product from Telegram and complete an order intent (DM or checkout)
-- Same product URL works in Mini App and browser
+- **Telegram is the primary interface**; the web is the system of record.
+- **Never block the seller:** when AI is limited or unsure, we fall back, flag the post, and keep going.
+- **Free for merchants now.** Online payments (Telebirr, Chapa) and custom domains come next.
+- **Bilingual:** English and Amharic for buyers and bot messages from day one.

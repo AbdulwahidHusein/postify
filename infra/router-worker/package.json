@@ -1,0 +1,12 @@
+{
+  "name": "goods-router",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20261001.0",
+    "wrangler": "^4"
+  }
+}

@@ -1,52 +1,25 @@
 import { z } from "zod";
-import { jsonError, jsonOk } from "@/lib/api";
-import { AuthError, requireSession } from "@/lib/auth/session";
-import {
-  createShop,
-  ensureDefaultShop,
-  listShopsForOwner,
-  serializeShop,
-} from "@/lib/shops";
+import { json, readJson, route } from "@/server/http";
+import { requireViewer } from "@/server/request";
+import { createShop, listShopsForUser, serializeShop } from "@/server/domain/shops";
 
-const createSchema = z.object({
-  name: z.string().trim().min(2).max(80),
-  description: z.string().trim().max(500).optional(),
-  slug: z
-    .string()
-    .trim()
-    .min(2)
-    .max(48)
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug must be lowercase kebab-case")
-    .optional(),
+export const dynamic = "force-dynamic";
+
+export const GET = route(async () => {
+  const user = await requireViewer();
+  const rows = await listShopsForUser(user.id);
+  return json({ shops: rows.map((r) => ({ ...serializeShop(r.shop), role: r.role })) });
 });
 
-export async function GET() {
-  try {
-    const session = await requireSession();
-    let rows = await listShopsForOwner(session.userId);
-    if (rows.length === 0) {
-      await ensureDefaultShop(session.userId);
-      rows = await listShopsForOwner(session.userId);
-    }
-    return jsonOk({ shops: rows.map(serializeShop) });
-  } catch (error) {
-    return jsonError(error);
-  }
-}
+const body = z.object({
+  name: z.string().trim().min(2).max(80),
+  handle: z.string().optional(),
+  locale: z.enum(["en", "am"]).optional(),
+});
 
-export async function POST(request: Request) {
-  try {
-    const session = await requireSession();
-    const body = createSchema.parse(await request.json());
-    const shop = await createShop({
-      ownerUserId: session.userId,
-      name: body.name,
-      description: body.description,
-      slug: body.slug,
-    });
-    return jsonOk({ shop: serializeShop(shop) }, { status: 201 });
-  } catch (error) {
-    if (error instanceof AuthError) return jsonError(error);
-    return jsonError(error);
-  }
-}
+export const POST = route(async (request) => {
+  const user = await requireViewer();
+  const input = await readJson(request, body.parse);
+  const shop = await createShop({ ownerUserId: user.id, ...input });
+  return json({ shop: serializeShop(shop) }, { status: 201 });
+});

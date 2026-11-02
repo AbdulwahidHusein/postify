@@ -10,6 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useRouter } from "next/navigation";
 import { useTelegram } from "@/lib/telegram/context";
 
 export type AuthUser = {
@@ -78,6 +79,7 @@ async function apiFetch(input: string, init: RequestInit = {}, ms = 6000) {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { isTma, ready: tmaReady, rawInitData } = useTelegram();
+  const router = useRouter();
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -102,8 +104,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (mountedRef.current) {
       setUser(data.user);
       setError(null);
+      // Server-rendered pages read the new session cookie on refresh.
+      router.refresh();
     }
-  }, []);
+  }, [router]);
 
   const loginWithWidget = useCallback(
     async (payload: Record<string, unknown>) => {
@@ -117,15 +121,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (mountedRef.current) {
         setUser(data.user);
         setError(null);
+        router.refresh();
       }
     },
-    [],
+    [router],
   );
 
   const logout = useCallback(async () => {
     await readJson(await apiFetch("/api/auth/logout", { method: "POST" }));
     if (mountedRef.current) setUser(null);
-  }, []);
+    router.refresh();
+  }, [router]);
 
   useEffect(() => {
     mountedRef.current = true;
@@ -142,7 +148,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!cancelled) {
           const message =
             err instanceof Error && err.name === "AbortError"
-              ? "Could not reach the server. Check the tunnel is running."
+              ? "Could not reach the server. Check your connection."
               : err instanceof Error
                 ? err.message
                 : "Auth failed";

@@ -1,94 +1,51 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { DM_Sans, Syne } from "next/font/google";
+import localFont from "next/font/local";
 import { AppProviders } from "@/components/providers/app-providers";
-import { SiteHeader } from "@/components/layout/site-header";
 import { appName } from "@/lib/env";
 import "./globals.css";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+// Self-hosted variable fonts (OFL), subset and trimmed to weights 400–700.
+// Instrument Sans: dense UI text. Menbere: display + all Amharic; its Latin
+// and Ethiopic were drawn together, so shop names and prices match in both
+// scripts. The Ethiopic file only downloads on pages that contain Amharic.
+const uiSans = localFont({ src: "./fonts/instrument-sans-latin.woff2", variable: "--font-ui", weight: "400 700", display: "swap" });
+const display = localFont({ src: "./fonts/menbere-latin.woff2", variable: "--font-menbere", weight: "400 700", display: "swap" });
+const ethiopic = localFont({
+  src: "./fonts/menbere-ethiopic.woff2",
+  variable: "--font-ethiopic",
+  weight: "400 700",
+  display: "swap",
+  declarations: [{ prop: "unicode-range", value: "U+1200-137F, U+2010-2014, U+2018-201D, U+2026" }],
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: appName,
-    template: `%s · ${appName}`,
-  },
-  description:
-    "Turn Telegram channel posts into ecommerce storefronts — Mini App and web.",
+  title: { default: appName, template: `%s · ${appName}` },
+  description: "Online shops for Telegram sellers in Ethiopia. Post in your channel; we handle the store, orders and buyers.",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f6f9" },
-    { media: "(prefers-color-scheme: dark)", color: "#f4f6f9" },
-  ],
+  themeColor: "#f4f5f1",
 };
 
-/** Keep Mini App light — do not adopt Telegram dark theme colors. */
-const telegramBootScript = `
-(function () {
-  try {
-    var tg = window.Telegram && window.Telegram.WebApp;
-    if (!tg) return;
-    document.documentElement.dataset.platform = "tma";
-    tg.ready();
-    tg.expand();
-    if (typeof tg.disableVerticalSwipes === "function") {
-      try { tg.disableVerticalSwipes(); } catch (e) {}
-    }
-    if (tg.setHeaderColor) {
-      try { tg.setHeaderColor("#f4f6f9"); } catch (e) {}
-    }
-    if (tg.setBackgroundColor) {
-      try { tg.setBackgroundColor("#f4f6f9"); } catch (e) {}
-    }
-  } catch (e) {}
-})();
-`;
+/** Inside Telegram: signal readiness early, expand, keep our light theme. */
+const telegramBoot = `
+(function(){try{var tg=window.Telegram&&window.Telegram.WebApp;if(!tg||!tg.initData)return;
+document.documentElement.dataset.platform="tma";tg.ready();tg.expand();
+try{tg.disableVerticalSwipes&&tg.disableVerticalSwipes()}catch(e){}
+try{tg.setHeaderColor&&tg.setHeaderColor("#ffffff");tg.setBackgroundColor&&tg.setBackgroundColor("#f4f5f1")}catch(e){}
+}catch(e){}})();`;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // Telegram web-app.js + boot script mutate html/body before hydrate
-    // (data-platform, --tg-viewport-*). Ignore that intentional mismatch.
-    <html
-      lang="en"
-      className={`${dmSans.variable} ${syne.variable} h-full`}
-      suppressHydrationWarning
-    >
-      <body
-        className="min-h-full flex flex-col antialiased"
-        suppressHydrationWarning
-      >
-        <Script
-          src="https://telegram.org/js/telegram-web-app.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          id="telegram-boot"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: telegramBootScript }}
-        />
-        <div id="app-root" className="flex min-h-full flex-1 flex-col">
-          <AppProviders>
-            <SiteHeader />
-            <main className="flex flex-1 flex-col">{children}</main>
-          </AppProviders>
-        </div>
+    <html lang="en" className={`${uiSans.variable} ${display.variable} ${ethiopic.variable}`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
+        <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
+        <Script id="telegram-boot" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: telegramBoot }} />
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

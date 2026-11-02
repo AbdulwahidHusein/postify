@@ -1,21 +1,18 @@
+# Local Postgres for development: npm run db:up
 services:
   postgres:
-    image: postgres:16-alpine
-    container_name: postify-postgres
-    restart: unless-stopped
-    ports:
-      - "5433:5432"
+    image: postgres:17-alpine
     environment:
-      POSTGRES_USER: postify
-      POSTGRES_PASSWORD: postify
-      POSTGRES_DB: postify
+      POSTGRES_USER: goods
+      POSTGRES_PASSWORD: goods
+      POSTGRES_DB: goods
+    ports:
+      - "5432:5432"
     volumes:
-      - postify_pg:/var/lib/postgresql/data
+      - goods-pg:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postify -d postify"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
+      test: ["CMD-SHELL", "pg_isready -U goods"]
+      interval: 2s
+      retries: 20
 volumes:
-  postify_pg:
+  goods-pg:

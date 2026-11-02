@@ -1,0 +1,22 @@
+# Image build for infra/deploy.sh. Reuses layers from the previous :latest image.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        docker pull ${_REPO_IMAGE}:latest || true
+        docker build --cache-from ${_REPO_IMAGE}:latest \
+          --build-arg NEXT_PUBLIC_APP_URL=${_APP_URL} \
+          -t ${_REPO_IMAGE}:${_TAG} -t ${_REPO_IMAGE}:latest .
+images:
+  - ${_REPO_IMAGE}:${_TAG}
+  - ${_REPO_IMAGE}:latest
+substitutions:
+  _REPO_IMAGE: ""
+  _TAG: ""
+  _APP_URL: ""
+options:
+  machineType: E2_HIGHCPU_8
+  logging: CLOUD_LOGGING_ONLY
+timeout: 1200s
