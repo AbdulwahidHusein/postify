@@ -5,9 +5,9 @@ import type { InlineKeyboardButton, KeyboardButton, UserFromGetMe } from "grammy
 import { and, eq } from "drizzle-orm";
 import { db } from "@/server/db";
 import { botContexts, channels, products, telegramDeliveries } from "@/server/db/schema";
-import { appUrl, botUsername, requireBotToken } from "@/server/env";
+import { botUsername, requireBotToken } from "@/server/env";
 import { log } from "@/server/log";
-import { escapeHtml } from "@/server/services/telegram";
+import { escapeHtml, webLink } from "@/server/services/telegram";
 import { createLoginTokenForIdentity, redirectPathFromStartPayload } from "@/server/auth/login-tokens";
 import { upsertTelegramUser } from "@/server/auth/users";
 import type { TelegramIdentity } from "@/server/auth/telegram";
@@ -60,8 +60,7 @@ function identityFrom(from: NonNullable<Context["from"]>): TelegramIdentity {
 }
 
 function open(text: string, path: string): InlineKeyboardButton {
-  const url = `${appUrl()}${path}`;
-  return url.startsWith("https://") ? { text, web_app: { url } } : { text, url };
+  return { text, url: webLink(path) };
 }
 
 /** Reply keyboard with Telegram's chat picker: only chats the user administers. */
@@ -168,7 +167,7 @@ export function buildBot(botInfo?: UserFromGetMe): Bot {
       await ctx.reply(tc(locale, "tg.bot.tap_below_sign_goods"), {
         reply_markup: {
           inline_keyboard: [
-            [{ text: tc(locale, "store.login.openBot"), url: `${appUrl()}/auth/telegram?token=${token}` }],
+            [{ text: tc(locale, "store.login.openBot"), url: webLink(`/auth/telegram?token=${token}`) }],
           ],
         },
       });

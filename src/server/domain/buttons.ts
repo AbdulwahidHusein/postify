@@ -16,9 +16,9 @@ import { log } from "@/server/log";
 import { enqueue } from "@/server/services/tasks";
 import {
   classifyTelegramError,
-  miniAppLink,
   RetryLater,
   tg,
+  webLink,
 } from "@/server/services/telegram";
 import { normalizeSettings } from "@/server/domain/shops";
 import { getProductBundle, type ProductBundle } from "@/server/domain/products";
@@ -89,18 +89,19 @@ export function renderKeyboard(input: {
   const order = startParam.order(product.code, sourceCode);
   const ask = startParam.ask(product.code, sourceCode);
   const shop = startParam.shop(shopHandle);
-  const shopBtn = { text: l.shop, url: miniAppLink(shop, `/go/${shop}`) };
+  // Plain https → /go/… redirects into the storefront (shareable, stateful).
+  const shopBtn = { text: l.shop, url: webLink(`/go/${shop}`) };
 
   if (product.status === "sold" || !product.available) {
-    return [[{ text: l.sold, url: miniAppLink(shop, `/go/${shop}`) }]];
+    return [[{ text: l.sold, url: webLink(`/go/${shop}`) }]];
   }
   if (product.priceMinor === null) {
-    return [[{ text: l.askPrice, url: miniAppLink(ask, `/go/${ask}`) }, shopBtn]];
+    return [[{ text: l.askPrice, url: webLink(`/go/${ask}`) }, shopBtn]];
   }
   const price = formatMoney(product.priceMinor, product.currency) ?? "";
   return [
-    [{ text: `${l.order} · ${price}`, url: miniAppLink(order, `/go/${order}`) }],
-    [{ text: l.ask, url: miniAppLink(ask, `/go/${ask}`) }, shopBtn],
+    [{ text: `${l.order} · ${price}`, url: webLink(`/go/${order}`) }],
+    [{ text: l.ask, url: webLink(`/go/${ask}`) }, shopBtn],
   ];
 }
 
@@ -131,7 +132,16 @@ export function chooseMode(
 }
 
 export function desiredHash(mode: ButtonMode, keyboard: Keyboard | null, text: string | null) {
-  return sha1(JSON.stringify({ mode, keyboard, text: mode === "reply_card" ? text : null }));
+  // `links: "web"` bumps the hash when we switched from Mini App startapp URLs
+  // to plain https, so existing posts re-sync on the next button job.
+  return sha1(
+    JSON.stringify({
+      links: "web",
+      mode,
+      keyboard,
+      text: mode === "reply_card" ? text : null,
+    }),
+  );
 }
 
 // ── scheduling ──────────────────────────────────────────────────────────────

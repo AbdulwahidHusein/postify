@@ -90,9 +90,18 @@ export class RetryLater extends Error {
 }
 
 /**
- * Link that opens the Mini App with a start parameter. Telegram allows
- * [A-Za-z0-9_-] up to 512 chars. Falls back to a web URL when no Mini App
- * short name is configured.
+ * Canonical https URL on the Goods site. Prefer this for Telegram inline
+ * buttons (Order, Ask, Shop, dashboard, inbox): stateful, shareable, fast.
+ */
+export function webLink(path: string): string {
+  const base = appUrl().replace(/\/$/, "");
+  const p = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${p}`;
+}
+
+/**
+ * Optional Mini App deep link (`t.me/<bot>/<short>?startapp=…`).
+ * Keep for secondary Telegram-native entry; primary buttons should use webLink.
  */
 export function miniAppLink(startParam: string, webPath: string): string {
   const short = serverEnv.TELEGRAM_MINI_APP_SHORT_NAME;
@@ -100,7 +109,7 @@ export function miniAppLink(startParam: string, webPath: string): string {
   if (short && bot && /^[A-Za-z0-9_-]{1,512}$/.test(startParam)) {
     return `https://t.me/${bot}/${short}?startapp=${startParam}`;
   }
-  return `${appUrl()}${webPath}`;
+  return webLink(webPath);
 }
 
 /** Deep link into the bot's private chat with a /start payload. */

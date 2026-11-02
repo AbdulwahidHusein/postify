@@ -59,17 +59,27 @@ export async function sweep() {
   for (const s of stuck) await enqueue("ingest", { groupKey: s.groupKey }, { name: `${s.groupKey}:sweep:${bucket}` });
   out.ingest = stuck.length;
 
-  // 2. Buttons whose requested sync never landed.
+  // 2. Buttons whose requested sync never landed — plus a steady re-check of
+  //    synced posts so keyboard URL changes (e.g. Mini App → https) land.
   const lagging = await db
     .select({ id: productSources.id })
     .from(productSources)
     .where(
       and(
-        inArray(productSources.buttonStatus, ["pending", "synced"]),
-        lt(productSources.syncRequestedAt, new Date(now - 2 * 60_000)),
+        inArray(productSources.buttonStatus, ["pending", "synced", "failed"]),
         or(
-          sql`${productSources.lastSyncedAt} is null`,
-          sql`${productSources.syncRequestedAt} > ${productSources.lastSyncedAt}`,
+          and(
+            lt(productSources.syncRequestedAt, new Date(now - 2 * 60_000)),
+            or(
+              sql`${productSources.lastSyncedAt} is null`,
+              sql`${productSources.syncRequestedAt} > ${productSources.lastSyncedAt}`,
+            ),
+          ),
+          // Re-check synced posts periodically so desiredHash drift is applied.
+          and(
+            eq(productSources.buttonStatus, "synced"),
+            lt(productSources.lastSyncedAt, new Date(now - 10 * 60_000)),
+          ),
         ),
       ),
     )

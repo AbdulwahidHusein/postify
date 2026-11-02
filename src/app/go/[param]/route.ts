@@ -11,7 +11,7 @@ import { log } from "@/server/log";
 export const dynamic = "force-dynamic";
 
 /**
- * Landing for every Telegram button (Mini App start parameter or web link):
+ * Landing for Telegram buttons (plain https /go/… links; also Mini App startapp):
  *   p_<product>_<source>  → product page, straight into checkout
  *   a_<product>_<source>  → conversation with the seller about the product
  *   s_<shop handle>       → storefront

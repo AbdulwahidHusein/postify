@@ -18,7 +18,7 @@ import {
   users,
   type Shop,
 } from "@/server/db/schema";
-import { appUrl, serverEnv } from "@/server/env";
+import { serverEnv } from "@/server/env";
 import { log } from "@/server/log";
 import {
   channelRightsLink,
@@ -28,6 +28,7 @@ import {
   postLink,
   RetryLater,
   tg,
+  webLink,
 } from "@/server/services/telegram";
 import { normalizeSettings } from "@/server/domain/shops";
 import { formatMoney } from "@/lib/money";
@@ -40,10 +41,9 @@ function shopLocale(shop: Pick<Shop, "locale">): Locale {
   return asLocale(shop.locale);
 }
 
-/** Private-chat button that opens a page in the Mini App (web_app needs https). */
+/** Private-chat button that opens a normal https page (dashboard, order, inbox). */
 function openButton(text: string, path: string): Button {
-  const url = `${appUrl()}${path}`;
-  return url.startsWith("https://") ? { text, web_app: { url } } : { text, url };
+  return { text, url: webLink(path) };
 }
 
 async function sellerRecipients(shopId: string) {

@@ -10,7 +10,7 @@ import {
   telegramGroupKey,
 } from "@/server/domain/ingest-rules";
 import { chooseMode, desiredHash, renderKeyboard, startParam } from "@/server/domain/buttons";
-import { classifyTelegramError, miniAppLink } from "@/server/services/telegram";
+import { classifyTelegramError, miniAppLink, webLink } from "@/server/services/telegram";
 import { canTransition } from "@/server/domain/orders";
 import { can } from "@/server/auth/authorize";
 import { uuidv7, shortCode, slugify } from "@/server/ids";
@@ -99,12 +99,14 @@ describe("post buttons", () => {
     currency: "ETB",
     available: true,
   };
-  it("renders Order with price, Ask and Shop as Mini App links", () => {
+  it("renders Order with price, Ask and Shop as plain https web links", () => {
     const kb = renderKeyboard({ product, sourceCode: "SRC1", shopHandle: "abel", lang: "en" })!;
     expect(kb[0][0].text).toBe("🛒 Order · ETB 45,000");
-    expect(kb[0][0].url).toBe("https://t.me/goods_test_bot/shop?startapp=p_PRODCODE01_SRC1");
+    expect(kb[0][0].url).toBe(webLink("/go/p_PRODCODE01_SRC1"));
+    expect(kb[0][0].url).toMatch(/^https:\/\/.+\/go\/p_PRODCODE01_SRC1$/);
+    expect(kb[0][0].url).not.toContain("startapp=");
     expect(kb[1].map((b) => b.text)).toEqual(["💬 Ask seller", "🏪 Shop"]);
-    expect(kb[1][1].url).toContain("startapp=s_abel");
+    expect(kb[1][1].url).toBe(webLink("/go/s_abel"));
   });
   it("Amharic labels", () => {
     const kb = renderKeyboard({ product, sourceCode: "SRC1", shopHandle: "abel", lang: "am" })!;
@@ -126,7 +128,9 @@ describe("post buttons", () => {
     for (const p of [startParam.order("Ab9Zx01234", "Qw12Er34"), startParam.ask("A", "B"), startParam.shop("my-shop-1")]) {
       expect(p).toMatch(/^[A-Za-z0-9_-]{1,64}$/);
     }
-    expect(miniAppLink("bad param!", "/x")).toBe("https://goods.test/x");
+    expect(miniAppLink("bad param!", "/x")).toBe(webLink("/x"));
+    expect(webLink("/go/s_abel")).toMatch(/\/go\/s_abel$/);
+    expect(miniAppLink("p_PROD_SRC1", "/go/p_PROD_SRC1")).toContain("startapp=");
   });
   it("chooses the decision-ladder mode", () => {
     const channel = { chatType: "channel", canEditMessages: true };

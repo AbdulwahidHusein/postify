@@ -72,8 +72,9 @@ async function main() {
   await call(token, "setMyCommands", { commands: commands("en") });
   await call(token, "setMyCommands", { commands: commands("am"), language_code: "am" });
 
+  // Default menu (commands) — primary flows use plain https buttons, not Mini App.
   await call(token, "setChatMenuButton", {
-    menu_button: { type: "web_app", text: "Dashboard", web_app: { url: new URL("/dashboard", base).toString() } },
+    menu_button: { type: "default" },
   });
 
   console.log(await call(token, "getWebhookInfo", {}));
