@@ -149,8 +149,8 @@ export function desiredHash(mode: ButtonMode, keyboard: Keyboard | null, text: s
  * Mark sources as needing a sync and enqueue jobs. Every request gets its own
  * task: a sync always applies the latest state and is a no-op when nothing
  * changed, so extra tasks are cheap, while a dropped one would leave a stale
- * button. Sources in the same chat are spaced 3 s apart to stay well under
- * Telegram's per-chat limits.
+ * button. The first runs right away; more sources in the same chat are spaced
+ * 3 s apart to stay well under Telegram's per-chat limits.
  */
 export async function scheduleButtonSync(sourceIds: string[]): Promise<void> {
   if (!sourceIds.length) return;
@@ -165,7 +165,7 @@ export async function scheduleButtonSync(sourceIds: string[]): Promise<void> {
     const k = row.chatId.toString();
     const n = perChat.get(k) ?? 0;
     perChat.set(k, n + 1);
-    await enqueue("buttons", { sourceId: row.id }, { delaySeconds: 2 + n * 3 });
+    await enqueue("buttons", { sourceId: row.id }, { delaySeconds: n * 3 });
   }
 }
 

@@ -41,6 +41,27 @@ describe("Postgres job queue", () => {
     expect((await drainJobs({ waitForSoon: false })).done).toBe(4);
   });
 
+  it("runs ingest and buttons before photos, and photos side by side", async () => {
+    const order: string[] = [];
+    let inFlight = 0;
+    let maxInFlight = 0;
+    runJob.mockImplementation(async (q) => {
+      order.push(q);
+      if (q === "media") {
+        inFlight += 1;
+        maxInFlight = Math.max(maxInFlight, inFlight);
+        await new Promise((r) => setTimeout(r, 30));
+        inFlight -= 1;
+      }
+    });
+    for (const i of [1, 2, 3]) await enqueueDb("media", { imageId: `m${i}` }, { name: `m${i}` });
+    await enqueueDb("buttons", { sourceId: "s1" }, { name: "b1" });
+    await enqueueDb("ingest", { groupKey: "g" }, { name: "i1" });
+    expect((await drainJobs({ waitForSoon: false })).done).toBe(5);
+    expect(order.slice(0, 2)).toEqual(["ingest", "buttons"]);
+    expect(maxInFlight).toBe(3);
+  });
+
   it("holds delayed jobs until due, and waits for soon-due jobs when allowed", async () => {
     await enqueueDb("ingest", { groupKey: "album" }, { name: "album", delaySeconds: 1 });
     expect((await drainJobs({ waitForSoon: false })).ran).toBe(0);

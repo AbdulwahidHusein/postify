@@ -1,6 +1,7 @@
 import "server-only";
 
 import { and, asc, eq, inArray, lt, lte, or, sql } from "drizzle-orm";
+import { appUrl, serverEnv } from "@/server/env";
 import { z } from "zod";
 import { db } from "@/server/db";
 import { jobs, type JobRow } from "@/server/db/schema";
@@ -20,15 +21,25 @@ import type { EnqueueOptions, EnqueueResult, QueueName } from "@/server/services
  * - failures retry with exponential backoff (Telegram 429s use retry_after);
  *   a job that keeps failing is marked failed and reported to ops.
  * - a running job whose instance died is reclaimed when its lock expires.
+ * - jobs run in priority order (ingest, buttons, notify, then media), so a
+ *   slow photo album never holds back the Order button; photos in one batch
+ *   are processed in parallel.
+ * - when a request runs out of time with work still due, it hands off to a
+ *   fresh invocation (/internal/cron/drain) instead of waiting for the sweep.
  * - the 5-minute sweep drains anything left (long delays, crashed instances).
  */
 
 const MAX_ATTEMPTS: Record<QueueName, number> = { ingest: 20, media: 15, buttons: 25, notify: 10 };
 const LOCK_SECONDS = 120;
-const BATCH = 5;
+const BATCH = 6;
 /** Longest delay a request will wait for in-process; longer ones go to the sweep. */
 const MAX_INLINE_WAIT_MS = 15_000;
-export const DEFAULT_DRAIN_BUDGET_MS = 25_000;
+/** Time a request spends draining after its response (route maxDuration is 60 s). */
+export const DEFAULT_DRAIN_BUDGET_MS = 45_000;
+/** How many fresh invocations a chain of hand-offs may start. */
+const MAX_HOPS = 6;
+/** Lower runs first. */
+const PRIORITY = sql`case ${jobs.queue} when 'ingest' then 0 when 'buttons' then 1 when 'notify' then 2 else 3 end`;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -62,8 +73,10 @@ async function kick(delayMs: number) {
     return;
   }
   const run = async () => {
-    if (delayMs > 0) await sleep(Math.min(delayMs, MAX_INLINE_WAIT_MS));
-    await drainSoon();
+    // Stay inside the route's 60 s limit: time spent waiting comes off the budget.
+    const waited = delayMs > 0 ? Math.min(delayMs, MAX_INLINE_WAIT_MS) : 0;
+    if (waited) await sleep(waited);
+    await drainSoon(DEFAULT_DRAIN_BUDGET_MS - waited);
   };
   try {
     const { after } = await import("next/server");
@@ -74,7 +87,7 @@ async function kick(delayMs: number) {
   }
 }
 
-function drainSoon(budgetMs = DEFAULT_DRAIN_BUDGET_MS): Promise<DrainStats> {
+function drainSoon(budgetMs = DEFAULT_DRAIN_BUDGET_MS, hop = 0): Promise<DrainStats> {
   if (current) {
     again = true;
     return current;
@@ -90,6 +103,7 @@ function drainSoon(budgetMs = DEFAULT_DRAIN_BUDGET_MS): Promise<DrainStats> {
       total.retried += s.retried;
       total.failed += s.failed;
     } while (again && Date.now() < deadline);
+    if (total.ran > 0 && hop < MAX_HOPS && (await workDueSoon())) await handOff(hop + 1);
     return total;
   })().finally(() => {
     current = null;
@@ -98,6 +112,39 @@ function drainSoon(budgetMs = DEFAULT_DRAIN_BUDGET_MS): Promise<DrainStats> {
 }
 
 export type DrainStats = { ran: number; done: number; retried: number; failed: number };
+
+/** Is anything due now or within the inline wait window? */
+async function workDueSoon(): Promise<boolean> {
+  const soon = new Date(Date.now() + MAX_INLINE_WAIT_MS);
+  const [row] = await db
+    .select({ id: jobs.id })
+    .from(jobs)
+    .where(or(and(eq(jobs.status, "pending"), lte(jobs.runAt, soon)), and(eq(jobs.status, "running"), lt(jobs.lockedUntil, new Date()))))
+    .limit(1);
+  return Boolean(row);
+}
+
+/**
+ * Start a fresh invocation to keep draining. The receiving route answers at
+ * once and drains after its response, so this only waits for the handshake.
+ */
+async function handOff(hop: number) {
+  if (!serverEnv.CRON_SECRET) return;
+  try {
+    const res = await fetch(`${appUrl()}/internal/cron/drain`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${serverEnv.CRON_SECRET}`, "x-goods-hop": String(hop) },
+      signal: AbortSignal.timeout(5000),
+    });
+    log.info("job drain handed off", { hop, status: res.status });
+  } catch (err) {
+    log.warn("job drain hand-off failed; the sweep will pick it up", { hop, err });
+  }
+}
+
+// Loaded lazily (it pulls in every domain module) and once, so parallel jobs share it.
+let jobsModule: Promise<typeof import("@/server/jobs")> | null = null;
+const loadJobs = () => (jobsModule ??= import("@/server/jobs"));
 
 async function claim(limit: number): Promise<JobRow[]> {
   const now = new Date();
@@ -111,7 +158,7 @@ async function claim(limit: number): Promise<JobRow[]> {
         and(eq(jobs.status, "running"), lt(jobs.lockedUntil, now)),
       ),
     )
-    .orderBy(asc(jobs.runAt))
+    .orderBy(PRIORITY, asc(jobs.runAt))
     .limit(limit)
     .for("update", { skipLocked: true });
   return db
@@ -129,7 +176,7 @@ async function runOne(job: JobRow): Promise<"done" | "retried" | "failed"> {
   const queue = job.queue as QueueName;
   const started = Date.now();
   try {
-    const { runJob } = await import("@/server/jobs");
+    const { runJob } = await loadJobs();
     await runJob(queue, job.payload);
     await db.update(jobs).set({ status: "done", finishedAt: new Date(), lockedUntil: null, lastError: null }).where(eq(jobs.id, job.id));
     log.info("job done", { job: queue, attempt: job.attempts, ms: Date.now() - started });
@@ -185,17 +232,25 @@ export async function drainJobs({ budgetMs = DEFAULT_DRAIN_BUDGET_MS, waitForSoo
       await sleep(Math.max(50, waitMs));
       continue;
     }
+    // Photos are independent: process them side by side. Everything else
+    // runs in order (button edits are spaced for Telegram's rate limits).
+    const media = batch.filter((j) => j.queue === "media");
     for (const job of batch) {
+      if (job.queue === "media") continue;
       stats.ran += 1;
       stats[await runOne(job)] += 1;
+    }
+    for (const result of await Promise.all(media.map(runOne))) {
+      stats.ran += 1;
+      stats[result] += 1;
     }
   }
   return stats;
 }
 
-/** Cron entry point: drain with a larger budget. */
-export function drainFromCron(budgetMs = 50_000) {
-  return drainSoon(budgetMs);
+/** Cron entry point: drain with a larger budget. `hop` counts hand-offs in a chain. */
+export function drainFromCron(budgetMs = 50_000, hop = 0) {
+  return drainSoon(budgetMs, hop);
 }
 
 /** Nightly: keep finished rows only as long as they are useful. */
